@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import './tokens.css';
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-neutral-900);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* LWC-friendly utility classes following SLDS patterns */
+.slds-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.slds-section {
+  padding: 2rem 0;
+}
+
+@media (min-width: 768px) {
+  .slds-section {
+    padding: 4rem 0;
+  }
+}
