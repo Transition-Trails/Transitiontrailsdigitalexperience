@@ -1,0 +1,23 @@
+:root {
+  /* Colors */
+  --color-primary: #005FB2; /* Example Salesforce Blue-ish */
+  --color-secondary: #00396B;
+  --color-accent: #F2CF5B;
+  --color-neutral-100: #F3F4F6;
+  --color-neutral-200: #E5E7EB;
+  --color-neutral-900: #111827;
+
+  /* Typography */
+  --font-heading: 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Spacing Scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-8: 48px;
+  --space-10: 64px;
+}
