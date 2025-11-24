@@ -219,6 +219,7 @@ For questions or support:
 - Email: support@transitiontrails.org
 - Documentation: See `/docs` directory
 - Issues: Use GitHub Issues for bug reports
+- Chat Logs: AI-assisted development sessions documented in `/docs/workflow/figma-make-chat-log.md`
 
 ## Future Roadmap
 

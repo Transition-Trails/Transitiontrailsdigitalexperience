@@ -196,6 +196,10 @@ feature-directory/
 
 ### Template 3: CHAT_SESSION.md (AI-Assisted Work)
 
+> **⚠️ UPDATE (TTA-138):** Chat sessions are now consolidated in `/docs/workflow/figma-make-chat-log.md`
+
+**Legacy Template** (for reference only - use `/docs/workflow/figma-make-chat-log.md` instead):
+
 Use for: When working with AI to capture decision-making process
 
 ```markdown
@@ -303,19 +307,19 @@ CONVERSION_GUIDE_[react-to-lwc].md
 
 ### Placement in Repository
 
+> **⚠️ UPDATE (TTA-138):** Chat sessions are now consolidated in `/docs/workflow/figma-make-chat-log.md`
+
 ```
 project-root/
 ├── PROJECT_STATUS.md                    # Major milestones (root level)
-├── CHAT_SESSION_*.md                    # AI sessions (root level)
 ├── docs/
+│   ├── workflow/
+│   │   └── figma-make-chat-log.md      # All AI chat sessions (canonical)
 │   ├── implementation/                  # Implementation notes
 │   │   ├── [feature-name].md
 │   │   └── [integration-name].md
 │   ├── migrations/                      # Migration guides
 │   │   └── [migration-name].md
-│   └── sessions/                        # Historical chat sessions
-│       └── archived/
-│           └── CHAT_SESSION_*.md
 └── src/
 ```
 
@@ -526,7 +530,7 @@ Is this a major milestone or initial implementation?
 |-------------|--------------|-------|
 | Major milestone | PROJECT_STATUS.md | Root |
 | Complex feature | IMPLEMENTATION_NOTES.md | Root or docs/implementation/ |
-| AI-assisted work | CHAT_SESSION.md | Root or docs/sessions/ |
+| AI-assisted work | Update figma-make-chat-log.md | /docs/workflow/ |
 | Integration | Update docs/integrations/ | docs/integrations/ |
 | Component | Update design/components.md | design/ |
 | Bug fix | PR template only | N/A |
