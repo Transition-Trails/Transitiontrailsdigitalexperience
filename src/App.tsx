@@ -18,7 +18,11 @@ import { Tag } from './components/ttds/Tag';
 import { Stepper } from './components/ttds/Stepper';
 import { Tooltip } from './components/ttds/Tooltip';
 import { Skeleton, SkeletonText, SkeletonCard, SkeletonList } from './components/ttds/Skeleton';
-import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, FileText, CheckCircle } from 'lucide-react';
+import { Header } from './components/ttds/Header';
+import { TabStrip } from './components/ttds/TabStrip';
+import { Breadcrumbs } from './components/ttds/Breadcrumbs';
+import { Pagination } from './components/ttds/Pagination';
+import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, FileText, CheckCircle, Home, Layout, Library, Award } from 'lucide-react';
 
 // Loading Demo Component
 function LoadingDemo() {
@@ -95,6 +99,11 @@ export default function App() {
   const [showToastError, setShowToastError] = React.useState(false);
   const [showToastInfo, setShowToastInfo] = React.useState(false);
 
+  // Navigation states
+  const [headerScrolled, setHeaderScrolled] = React.useState(false);
+  const [activeTab, setActiveTab] = React.useState('overview');
+  const [currentPage, setCurrentPage] = React.useState(1);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-stone-100 p-8">
       <div className="max-w-7xl mx-auto space-y-12">
@@ -112,6 +121,7 @@ export default function App() {
             <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full">TTA-104</span>
             <span className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full">TTA-117</span>
             <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full">TTA-118</span>
+            <span className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full">TTA-119</span>
           </div>
         </header>
 
@@ -124,9 +134,13 @@ export default function App() {
             <a href="#chips" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Chips</a>
             <a href="#badges" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Badges</a>
             <a href="#tags" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Tags</a>
-            <a href="#stepper" className="px-3 py-1.5 text-sm text-blue-700 bg-blue-50 rounded">Stepper</a>
-            <a href="#tooltip" className="px-3 py-1.5 text-sm text-blue-700 bg-blue-50 rounded">Tooltip</a>
-            <a href="#skeleton" className="px-3 py-1.5 text-sm text-blue-700 bg-blue-50 rounded">Skeleton</a>
+            <a href="#stepper" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Stepper</a>
+            <a href="#tooltip" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Tooltip</a>
+            <a href="#skeleton" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Skeleton</a>
+            <a href="#header" className="px-3 py-1.5 text-sm text-teal-700 bg-teal-50 rounded">Header</a>
+            <a href="#tabstrip" className="px-3 py-1.5 text-sm text-teal-700 bg-teal-50 rounded">TabStrip</a>
+            <a href="#breadcrumbs" className="px-3 py-1.5 text-sm text-teal-700 bg-teal-50 rounded">Breadcrumbs</a>
+            <a href="#pagination" className="px-3 py-1.5 text-sm text-teal-700 bg-teal-50 rounded">Pagination</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -1075,6 +1089,474 @@ export default function App() {
           </div>
         </section>
 
+        {/* Header Section */}
+        <section id="header" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <h2 className="text-slate-900 mb-2">Header Navigation</h2>
+            <p className="text-slate-600">
+              Global navigation used across all Academy pages. Includes logo, main nav items, utilities, and user area.
+            </p>
+          </div>
+
+          {/* Default Header */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Default Header</h3>
+            <div className="-m-8 mb-4">
+              <Header
+                navItems={[
+                  { id: '1', label: 'Dashboard', href: '#', active: true },
+                  { id: '2', label: 'Trails', href: '#' },
+                  { id: '3', label: 'Learning Center', href: '#' },
+                  { id: '4', label: 'Community', href: '#' },
+                ]}
+              />
+            </div>
+          </div>
+
+          {/* Scrolled Header */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Scrolled State (Reduced Height)</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Header reduces height when scrolled for better space utilization.
+            </p>
+            <div className="-m-8 mb-4">
+              <Header
+                navItems={[
+                  { id: '1', label: 'Dashboard', href: '#', active: true },
+                  { id: '2', label: 'Trails', href: '#' },
+                  { id: '3', label: 'Learning Center', href: '#' },
+                  { id: '4', label: 'Community', href: '#' },
+                ]}
+                scrolled={true}
+              />
+            </div>
+          </div>
+
+          {/* Custom Logo Header */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">With Custom Logo</h3>
+            <div className="-m-8 mb-4">
+              <Header
+                logo={
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-blue-600 rounded-lg flex items-center justify-center">
+                      <Compass className="h-6 w-6 text-white" />
+                    </div>
+                    <div>
+                      <div className="text-sm text-slate-900">Transition Trails</div>
+                      <div className="text-xs text-slate-500">Academy</div>
+                    </div>
+                  </div>
+                }
+                navItems={[
+                  { id: '1', label: 'Home', href: '#' },
+                  { id: '2', label: 'Trails', href: '#', active: true },
+                  { id: '3', label: 'Progress', href: '#' },
+                  { id: '4', label: 'Resources', href: '#' },
+                ]}
+              />
+            </div>
+          </div>
+
+          {/* Accessibility Note */}
+          <div className="p-4 bg-teal-50 border border-teal-200 rounded-lg">
+            <p className="text-sm text-teal-900">
+              <strong>Accessibility Features:</strong> role="navigation", aria-label="Main navigation", 
+              aria-current="page" for active items, keyboard focus states, mobile menu with proper ARIA attributes.
+            </p>
+          </div>
+        </section>
+
+        {/* TabStrip Section */}
+        <section id="tabstrip" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <h2 className="text-slate-900 mb-2">TabStrip</h2>
+            <p className="text-slate-600">
+              Local navigation for switching between sections within the same view. Supports horizontal scrolling for long tab lists.
+            </p>
+          </div>
+
+          {/* Underline Variant */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Underline Variant</h3>
+            <TabStrip
+              variant="underline"
+              tabs={[
+                { id: 'overview', label: 'Overview' },
+                { id: 'curriculum', label: 'Curriculum' },
+                { id: 'resources', label: 'Resources' },
+                { id: 'discussion', label: 'Discussion' },
+              ]}
+              activeTabId={activeTab}
+              onTabChange={setActiveTab}
+            />
+          </div>
+
+          {/* Filled Variant */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Filled Variant</h3>
+            <TabStrip
+              variant="filled"
+              tabs={[
+                { id: 'overview', label: 'Overview' },
+                { id: 'curriculum', label: 'Curriculum' },
+                { id: 'resources', label: 'Resources' },
+                { id: 'discussion', label: 'Discussion' },
+              ]}
+              activeTabId={activeTab}
+              onTabChange={setActiveTab}
+            />
+          </div>
+
+          {/* With Icons */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">With Icons</h3>
+            <TabStrip
+              variant="underline"
+              tabs={[
+                { id: 'dashboard', label: 'Dashboard', icon: Layout },
+                { id: 'library', label: 'Library', icon: Library },
+                { id: 'achievements', label: 'Achievements', icon: Award },
+                { id: 'profile', label: 'Profile', icon: User },
+              ]}
+              activeTabId="library"
+            />
+          </div>
+
+          {/* With Disabled Tab */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">With Disabled State</h3>
+            <TabStrip
+              variant="filled"
+              tabs={[
+                { id: 'basic', label: 'Basic Info' },
+                { id: 'advanced', label: 'Advanced', disabled: true },
+                { id: 'settings', label: 'Settings' },
+              ]}
+              activeTabId="basic"
+            />
+          </div>
+
+          {/* Long Tab List */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Scrollable Overflow</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Long tab lists automatically become scrollable horizontally.
+            </p>
+            <TabStrip
+              variant="underline"
+              tabs={[
+                { id: 'tab1', label: 'Getting Started' },
+                { id: 'tab2', label: 'Fundamentals' },
+                { id: 'tab3', label: 'Advanced Topics' },
+                { id: 'tab4', label: 'Best Practices' },
+                { id: 'tab5', label: 'Case Studies' },
+                { id: 'tab6', label: 'Resources' },
+                { id: 'tab7', label: 'Community' },
+                { id: 'tab8', label: 'Support' },
+              ]}
+              activeTabId="tab3"
+            />
+          </div>
+
+          {/* Real-World Example */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Trail Details Page Example</h3>
+            <Card elevation="low">
+              <div className="mb-6">
+                <h4 className="text-slate-900 mb-1">Wilderness Explorer Trail</h4>
+                <p className="text-sm text-slate-600">Navigate through different sections of this trail</p>
+              </div>
+              <TabStrip
+                variant="underline"
+                tabs={[
+                  { id: 'overview', label: 'Overview', icon: BookOpen },
+                  { id: 'lessons', label: 'Lessons', icon: Map },
+                  { id: 'activities', label: 'Activities', icon: Zap },
+                  { id: 'resources', label: 'Resources', icon: Library },
+                ]}
+                activeTabId={activeTab}
+                onTabChange={setActiveTab}
+              />
+              <div className="mt-6 p-4 bg-slate-50 rounded-lg">
+                <p className="text-sm text-slate-700">
+                  {activeTab === 'overview' && 'Overview content would appear here...'}
+                  {activeTab === 'curriculum' && 'Curriculum content would appear here...'}
+                  {activeTab === 'lessons' && 'Lessons content would appear here...'}
+                  {activeTab === 'activities' && 'Activities content would appear here...'}
+                  {activeTab === 'resources' && 'Resources and downloads would appear here...'}
+                  {activeTab === 'discussion' && 'Discussion forum would appear here...'}
+                </p>
+              </div>
+            </Card>
+          </div>
+
+          {/* Accessibility Note */}
+          <div className="p-4 bg-teal-50 border border-teal-200 rounded-lg">
+            <p className="text-sm text-teal-900">
+              <strong>Accessibility Features:</strong> role="tablist" and role="tab", aria-selected for active tabs,
+              keyboard navigation, touch-friendly hit targets (44px minimum).
+            </p>
+          </div>
+        </section>
+
+        {/* Breadcrumbs Section */}
+        <section id="breadcrumbs" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <h2 className="text-slate-900 mb-2">Breadcrumbs</h2>
+            <p className="text-slate-600">
+              Hierarchical navigation for user orientation within the Academy. Shows path from root to current location.
+            </p>
+          </div>
+
+          {/* Basic Breadcrumbs */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Basic Breadcrumbs</h3>
+            <Breadcrumbs
+              items={[
+                { id: '1', label: 'Home', href: '#' },
+                { id: '2', label: 'Learning Center', href: '#' },
+                { id: '3', label: 'Trails', href: '#' },
+                { id: '4', label: 'Wilderness Explorer' },
+              ]}
+            />
+          </div>
+
+          {/* With Home Icon */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">With Home Icon</h3>
+            <Breadcrumbs
+              showHomeIcon={true}
+              items={[
+                { id: '1', label: 'Dashboard', href: '#' },
+                { id: '2', label: 'Missions', href: '#' },
+                { id: '3', label: 'Active Mission' },
+              ]}
+            />
+          </div>
+
+          {/* Short Path */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Short Path</h3>
+            <Breadcrumbs
+              items={[
+                { id: '1', label: 'Academy', href: '#' },
+                { id: '2', label: 'Profile' },
+              ]}
+            />
+          </div>
+
+          {/* Long Path with Truncation */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Long Path (Auto-Truncated)</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Paths longer than maxItems automatically show ellipsis in the middle.
+            </p>
+            <Breadcrumbs
+              maxItems={4}
+              items={[
+                { id: '1', label: 'Home', href: '#' },
+                { id: '2', label: 'Learning Center', href: '#' },
+                { id: '3', label: 'Trails', href: '#' },
+                { id: '4', label: 'Technology', href: '#' },
+                { id: '5', label: 'Web Development', href: '#' },
+                { id: '6', label: 'React Course', href: '#' },
+                { id: '7', label: 'Module 3' },
+              ]}
+            />
+          </div>
+
+          {/* Real-World Examples */}
+          <div className="space-y-4">
+            <h3 className="text-slate-700">Real-World Examples</h3>
+            
+            <Card elevation="low">
+              <div className="space-y-4">
+                <Breadcrumbs
+                  items={[
+                    { id: '1', label: 'Dashboard', href: '#' },
+                    { id: '2', label: 'My Trails', href: '#' },
+                    { id: '3', label: 'Mountain Ridge Trail', href: '#' },
+                    { id: '4', label: 'Lesson 5' },
+                  ]}
+                />
+                <div className="border-t border-slate-200 pt-4">
+                  <h4 className="text-slate-900 mb-2">Lesson 5: Advanced Techniques</h4>
+                  <p className="text-sm text-slate-600">
+                    Content for this lesson would appear here. The breadcrumbs above help users understand where they are.
+                  </p>
+                </div>
+              </div>
+            </Card>
+
+            <Card elevation="low">
+              <div className="space-y-4">
+                <Breadcrumbs
+                  showHomeIcon={true}
+                  items={[
+                    { id: '1', label: 'Academy', href: '#' },
+                    { id: '2', label: 'Resources', href: '#' },
+                    { id: '3', label: 'Documentation' },
+                  ]}
+                />
+                <div className="border-t border-slate-200 pt-4">
+                  <h4 className="text-slate-900 mb-2">Component Documentation</h4>
+                  <div className="flex gap-2">
+                    <Tag variant="default">Documentation</Tag>
+                    <Tag variant="default">Resources</Tag>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+
+          {/* Accessibility Note */}
+          <div className="p-4 bg-teal-50 border border-teal-200 rounded-lg">
+            <p className="text-sm text-teal-900">
+              <strong>Accessibility Features:</strong> aria-label="Breadcrumb", aria-current="page" for current item,
+              semantic nav and ol elements, WCAG AA contrast on all text and links.
+            </p>
+          </div>
+        </section>
+
+        {/* Pagination Section */}
+        <section id="pagination" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <h2 className="text-slate-900 mb-2">Pagination</h2>
+            <p className="text-slate-600">
+              Navigate through multi-page content like search results, lists, missions, and learning activities.
+            </p>
+          </div>
+
+          {/* Basic Pagination */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Basic Pagination</h3>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={10}
+              onPageChange={setCurrentPage}
+            />
+          </div>
+
+          {/* Without First/Last */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Without First/Last Buttons</h3>
+            <Pagination
+              currentPage={3}
+              totalPages={8}
+              showFirstLast={false}
+            />
+          </div>
+
+          {/* Few Pages */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Few Pages</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              When total pages fit in maxPageButtons, all pages are shown.
+            </p>
+            <Pagination
+              currentPage={2}
+              totalPages={5}
+            />
+          </div>
+
+          {/* Many Pages with Ellipsis */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Many Pages (With Ellipsis)</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Smart ellipsis placement for large page counts.
+            </p>
+            <div className="space-y-3">
+              <div>
+                <p className="text-xs text-slate-500 mb-2">Page 1 of 20:</p>
+                <Pagination currentPage={1} totalPages={20} />
+              </div>
+              <div>
+                <p className="text-xs text-slate-500 mb-2">Page 10 of 20:</p>
+                <Pagination currentPage={10} totalPages={20} />
+              </div>
+              <div>
+                <p className="text-xs text-slate-500 mb-2">Page 20 of 20:</p>
+                <Pagination currentPage={20} totalPages={20} />
+              </div>
+            </div>
+          </div>
+
+          {/* Interactive Demo */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Interactive Demo</h3>
+            <Card elevation="low">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="text-slate-900">Trail Search Results</h4>
+                    <p className="text-sm text-slate-600">Page {currentPage} of 10 • 100 results</p>
+                  </div>
+                  <Button variant="secondary" size="small">
+                    <Filter className="h-4 w-4" />
+                  </Button>
+                </div>
+                
+                <div className="space-y-2">
+                  {[1, 2, 3, 4, 5].map((item) => (
+                    <div key={item} className="p-3 bg-slate-50 rounded-lg flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
+                          <Map className="h-6 w-6 text-emerald-700" />
+                        </div>
+                        <div>
+                          <p className="text-sm text-slate-900">Trail Result {((currentPage - 1) * 5) + item}</p>
+                          <p className="text-xs text-slate-500">Intermediate • 3 hours</p>
+                        </div>
+                      </div>
+                      <ChipLevel variant="intermediate" />
+                    </div>
+                  ))}
+                </div>
+
+                <div className="border-t border-slate-200 pt-4">
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={10}
+                    onPageChange={setCurrentPage}
+                  />
+                </div>
+              </div>
+            </Card>
+          </div>
+
+          {/* Use Cases */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Common Use Cases</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+              <div className="p-3 bg-slate-50 rounded-lg">
+                <strong className="text-slate-900">Learning Center</strong>
+                <p className="text-slate-600 mt-1">Browse through available trails and courses</p>
+              </div>
+              <div className="p-3 bg-slate-50 rounded-lg">
+                <strong className="text-slate-900">Search Results</strong>
+                <p className="text-slate-600 mt-1">Navigate through filtered content</p>
+              </div>
+              <div className="p-3 bg-slate-50 rounded-lg">
+                <strong className="text-slate-900">Activity History</strong>
+                <p className="text-slate-600 mt-1">Review past missions and completions</p>
+              </div>
+              <div className="p-3 bg-slate-50 rounded-lg">
+                <strong className="text-slate-900">Discussion Forums</strong>
+                <p className="text-slate-600 mt-1">Browse through community posts</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Accessibility Note */}
+          <div className="p-4 bg-teal-50 border border-teal-200 rounded-lg">
+            <p className="text-sm text-teal-900">
+              <strong>Accessibility Features:</strong> aria-label="Pagination" and aria-label="Go to page X" on buttons,
+              aria-current="page" for active page, disabled states, keyboard navigation with focus indicators.
+            </p>
+          </div>
+        </section>
+
         {/* Cards Section */}
         <section id="cards" className="space-y-6">
           <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
@@ -1411,6 +1893,146 @@ export default function App() {
           </div>
         </section>
 
+        {/* Navigation Documentation */}
+        <section className="bg-gradient-to-br from-teal-50 to-cyan-50 rounded-xl shadow-sm border border-teal-200 p-8 space-y-4">
+          <h2 className="text-slate-900">TTDS Navigation – Notes (TTA-119)</h2>
+          
+          <div className="space-y-4 text-slate-700">
+            <div>
+              <h3 className="text-slate-800 mb-2">Header Component</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>Purpose:</strong> Global navigation across all Academy pages</li>
+                <li><strong>States:</strong> Default (h-16), Scrolled (h-14 with shadow)</li>
+                <li><strong>Sections:</strong> Logo area (left), Nav items (center/right), Utilities + User (right)</li>
+                <li><strong>Responsive:</strong> Mobile menu collapses to hamburger icon</li>
+                <li><strong>Active State:</strong> emerald-50 background with emerald-700 text</li>
+                <li><strong>Hover:</strong> slate-100 background for nav items</li>
+                <li><strong>Accessibility:</strong> role="navigation", aria-current for active, keyboard focus</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">TabStrip Component</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>Purpose:</strong> Local navigation within a single view/page</li>
+                <li><strong>Variants:</strong> Underline (bottom border) or Filled (background color)</li>
+                <li><strong>Icon Support:</strong> Optional Lucide icons before label</li>
+                <li><strong>States:</strong> Default, Hover (slate-100 or border), Selected (emerald), Disabled (40% opacity)</li>
+                <li><strong>Scrolling:</strong> Horizontal scroll for long tab lists (scrollbar hidden)</li>
+                <li><strong>Transitions:</strong> 200ms duration for smooth state changes</li>
+                <li><strong>Accessibility:</strong> role="tablist", role="tab", aria-selected, keyboard nav</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Breadcrumbs Component</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>Purpose:</strong> Hierarchical navigation showing user's current location</li>
+                <li><strong>Separator:</strong> ChevronRight icon between items</li>
+                <li><strong>Truncation:</strong> Auto-ellipsis when items exceed maxItems (default: 4)</li>
+                <li><strong>Home Icon:</strong> Optional home icon for first breadcrumb</li>
+                <li><strong>Current Item:</strong> Non-clickable, slate-900 text with aria-current="page"</li>
+                <li><strong>Links:</strong> slate-600, hover emerald-600 for clickable items</li>
+                <li><strong>Accessibility:</strong> semantic nav/ol elements, aria-label="Breadcrumb"</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Pagination Component</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>Purpose:</strong> Navigate multi-page content (search, lists, forums)</li>
+                <li><strong>Controls:</strong> First/Prev/Next/Last buttons + page numbers</li>
+                <li><strong>Ellipsis:</strong> Smart placement for large page counts (1 ... 5 6 7 ... 20)</li>
+                <li><strong>Active Page:</strong> emerald-600 background, white text, shadow</li>
+                <li><strong>Disabled:</strong> slate-300 text, cursor-not-allowed</li>
+                <li><strong>Configurable:</strong> maxPageButtons (default: 7), showFirstLast option</li>
+                <li><strong>Accessibility:</strong> aria-label for all buttons, aria-current="page", disabled states</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">When to Use Each Component</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>Header:</strong> Every page in the Academy for consistent global navigation</li>
+                <li><strong>TabStrip:</strong> Switching content sections within a page (trail details, dashboard panels)</li>
+                <li><strong>Breadcrumbs:</strong> Deep hierarchies (Home → Center → Trails → Course → Lesson)</li>
+                <li><strong>Pagination:</strong> Lists with 20+ items, search results, activity history</li>
+                <li><strong>Header vs TabStrip:</strong> Header for site-wide, TabStrip for page-level</li>
+                <li><strong>Breadcrumbs vs Tabs:</strong> Breadcrumbs for hierarchy, Tabs for related content</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Component Examples</h3>
+              <div className="bg-white rounded-lg p-4 font-mono text-xs overflow-x-auto">
+                <pre className="text-slate-800">{`// Header
+<Header
+  navItems={[
+    { id: '1', label: 'Dashboard', href: '/dashboard', active: true },
+    { id: '2', label: 'Trails', href: '/trails' }
+  ]}
+  showUserArea
+  showUtilities
+/>
+
+// TabStrip
+<TabStrip
+  variant="underline"
+  tabs={[
+    { id: 'overview', label: 'Overview', icon: BookOpen },
+    { id: 'lessons', label: 'Lessons', icon: Map }
+  ]}
+  activeTabId={activeTab}
+  onTabChange={setActiveTab}
+/>
+
+// Breadcrumbs
+<Breadcrumbs
+  items={[
+    { id: '1', label: 'Home', href: '/' },
+    { id: '2', label: 'Trails', href: '/trails' },
+    { id: '3', label: 'Current Trail' }
+  ]}
+  showHomeIcon
+/>
+
+// Pagination
+<Pagination
+  currentPage={currentPage}
+  totalPages={20}
+  onPageChange={setCurrentPage}
+  showFirstLast
+/>`}</pre>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Design Tokens Used</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>Colors:</strong> emerald-50/600 (active), slate-100/300/600/900, blue-100/600 (user)</li>
+                <li><strong>Heights:</strong> Header default (h-16/64px), scrolled (h-14/56px)</li>
+                <li><strong>Touch Targets:</strong> Minimum 44px for all interactive elements</li>
+                <li><strong>Spacing:</strong> 1, 2, 3, 4, 6, 8 (standard scale)</li>
+                <li><strong>Borders:</strong> 2px for active tab underline, 1px for dividers</li>
+                <li><strong>Rounded:</strong> rounded-lg (8px) for buttons and containers</li>
+                <li><strong>Shadows:</strong> shadow-sm for scrolled header</li>
+                <li><strong>Transitions:</strong> 200ms duration for all state changes</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Responsive Behavior</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>Header:</strong> Mobile shows hamburger menu, utilities move to drawer</li>
+                <li><strong>TabStrip:</strong> Horizontal scroll on mobile, all tabs remain visible</li>
+                <li><strong>Breadcrumbs:</strong> Wraps on mobile, truncation prevents overflow</li>
+                <li><strong>Pagination:</strong> Fewer page numbers on mobile, first/last optional</li>
+                <li><strong>Breakpoints:</strong> md (768px) for desktop vs mobile layouts</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
         {/* P1 Primitives Documentation */}
         <section className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl shadow-sm border border-blue-200 p-8 space-y-4">
           <h2 className="text-slate-900">TTDS P1 Primitives – Notes (TTA-104)</h2>
@@ -1606,9 +2228,9 @@ export default function App() {
 
         {/* Footer */}
         <footer className="text-center text-slate-500 text-sm py-8">
-          <p>TTDS Design System • TTA-103, TTA-104, TTA-117, TTA-118 • Transition Trails Academy</p>
+          <p>TTDS Design System • TTA-103, TTA-104, TTA-117, TTA-118, TTA-119 • Transition Trails Academy</p>
           <p className="mt-2">Built with React, TypeScript, and Tailwind CSS</p>
-          <p className="mt-1 text-xs">Buttons • Inputs • Controls • Chips • Badges • Tags • Stepper • Tooltip • Skeleton • Cards • Panels • Modals • Toasts</p>
+          <p className="mt-1 text-xs">Buttons • Inputs • Controls • Chips • Badges • Tags • Stepper • Tooltip • Skeleton • Header • TabStrip • Breadcrumbs • Pagination • Cards • Panels • Modals • Toasts</p>
         </footer>
       </div>
 
