@@ -10,3 +10,5 @@ We use the native Jotform-Salesforce integration.
 ## Handling Updates
 - **Submission**: Creates/Updates record.
 - **Prefill**: Jotform Prefill is used to load existing Salesforce data into forms for returning users (e.g., "Guided Trail" progress updates).
+
+- https://transitiontrails.sharepoint.com/:x:/g/IQBAfnnL_FKFQJVaFUuqXBTxAWJfP5V7Q2DyCVCB1kLNHEY?e=9NKmrX
