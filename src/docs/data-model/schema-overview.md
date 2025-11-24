@@ -18,3 +18,5 @@
 ### Contact
 - The user/participant.
 - Standard Salesforce Contact object extended with trail-specific fields.
+
+https://transitiontrails.sharepoint.com/:x:/g/IQCo77qQEEOaTbbACY7FvUswATHXiTDfFSDp8IrTaOyUBfM?e=ZM2zkI
