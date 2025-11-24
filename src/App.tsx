@@ -11,7 +11,11 @@ import { Card } from './components/ttds/Card';
 import { Panel } from './components/ttds/Panel';
 import { Modal } from './components/ttds/Modal';
 import { Toast, ToastContainer } from './components/ttds/Toast';
-import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2 } from 'lucide-react';
+import { ChipStatus } from './components/ttds/ChipStatus';
+import { ChipLevel } from './components/ttds/ChipLevel';
+import { Badge } from './components/ttds/Badge';
+import { Tag } from './components/ttds/Tag';
+import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass } from 'lucide-react';
 
 export default function App() {
   const [searchValue, setSearchValue] = React.useState('');
@@ -56,6 +60,9 @@ export default function App() {
             <a href="#buttons" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Buttons</a>
             <a href="#inputs" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Inputs</a>
             <a href="#controls" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Controls</a>
+            <a href="#chips" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded">Chips</a>
+            <a href="#badges" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded">Badges</a>
+            <a href="#tags" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded">Tags</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -320,6 +327,321 @@ export default function App() {
               <Switch label="Auto-save" checked={autoSave} onChange={(e) => setAutoSave(e.target.checked)} />
               <Switch label="Disabled off" disabled />
               <Switch label="Disabled on" defaultChecked disabled readOnly />
+            </div>
+          </div>
+        </section>
+
+        {/* Chips Section */}
+        <section id="chips" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <h2 className="text-slate-900 mb-2">Status Chips & Level Chips</h2>
+            <p className="text-slate-600">
+              Chips represent system status, informational flags, and skill levels.
+            </p>
+          </div>
+
+          {/* Status Chips */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Status Chips</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Use status chips to display system states and informational flags with high contrast and clear icons.
+            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              <ChipStatus variant="success" label="Completed" />
+              <ChipStatus variant="warning" label="Pending" />
+              <ChipStatus variant="error" label="Failed" />
+              <ChipStatus variant="info" label="In Progress" />
+            </div>
+          </div>
+
+          {/* Status Chips without Icons */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Status Chips (No Icons)</h3>
+            <div className="flex flex-wrap items-center gap-3">
+              <ChipStatus variant="success" label="Active" icon={false} />
+              <ChipStatus variant="warning" label="Review Required" icon={false} />
+              <ChipStatus variant="error" label="Blocked" icon={false} />
+              <ChipStatus variant="info" label="Draft" icon={false} />
+            </div>
+          </div>
+
+          {/* Status Chips Selected State */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Selected State</h3>
+            <div className="flex flex-wrap items-center gap-3">
+              <ChipStatus variant="success" label="Active" selected />
+              <ChipStatus variant="warning" label="Pending" />
+              <ChipStatus variant="error" label="Blocked" />
+              <ChipStatus variant="info" label="Draft" />
+            </div>
+          </div>
+
+          {/* Status Chips with Remove */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Removable Chips</h3>
+            <div className="flex flex-wrap items-center gap-3">
+              <ChipStatus variant="success" label="Success" onRemove={() => alert('Removed!')} />
+              <ChipStatus variant="warning" label="Warning" onRemove={() => alert('Removed!')} />
+              <ChipStatus variant="error" label="Error" onRemove={() => alert('Removed!')} />
+              <ChipStatus variant="info" label="Info" onRemove={() => alert('Removed!')} />
+            </div>
+          </div>
+
+          {/* Status Chips Disabled */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Disabled State</h3>
+            <div className="flex flex-wrap items-center gap-3">
+              <ChipStatus variant="success" label="Completed" disabled />
+              <ChipStatus variant="warning" label="Pending" disabled />
+              <ChipStatus variant="error" label="Failed" disabled />
+              <ChipStatus variant="info" label="In Progress" disabled />
+            </div>
+          </div>
+
+          {/* Level Chips */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Level Chips</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Represents learner skill level or course difficulty with subtle background colors.
+            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              <ChipLevel variant="beginner" />
+              <ChipLevel variant="intermediate" />
+              <ChipLevel variant="advanced" />
+            </div>
+          </div>
+
+          {/* Level Chips with Custom Labels */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Level Chips (Custom Labels)</h3>
+            <div className="flex flex-wrap items-center gap-3">
+              <ChipLevel variant="beginner" label="Easy Trail" />
+              <ChipLevel variant="intermediate" label="Moderate Trail" />
+              <ChipLevel variant="advanced" label="Expert Trail" />
+            </div>
+          </div>
+
+          {/* Real-World Example */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Real-World Example</h3>
+            <Card elevation="low">
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <h4 className="text-slate-900">Mountain Ridge Trail</h4>
+                    <Badge variant="new" />
+                  </div>
+                  <p className="text-sm text-slate-600 mb-3">
+                    Experience breathtaking views and challenging terrain on this expert-level trail.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <ChipLevel variant="advanced" />
+                    <ChipStatus variant="success" label="Open" icon={false} />
+                    <ChipStatus variant="info" label="5.2 miles" icon={false} />
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </section>
+
+        {/* Badges Section */}
+        <section id="badges" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <h2 className="text-slate-900 mb-2">Badges</h2>
+            <p className="text-slate-600">
+              High-contrast accent badges to draw attention to new content, updates, and features.
+            </p>
+          </div>
+
+          {/* Badge Variants */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Variants</h3>
+            <div className="flex flex-wrap items-center gap-3">
+              <Badge variant="new" />
+              <Badge variant="updated" />
+            </div>
+          </div>
+
+          {/* Badges without Icons */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Without Icons</h3>
+            <div className="flex flex-wrap items-center gap-3">
+              <Badge variant="new" showIcon={false} />
+              <Badge variant="updated" showIcon={false} />
+            </div>
+          </div>
+
+          {/* Custom Badge Labels */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Custom Labels</h3>
+            <div className="flex flex-wrap items-center gap-3">
+              <Badge variant="new" label="Beta" />
+              <Badge variant="updated" label="Fresh" />
+              <Badge variant="new" label="Hot" showIcon={false} />
+            </div>
+          </div>
+
+          {/* Badges in Context */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Usage Examples</h3>
+            <div className="space-y-4">
+              <Card elevation="low">
+                <div className="flex items-center gap-3 mb-2">
+                  <Compass className="h-5 w-5 text-emerald-600" />
+                  <h4 className="text-slate-900">Guided Trail: Salesforce Admin Basics</h4>
+                  <Badge variant="new" />
+                </div>
+                <p className="text-sm text-slate-600">Learn the fundamentals of Salesforce administration.</p>
+              </Card>
+
+              <Card elevation="low">
+                <div className="flex items-center gap-3 mb-2">
+                  <BookOpen className="h-5 w-5 text-blue-600" />
+                  <h4 className="text-slate-900">Learning Path: Advanced Workflows</h4>
+                  <Badge variant="updated" />
+                </div>
+                <p className="text-sm text-slate-600">Recently updated with new automation techniques.</p>
+              </Card>
+
+              <Card elevation="low">
+                <div className="flex items-center gap-3 mb-2">
+                  <Zap className="h-5 w-5 text-amber-600" />
+                  <h4 className="text-slate-900">Feature Announcement</h4>
+                  <Badge variant="new" label="Beta" />
+                </div>
+                <p className="text-sm text-slate-600">Try our new interactive trail builder tool.</p>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* Tags Section */}
+        <section id="tags" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <h2 className="text-slate-900 mb-2">Tags</h2>
+            <p className="text-slate-600">
+              Category tags for trail types, platforms, topics, filters, and metadata classification.
+            </p>
+          </div>
+
+          {/* Tag Variants */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Variant Styles</h3>
+            <div className="flex flex-wrap items-center gap-3">
+              <Tag variant="default" label="Default" />
+              <Tag variant="trail" label="Trail Type" />
+              <Tag variant="platform" label="Platform" />
+              <Tag variant="topic" label="Topic" />
+              <Tag variant="primary" label="Primary" />
+              <Tag variant="secondary" label="Secondary" />
+            </div>
+          </div>
+
+          {/* Tags with Icons */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">With Icons</h3>
+            <div className="flex flex-wrap items-center gap-3">
+              <Tag variant="trail" label="Guided Trail" icon={Map} />
+              <Tag variant="platform" label="Salesforce" icon={Cloud} />
+              <Tag variant="topic" label="Automation" icon={Zap} />
+              <Tag variant="topic" label="Configuration" icon={Settings} />
+            </div>
+          </div>
+
+          {/* Removable Tags */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Removable Tags</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Use removable tags for filter chips or selected categories.
+            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              <Tag variant="trail" label="Beginner Friendly" removable onRemove={() => alert('Removed!')} />
+              <Tag variant="platform" label="Google Workspace" icon={Code} removable onRemove={() => alert('Removed!')} />
+              <Tag variant="topic" label="Reporting" removable onRemove={() => alert('Removed!')} />
+              <Tag variant="topic" label="Data Analysis" removable onRemove={() => alert('Removed!')} />
+            </div>
+          </div>
+
+          {/* Platform Tags */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Platform Tags</h3>
+            <div className="flex flex-wrap items-center gap-2">
+              <Tag variant="platform" label="Salesforce" />
+              <Tag variant="platform" label="Slack" />
+              <Tag variant="platform" label="JIRA" />
+              <Tag variant="platform" label="Google Workspace" />
+              <Tag variant="platform" label="Microsoft 365" />
+              <Tag variant="platform" label="Asana" />
+            </div>
+          </div>
+
+          {/* Trail Type Tags */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Trail Type Tags</h3>
+            <div className="flex flex-wrap items-center gap-2">
+              <Tag variant="trail" label="Guided Trail" />
+              <Tag variant="trail" label="Explorer Journey" />
+              <Tag variant="trail" label="Quick Win" />
+              <Tag variant="trail" label="Deep Dive" />
+              <Tag variant="trail" label="Team Challenge" />
+            </div>
+          </div>
+
+          {/* Topic Tags */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Topic Tags</h3>
+            <div className="flex flex-wrap items-center gap-2">
+              <Tag variant="topic" label="Automation" />
+              <Tag variant="topic" label="Configuration" />
+              <Tag variant="topic" label="Reporting" />
+              <Tag variant="topic" label="Integration" />
+              <Tag variant="topic" label="Security" />
+              <Tag variant="topic" label="Analytics" />
+              <Tag variant="topic" label="Collaboration" />
+              <Tag variant="topic" label="Workflow" />
+            </div>
+          </div>
+
+          {/* Real-World Filter Example */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Filter Panel Example</h3>
+            <Panel elevation={1} header={<h4 className="text-slate-900">Active Filters</h4>}>
+              <div className="space-y-3">
+                <div>
+                  <p className="text-sm text-slate-600 mb-2">Platforms</p>
+                  <div className="flex flex-wrap gap-2">
+                    <Tag variant="platform" label="Salesforce" removable onRemove={() => {}} />
+                    <Tag variant="platform" label="Slack" removable onRemove={() => {}} />
+                  </div>
+                </div>
+                <div>
+                  <p className="text-sm text-slate-600 mb-2">Topics</p>
+                  <div className="flex flex-wrap gap-2">
+                    <Tag variant="topic" label="Automation" removable onRemove={() => {}} />
+                    <Tag variant="topic" label="Reporting" removable onRemove={() => {}} />
+                  </div>
+                </div>
+                <div>
+                  <p className="text-sm text-slate-600 mb-2">Trail Types</p>
+                  <div className="flex flex-wrap gap-2">
+                    <Tag variant="trail" label="Guided Trail" removable onRemove={() => {}} />
+                  </div>
+                </div>
+              </div>
+            </Panel>
+          </div>
+
+          {/* Long Text Example */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Long Text Handling</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Tags automatically handle longer text values with proper wrapping.
+            </p>
+            <div className="flex flex-wrap items-center gap-2">
+              <Tag variant="default" label="Advanced Configuration Management" />
+              <Tag variant="topic" label="Cross-Platform Integration Strategies" />
+              <Tag variant="trail" label="Enterprise Deployment Best Practices" />
             </div>
           </div>
         </section>
