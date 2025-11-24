@@ -68,9 +68,31 @@ This application is architected to be hosted or integrated within Salesforce Exp
 - [Data Model](./docs/data-model/schema-overview.md)
 - [Testing Strategy](./docs/testing/test-strategy.md)
 - [Integration Guides](./docs/integrations/)
+- [Linear + Git Workflow](./docs/workflow/linear-git-workflow.md) {/* New workflow guide */}
 - [Design Tokens](./design/tokens.md)
 - [Component Library](./design/components.md)
 - [UX Guidelines](./guidelines/Guidelines.md)
+
+## Development Workflow
+
+This project uses Linear for issue tracking and GitHub for version control. See the [Linear + Git Workflow Guide](./docs/workflow/linear-git-workflow.md) for detailed instructions on:
+- Creating branches from Linear issues
+- Commit message conventions
+- Pull request workflow
+- Automatic issue status updates
+
+**Quick Start:**
+```bash
+# 1. Get issue ID from Linear (e.g., TT-123)
+# 2. Create branch
+git checkout -b TT-123-brief-description
+
+# 3. Make changes and commit
+git commit -m "TT-123: Description of changes"
+
+# 4. Push and create PR
+git push origin TT-123-brief-description
+```
 
 ## Contributing
 

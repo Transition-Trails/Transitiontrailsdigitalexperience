@@ -1,0 +1,45 @@
+name: Link Linear Issues to PRs
+
+on:
+  pull_request:
+    types: [opened, edited]
+
+jobs:
+  link-linear:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract Linear Issue ID
+        id: extract
+        run: |
+          # Extract Linear issue ID from branch name or PR title
+          BRANCH_NAME="${{ github.head_ref }}"
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          PR_BODY="${{ github.event.pull_request.body }}"
+          
+          # Try to find Linear issue ID (format: TT-123, ABC-456, etc.)
+          ISSUE_ID=$(echo "$BRANCH_NAME $PR_TITLE $PR_BODY" | grep -oE '[A-Z]+-[0-9]+' | head -1)
+          
+          if [ -n "$ISSUE_ID" ]; then
+            echo "issue_id=$ISSUE_ID" >> $GITHUB_OUTPUT
+            echo "Found Linear issue: $ISSUE_ID"
+          else
+            echo "No Linear issue ID found"
+          fi
+
+      - name: Comment on PR
+        if: steps.extract.outputs.issue_id != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issueId = '${{ steps.extract.outputs.issue_id }}';
+            const prBody = context.payload.pull_request.body || '';
+            
+            // Check if Linear issue is already referenced
+            if (!prBody.includes(issueId)) {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `🔗 This PR appears to be related to Linear issue: **${issueId}**\n\nMake sure to include \`Fixes: ${issueId}\` in the PR description to auto-close the issue when merged.`
+              });
+            }
