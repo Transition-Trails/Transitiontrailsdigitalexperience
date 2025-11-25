@@ -24,6 +24,7 @@ import { Breadcrumbs } from './components/ttds/Breadcrumbs';
 import { Pagination } from './components/ttds/Pagination';
 import { LearnerStatsPanel } from './components/ttds/LearnerStatsPanel';
 import { GoalsAndProgressPanel } from './components/ttds/GoalsAndProgressPanel';
+import { SkillsAndCertsPanel } from './components/ttds/SkillsAndCertsPanel';
 import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp } from 'lucide-react';
 
 // Loading Demo Component
@@ -147,6 +148,7 @@ export default function App() {
             <a href="#pagination" className="px-3 py-1.5 text-sm text-teal-700 bg-teal-50 rounded">Pagination</a>
             <a href="#learnerstats" className="px-3 py-1.5 text-sm text-orange-700 bg-orange-50 rounded">Learner Stats</a>
             <a href="#goalsprogress" className="px-3 py-1.5 text-sm text-purple-700 bg-purple-50 rounded">Goals & Progress</a>
+            <a href="#skillscerts" className="px-3 py-1.5 text-sm text-indigo-700 bg-indigo-50 rounded">Skills & Certs</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -2014,6 +2016,294 @@ export default function App() {
           </div>
         </section>
 
+        {/* Skills & Certifications Panel Section */}
+        <section id="skillscerts" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <h2 className="text-slate-900 mb-2">Skills & Certifications Panel</h2>
+            <p className="text-slate-600">
+              Domain-specific panel for displaying learner certifications, skills, and tools expertise. Groups Salesforce credentials, technical skills, and non-SF platforms.
+            </p>
+          </div>
+
+          {/* Default (Full) */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Default - Full Layout</h3>
+            <SkillsAndCertsPanel />
+          </div>
+
+          {/* Compact Variant */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Compact Variant</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Reduced padding and smaller typography for space-constrained contexts like sidebars or mobile views.
+            </p>
+            <SkillsAndCertsPanel variant="compact" />
+          </div>
+
+          {/* Two-Column Layout */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Two-Column Layout</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Certifications displayed in a two-column grid for better space utilization.
+            </p>
+            <SkillsAndCertsPanel layout="two-column" />
+          </div>
+
+          {/* Without Section Icons */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Without Section Icons</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Cleaner text-only section headers when visual simplicity is preferred.
+            </p>
+            <SkillsAndCertsPanel showSectionIcons={false} />
+          </div>
+
+          {/* Without Certification Icons */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Without Certification Icons</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Hide the checkmark icons next to certifications for a more minimal look.
+            </p>
+            <SkillsAndCertsPanel showCertIcons={false} />
+          </div>
+
+          {/* Collapsed Skills (Show/Hide) */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Collapsed Skills</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Skills section collapsed by default with option to expand. Shows first 3 skills with a "+X more" link.
+            </p>
+            <SkillsAndCertsPanel collapsedSkills={true} maxSkillsPreview={3} />
+          </div>
+
+          {/* With CTA */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">With CTA Button</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Include an action button to update or add skills/certifications.
+            </p>
+            <SkillsAndCertsPanel 
+              showCTA={true} 
+              ctaText="Update Skills"
+              onCTAClick={() => alert('Update skills clicked!')}
+            />
+          </div>
+
+          {/* Custom Content Example */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Custom Content - Developer Profile</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Example with custom certifications, skills, and tools for a developer-focused learner.
+            </p>
+            <SkillsAndCertsPanel
+              certifications={[
+                { id: '1', name: 'Platform Developer I', earned: true },
+                { id: '2', name: 'Platform Developer II', earned: true },
+                { id: '3', name: 'JavaScript Developer I', earned: true },
+                { id: '4', name: 'Application Architect', earned: false },
+              ]}
+              skills={[
+                { id: '1', name: 'Apex', variant: 'trail' },
+                { id: '2', name: 'Lightning Web Components', variant: 'trail' },
+                { id: '3', name: 'REST APIs', variant: 'platform' },
+                { id: '4', name: 'SOQL', variant: 'topic' },
+                { id: '5', name: 'Integration Patterns', variant: 'default' },
+                { id: '6', name: 'DevOps', variant: 'default' },
+              ]}
+              tools={[
+                { id: '1', name: 'VS Code' },
+                { id: '2', name: 'Git/GitHub' },
+                { id: '3', name: 'Postman' },
+                { id: '4', name: 'SFDX CLI' },
+                { id: '5', name: 'Copado' },
+              ]}
+            />
+          </div>
+
+          {/* Custom Content - Business Analyst Profile */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Custom Content - Business Analyst Profile</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Example focused on business analyst skills and tools.
+            </p>
+            <SkillsAndCertsPanel
+              certifications={[
+                { id: '1', name: 'Business Analyst', earned: true },
+                { id: '2', name: 'Salesforce Admin', earned: true },
+                { id: '3', name: 'Sales Cloud Consultant', earned: false },
+              ]}
+              skills={[
+                { id: '1', name: 'Requirements Gathering', variant: 'topic' },
+                { id: '2', name: 'Process Mapping', variant: 'default' },
+                { id: '3', name: 'User Story Writing', variant: 'default' },
+                { id: '4', name: 'Stakeholder Management', variant: 'default' },
+                { id: '5', name: 'Flow Builder', variant: 'trail' },
+              ]}
+              tools={[
+                { id: '1', name: 'Miro' },
+                { id: '2', name: 'Lucidchart' },
+                { id: '3', name: 'Confluence' },
+                { id: '4', name: 'Jira' },
+              ]}
+              variant="compact"
+              showCTA={true}
+              ctaText="Add Certification"
+            />
+          </div>
+
+          {/* Dashboard Context Example */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Dashboard Context - Profile View</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Example showing how panels work together in a dashboard layout.
+            </p>
+            <div className="space-y-4 bg-gradient-to-br from-slate-50 to-stone-50 p-6 rounded-xl border border-slate-200">
+              {/* Dashboard Header */}
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-slate-900">Learner Profile</h3>
+                  <p className="text-sm text-slate-600 mt-1">Your credentials and expertise</p>
+                </div>
+                <Button variant="primary" size="small">
+                  <Edit className="h-4 w-4" />
+                  Edit Profile
+                </Button>
+              </div>
+
+              {/* Two Column Layout */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                {/* Skills & Certs Panel */}
+                <SkillsAndCertsPanel
+                  certifications={[
+                    { id: '1', name: 'Salesforce Admin', earned: true },
+                    { id: '2', name: 'AI Associate', earned: true },
+                  ]}
+                  skills={[
+                    { id: '1', name: 'Reporting', variant: 'topic' },
+                    { id: '2', name: 'Automation', variant: 'trail' },
+                    { id: '3', name: 'User Support', variant: 'default' },
+                  ]}
+                  tools={[
+                    { id: '1', name: 'Slack' },
+                    { id: '2', name: 'Jira' },
+                  ]}
+                  showCTA={true}
+                  ctaText="Update Skills"
+                />
+
+                {/* Goals Panel */}
+                <GoalsAndProgressPanel
+                  careerGoal="Admin → Consultant"
+                  currentFocusTrail="Sales Cloud Consultant Path"
+                  nextRecommendation="Service Cloud Fundamentals"
+                  ctaText="Update Goal"
+                />
+              </div>
+
+              {/* Stats Summary */}
+              <LearnerStatsPanel
+                variant="horizontal"
+                stats={[
+                  { id: 'certs', label: 'Certifications', value: 2, icon: <Award className="h-5 w-5" />, trend: 10 },
+                  { id: 'skills', label: 'Skills Verified', value: 8, icon: <CheckCircle className="h-5 w-5" /> },
+                  { id: 'profile', label: 'Profile Strength', value: 85, icon: <Trophy className="h-5 w-5" />, trend: 5 },
+                ]}
+              />
+            </div>
+          </div>
+
+          {/* Section Information */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Section Descriptions</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="p-4 bg-emerald-50 rounded-lg border border-emerald-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <Award className="h-4 w-4 text-emerald-700" />
+                  <strong className="text-sm text-emerald-900">Salesforce Certifications</strong>
+                </div>
+                <p className="text-xs text-emerald-800">
+                  Official Salesforce credentials earned or in-progress. Green background indicates earned certifications.
+                  Shows technical competency and formal validation.
+                </p>
+              </div>
+
+              <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <Code className="h-4 w-4 text-blue-700" />
+                  <strong className="text-sm text-blue-900">Skills</strong>
+                </div>
+                <p className="text-xs text-blue-800">
+                  Technical and functional skills related to Salesforce platform work.
+                  Uses tag variants (trail/platform/topic) to categorize skill types.
+                </p>
+              </div>
+
+              <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <Cloud className="h-4 w-4 text-purple-700" />
+                  <strong className="text-sm text-purple-900">Tools & Platforms</strong>
+                </div>
+                <p className="text-xs text-purple-800">
+                  Non-Salesforce tools and platforms the learner is proficient with.
+                  Demonstrates broader technical capability beyond the SF ecosystem.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Accessibility Note */}
+          <div className="p-4 bg-purple-50 border border-purple-200 rounded-lg">
+            <p className="text-sm text-purple-900">
+              <strong>Accessibility Features:</strong> Semantic HTML with proper heading hierarchy (h3 for panel title, h4 for sections), 
+              WCAG AA contrast ratios throughout (emerald-900: 10.4:1, slate-700: 9.2:1, slate-900: 14.9:1), 
+              descriptive text labels for all certifications and tags (no icon-only elements), 
+              aria-label on expand/collapse button, logical screen reader order (Certifications → Skills → Tools → CTA), 
+              checkmark icons provide visual reinforcement but earned status also shown via background color.
+            </p>
+          </div>
+
+          {/* Usage Guidelines */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Usage Guidelines</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+              <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200">
+                <strong className="text-emerald-900">✓ Do</strong>
+                <ul className="mt-2 space-y-1 text-emerald-800 text-xs">
+                  <li>• Use in learner profiles and dashboards</li>
+                  <li>• Group related skills by variant (trail/platform/topic)</li>
+                  <li>• Indicate earned vs. in-progress certifications</li>
+                  <li>• Use two-column layout for many certifications</li>
+                  <li>• Collapse skills section if list is very long</li>
+                  <li>• Include non-SF tools to show broader expertise</li>
+                </ul>
+              </div>
+              <div className="p-3 bg-red-50 rounded-lg border border-red-200">
+                <strong className="text-red-900">✗ Don't</strong>
+                <ul className="mt-2 space-y-1 text-red-800 text-xs">
+                  <li>• List non-Salesforce certifications in SF section</li>
+                  <li>• Overcrowd with 20+ skills (use filtering/grouping)</li>
+                  <li>• Use for team or organizational credentials</li>
+                  <li>• Mix different learners' data in one panel</li>
+                  <li>• Rely on icons alone (always include text labels)</li>
+                  <li>• Show expired certifications without indication</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Related Components */}
+          <div className="space-y-2">
+            <h3 className="text-slate-700">Related Components</h3>
+            <div className="flex flex-wrap gap-2 text-sm">
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">GoalsAndProgressPanel</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">LearnerStatsPanel</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Tag</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Button</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Card</span>
+            </div>
+          </div>
+        </section>
+
         {/* Cards Section */}
         <section id="cards" className="space-y-6">
           <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
@@ -2556,6 +2846,310 @@ export default function App() {
                 <li>Icons: Always same size (scale with variant, not viewport)</li>
                 <li>Grid layout: Works well in 1-column mobile or 2-column desktop grids</li>
               </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* Skills & Certifications Panel Documentation */}
+        <section className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-xl shadow-sm border border-indigo-200 p-8 space-y-4">
+          <h2 className="text-slate-900">TT Skills & Certifications Panel – Notes (TTA-130)</h2>
+          
+          <div className="space-y-4 text-slate-700">
+            <div>
+              <h3 className="text-slate-800 mb-2">Component Overview</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>Type:</strong> Domain-specific component (TT namespace)</li>
+                <li><strong>Purpose:</strong> Display learner credentials, skills, and tool proficiencies</li>
+                <li><strong>Base:</strong> Built on TTDS Card/Panel foundation with Tag components</li>
+                <li><strong>Three Sections:</strong> Salesforce Certifications, Skills, Tools & Platforms</li>
+                <li><strong>Context:</strong> Learner profiles, dashboard views, portfolio displays</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Variants & Props</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>variant:</strong> 'full' (p-6, larger text) or 'compact' (p-4, smaller text/spacing)</li>
+                <li><strong>layout:</strong> 'single' (stacked list) or 'two-column' (grid for certifications)</li>
+                <li><strong>showSectionIcons:</strong> true (Award/Code/Wrench icons) or false (text-only headers)</li>
+                <li><strong>showCertIcons:</strong> true (checkmark badges) or false (no cert icons)</li>
+                <li><strong>collapsedSkills:</strong> true (show preview + expand) or false (show all)</li>
+                <li><strong>maxSkillsPreview:</strong> Number of skills to show when collapsed (default: 3)</li>
+                <li><strong>showCTA:</strong> true (show action button) or false (no CTA)</li>
+                <li><strong>ctaText:</strong> Custom CTA button text (default: "Update Skills")</li>
+                <li><strong>certifications/skills/tools:</strong> Arrays of data objects for each section</li>
+                <li><strong>onCTAClick:</strong> Handler function for CTA button</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Data Structures</h3>
+              <div className="bg-white rounded-lg p-4 space-y-3 text-sm font-mono">
+                <div>
+                  <strong className="text-slate-900">Certification:</strong>
+                  <pre className="text-slate-600 text-xs mt-1 ml-2">{`{
+  id: string,
+  name: string,
+  earned?: boolean
+}`}</pre>
+                </div>
+                <div>
+                  <strong className="text-slate-900">Skill:</strong>
+                  <pre className="text-slate-600 text-xs mt-1 ml-2">{`{
+  id: string,
+  name: string,
+  variant?: 'default' | 'trail' | 'platform' | 'topic'
+}`}</pre>
+                </div>
+                <div>
+                  <strong className="text-slate-900">Tool:</strong>
+                  <pre className="text-slate-600 text-xs mt-1 ml-2">{`{
+  id: string,
+  name: string
+}`}</pre>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Section Descriptions</h3>
+              <div className="bg-white rounded-lg p-4 space-y-3 text-sm">
+                <div>
+                  <strong className="text-emerald-900">Salesforce Certifications:</strong>
+                  <p className="text-slate-600 text-xs mt-1">
+                    Official Salesforce credentials (Admin, Developer, Consultant, etc.).
+                    Green background/checkmark for earned certs, gray for in-progress.
+                    Uses badge-like elements with checkmark icons.
+                  </p>
+                </div>
+                <div>
+                  <strong className="text-blue-900">Skills:</strong>
+                  <p className="text-slate-600 text-xs mt-1">
+                    Technical and functional skills (Reporting, Automation, SOQL, etc.).
+                    Uses TTDS Tag component with variant colors to categorize skill types
+                    (trail, platform, topic, default).
+                  </p>
+                </div>
+                <div>
+                  <strong className="text-purple-900">Tools & Platforms:</strong>
+                  <p className="text-slate-600 text-xs mt-1">
+                    Non-Salesforce tools and platforms (Jira, Slack, Git, etc.).
+                    Demonstrates broader technical capability. Uses default Tag styling.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Icon Mapping</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>Certifications Section:</strong> Award icon (emerald-600) - represents credentials</li>
+                <li><strong>Skills Section:</strong> Code icon (blue-600) - represents technical skills</li>
+                <li><strong>Tools Section:</strong> Wrench icon (purple-600) - represents tools/platforms</li>
+                <li><strong>Certification Items:</strong> CheckCircle icon - emerald-600 (earned) or slate-400 (in-progress)</li>
+                <li><strong>CTA:</strong> Plus icon - represents add/update action</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Design Tokens</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>Container:</strong> white background, slate-200 border, rounded-xl (12px)</li>
+                <li><strong>Padding:</strong> Full p-6 (24px), Compact p-4 (16px)</li>
+                <li><strong>Spacing:</strong> space-y-5 (20px) between sections (full), space-y-4 (16px) compact</li>
+                <li><strong>Dividers:</strong> border-t border-slate-100 between sections</li>
+                <li><strong>Section Icons:</strong> h-5 w-5 (20px) full, h-4 w-4 (16px) compact</li>
+                <li><strong>Cert Icons:</strong> h-4 w-4 (16px) full, h-3.5 w-3.5 (14px) compact</li>
+                <li><strong>Section Headers:</strong> text-base (16px) full, text-sm (14px) compact, slate-700</li>
+                <li><strong>Cert Items:</strong> bg-slate-50 (default), bg-emerald-50 (earned), rounded-lg</li>
+                <li><strong>Tags:</strong> TTDS Tag component with gap-2 flex wrapping</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Layout Variants</h3>
+              <div className="bg-white rounded-lg p-4 space-y-3 text-sm">
+                <div>
+                  <strong className="text-slate-900">Single Column (default):</strong>
+                  <p className="text-slate-600 text-xs mt-1">
+                    All certifications stacked vertically. Best for narrow containers or mobile.
+                  </p>
+                </div>
+                <div>
+                  <strong className="text-slate-900">Two Column:</strong>
+                  <p className="text-slate-600 text-xs mt-1">
+                    Certifications displayed in grid-cols-2. Better space utilization for 4+ certs.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Skill Tag Variants</h3>
+              <div className="bg-white rounded-lg p-4 space-y-2 text-sm">
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-900 w-20">trail:</span>
+                  <span className="text-xs text-slate-600">Emerald background - Salesforce trail-related skills</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-900 w-20">platform:</span>
+                  <span className="text-xs text-slate-600">Blue background - Platform/cloud skills</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-900 w-20">topic:</span>
+                  <span className="text-xs text-slate-600">Purple background - Topic/domain skills</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-900 w-20">default:</span>
+                  <span className="text-xs text-slate-600">Slate background - General skills</span>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">When to Use</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>Profile Pages:</strong> Primary placement in learner profile for expertise showcase</li>
+                <li><strong>Dashboard:</strong> Part of Dashboard Template 2 alongside goals/stats panels</li>
+                <li><strong>Portfolio:</strong> Public-facing portfolio or resume views</li>
+                <li><strong>Onboarding:</strong> During profile setup to capture initial skills</li>
+                <li><strong>Progress Review:</strong> Periodic updates to track skill development</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Use Cases</h3>
+              <div className="space-y-2 text-sm">
+                <div className="p-3 bg-white rounded border border-slate-200">
+                  <strong className="text-slate-900">Developer Profile:</strong>
+                  <p className="text-xs text-slate-600 mt-1">
+                    Certs: Platform Developer I/II, JavaScript Developer. Skills: Apex, LWC, REST APIs (trail/platform variants).
+                    Tools: VS Code, Git, Postman, SFDX CLI. Shows technical depth.
+                  </p>
+                </div>
+                <div className="p-3 bg-white rounded border border-slate-200">
+                  <strong className="text-slate-900">Admin Profile:</strong>
+                  <p className="text-xs text-slate-600 mt-1">
+                    Certs: Salesforce Admin, AI Associate. Skills: Reporting, Automation, User Support (topic/default variants).
+                    Tools: Jira, Slack, Google Workspace. Shows admin + collaboration focus.
+                  </p>
+                </div>
+                <div className="p-3 bg-white rounded border border-slate-200">
+                  <strong className="text-slate-900">Business Analyst Profile:</strong>
+                  <p className="text-xs text-slate-600 mt-1">
+                    Certs: Business Analyst, potentially Admin. Skills: Requirements Gathering, Process Mapping, Flow Builder.
+                    Tools: Miro, Lucidchart, Confluence, Jira. Shows BA + technical capability.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Related Components</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>GoalsAndProgressPanel:</strong> Often paired in dashboard/profile layouts</li>
+                <li><strong>LearnerStatsPanel:</strong> Complementary stats display</li>
+                <li><strong>TTDS/Tag:</strong> Core component for skills and tools display</li>
+                <li><strong>TTDS/Card:</strong> Base container component</li>
+                <li><strong>TTDS/Button:</strong> Used for CTA variant</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Example Usage</h3>
+              <div className="bg-white rounded-lg p-4 font-mono text-xs overflow-x-auto">
+                <pre className="text-slate-800">{`import { SkillsAndCertsPanel } from './components/ttds/SkillsAndCertsPanel';
+
+// Default usage with preset data
+<SkillsAndCertsPanel />
+
+// Compact with CTA
+<SkillsAndCertsPanel 
+  variant="compact"
+  showCTA={true}
+  ctaText="Update Skills"
+/>
+
+// Custom data for developer profile
+<SkillsAndCertsPanel
+  certifications={[
+    { id: '1', name: 'Platform Developer I', earned: true },
+    { id: '2', name: 'Platform Developer II', earned: false },
+  ]}
+  skills={[
+    { id: '1', name: 'Apex', variant: 'trail' },
+    { id: '2', name: 'LWC', variant: 'trail' },
+    { id: '3', name: 'REST APIs', variant: 'platform' },
+  ]}
+  tools={[
+    { id: '1', name: 'VS Code' },
+    { id: '2', name: 'Git' },
+  ]}
+  layout="two-column"
+  onCTAClick={() => openSkillsEditor()}
+/>
+
+// Collapsed skills for long lists
+<SkillsAndCertsPanel
+  collapsedSkills={true}
+  maxSkillsPreview={3}
+/>`}</pre>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Accessibility</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li>Semantic HTML: h3 for panel title, h4 for section headers</li>
+                <li>WCAG AA contrast: All text meets minimum 4.5:1 ratio</li>
+                <li>Earned certifications: Indicated by both color AND icon (not color-only)</li>
+                <li>aria-label: Applied to expand/collapse button for skills</li>
+                <li>Screen reader order: Certifications → Skills → Tools → CTA (logical flow)</li>
+                <li>Tag components: Proper role="tag" and aria-label attributes</li>
+                <li>Icon meaning: Icons reinforce but don't replace text labels</li>
+                <li>Keyboard navigation: All interactive elements keyboard accessible</li>
+                <li>Focus states: Visible focus rings on all interactive elements</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Responsive Behavior</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li>Container: Full width with max-width constraints from parent</li>
+                <li>Tags: flex-wrap ensures proper wrapping on narrow screens</li>
+                <li>Two-column layout: Uses grid-cols-2, consider grid-cols-1 for very narrow screens</li>
+                <li>Button CTA: w-full on mobile, sm:w-auto on tablet/desktop</li>
+                <li>Icons: Consistent size regardless of viewport (scale with variant only)</li>
+                <li>Certification badges: Stack naturally, readable at all sizes</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Content Guidelines</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                <div className="p-3 bg-emerald-50 rounded border border-emerald-200">
+                  <strong className="text-emerald-900">✓ Do</strong>
+                  <ul className="mt-2 space-y-1 text-emerald-800 text-xs">
+                    <li>• Use official Salesforce cert names</li>
+                    <li>• Group skills by type using variants</li>
+                    <li>• Include relevant non-SF tools</li>
+                    <li>• Indicate earned vs. in-progress certs</li>
+                    <li>• Keep skill names concise (1-3 words)</li>
+                    <li>• Use collapse for 10+ skills</li>
+                  </ul>
+                </div>
+                <div className="p-3 bg-red-50 rounded border border-red-200">
+                  <strong className="text-red-900">✗ Don't</strong>
+                  <ul className="mt-2 space-y-1 text-red-800 text-xs">
+                    <li>• Mix SF and non-SF certs in same section</li>
+                    <li>• List soft skills (separate component)</li>
+                    <li>• Overcrowd with 20+ unorganized skills</li>
+                    <li>• Use abbreviations without context</li>
+                    <li>• Show expired certs without indication</li>
+                    <li>• Rely on icons alone for meaning</li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
         </section>
