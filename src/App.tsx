@@ -23,7 +23,8 @@ import { TabStrip } from './components/ttds/TabStrip';
 import { Breadcrumbs } from './components/ttds/Breadcrumbs';
 import { Pagination } from './components/ttds/Pagination';
 import { LearnerStatsPanel } from './components/ttds/LearnerStatsPanel';
-import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star } from 'lucide-react';
+import { GoalsAndProgressPanel } from './components/ttds/GoalsAndProgressPanel';
+import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp } from 'lucide-react';
 
 // Loading Demo Component
 function LoadingDemo() {
@@ -124,6 +125,7 @@ export default function App() {
             <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full">TTA-118</span>
             <span className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full">TTA-119</span>
             <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full">TTA-107</span>
+            <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full">TTA-129</span>
           </div>
         </header>
 
@@ -144,6 +146,7 @@ export default function App() {
             <a href="#breadcrumbs" className="px-3 py-1.5 text-sm text-teal-700 bg-teal-50 rounded">Breadcrumbs</a>
             <a href="#pagination" className="px-3 py-1.5 text-sm text-teal-700 bg-teal-50 rounded">Pagination</a>
             <a href="#learnerstats" className="px-3 py-1.5 text-sm text-orange-700 bg-orange-50 rounded">Learner Stats</a>
+            <a href="#goalsprogress" className="px-3 py-1.5 text-sm text-purple-700 bg-purple-50 rounded">Goals & Progress</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -1755,6 +1758,262 @@ export default function App() {
           </div>
         </section>
 
+        {/* Goals & Progress Panel Section */}
+        <section id="goalsprogress" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <h2 className="text-slate-900 mb-2">Goals & Progress Panel</h2>
+            <p className="text-slate-600">
+              Domain-specific panel for displaying learner goals and recommended next steps. Shows career goal, current trail, and recommendations.
+            </p>
+          </div>
+
+          {/* Default (Full) */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Default - Full Layout</h3>
+            <GoalsAndProgressPanel />
+          </div>
+
+          {/* Compact Variant */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Compact Variant</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Reduced padding and smaller typography for space-constrained contexts like sidebars.
+            </p>
+            <GoalsAndProgressPanel variant="compact" />
+          </div>
+
+          {/* Without Icons */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Without Icons</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Cleaner text-only presentation when visual simplicity is preferred.
+            </p>
+            <GoalsAndProgressPanel showIcons={false} />
+          </div>
+
+          {/* Without Recommendation */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Without Recommendation</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Hide the recommendation field when not applicable or when focusing only on current state.
+            </p>
+            <GoalsAndProgressPanel showRecommendation={false} />
+          </div>
+
+          {/* Link-style CTA */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Link-style CTA</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Use a link-style action instead of a button for a lighter visual treatment.
+            </p>
+            <GoalsAndProgressPanel ctaVariant="link" ctaText="Edit Career Goal" />
+          </div>
+
+          {/* Custom Content */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Custom Content Example</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Fully customizable field values for different learner scenarios.
+            </p>
+            <GoalsAndProgressPanel
+              careerGoal="Developer → Engineering Manager"
+              currentFocusTrail="Leadership Trail: Tech Lead Path"
+              nextRecommendation="People Management Skills"
+              ctaText="Adjust My Path"
+            />
+          </div>
+
+          {/* New Learner Example */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">New Learner (No Goal Set)</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Example for learners who haven't set their career goal yet.
+            </p>
+            <GoalsAndProgressPanel
+              careerGoal="Not yet defined"
+              currentFocusTrail="Exploring available trails"
+              nextRecommendation="Take the career assessment"
+              ctaText="Set Your Career Goal"
+              ctaVariant="button"
+            />
+          </div>
+
+          {/* Dashboard Context Example */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Dashboard Context</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Example of how the panel appears alongside other dashboard components.
+            </p>
+            <div className="space-y-4 bg-gradient-to-br from-slate-50 to-stone-50 p-6 rounded-xl border border-slate-200">
+              {/* Dashboard Header */}
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-slate-900">Learning Dashboard</h3>
+                  <p className="text-sm text-slate-600 mt-1">Track your progress and goals</p>
+                </div>
+                <Button variant="primary" size="small">
+                  <Plus className="h-4 w-4" />
+                  New Trail
+                </Button>
+              </div>
+
+              {/* Two Column Layout */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                {/* Goals Panel */}
+                <GoalsAndProgressPanel
+                  careerGoal="Salesforce Admin → Developer"
+                  currentFocusTrail="Guided Trail: Apex Fundamentals"
+                  nextRecommendation="LWC Development Trail"
+                  onUpdateGoal={() => alert('Update goal clicked!')}
+                />
+
+                {/* Progress Summary Card */}
+                <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">
+                  <div>
+                    <h3 className="text-slate-900">This Month</h3>
+                    <p className="text-sm text-slate-600 mt-1">Your learning activity</p>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-slate-600">Missions Completed</span>
+                      <span className="text-lg text-slate-900">12</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-slate-600">Hours Learned</span>
+                      <span className="text-lg text-slate-900">8.5</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-slate-600">Points Earned</span>
+                      <span className="text-lg text-slate-900">450</span>
+                    </div>
+                  </div>
+
+                  <div className="pt-3 border-t border-slate-100">
+                    <div className="flex items-center gap-2 text-sm text-emerald-700">
+                      <TrendingUp className="h-4 w-4" />
+                      <span>+15% from last month</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Current Trail Detail */}
+              <Card elevation="low">
+                <h4 className="text-slate-900 mb-3">Current Trail Progress</h4>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-slate-600">Apex Fundamentals</span>
+                    <span className="text-slate-900">Lesson 6 of 12</span>
+                  </div>
+                  <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
+                    <div className="h-full bg-emerald-600 rounded-full" style={{ width: '50%' }}></div>
+                  </div>
+                  <p className="text-xs text-slate-500">50% complete • Est. 6 hours remaining</p>
+                </div>
+              </Card>
+            </div>
+          </div>
+
+          {/* Field Information */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Field Descriptions</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="p-4 bg-emerald-50 rounded-lg border border-emerald-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <Target className="h-4 w-4 text-emerald-700" />
+                  <strong className="text-sm text-emerald-900">Career Goal</strong>
+                </div>
+                <p className="text-xs text-emerald-800">
+                  The learner's aspirational career transition (e.g., "Admin → Consultant"). 
+                  Format: Current Role → Target Role.
+                </p>
+              </div>
+
+              <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <MapPin className="h-4 w-4 text-blue-700" />
+                  <strong className="text-sm text-blue-900">Current Focus Trail</strong>
+                </div>
+                <p className="text-xs text-blue-800">
+                  The trail the learner is actively working on right now. 
+                  Includes the trail name and type (e.g., "Guided Trail: Admin Mastery").
+                </p>
+              </div>
+
+              <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <Lightbulb className="h-4 w-4 text-amber-700" />
+                  <strong className="text-sm text-amber-900">Next Recommendation</strong>
+                </div>
+                <p className="text-xs text-amber-800">
+                  AI-powered or curated suggestion for what trail or content to tackle next 
+                  based on the learner's goal and current progress.
+                </p>
+              </div>
+
+              <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <Edit2 className="h-4 w-4 text-purple-700" />
+                  <strong className="text-sm text-purple-900">Update Goal CTA</strong>
+                </div>
+                <p className="text-xs text-purple-800">
+                  Action button or link that allows learners to modify their career goal, 
+                  reassess their path, or adjust their learning direction.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Accessibility Note */}
+          <div className="p-4 bg-purple-50 border border-purple-200 rounded-lg">
+            <p className="text-sm text-purple-900">
+              <strong>Accessibility Features:</strong> Semantic HTML structure with proper heading hierarchy, 
+              WCAG AA contrast ratios (slate-600: 7.6:1, slate-900: 14.9:1), visible focus ring on CTA (2px emerald-500), 
+              aria-label on link-style CTA, logical screen reader order (Goal → Trail → Recommendation → CTA), 
+              icon colors provide additional meaning but not sole meaning (labels always present).
+            </p>
+          </div>
+
+          {/* Usage Guidelines */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Usage Guidelines</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+              <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200">
+                <strong className="text-emerald-900">✓ Do</strong>
+                <ul className="mt-2 space-y-1 text-emerald-800 text-xs">
+                  <li>• Use in dashboard or profile views</li>
+                  <li>• Keep career goals concise (Current → Target)</li>
+                  <li>• Use compact variant in sidebars</li>
+                  <li>• Make CTA action clear and actionable</li>
+                  <li>• Update recommendation dynamically based on progress</li>
+                </ul>
+              </div>
+              <div className="p-3 bg-red-50 rounded-lg border border-red-200">
+                <strong className="text-red-900">✗ Don't</strong>
+                <ul className="mt-2 space-y-1 text-red-800 text-xs">
+                  <li>• Use for non-learner contexts</li>
+                  <li>• Overcomplicate field values (keep brief)</li>
+                  <li>• Hide CTA (always provide update path)</li>
+                  <li>• Use without proper data (show placeholder if needed)</li>
+                  <li>• Mix different learner goals in same panel</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Related Components */}
+          <div className="space-y-2">
+            <h3 className="text-slate-700">Related Components</h3>
+            <div className="flex flex-wrap gap-2 text-sm">
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">LearnerStatsPanel</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Card</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Panel</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Button</span>
+            </div>
+          </div>
+        </section>
+
         {/* Cards Section */}
         <section id="cards" className="space-y-6">
           <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
@@ -2087,6 +2346,216 @@ export default function App() {
                   />
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Goals & Progress Panel Documentation */}
+        <section className="bg-gradient-to-br from-purple-50 to-violet-50 rounded-xl shadow-sm border border-purple-200 p-8 space-y-4">
+          <h2 className="text-slate-900">TT Goals & Progress Panel – Notes (TTA-129)</h2>
+          
+          <div className="space-y-4 text-slate-700">
+            <div>
+              <h3 className="text-slate-800 mb-2">Component Overview</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>Type:</strong> Domain-specific component (TT namespace)</li>
+                <li><strong>Purpose:</strong> Display learner's career goal and learning direction</li>
+                <li><strong>Base:</strong> Built on TTDS Card/Panel foundation</li>
+                <li><strong>Required Fields:</strong> Career Goal, Current Focus Trail, Next Recommendation, Update CTA</li>
+                <li><strong>Context:</strong> Dashboard Template 2, Profile Overview</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Variants & Props</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>variant:</strong> 'full' (p-6, text-lg) or 'compact' (p-4, text-base/text-sm)</li>
+                <li><strong>showIcons:</strong> true (colored icons visible) or false (text-only)</li>
+                <li><strong>showRecommendation:</strong> true (show field) or false (hide field)</li>
+                <li><strong>ctaVariant:</strong> 'button' (secondary button) or 'link' (inline link with arrow)</li>
+                <li><strong>ctaText:</strong> Custom CTA text (default: "Update Goal")</li>
+                <li><strong>careerGoal:</strong> Custom career goal string</li>
+                <li><strong>currentFocusTrail:</strong> Custom current trail string</li>
+                <li><strong>nextRecommendation:</strong> Custom recommendation string</li>
+                <li><strong>onUpdateGoal:</strong> Click handler function for CTA</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Field Structure & Format</h3>
+              <div className="bg-white rounded-lg p-4 space-y-3 text-sm">
+                <div>
+                  <strong className="text-slate-900">Career Goal:</strong>
+                  <p className="text-slate-600 text-xs mt-1">
+                    Format: "Current Role → Target Role"<br/>
+                    Example: "Admin → Consultant", "Developer → Engineering Manager"
+                  </p>
+                </div>
+                <div>
+                  <strong className="text-slate-900">Current Focus Trail:</strong>
+                  <p className="text-slate-600 text-xs mt-1">
+                    Format: "Trail Type: Trail Name"<br/>
+                    Example: "Guided Trail: Admin Mastery", "Self-Paced: Apex Fundamentals"
+                  </p>
+                </div>
+                <div>
+                  <strong className="text-slate-900">Next Recommendation:</strong>
+                  <p className="text-slate-600 text-xs mt-1">
+                    Format: Brief suggestion for next trail/content<br/>
+                    Example: "AI Trail after Admin", "LWC Development Trail"
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Icon Mapping</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>Career Goal:</strong> Target icon (emerald-600) - represents aspiration</li>
+                <li><strong>Current Focus Trail:</strong> MapPin icon (blue-600) - represents current location</li>
+                <li><strong>Next Recommendation:</strong> Lightbulb icon (amber-600) - represents suggestion</li>
+                <li><strong>CTA:</strong> Edit2 icon - represents edit/update action</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Design Tokens</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>Container:</strong> white background, slate-200 border, rounded-xl (12px)</li>
+                <li><strong>Padding:</strong> Full p-6 (24px), Compact p-4 (16px)</li>
+                <li><strong>Spacing:</strong> space-y-4 (16px) between fields (full), space-y-3 (12px) compact</li>
+                <li><strong>Dividers:</strong> border-t border-slate-100 between fields</li>
+                <li><strong>Icons:</strong> h-5 w-5 (20px) full, h-4 w-4 (16px) compact</li>
+                <li><strong>Labels:</strong> text-sm (14px), slate-600 (or text-xs compact)</li>
+                <li><strong>Values:</strong> text-lg (18px) full, text-base (16px) compact, slate-900</li>
+                <li><strong>Title:</strong> h3 element, slate-900, base size or text-base for compact</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">CTA Variants</h3>
+              <div className="bg-white rounded-lg p-4 space-y-3 text-sm">
+                <div>
+                  <strong className="text-slate-900">Button Variant:</strong>
+                  <p className="text-slate-600 text-xs mt-1">
+                    Uses TTDS Button component (variant="secondary", size responsive to panel variant).
+                    Full width on mobile, auto width on desktop (sm:w-auto).
+                    Includes Edit2 icon.
+                  </p>
+                </div>
+                <div>
+                  <strong className="text-slate-900">Link Variant:</strong>
+                  <p className="text-slate-600 text-xs mt-1">
+                    Inline link with emerald-700 text, Edit2 icon on left, ArrowRight icon on right.
+                    Focus ring: 2px emerald-500 with offset.
+                    Lighter visual treatment, better for minimal designs.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">When to Use</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>Dashboard:</strong> Primary placement in Dashboard Template 2 for goal overview</li>
+                <li><strong>Profile:</strong> Learner profile pages to show career direction</li>
+                <li><strong>Onboarding:</strong> During goal-setting flow to confirm choices</li>
+                <li><strong>Progress Review:</strong> Periodic check-ins to reassess goals</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Use Cases</h3>
+              <div className="space-y-2 text-sm">
+                <div className="p-3 bg-white rounded border border-slate-200">
+                  <strong className="text-slate-900">New Learner:</strong>
+                  <p className="text-xs text-slate-600 mt-1">
+                    Show "Not yet defined" for career goal, "Exploring available trails" for focus,
+                    "Take the career assessment" as recommendation. CTA: "Set Your Career Goal".
+                  </p>
+                </div>
+                <div className="p-3 bg-white rounded border border-slate-200">
+                  <strong className="text-slate-900">Active Learner:</strong>
+                  <p className="text-xs text-slate-600 mt-1">
+                    Show concrete career goal, current trail in progress, AI-powered next recommendation.
+                    CTA: "Update Goal" or "Adjust My Path".
+                  </p>
+                </div>
+                <div className="p-3 bg-white rounded border border-slate-200">
+                  <strong className="text-slate-900">Completed Trail:</strong>
+                  <p className="text-xs text-slate-600 mt-1">
+                    Show current goal, note trail completion, strong recommendation for next trail.
+                    Consider highlighting recommendation (could be enhanced in future).
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Related Components</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>LearnerStatsPanel:</strong> Often used together in dashboard layout</li>
+                <li><strong>TTDS/Card:</strong> Base container component</li>
+                <li><strong>TTDS/Panel:</strong> Alternative base for panels</li>
+                <li><strong>TTDS/Button:</strong> Used for CTA button variant</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Example Usage</h3>
+              <div className="bg-white rounded-lg p-4 font-mono text-xs overflow-x-auto">
+                <pre className="text-slate-800">{`import { GoalsAndProgressPanel } from './components/ttds/GoalsAndProgressPanel';
+
+// Default usage
+<GoalsAndProgressPanel />
+
+// Compact sidebar version with link CTA
+<GoalsAndProgressPanel 
+  variant="compact" 
+  ctaVariant="link"
+  ctaText="Edit Goal"
+/>
+
+// Custom content with handler
+<GoalsAndProgressPanel
+  careerGoal="Admin → Consultant"
+  currentFocusTrail="Guided Trail: Admin Mastery"
+  nextRecommendation="AI Trail after Admin"
+  onUpdateGoal={() => {
+    // Open goal editing modal
+    openGoalModal();
+  }}
+/>
+
+// Without recommendation (focus on current state)
+<GoalsAndProgressPanel 
+  showRecommendation={false}
+/>`}</pre>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Accessibility</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li>Semantic HTML: h3 for title, logical content structure</li>
+                <li>WCAG AA contrast: slate-600 labels (7.6:1), slate-900 values (14.9:1)</li>
+                <li>Focus states: Visible 2px focus ring on CTA with emerald-500 color</li>
+                <li>Screen reader order: Goal → Trail → Recommendation → CTA (logical flow)</li>
+                <li>aria-label: Applied to link-style CTA for clarity</li>
+                <li>Icon meaning: Icons are decorative only, labels provide all meaning</li>
+                <li>Keyboard navigation: CTA is fully keyboard accessible</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Responsive Behavior</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li>Container: Full width with max-width constraints from parent</li>
+                <li>Button CTA: w-full on mobile, sm:w-auto on tablet/desktop</li>
+                <li>Text: Wraps naturally, values truncate if extremely long (rare)</li>
+                <li>Icons: Always same size (scale with variant, not viewport)</li>
+                <li>Grid layout: Works well in 1-column mobile or 2-column desktop grids</li>
+              </ul>
             </div>
           </div>
         </section>
@@ -2552,9 +3021,9 @@ import { Star, Map, Target, Trophy, Award } from 'lucide-react';
 
         {/* Footer */}
         <footer className="text-center text-slate-500 text-sm py-8">
-          <p>TTDS Design System • TTA-103, TTA-104, TTA-107, TTA-117, TTA-118, TTA-119 • Transition Trails Academy</p>
+          <p>TTDS Design System • TTA-103, TTA-104, TTA-107, TTA-117, TTA-118, TTA-119, TTA-129 • Transition Trails Academy</p>
           <p className="mt-2">Built with React, TypeScript, and Tailwind CSS</p>
-          <p className="mt-1 text-xs">Buttons • Inputs • Controls • Chips • Badges • Tags • Stepper • Tooltip • Skeleton • Learner Stats • Header • TabStrip • Breadcrumbs • Pagination • Cards • Panels • Modals • Toasts</p>
+          <p className="mt-1 text-xs">Buttons • Inputs • Controls • Chips • Badges • Tags • Stepper • Tooltip • Skeleton • Learner Stats • Goals & Progress • Header • TabStrip • Breadcrumbs • Pagination • Cards • Panels • Modals • Toasts</p>
         </footer>
       </div>
 
