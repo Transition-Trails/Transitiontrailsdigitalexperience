@@ -22,7 +22,8 @@ import { Header } from './components/ttds/Header';
 import { TabStrip } from './components/ttds/TabStrip';
 import { Breadcrumbs } from './components/ttds/Breadcrumbs';
 import { Pagination } from './components/ttds/Pagination';
-import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, FileText, CheckCircle, Home, Layout, Library, Award } from 'lucide-react';
+import { LearnerStatsPanel } from './components/ttds/LearnerStatsPanel';
+import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star } from 'lucide-react';
 
 // Loading Demo Component
 function LoadingDemo() {
@@ -122,6 +123,7 @@ export default function App() {
             <span className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full">TTA-117</span>
             <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full">TTA-118</span>
             <span className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full">TTA-119</span>
+            <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full">TTA-107</span>
           </div>
         </header>
 
@@ -141,6 +143,7 @@ export default function App() {
             <a href="#tabstrip" className="px-3 py-1.5 text-sm text-teal-700 bg-teal-50 rounded">TabStrip</a>
             <a href="#breadcrumbs" className="px-3 py-1.5 text-sm text-teal-700 bg-teal-50 rounded">Breadcrumbs</a>
             <a href="#pagination" className="px-3 py-1.5 text-sm text-teal-700 bg-teal-50 rounded">Pagination</a>
+            <a href="#learnerstats" className="px-3 py-1.5 text-sm text-orange-700 bg-orange-50 rounded">Learner Stats</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -1557,6 +1560,201 @@ export default function App() {
           </div>
         </section>
 
+        {/* Learner Stats Panel Section */}
+        <section id="learnerstats" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <h2 className="text-slate-900 mb-2">Learner Stats Panel</h2>
+            <p className="text-slate-600">
+              Domain-specific panel for displaying learner progress metrics. Shows points, trails, missions, capstones, and badges in a scannable layout.
+            </p>
+          </div>
+
+          {/* Default (Full Grid) */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Default - Full Grid Layout</h3>
+            <LearnerStatsPanel />
+          </div>
+
+          {/* Compact Variant */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Compact Variant</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Reduced padding and smaller typography for space-constrained contexts.
+            </p>
+            <LearnerStatsPanel variant="compact" />
+          </div>
+
+          {/* Without Icons */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Without Icons</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Cleaner text-only presentation when icons are not needed.
+            </p>
+            <LearnerStatsPanel showIcons={false} />
+          </div>
+
+          {/* Horizontal Layout */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Horizontal Layout</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Stats displayed in a flex row instead of grid, better for wide viewports.
+            </p>
+            <LearnerStatsPanel layout="horizontal" />
+          </div>
+
+          {/* Without Title */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Without Title</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Use when the panel context is already clear from the surrounding page.
+            </p>
+            <LearnerStatsPanel showTitle={false} />
+          </div>
+
+          {/* Custom Stats */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Custom Stats Example</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Fully customizable stat items with optional trend indicators.
+            </p>
+            <LearnerStatsPanel
+              title="This Week's Progress"
+              stats={[
+                { id: 'points', label: 'Points Earned', value: 340, icon: <Star className="h-5 w-5" />, trend: 12 },
+                { id: 'lessons', label: 'Lessons Completed', value: 7, icon: <BookOpen className="h-5 w-5" />, trend: 8 },
+                { id: 'time', label: 'Hours Learned', value: 12, icon: <Cloud className="h-5 w-5" /> },
+              ]}
+            />
+          </div>
+
+          {/* Dashboard Context Example */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Dashboard Context</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Example of how the panel appears in a full dashboard view.
+            </p>
+            <div className="space-y-4 bg-gradient-to-br from-slate-50 to-stone-50 p-6 rounded-xl border border-slate-200">
+              {/* Dashboard Header */}
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-slate-900">Welcome back, Alex!</h3>
+                  <p className="text-sm text-slate-600 mt-1">Continue your learning journey</p>
+                </div>
+                <div className="flex gap-2">
+                  <Button variant="secondary" size="small">
+                    <Settings className="h-4 w-4" />
+                  </Button>
+                  <Button variant="primary" size="small">
+                    <Plus className="h-4 w-4" />
+                    New Trail
+                  </Button>
+                </div>
+              </div>
+
+              {/* Stats Panel */}
+              <LearnerStatsPanel 
+                stats={[
+                  { id: 'points', label: 'Total Points', value: 3250, icon: <Star className="h-5 w-5" /> },
+                  { id: 'trails', label: 'Trails Completed', value: 12, icon: <Map className="h-5 w-5" /> },
+                  { id: 'missions', label: 'Missions Completed', value: 38, icon: <Target className="h-5 w-5" /> },
+                  { id: 'capstones', label: 'Capstones Done', value: 5, icon: <Trophy className="h-5 w-5" /> },
+                  { id: 'badges', label: 'Badges Earned', value: 18, icon: <Award className="h-5 w-5" /> },
+                ]}
+              />
+
+              {/* Additional Dashboard Content */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Card elevation="low">
+                  <h4 className="text-slate-900 mb-2">Current Trail</h4>
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
+                      <Map className="h-6 w-6 text-emerald-700" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm text-slate-900">Advanced React Patterns</p>
+                      <p className="text-xs text-slate-500">Lesson 4 of 10 • 60% Complete</p>
+                    </div>
+                  </div>
+                  <div className="mt-3 h-2 bg-slate-100 rounded-full overflow-hidden">
+                    <div className="h-full bg-emerald-600 rounded-full" style={{ width: '60%' }}></div>
+                  </div>
+                </Card>
+
+                <Card elevation="low">
+                  <h4 className="text-slate-900 mb-2">Recent Achievements</h4>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center">
+                        <Trophy className="h-4 w-4 text-amber-700" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-xs text-slate-900">Trail Master</p>
+                        <p className="text-xs text-slate-500">2 days ago</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                        <Award className="h-4 w-4 text-blue-700" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="text-xs text-slate-900">Fast Learner</p>
+                        <p className="text-xs text-slate-500">5 days ago</p>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            </div>
+          </div>
+
+          {/* Responsive Grid Demo */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Responsive Behavior</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Grid automatically adjusts: 2 columns mobile, 3 tablet, 5 desktop.
+            </p>
+            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200 space-y-2 text-xs text-slate-600">
+              <p><strong>Mobile:</strong> grid-cols-2 (stacked stats)</p>
+              <p><strong>Tablet (sm):</strong> grid-cols-3 (3 stats per row)</p>
+              <p><strong>Desktop (lg):</strong> grid-cols-5 (all stats in one row)</p>
+            </div>
+          </div>
+
+          {/* Accessibility Note */}
+          <div className="p-4 bg-orange-50 border border-orange-200 rounded-lg">
+            <p className="text-sm text-orange-900">
+              <strong>Accessibility Features:</strong> Semantic HTML structure, high contrast text (WCAG AA), 
+              clear labels for all metrics, number formatting for readability (commas for thousands), 
+              responsive layout preserves reading order.
+            </p>
+          </div>
+
+          {/* Usage Guidelines */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Usage Guidelines</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+              <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200">
+                <strong className="text-emerald-900">✓ Do</strong>
+                <ul className="mt-2 space-y-1 text-emerald-800 text-xs">
+                  <li>• Use in dashboard views for learner overview</li>
+                  <li>• Show 5-7 key metrics maximum</li>
+                  <li>• Use compact variant in sidebars</li>
+                  <li>• Format large numbers with commas</li>
+                </ul>
+              </div>
+              <div className="p-3 bg-red-50 rounded-lg border border-red-200">
+                <strong className="text-red-900">✗ Don't</strong>
+                <ul className="mt-2 space-y-1 text-red-800 text-xs">
+                  <li>• Overcrowd with 10+ metrics</li>
+                  <li>• Use for non-learner statistics</li>
+                  <li>• Mix different metric types (keep related)</li>
+                  <li>• Use horizontal layout on mobile</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Cards Section */}
         <section id="cards" className="space-y-6">
           <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
@@ -1889,6 +2087,132 @@ export default function App() {
                   />
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Learner Stats Panel Documentation */}
+        <section className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl shadow-sm border border-orange-200 p-8 space-y-4">
+          <h2 className="text-slate-900">TT Learner Stats Panel – Notes (TTA-107)</h2>
+          
+          <div className="space-y-4 text-slate-700">
+            <div>
+              <h3 className="text-slate-800 mb-2">Component Overview</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>Type:</strong> Domain-specific component (TT namespace)</li>
+                <li><strong>Purpose:</strong> Display learner progress metrics in dashboard views</li>
+                <li><strong>Base:</strong> Built on TTDS Panel/Card foundation</li>
+                <li><strong>Default Metrics:</strong> Points, Trails, Missions, Capstones, Badges</li>
+                <li><strong>Customization:</strong> Fully customizable stat items and configuration</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Variants & Props</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>variant:</strong> 'full' (p-6) or 'compact' (p-4, smaller text)</li>
+                <li><strong>layout:</strong> 'grid' (responsive columns) or 'horizontal' (flex row)</li>
+                <li><strong>showIcons:</strong> true (icons visible) or false (text-only)</li>
+                <li><strong>showTitle:</strong> true (with title) or false (title hidden)</li>
+                <li><strong>title:</strong> Custom title string (default: "Your Progress")</li>
+                <li><strong>stats:</strong> Array of stat objects with label, value, icon, optional trend</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Stat Object Structure</h3>
+              <div className="bg-white rounded-lg p-4 font-mono text-xs overflow-x-auto">
+                <pre className="text-slate-800">{`interface LearnerStat {
+  id: string;           // Unique identifier
+  label: string;        // Display label (e.g., "Total Points")
+  value: number;        // Numeric value (auto-formatted with commas)
+  icon?: ReactNode;     // Optional Lucide icon component
+  trend?: number;       // Optional percentage change indicator
+}`}</pre>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Responsive Grid Behavior</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>Mobile (default):</strong> grid-cols-2 → 2 stats per row</li>
+                <li><strong>Tablet (sm: 640px+):</strong> grid-cols-3 → 3 stats per row</li>
+                <li><strong>Desktop (lg: 1024px+):</strong> grid-cols-5 → all 5 stats in one row</li>
+                <li><strong>Horizontal layout:</strong> flex-wrap with min-w-[120px] per stat</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Design Tokens</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>Container:</strong> white background, slate-200 border, rounded-xl (12px)</li>
+                <li><strong>Padding:</strong> Full variant p-6 (24px), Compact p-4 (16px)</li>
+                <li><strong>Spacing:</strong> space-y-2 (8px) between elements, gap-4 (16px) in grid</li>
+                <li><strong>Icons:</strong> h-5 w-5 (20px), emerald-600 color</li>
+                <li><strong>Labels:</strong> text-sm (14px), slate-600 (or text-xs compact)</li>
+                <li><strong>Values:</strong> text-2xl (24px) full, text-xl (20px) compact, slate-900</li>
+                <li><strong>Title:</strong> h3 element, slate-900, base size or text-base for compact</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">When to Use</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>Dashboard:</strong> Primary use case at top of learner dashboard</li>
+                <li><strong>Profile Pages:</strong> Overview section showing learner achievements</li>
+                <li><strong>Progress Reports:</strong> Summary of completed activities</li>
+                <li><strong>Onboarding:</strong> Show starting state (all zeros) to encourage engagement</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Related Components</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li><strong>TTDS/Card:</strong> Base container component</li>
+                <li><strong>TTDS/Panel:</strong> Alternative base for panels</li>
+                <li><strong>TTDS/ChipLevel:</strong> Can be used alongside for level indicators</li>
+                <li><strong>TTDS/Badge:</strong> Can show badges earned in detail view</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Example Usage</h3>
+              <div className="bg-white rounded-lg p-4 font-mono text-xs overflow-x-auto">
+                <pre className="text-slate-800">{`import { LearnerStatsPanel } from './components/ttds/LearnerStatsPanel';
+import { Star, Map, Target, Trophy, Award } from 'lucide-react';
+
+// Default usage
+<LearnerStatsPanel />
+
+// Compact sidebar version
+<LearnerStatsPanel variant="compact" showTitle={false} />
+
+// Custom stats with trends
+<LearnerStatsPanel
+  title="This Week"
+  stats={[
+    { 
+      id: 'points', 
+      label: 'Points Earned', 
+      value: 340,
+      icon: <Star className="h-5 w-5" />,
+      trend: 12  // +12% indicator
+    },
+    // ... more stats
+  ]}
+/>`}</pre>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-slate-800 mb-2">Accessibility</h3>
+              <ul className="list-disc list-inside space-y-1 text-sm">
+                <li>Semantic HTML: h3 for title, proper heading hierarchy</li>
+                <li>WCAG AA contrast: slate-600 text on white (7.6:1), slate-900 headings (14.9:1)</li>
+                <li>Number formatting: toLocaleString() adds commas for readability</li>
+                <li>Reading order: Grid layout preserves logical stat order</li>
+                <li>No interactive elements: Panel is informational only (no focus states needed)</li>
+              </ul>
             </div>
           </div>
         </section>
@@ -2228,9 +2552,9 @@ export default function App() {
 
         {/* Footer */}
         <footer className="text-center text-slate-500 text-sm py-8">
-          <p>TTDS Design System • TTA-103, TTA-104, TTA-117, TTA-118, TTA-119 • Transition Trails Academy</p>
+          <p>TTDS Design System • TTA-103, TTA-104, TTA-107, TTA-117, TTA-118, TTA-119 • Transition Trails Academy</p>
           <p className="mt-2">Built with React, TypeScript, and Tailwind CSS</p>
-          <p className="mt-1 text-xs">Buttons • Inputs • Controls • Chips • Badges • Tags • Stepper • Tooltip • Skeleton • Header • TabStrip • Breadcrumbs • Pagination • Cards • Panels • Modals • Toasts</p>
+          <p className="mt-1 text-xs">Buttons • Inputs • Controls • Chips • Badges • Tags • Stepper • Tooltip • Skeleton • Learner Stats • Header • TabStrip • Breadcrumbs • Pagination • Cards • Panels • Modals • Toasts</p>
         </footer>
       </div>
 
