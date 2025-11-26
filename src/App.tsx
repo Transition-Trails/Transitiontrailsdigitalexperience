@@ -30,6 +30,7 @@ import { EventSessionCard } from './components/ttds/EventSessionCard';
 import { RoadmapItemCard } from './components/ttds/RoadmapItemCard';
 import { LearningActivityCard } from './components/ttds/LearningActivityCard';
 import { AssignmentCard } from './components/ttds/AssignmentCard';
+import { PennyInsightRail } from './components/ttds/PennyInsightRail';
 import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar } from 'lucide-react';
 
 // Loading Demo Component
@@ -137,6 +138,7 @@ export default function App() {
             <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full">TTA-123</span>
             <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full">TTA-133</span>
             <span className="px-3 py-1 bg-violet-100 text-violet-700 rounded-full">TTA-132</span>
+            <span className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full">TTA-109</span>
           </div>
         </header>
 
@@ -164,6 +166,7 @@ export default function App() {
             <a href="#roadmap" className="px-3 py-1.5 text-sm text-indigo-700 bg-indigo-50 rounded">Roadmap</a>
             <a href="#learningactivity" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded">Learning Activities</a>
             <a href="#assignment" className="px-3 py-1.5 text-sm text-violet-700 bg-violet-50 rounded">Assignments</a>
+            <a href="#penny" className="px-3 py-1.5 text-sm text-pink-700 bg-pink-50 rounded">Penny Insights</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -4902,6 +4905,488 @@ export default function App() {
               <li>Recommended: 2 columns on tablet, 1 column on mobile for optimal readability</li>
               <li>Minimum card width: 320px to accommodate resource buttons</li>
             </ul>
+          </div>
+        </section>
+
+        {/* Penny Insight Rail Section */}
+        <section id="penny" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <h2 className="text-slate-900 mb-2">Penny Insight Rail</h2>
+            <p className="text-slate-600">
+              Right-rail dashboard component that displays short AI-generated insights from Penny (the AI assistant), 
+              with context about why the insight is shown and an actionable CTA for the learner.
+            </p>
+          </div>
+
+          {/* All CTA Type Variants */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">CTA Type Variants</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              The component supports three CTA types: View Suggestions, Quick Quiz, and AI Trail Recommendations. 
+              Each provides a specific action based on the AI insight.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <PennyInsightRail
+                aiCoachingNote="You're making great progress on validation rules! Consider exploring formula fields next to build on that momentum."
+                contextLine="Based on your last 3 missions"
+                ctaType="view-suggestions"
+              />
+              <PennyInsightRail
+                aiCoachingNote="Ready to test your knowledge on Flow Builder? You've completed all the prerequisites and seem confident with the material."
+                contextLine="Because your last assignment was submitted"
+                ctaType="quick-quiz"
+              />
+              <PennyInsightRail
+                aiCoachingNote="Based on your interests in automation and your strong performance with Process Builder, I've found some trails you might enjoy."
+                contextLine="Based on your recent activity"
+                ctaType="ai-trail-recommendations"
+              />
+            </div>
+          </div>
+
+          {/* Full Density Examples */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Full Density Layout</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Default layout with standard padding (24px) and spacing (16px between sections) for comfortable readability.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl">
+              <PennyInsightRail
+                aiCoachingNote="Your dashboard reports are looking sharp! Have you thought about adding drill-down capabilities for deeper insights?"
+                contextLine="Based on your recent project work"
+                ctaType="view-suggestions"
+                density="full"
+              />
+              <PennyInsightRail
+                aiCoachingNote="You've mastered the basics of security models. Time to level up with advanced sharing rules and territory management."
+                contextLine="After completing 5 security assignments"
+                ctaType="ai-trail-recommendations"
+                density="full"
+              />
+            </div>
+          </div>
+
+          {/* Compact Density Examples */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Compact Density Layout</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Compact layout with reduced padding (16px) and spacing (12px) for tighter dashboard layouts or when vertical space is limited.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl">
+              <PennyInsightRail
+                aiCoachingNote="Quick check: Can you explain the difference between a trigger and a flow in under 30 seconds?"
+                contextLine="Based on your recent study topics"
+                ctaType="quick-quiz"
+                density="compact"
+              />
+              <PennyInsightRail
+                aiCoachingNote="Your peer review skills are excellent! Consider volunteering as a code reviewer for newer learners."
+                contextLine="After completing 8 peer reviews"
+                ctaType="view-suggestions"
+                density="compact"
+              />
+            </div>
+          </div>
+
+          {/* With and Without Penny Label */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Penny Label Variants</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              The component can optionally display "Insight from Penny" with a sparkle icon at the top. 
+              When the label is hidden, the insight becomes the primary visual element.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl">
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">With Penny Label</h4>
+                <PennyInsightRail
+                  aiCoachingNote="You're showing strong aptitude for data modeling. Have you considered specializing in database architecture?"
+                  contextLine="Based on your assignment scores"
+                  ctaType="ai-trail-recommendations"
+                  showPennyLabel={true}
+                />
+              </div>
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">Without Penny Label</h4>
+                <PennyInsightRail
+                  aiCoachingNote="You're showing strong aptitude for data modeling. Have you considered specializing in database architecture?"
+                  contextLine="Based on your assignment scores"
+                  ctaType="ai-trail-recommendations"
+                  showPennyLabel={false}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Insight Length Examples */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Insight Length Variants</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Insights can range from short single-sentence notes to medium-length two-sentence suggestions. 
+              Text wraps gracefully to accommodate various insight lengths.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl">
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">Short Insight (1 sentence)</h4>
+                <PennyInsightRail
+                  aiCoachingNote="Great job on your last three submissions!"
+                  contextLine="Based on recent performance"
+                  ctaType="quick-quiz"
+                  density="compact"
+                />
+              </div>
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">Medium Insight (2 sentences)</h4>
+                <PennyInsightRail
+                  aiCoachingNote="I noticed you're excelling at technical implementation but taking longer on planning phases. Consider spending more time on design documents before coding—it often saves time in the long run."
+                  contextLine="After analyzing your last 10 assignments"
+                  ctaType="view-suggestions"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Real-World Context Examples */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Real-World Insight Scenarios</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Examples of how Penny insights appear in different learner journey contexts.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <PennyInsightRail
+                aiCoachingNote="You haven't logged in for 5 days. Your cohort just started a new module on Lightning Web Components—want to catch up?"
+                contextLine="Based on your activity gap"
+                ctaType="ai-trail-recommendations"
+              />
+              <PennyInsightRail
+                aiCoachingNote="You're consistently scoring 95%+ on quizzes but seem less confident in assignments. This is common—let's build that confidence!"
+                contextLine="After comparing quiz vs. assignment performance"
+                ctaType="view-suggestions"
+              />
+              <PennyInsightRail
+                aiCoachingNote="You've completed all prerequisites for the Salesforce Admin certification. Ready to schedule your exam?"
+                contextLine="Based on completed learning paths"
+                ctaType="view-suggestions"
+              />
+              <PennyInsightRail
+                aiCoachingNote="Your peer helped you debug that trigger issue yesterday. Want to pay it forward by helping another learner?"
+                contextLine="After receiving peer support"
+                ctaType="view-suggestions"
+              />
+              <PennyInsightRail
+                aiCoachingNote="You've been exploring advanced Apex topics on your own. There's an upcoming study group that might interest you!"
+                contextLine="Based on your self-directed learning"
+                ctaType="ai-trail-recommendations"
+              />
+              <PennyInsightRail
+                aiCoachingNote="Quick knowledge check: What's the relationship between profiles and permission sets?"
+                contextLine="Based on today's lesson"
+                ctaType="quick-quiz"
+              />
+            </div>
+          </div>
+
+          {/* Dashboard Right Rail Context */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Dashboard Right Rail Context</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Example of Penny Insight Rail in its primary placement: the dashboard right rail alongside other contextual information.
+            </p>
+            <div className="bg-slate-50 rounded-lg border border-slate-200 p-6">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* Main Content Area */}
+                <div className="lg:col-span-2 space-y-4">
+                  <h4 className="text-slate-900">Main Dashboard Content</h4>
+                  <div className="bg-white rounded-lg border border-slate-200 p-6">
+                    <p className="text-slate-600 mb-4">Learner stats, goals, assignments, and activity feed appear here...</p>
+                    <LearnerStatsPanel
+                      completedMissions={24}
+                      currentStreak={7}
+                      totalXP={3450}
+                      nextMilestone="Salesforce Admin Cert"
+                    />
+                  </div>
+                </div>
+
+                {/* Right Rail */}
+                <div className="space-y-4">
+                  <h4 className="text-slate-900">Right Rail</h4>
+                  <PennyInsightRail
+                    aiCoachingNote="You're 80% through the Admin trail and ahead of schedule! Your pace suggests you could complete certification prep 2 weeks early."
+                    contextLine="Based on your progress this month"
+                    ctaType="ai-trail-recommendations"
+                  />
+                  <div className="bg-white rounded-lg border border-slate-200 p-4">
+                    <h5 className="text-sm text-slate-700 mb-2">Upcoming Events</h5>
+                    <p className="text-sm text-slate-600">Other rail content appears here...</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Multiple Insights in Right Rail */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Multiple Insights Pattern</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              When multiple insights are available, they can be stacked vertically in the right rail. 
+              Typically showing the most relevant or recent insight first.
+            </p>
+            <div className="max-w-md space-y-4">
+              <PennyInsightRail
+                aiCoachingNote="Your study group session yesterday covered complex topics. Want to review the key concepts with a quick quiz?"
+                contextLine="After study group participation"
+                ctaType="quick-quiz"
+                density="compact"
+              />
+              <PennyInsightRail
+                aiCoachingNote="You mentioned interest in nonprofit work during onboarding. Check out these NPSP-focused trails!"
+                contextLine="Based on your career goals"
+                ctaType="ai-trail-recommendations"
+                density="compact"
+              />
+              <PennyInsightRail
+                aiCoachingNote="Nice work on that formula field challenge. Ready for the next level?"
+                contextLine="After assignment completion"
+                ctaType="view-suggestions"
+                density="compact"
+              />
+            </div>
+          </div>
+
+          {/* Component Props Reference */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Component Props & API</h3>
+            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+              <h4 className="text-slate-900 mb-3">Required Props (3 Fields)</h4>
+              <div className="space-y-3 text-sm mb-4">
+                <div>
+                  <strong className="text-slate-900">aiCoachingNote:</strong>
+                  <span className="text-slate-600"> string - Short AI-generated insight or suggestion (1-2 sentences recommended)</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">contextLine:</strong>
+                  <span className="text-slate-600"> string - Explains why this insight is being shown (e.g., "Based on your last 3 missions...")</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">ctaType:</strong>
+                  <span className="text-slate-600"> 'view-suggestions' | 'quick-quiz' | 'ai-trail-recommendations' - Action type</span>
+                </div>
+              </div>
+
+              <h4 className="text-slate-900 mb-3">Optional Props</h4>
+              <div className="space-y-2 text-sm">
+                <div>
+                  <strong className="text-slate-900">density:</strong>
+                  <span className="text-slate-600"> 'full' | 'compact' - Layout density (default: 'full')</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">showPennyLabel:</strong>
+                  <span className="text-slate-600"> boolean - Show "Insight from Penny" label (default: true)</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">onCTAClick:</strong>
+                  <span className="text-slate-600"> () =&gt; void - CTA button click handler</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA Type Reference */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">CTA Type Configuration</h3>
+            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+              <div className="space-y-3 text-sm">
+                <div className="flex items-center justify-between p-2 bg-white rounded border border-slate-200">
+                  <span className="text-slate-700">view-suggestions</span>
+                  <Button variant="secondary" size="small">View Suggestions</Button>
+                </div>
+                <div className="flex items-center justify-between p-2 bg-white rounded border border-slate-200">
+                  <span className="text-slate-700">quick-quiz</span>
+                  <Button variant="primary" size="small">Quick Quiz</Button>
+                </div>
+                <div className="flex items-center justify-between p-2 bg-white rounded border border-slate-200">
+                  <span className="text-slate-700">ai-trail-recommendations</span>
+                  <Button variant="secondary" size="small">AI Trail Recommendations</Button>
+                </div>
+              </div>
+              <p className="text-sm text-slate-600 mt-3">
+                Note: "Quick Quiz" uses primary button variant to encourage immediate action. 
+                Other CTAs use secondary variant as they lead to discovery/exploration flows.
+              </p>
+            </div>
+          </div>
+
+          {/* Accessibility Features */}
+          <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
+            <p className="text-sm text-emerald-900">
+              <strong>Accessibility Features:</strong> Semantic HTML structure with logical reading order (Label → Insight → Context → CTA), 
+              WCAG AA contrast ratios on all text elements (emerald-600 icon, slate-700 label, slate-900 insight, slate-600 context), 
+              CTA button includes visible focus state and proper keyboard accessibility, 
+              Sparkles icon provides visual branding but is not essential for meaning, 
+              "Insight from Penny" label provides screen reader context for AI-generated content, 
+              full-width CTA button provides large touch target on mobile devices, 
+              component maintains readability at all viewport sizes with appropriate text wrapping.
+            </p>
+          </div>
+
+          {/* Usage Guidelines */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Usage Guidelines</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+              <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-700" />
+                  <strong className="text-emerald-900">Do:</strong>
+                </div>
+                <ul className="text-emerald-800 space-y-1 ml-6 list-disc">
+                  <li>Keep insights brief and actionable (1-2 sentences)</li>
+                  <li>Make context lines specific and meaningful</li>
+                  <li>Use Quick Quiz CTA for knowledge checks</li>
+                  <li>Use View Suggestions for next steps or tips</li>
+                  <li>Use AI Trail Recommendations for learning paths</li>
+                  <li>Place in right rail alongside other contextual info</li>
+                  <li>Update insights regularly based on learner activity</li>
+                  <li>Match CTA type to the insight's purpose</li>
+                </ul>
+              </div>
+              <div className="p-3 bg-rose-50 rounded-lg border border-rose-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <AlertCircle className="h-4 w-4 text-rose-700" />
+                  <strong className="text-rose-900">Don't:</strong>
+                </div>
+                <ul className="text-rose-800 space-y-1 ml-6 list-disc">
+                  <li>Don't write long paragraphs (keep to 1-2 sentences)</li>
+                  <li>Don't use vague context like "Based on stuff"</li>
+                  <li>Don't show outdated or stale insights</li>
+                  <li>Don't overload dashboard with too many insights</li>
+                  <li>Don't use generic CTAs that don't match content</li>
+                  <li>Don't place in main content area (right rail only)</li>
+                  <li>Don't forget to make insights personalized</li>
+                  <li>Don't show insights without clear next actions</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Content Strategy Guidelines */}
+          <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <h4 className="text-slate-900 mb-2">Content Strategy for AI Insights</h4>
+            <div className="space-y-3 text-sm text-blue-900">
+              <div>
+                <strong>Tone:</strong> Encouraging, supportive, and coach-like. Use "you" and "your" to personalize. 
+                Avoid corporate jargon or overly formal language.
+              </div>
+              <div>
+                <strong>Timing:</strong> Show insights based on recent activity (within last 24-48 hours). 
+                Stale insights reduce trust in AI recommendations.
+              </div>
+              <div>
+                <strong>Relevance:</strong> Context line must clearly explain the "why" so learners understand 
+                the insight is data-driven and personalized, not random.
+              </div>
+              <div>
+                <strong>Action-Oriented:</strong> Every insight should lead to a clear, achievable action. 
+                Avoid insights that are purely observational without next steps.
+              </div>
+              <div>
+                <strong>Frequency:</strong> Limit to 1-3 insights in right rail. Too many insights create decision fatigue. 
+                Prioritize by relevance and recency.
+              </div>
+            </div>
+          </div>
+
+          {/* Use Cases */}
+          <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <h4 className="text-slate-900 mb-2">Use Cases</h4>
+            <ul className="text-sm text-blue-900 space-y-1 ml-5 list-disc">
+              <li><strong>Dashboard Right Rail:</strong> Primary placement showing the most relevant current insight</li>
+              <li><strong>Post-Assignment Feedback:</strong> Contextual coaching after completing assignments</li>
+              <li><strong>Re-engagement:</strong> Bringing learners back after periods of inactivity</li>
+              <li><strong>Progress Celebration:</strong> Acknowledging milestones and encouraging continued momentum</li>
+              <li><strong>Personalized Recommendations:</strong> Suggesting trails, study groups, or resources based on behavior</li>
+              <li><strong>Knowledge Reinforcement:</strong> Offering quick quizzes to solidify recent learning</li>
+              <li><strong>Peer Connection:</strong> Encouraging peer review, study groups, or mentorship opportunities</li>
+              <li><strong>Career Guidance:</strong> Connecting learning activities to career goals and certifications</li>
+            </ul>
+          </div>
+
+          {/* Design Tokens Used */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Design Tokens & Components Used</h3>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">bg-white (surface)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">border-slate-200 (border)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">rounded-lg (8px radius)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">shadow-sm (minimal elevation)</span>
+              <span className="px-3 py-1 bg-violet-100 text-violet-700 rounded">p-4, p-6 (16px, 24px padding)</span>
+              <span className="px-3 py-1 bg-violet-100 text-violet-700 rounded">gap-2, gap-3, gap-4 (8px, 12px, 16px spacing)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Sparkles icon (emerald-600)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">text-sm (label, context)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">slate-700 (label text)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">slate-900 (insight text)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">slate-600 (context text)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Button (primary/secondary, small/medium)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">w-full (full-width CTA)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">pt-2 (divider spacing above CTA)</span>
+            </div>
+          </div>
+
+          {/* Component Dimensions */}
+          <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <h4 className="text-slate-900 mb-2">Recommended Dimensions</h4>
+            <ul className="text-sm text-blue-900 space-y-1 ml-5 list-disc">
+              <li><strong>Width:</strong> 280-360px (typical right rail width)</li>
+              <li><strong>Full Density Padding:</strong> 24px (p-6)</li>
+              <li><strong>Compact Density Padding:</strong> 16px (p-4)</li>
+              <li><strong>Full Density Spacing:</strong> 16px between sections (gap-4)</li>
+              <li><strong>Compact Density Spacing:</strong> 12px between sections (gap-3)</li>
+              <li><strong>Minimum Width:</strong> 240px before content becomes cramped</li>
+              <li><strong>Maximum Width:</strong> 400px to maintain readability and rail proportions</li>
+            </ul>
+          </div>
+
+          {/* Integration Examples */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Integration with Dashboard Panels</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Penny Insight Rail works alongside other TT Domain Components in dashboard layouts.
+            </p>
+            <div className="bg-slate-50 rounded-lg border border-slate-200 p-6">
+              <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                {/* Main Content */}
+                <div className="lg:col-span-3 space-y-4">
+                  <GoalsAndProgressPanel
+                    goals={[
+                      { id: '1', title: 'Complete Admin Trail', progress: 75, dueDate: '2025-12-15' },
+                      { id: '2', title: 'Pass Platform Developer I', progress: 45, dueDate: '2026-01-30' }
+                    ]}
+                  />
+                  <SkillsAndCertsPanel
+                    skills={['Apex', 'Lightning Web Components', 'Flow Builder']}
+                    certifications={[
+                      { name: 'Salesforce Administrator', status: 'in-progress', progress: 80 }
+                    ]}
+                  />
+                </div>
+
+                {/* Right Rail with Penny Insight */}
+                <div className="space-y-4">
+                  <PennyInsightRail
+                    aiCoachingNote="You're 75% through the Admin trail! Your progress pace suggests you'll finish by December 10th—5 days ahead of your goal."
+                    contextLine="Based on your current progress"
+                    ctaType="view-suggestions"
+                  />
+                  <div className="p-4 bg-white rounded-lg border border-slate-200">
+                    <h5 className="text-sm text-slate-700 mb-2">Quick Links</h5>
+                    <ul className="text-sm text-slate-600 space-y-1">
+                      <li>• Study Calendar</li>
+                      <li>• Help Center</li>
+                      <li>• Community</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
