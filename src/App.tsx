@@ -36,7 +36,8 @@ import { PennyTip } from './components/ttds/PennyTip';
 import { TTCommunityPostCard } from './components/tt/CommunityPostCard';
 import { TTMetricTile } from './components/tt/MetricTile';
 import { TTDonateSection } from './components/tt/DonateSection';
-import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, Users, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar } from 'lucide-react';
+import { TTProgramOverviewCard } from './components/tt/ProgramOverviewCard';
+import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, Users, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar, GraduationCap, Shield, Eye, Briefcase } from 'lucide-react';
 
 // Interactive Donate Demo Component
 function InteractiveDonateDemo() {
@@ -185,6 +186,7 @@ export default function App() {
             <span className="px-3 py-1 bg-lime-100 text-lime-700 rounded-full">TTA-108</span>
             <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full">TTA-124</span>
             <span className="px-3 py-1 bg-rose-100 text-rose-700 rounded-full">TTA-125</span>
+            <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full">TTA-122</span>
           </div>
         </header>
 
@@ -218,6 +220,7 @@ export default function App() {
             <a href="#communitypost" className="px-3 py-1.5 text-sm text-lime-700 bg-lime-50 rounded">Community Post</a>
             <a href="#metrictile" className="px-3 py-1.5 text-sm text-orange-700 bg-orange-50 rounded">Impact Metrics</a>
             <a href="#donate" className="px-3 py-1.5 text-sm text-rose-700 bg-rose-50 rounded">Donation CTA</a>
+            <a href="#programoverview" className="px-3 py-1.5 text-sm text-indigo-700 bg-indigo-50 rounded">Program Overview</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -7831,6 +7834,522 @@ interface PennyTipProps {
                     <div className="text-slate-900">TTDS Token Compliance</div>
                     <div className="text-sm text-slate-600">Uses spacing (16/24/32/40), radius (8px), and typography tokens throughout</div>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Program Overview Card Section */}
+        <section id="programoverview" className="space-y-6">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+            <div>
+              <h2 className="text-slate-900 mb-2">Program Overview Card</h2>
+              <p className="text-slate-600">
+                Domain component for Program Overview page template. Provides high-level summaries of Transition Trails programs for easy comparison.
+              </p>
+            </div>
+
+            {/* All 4 Program Types - Full Density with Button CTA */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">All Program Types (Full Density)</h3>
+                <p className="text-sm text-slate-600">Displays all required fields including outcomes</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {/* Intern Program */}
+                <TTProgramOverviewCard
+                  programName="Guided Trail – Admin"
+                  whoItsFor="For aspiring Salesforce Admins ready to gain hands-on experience"
+                  duration="6 months"
+                  programType="intern"
+                  icon={GraduationCap}
+                  outcomes={[
+                    'Hands-on Salesforce project experience',
+                    'Resume and portfolio development',
+                    'Supported by expert coaches',
+                    'Real-world nonprofit collaboration',
+                    'Path to Admin certification'
+                  ]}
+                  ctaLabel="Learn More"
+                  density="full"
+                  ctaStyle="button"
+                  onCTAClick={() => console.log('Clicked: Guided Trail')}
+                />
+
+                {/* Associate Program */}
+                <TTProgramOverviewCard
+                  programName="Trail of Mastery – BA Track"
+                  whoItsFor="For Business Analyst professionals seeking advanced skills"
+                  duration="8–12 weeks"
+                  programType="associate"
+                  icon={Shield}
+                  outcomes={[
+                    'Advanced BA methodologies',
+                    'Stakeholder management skills',
+                    'Process optimization techniques',
+                    'Certification preparation support'
+                  ]}
+                  ctaLabel="View Program"
+                  density="full"
+                  ctaStyle="button"
+                  onCTAClick={() => console.log('Clicked: Trail of Mastery')}
+                />
+
+                {/* Membership Program */}
+                <TTProgramOverviewCard
+                  programName="Explorer's Journey"
+                  whoItsFor="For self-directed learners exploring Salesforce careers"
+                  duration="Self-paced"
+                  programType="membership"
+                  icon={Compass}
+                  outcomes={[
+                    'Access to learning resources',
+                    'Community support and networking',
+                    'Monthly skill-building workshops',
+                    'Career guidance and mentorship',
+                    'Flexible learning schedule'
+                  ]}
+                  ctaLabel="Join Explorer's Journey"
+                  density="full"
+                  ctaStyle="button"
+                  onCTAClick={() => console.log('Clicked: Explorer Journey')}
+                />
+
+                {/* Visitor Program */}
+                <TTProgramOverviewCard
+                  programName="Visitor Pass"
+                  whoItsFor="For those curious about the Salesforce ecosystem"
+                  duration="1 month trial"
+                  programType="visitor"
+                  icon={Eye}
+                  outcomes={[
+                    'Explore learning paths',
+                    'Attend intro workshops',
+                    'Connect with community',
+                    'No commitment required'
+                  ]}
+                  ctaLabel="Get Started"
+                  density="full"
+                  ctaStyle="button"
+                  onCTAClick={() => console.log('Clicked: Visitor Pass')}
+                />
+              </div>
+            </div>
+
+            {/* Compact Density Variants */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Compact Density (No Outcomes)</h3>
+                <p className="text-sm text-slate-600">Simplified cards for quick comparison grids</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <TTProgramOverviewCard
+                  programName="Guided Trail – Developer"
+                  whoItsFor="For aspiring Salesforce Developers"
+                  duration="6 months"
+                  programType="intern"
+                  icon={GraduationCap}
+                  ctaLabel="Learn More"
+                  density="compact"
+                  ctaStyle="button"
+                  onCTAClick={() => console.log('Clicked')}
+                />
+
+                <TTProgramOverviewCard
+                  programName="Trail of Mastery – Architect"
+                  whoItsFor="For experienced architects seeking mastery"
+                  duration="10 weeks"
+                  programType="associate"
+                  icon={Shield}
+                  ctaLabel="View Details"
+                  density="compact"
+                  ctaStyle="button"
+                  onCTAClick={() => console.log('Clicked')}
+                />
+
+                <TTProgramOverviewCard
+                  programName="Explorer's Journey"
+                  whoItsFor="For self-directed learners"
+                  duration="Self-paced"
+                  programType="membership"
+                  icon={Compass}
+                  ctaLabel="Join Now"
+                  density="compact"
+                  ctaStyle="button"
+                  onCTAClick={() => console.log('Clicked')}
+                />
+
+                <TTProgramOverviewCard
+                  programName="Visitor Pass"
+                  whoItsFor="For curious newcomers"
+                  duration="1 month"
+                  programType="visitor"
+                  icon={Eye}
+                  ctaLabel="Try Free"
+                  density="compact"
+                  ctaStyle="button"
+                  onCTAClick={() => console.log('Clicked')}
+                />
+              </div>
+            </div>
+
+            {/* Link CTA Style */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Link CTA Style</h3>
+                <p className="text-sm text-slate-600">Alternative CTA presentation for lighter emphasis</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <TTProgramOverviewCard
+                  programName="Guided Trail – Admin"
+                  whoItsFor="For aspiring Salesforce Admins"
+                  duration="6 months"
+                  programType="intern"
+                  icon={GraduationCap}
+                  outcomes={[
+                    'Hands-on project experience',
+                    'Portfolio development',
+                    'Expert coaching support',
+                    'Certification preparation'
+                  ]}
+                  ctaLabel="Learn more about this program"
+                  density="full"
+                  ctaStyle="link"
+                  onCTAClick={() => console.log('Clicked')}
+                />
+
+                <TTProgramOverviewCard
+                  programName="Trail of Mastery – BA Track"
+                  whoItsFor="For Business Analyst professionals"
+                  duration="8–12 weeks"
+                  programType="associate"
+                  icon={Shield}
+                  outcomes={[
+                    'Advanced BA skills',
+                    'Stakeholder management',
+                    'Process optimization'
+                  ]}
+                  ctaLabel="View program details"
+                  density="full"
+                  ctaStyle="link"
+                  onCTAClick={() => console.log('Clicked')}
+                />
+
+                <TTProgramOverviewCard
+                  programName="Explorer's Journey"
+                  whoItsFor="For self-directed learners"
+                  duration="Self-paced"
+                  programType="membership"
+                  icon={Compass}
+                  outcomes={[
+                    'Learning resources access',
+                    'Community networking',
+                    'Monthly workshops',
+                    'Career mentorship'
+                  ]}
+                  ctaLabel="Explore membership options"
+                  density="full"
+                  ctaStyle="link"
+                  onCTAClick={() => console.log('Clicked')}
+                />
+              </div>
+            </div>
+
+            {/* Mixed Layout Examples */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">2-Column Layout</h3>
+                <p className="text-sm text-slate-600">Common layout for feature comparison pages</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <TTProgramOverviewCard
+                  programName="Guided Trail – Full Stack"
+                  whoItsFor="For aspiring full-stack Salesforce developers seeking comprehensive training"
+                  duration="9 months"
+                  programType="intern"
+                  icon={GraduationCap}
+                  outcomes={[
+                    'Full-stack development experience',
+                    'Front-end and back-end skills',
+                    'Integration patterns mastery',
+                    'Real project deployment',
+                    'Professional portfolio pieces'
+                  ]}
+                  ctaLabel="Explore Full Stack Track"
+                  density="full"
+                  ctaStyle="button"
+                  onCTAClick={() => console.log('Clicked')}
+                />
+
+                <TTProgramOverviewCard
+                  programName="Professional Membership"
+                  whoItsFor="For working professionals wanting ongoing skill development"
+                  duration="Annual membership"
+                  programType="membership"
+                  icon={Briefcase}
+                  outcomes={[
+                    'Unlimited resource access',
+                    'Priority workshop registration',
+                    'Professional networking events',
+                    '1-on-1 quarterly coaching',
+                    'Exclusive community channels'
+                  ]}
+                  ctaLabel="Join Professional Tier"
+                  density="full"
+                  ctaStyle="button"
+                  onCTAClick={() => console.log('Clicked')}
+                />
+              </div>
+            </div>
+
+            {/* 3-Column Grid */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">3-Column Grid</h3>
+                <p className="text-sm text-slate-600">Balanced layout for program comparison</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <TTProgramOverviewCard
+                  programName="Guided Trail – Admin"
+                  whoItsFor="For aspiring Admins"
+                  duration="6 months"
+                  programType="intern"
+                  icon={GraduationCap}
+                  outcomes={[
+                    'Project experience',
+                    'Portfolio building',
+                    'Expert coaching'
+                  ]}
+                  ctaLabel="Learn More"
+                  density="full"
+                  ctaStyle="button"
+                />
+
+                <TTProgramOverviewCard
+                  programName="Explorer's Journey"
+                  whoItsFor="For self-directed learners"
+                  duration="Self-paced"
+                  programType="membership"
+                  icon={Compass}
+                  outcomes={[
+                    'Learning resources',
+                    'Community support',
+                    'Flexible schedule'
+                  ]}
+                  ctaLabel="Join Now"
+                  density="full"
+                  ctaStyle="button"
+                />
+
+                <TTProgramOverviewCard
+                  programName="Visitor Pass"
+                  whoItsFor="For curious newcomers"
+                  duration="1 month"
+                  programType="visitor"
+                  icon={Eye}
+                  outcomes={[
+                    'Explore paths',
+                    'Attend workshops',
+                    'No commitment'
+                  ]}
+                  ctaLabel="Get Started"
+                  density="full"
+                  ctaStyle="button"
+                />
+              </div>
+            </div>
+
+            {/* Without Icons */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Without Icons</h3>
+                <p className="text-sm text-slate-600">Simplified visual treatment</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <TTProgramOverviewCard
+                  programName="Guided Trail – Data Analytics"
+                  whoItsFor="For aspiring data analysts and reporting specialists"
+                  duration="6 months"
+                  programType="intern"
+                  outcomes={[
+                    'Tableau CRM fundamentals',
+                    'Dashboard design best practices',
+                    'Data modeling expertise',
+                    'Storytelling with data'
+                  ]}
+                  ctaLabel="View Program"
+                  density="full"
+                  ctaStyle="button"
+                />
+
+                <TTProgramOverviewCard
+                  programName="Trail of Mastery – Integration"
+                  whoItsFor="For developers mastering integration patterns"
+                  duration="10 weeks"
+                  programType="associate"
+                  outcomes={[
+                    'API design patterns',
+                    'Middleware solutions',
+                    'Security best practices',
+                    'Performance optimization'
+                  ]}
+                  ctaLabel="Explore Track"
+                  density="full"
+                  ctaStyle="button"
+                />
+              </div>
+            </div>
+
+            {/* Accessibility Features */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Accessibility Features</h3>
+                <p className="text-sm text-slate-600">WCAG AA compliant with comprehensive semantic structure</p>
+              </div>
+              <div className="bg-slate-50 rounded-lg p-6 space-y-3">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">WCAG AA Contrast Compliance</div>
+                    <div className="text-sm text-slate-600">All text meets minimum 4.5:1 contrast ratio against backgrounds</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Semantic HTML Structure</div>
+                    <div className="text-sm text-slate-600">Proper heading hierarchy and list semantics for outcomes</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Clear Keyboard Focus</div>
+                    <div className="text-sm text-slate-600">Visible focus outline on CTA buttons and links with proper focus ring</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Logical Screen Reader Order</div>
+                    <div className="text-sm text-slate-600">Program name → type → audience → duration → outcomes → CTA flow</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Descriptive ARIA Labels</div>
+                    <div className="text-sm text-slate-600">CTA buttons include program name context for screen readers</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Program Type Indicators</div>
+                    <div className="text-sm text-slate-600">Chips use text labels, not color alone, with accessible contrast</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Hover and Transition Effects</div>
+                    <div className="text-sm text-slate-600">Subtle shadow transition on hover provides visual feedback</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">TTDS Token Compliance</div>
+                    <div className="text-sm text-slate-600">Uses spacing (12/16/20/24), radius (8px), typography, and card tokens</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Layout Integration Example */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Template Integration Example</h3>
+                <p className="text-sm text-slate-600">How cards appear in the Program Overview page template</p>
+              </div>
+              <div className="bg-gradient-to-br from-slate-50 to-emerald-50/30 rounded-lg p-8 space-y-6">
+                <div className="text-center space-y-2">
+                  <h4 className="text-2xl text-slate-900">Explore Our Programs</h4>
+                  <p className="text-slate-600 max-w-2xl mx-auto">
+                    Choose the learning path that matches your goals and experience level. 
+                    Each program is designed to help you build real skills and launch your Salesforce career.
+                  </p>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  <TTProgramOverviewCard
+                    programName="Guided Trail"
+                    whoItsFor="For career switchers and new professionals"
+                    duration="6 months"
+                    programType="intern"
+                    icon={GraduationCap}
+                    outcomes={[
+                      'Real project experience',
+                      'Portfolio development',
+                      'Certification preparation',
+                      'Job placement support'
+                    ]}
+                    ctaLabel="Learn More"
+                    density="full"
+                    ctaStyle="button"
+                  />
+
+                  <TTProgramOverviewCard
+                    programName="Trail of Mastery"
+                    whoItsFor="For experienced professionals advancing skills"
+                    duration="8–12 weeks"
+                    programType="associate"
+                    icon={Shield}
+                    outcomes={[
+                      'Advanced techniques',
+                      'Leadership development',
+                      'Specialized tracks',
+                      'Industry recognition'
+                    ]}
+                    ctaLabel="Learn More"
+                    density="full"
+                    ctaStyle="button"
+                  />
+
+                  <TTProgramOverviewCard
+                    programName="Explorer's Journey"
+                    whoItsFor="For independent learners"
+                    duration="Self-paced"
+                    programType="membership"
+                    icon={Compass}
+                    outcomes={[
+                      'Resource library',
+                      'Community access',
+                      'Monthly workshops',
+                      'Flexible learning'
+                    ]}
+                    ctaLabel="Join Now"
+                    density="full"
+                    ctaStyle="button"
+                  />
+
+                  <TTProgramOverviewCard
+                    programName="Visitor Pass"
+                    whoItsFor="For those exploring options"
+                    duration="1 month trial"
+                    programType="visitor"
+                    icon={Eye}
+                    outcomes={[
+                      'Try before committing',
+                      'Explore resources',
+                      'Join intro sessions',
+                      'No strings attached'
+                    ]}
+                    ctaLabel="Start Free"
+                    density="full"
+                    ctaStyle="button"
+                  />
                 </div>
               </div>
             </div>
