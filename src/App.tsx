@@ -39,6 +39,7 @@ import { TTDonateSection } from './components/tt/DonateSection';
 import { TTProgramOverviewCard } from './components/tt/ProgramOverviewCard';
 import { TTAITrailCard } from './components/tt/AITrailCard';
 import { TTCitizenPlatformCard } from './components/tt/CitizenPlatformCard';
+import { TTTrailMissionCard } from './components/tt/TrailMissionCard';
 import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, Users, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar, GraduationCap, Shield, Eye, Briefcase, Sparkles, Bot, Wand2, Palette, FileType, Link2, Database, Workflow, Layers, PenTool } from 'lucide-react';
 
 // Interactive Donate Demo Component
@@ -191,6 +192,7 @@ export default function App() {
             <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full">TTA-122</span>
             <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full">AI Trail Card</span>
             <span className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full">TTA-120</span>
+            <span className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full">TTA-106</span>
           </div>
         </header>
 
@@ -227,6 +229,7 @@ export default function App() {
             <a href="#programoverview" className="px-3 py-1.5 text-sm text-indigo-700 bg-indigo-50 rounded">Program Overview</a>
             <a href="#aitrail" className="px-3 py-1.5 text-sm text-purple-700 bg-purple-50 rounded">AI Trail</a>
             <a href="#citizenplatform" className="px-3 py-1.5 text-sm text-cyan-700 bg-cyan-50 rounded">Citizen Platform</a>
+            <a href="#trailmission" className="px-3 py-1.5 text-sm text-teal-700 bg-teal-50 rounded">Trail Mission</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -9542,6 +9545,727 @@ interface PennyTipProps {
                   <Button variant="secondary" size="md">
                     View All 20+ Platforms
                   </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Trail Mission Card Section */}
+        <section id="trailmission" className="space-y-6">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+            <div>
+              <h2 className="text-slate-900 mb-2">Trail Mission Card (TTA-106)</h2>
+              <p className="text-slate-600">
+                Domain component for missions, assignments, and daily actions across Dashboard, Guided Trail, Sprint flows, and Capstone contexts. Shows mission metadata, status, and quick action controls.
+              </p>
+            </div>
+
+            {/* Mission Types */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Mission Types</h3>
+                <p className="text-sm text-slate-600">Daily missions, Sprint tasks, and Capstone projects</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <TTTrailMissionCard
+                  title="Complete Dashboard Build"
+                  missionType="daily"
+                  points={25}
+                  status="not-started"
+                  programName="Guided Trail"
+                  dueDate="Due today"
+                  isOverdue={false}
+                  density="full"
+                  onView={() => console.log('View mission')}
+                  onSubmit={() => console.log('Submit mission')}
+                  onMarkComplete={() => console.log('Mark complete')}
+                />
+
+                <TTTrailMissionCard
+                  title="Build API Integration Module"
+                  missionType="sprint"
+                  points={50}
+                  status="in-progress"
+                  programName="AI Trail"
+                  dueDate="Due in 3 days"
+                  isOverdue={false}
+                  progressPercent={65}
+                  density="full"
+                  onView={() => console.log('View mission')}
+                  onSubmit={() => console.log('Submit mission')}
+                  onMarkComplete={() => console.log('Mark complete')}
+                />
+
+                <TTTrailMissionCard
+                  title="Final Nonprofit Platform Prototype"
+                  missionType="capstone"
+                  points={200}
+                  status="in-progress"
+                  programName="BA Track"
+                  dueDate="Nov 28, 2025"
+                  isOverdue={false}
+                  progressPercent={40}
+                  density="full"
+                  onView={() => console.log('View mission')}
+                  onSubmit={() => console.log('Submit mission')}
+                />
+              </div>
+            </div>
+
+            {/* Mission Status Variants */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Mission Status States</h3>
+                <p className="text-sm text-slate-600">Not Started, In Progress (with optional progress bar), and Complete</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <TTTrailMissionCard
+                  title="Learn Python Fundamentals"
+                  missionType="daily"
+                  points={30}
+                  status="not-started"
+                  programName="Explorer's Journey"
+                  dueDate="Due in 2 days"
+                  isOverdue={false}
+                  density="full"
+                  onView={() => console.log('View')}
+                  onMarkComplete={() => console.log('Start mission')}
+                />
+
+                <TTTrailMissionCard
+                  title="Build Salesforce Dashboard"
+                  missionType="sprint"
+                  points={75}
+                  status="in-progress"
+                  programName="AI Trail"
+                  dueDate="Due tomorrow"
+                  isOverdue={false}
+                  progressPercent={80}
+                  density="full"
+                  onView={() => console.log('View')}
+                  onSubmit={() => console.log('Submit')}
+                  onMarkComplete={() => console.log('Complete')}
+                />
+
+                <TTTrailMissionCard
+                  title="Airtable Database Setup"
+                  missionType="daily"
+                  points={20}
+                  status="complete"
+                  programName="Guided Trail"
+                  dueDate="Completed"
+                  isOverdue={false}
+                  density="full"
+                  onView={() => console.log('View')}
+                />
+              </div>
+            </div>
+
+            {/* Overdue States */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Overdue Missions</h3>
+                <p className="text-sm text-slate-600">Red text styling for overdue due dates to draw attention</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <TTTrailMissionCard
+                  title="Submit User Research Findings"
+                  missionType="sprint"
+                  points={60}
+                  status="in-progress"
+                  programName="BA Track"
+                  dueDate="Due 2 days ago"
+                  isOverdue={true}
+                  progressPercent={45}
+                  density="full"
+                  onView={() => console.log('View')}
+                  onSubmit={() => console.log('Submit')}
+                  onMarkComplete={() => console.log('Complete')}
+                />
+
+                <TTTrailMissionCard
+                  title="Complete Design System Tokens"
+                  missionType="daily"
+                  points={15}
+                  status="not-started"
+                  programName="Guided Trail"
+                  dueDate="Due yesterday"
+                  isOverdue={true}
+                  density="full"
+                  onView={() => console.log('View')}
+                  onMarkComplete={() => console.log('Complete')}
+                />
+              </div>
+            </div>
+
+            {/* Density Variants */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Density Levels</h3>
+                <p className="text-sm text-slate-600">Full density with action buttons vs. compact density without actions</p>
+              </div>
+              
+              {/* Full Density */}
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">Full Density (with actions)</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <TTTrailMissionCard
+                    title="Create Donor Management System"
+                    missionType="capstone"
+                    points={150}
+                    status="in-progress"
+                    programName="Explorer's Journey"
+                    dueDate="Due in 5 days"
+                    isOverdue={false}
+                    progressPercent={55}
+                    density="full"
+                    onView={() => console.log('View')}
+                    onSubmit={() => console.log('Submit')}
+                  />
+
+                  <TTTrailMissionCard
+                    title="Zapier Automation Workshop"
+                    missionType="sprint"
+                    points={40}
+                    status="not-started"
+                    programName="AI Trail"
+                    dueDate="Due in 1 week"
+                    isOverdue={false}
+                    density="full"
+                    onView={() => console.log('View')}
+                    onMarkComplete={() => console.log('Start')}
+                  />
+                </div>
+              </div>
+
+              {/* Compact Density */}
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">Compact Density (no actions)</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <TTTrailMissionCard
+                    title="Daily Check-in: Progress Review"
+                    missionType="daily"
+                    points={10}
+                    status="complete"
+                    programName="Guided Trail"
+                    dueDate="Completed today"
+                    density="compact"
+                  />
+
+                  <TTTrailMissionCard
+                    title="Canva Social Media Graphics"
+                    missionType="daily"
+                    points={15}
+                    status="in-progress"
+                    programName="Explorer's Journey"
+                    dueDate="Due today"
+                    progressPercent={30}
+                    density="compact"
+                  />
+
+                  <TTTrailMissionCard
+                    title="Setup Monday.com Workspace"
+                    missionType="sprint"
+                    points={35}
+                    status="not-started"
+                    programName="BA Track"
+                    dueDate="Due in 4 days"
+                    density="compact"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* With/Without Due Date */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Due Date Variants</h3>
+                <p className="text-sm text-slate-600">Missions with and without due date information</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* With Due Date */}
+                <div className="space-y-3">
+                  <h4 className="text-sm text-slate-700">With Due Date</h4>
+                  <TTTrailMissionCard
+                    title="User Testing Session Prep"
+                    missionType="sprint"
+                    points={45}
+                    status="in-progress"
+                    programName="BA Track"
+                    dueDate="Due in 2 days"
+                    isOverdue={false}
+                    progressPercent={70}
+                    density="full"
+                    onView={() => console.log('View')}
+                    onSubmit={() => console.log('Submit')}
+                  />
+                </div>
+
+                {/* Without Due Date */}
+                <div className="space-y-3">
+                  <h4 className="text-sm text-slate-700">Without Due Date</h4>
+                  <TTTrailMissionCard
+                    title="Explore Optional Resources"
+                    missionType="daily"
+                    points={5}
+                    status="not-started"
+                    programName="Explorer's Journey"
+                    showDueDate={false}
+                    density="full"
+                    onView={() => console.log('View')}
+                    onMarkComplete={() => console.log('Complete')}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Different Programs */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Program Tag Colors</h3>
+                <p className="text-sm text-slate-600">Different color schemes for various trails and programs</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <TTTrailMissionCard
+                  title="Onboarding Checklist"
+                  missionType="daily"
+                  points={15}
+                  status="in-progress"
+                  programName="Guided Trail"
+                  dueDate="Due today"
+                  progressPercent={60}
+                  density="compact"
+                />
+
+                <TTTrailMissionCard
+                  title="AI Platform Integration"
+                  missionType="sprint"
+                  points={80}
+                  status="not-started"
+                  programName="AI Trail"
+                  dueDate="Due in 1 week"
+                  density="compact"
+                />
+
+                <TTTrailMissionCard
+                  title="Requirements Gathering"
+                  missionType="sprint"
+                  points={55}
+                  status="in-progress"
+                  programName="BA Track"
+                  dueDate="Due in 3 days"
+                  progressPercent={25}
+                  density="compact"
+                />
+
+                <TTTrailMissionCard
+                  title="Choose Your First Tool"
+                  missionType="daily"
+                  points={10}
+                  status="complete"
+                  programName="Explorer's Journey"
+                  dueDate="Completed"
+                  density="compact"
+                />
+              </div>
+            </div>
+
+            {/* Varying XP Points */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">XP Points Progression</h3>
+                <p className="text-sm text-slate-600">Different point values representing task complexity</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                <TTTrailMissionCard
+                  title="Daily Reflection"
+                  missionType="daily"
+                  points={5}
+                  status="not-started"
+                  programName="Guided Trail"
+                  dueDate="Due today"
+                  density="compact"
+                />
+
+                <TTTrailMissionCard
+                  title="Tutorial: Basics"
+                  missionType="daily"
+                  points={20}
+                  status="in-progress"
+                  programName="Explorer's Journey"
+                  dueDate="Due today"
+                  progressPercent={50}
+                  density="compact"
+                />
+
+                <TTTrailMissionCard
+                  title="Build Feature"
+                  missionType="sprint"
+                  points={60}
+                  status="not-started"
+                  programName="AI Trail"
+                  dueDate="Due in 5 days"
+                  density="compact"
+                />
+
+                <TTTrailMissionCard
+                  title="Research Project"
+                  missionType="sprint"
+                  points={100}
+                  status="in-progress"
+                  programName="BA Track"
+                  dueDate="Due in 2 weeks"
+                  progressPercent={35}
+                  density="compact"
+                />
+
+                <TTTrailMissionCard
+                  title="Capstone Delivery"
+                  missionType="capstone"
+                  points={250}
+                  status="not-started"
+                  programName="AI Trail"
+                  dueDate="Due in 30 days"
+                  density="compact"
+                />
+              </div>
+            </div>
+
+            {/* Accessibility Features */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Accessibility Features</h3>
+                <p className="text-sm text-slate-600">WCAG AA compliant with comprehensive semantic structure</p>
+              </div>
+              <div className="bg-slate-50 rounded-lg p-6 space-y-3">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">WCAG AA Contrast Compliance</div>
+                    <div className="text-sm text-slate-600">All text, status indicators, and chips meet 4.5:1 contrast minimum</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Semantic Card Structure</div>
+                    <div className="text-sm text-slate-600">Uses role="article" with descriptive aria-label including mission type and title</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Status Indicator Clarity</div>
+                    <div className="text-sm text-slate-600">Status chips include role="status" and aria-label with full status text</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Icon Accessibility</div>
+                    <div className="text-sm text-slate-600">All icons marked aria-hidden with text equivalents in labels</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">XP Points Context</div>
+                    <div className="text-sm text-slate-600">Aria-label includes full "experience points" text for screen readers</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Overdue State Clarity</div>
+                    <div className="text-sm text-slate-600">Due date aria-label includes "(overdue)" for context beyond color</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Descriptive Action Buttons</div>
+                    <div className="text-sm text-slate-600">Each button includes mission title in aria-label: "Submit Complete Dashboard Build"</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Logical Reading Order</div>
+                    <div className="text-sm text-slate-600">Title → status → progress → type → points → due date → program → actions</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Keyboard Navigation</div>
+                    <div className="text-sm text-slate-600">All action buttons have visible focus rings with proper contrast</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Dashboard Integration */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Dashboard Template (Template 1)</h3>
+                <p className="text-sm text-slate-600">Mission cards in learner dashboard context with activity feed</p>
+              </div>
+              <div className="bg-gradient-to-br from-slate-50 to-indigo-50 rounded-lg p-8 space-y-6">
+                {/* Dashboard Header */}
+                <div className="space-y-2">
+                  <h4 className="text-2xl text-slate-900">Today's Missions</h4>
+                  <p className="text-slate-600">
+                    Complete your daily activities and make progress on sprint goals
+                  </p>
+                </div>
+
+                {/* Mission List */}
+                <div className="space-y-4">
+                  {/* Daily Missions Section */}
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                      <h5 className="text-slate-700">Daily Missions (3)</h5>
+                    </div>
+                    <div className="grid grid-cols-1 gap-4">
+                      <TTTrailMissionCard
+                        title="Complete Dashboard Build Tutorial"
+                        missionType="daily"
+                        points={25}
+                        status="in-progress"
+                        programName="Guided Trail"
+                        dueDate="Due today"
+                        isOverdue={false}
+                        progressPercent={40}
+                        density="full"
+                        onView={() => console.log('View')}
+                        onSubmit={() => console.log('Submit')}
+                        onMarkComplete={() => console.log('Complete')}
+                      />
+
+                      <TTTrailMissionCard
+                        title="Practice Airtable Formulas"
+                        missionType="daily"
+                        points={15}
+                        status="not-started"
+                        programName="Explorer's Journey"
+                        dueDate="Due today"
+                        isOverdue={false}
+                        density="full"
+                        onView={() => console.log('View')}
+                        onMarkComplete={() => console.log('Start')}
+                      />
+
+                      <TTTrailMissionCard
+                        title="Daily Reflection: What I Learned"
+                        missionType="daily"
+                        points={10}
+                        status="complete"
+                        programName="Guided Trail"
+                        dueDate="Completed"
+                        density="full"
+                        onView={() => console.log('View')}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Sprint Missions Section */}
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-purple-500"></div>
+                      <h5 className="text-slate-700">Active Sprint Goals (2)</h5>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <TTTrailMissionCard
+                        title="Build Salesforce Report Dashboard"
+                        missionType="sprint"
+                        points={60}
+                        status="in-progress"
+                        programName="AI Trail"
+                        dueDate="Due in 3 days"
+                        isOverdue={false}
+                        progressPercent={55}
+                        density="full"
+                        onView={() => console.log('View')}
+                        onSubmit={() => console.log('Submit')}
+                      />
+
+                      <TTTrailMissionCard
+                        title="User Research Analysis Report"
+                        missionType="sprint"
+                        points={75}
+                        status="not-started"
+                        programName="BA Track"
+                        dueDate="Due in 1 week"
+                        isOverdue={false}
+                        density="full"
+                        onView={() => console.log('View')}
+                        onMarkComplete={() => console.log('Start')}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Stats Summary */}
+                <div className="flex items-center justify-between p-4 bg-white rounded-lg border border-slate-200">
+                  <div className="text-center">
+                    <div className="text-2xl text-slate-900">5</div>
+                    <div className="text-sm text-slate-600">Active Missions</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl text-emerald-600">185</div>
+                    <div className="text-sm text-slate-600">XP Today</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl text-blue-600">67%</div>
+                    <div className="text-sm text-slate-600">Completion Rate</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Guided Trail Integration */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Guided Trail Integration</h3>
+                <p className="text-sm text-slate-600">Mission cards in structured learning path with sequential progression</p>
+              </div>
+              <div className="bg-gradient-to-br from-indigo-50 via-purple-50 to-blue-50 rounded-lg p-8 space-y-6">
+                <div className="space-y-2">
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm mb-2">
+                    <Map className="w-4 h-4" />
+                    <span>Week 3: Building Your First Project</span>
+                  </div>
+                  <h4 className="text-2xl text-slate-900">Week 3 Missions</h4>
+                  <p className="text-slate-600">
+                    Complete these missions to progress to the next module
+                  </p>
+                </div>
+
+                <div className="space-y-4">
+                  <TTTrailMissionCard
+                    title="Set Up Your Development Environment"
+                    missionType="sprint"
+                    points={40}
+                    status="complete"
+                    programName="Guided Trail"
+                    dueDate="Completed 2 days ago"
+                    density="full"
+                    onView={() => console.log('View')}
+                  />
+
+                  <TTTrailMissionCard
+                    title="Build a Simple Donor Database in Airtable"
+                    missionType="sprint"
+                    points={65}
+                    status="in-progress"
+                    programName="Guided Trail"
+                    dueDate="Due in 2 days"
+                    isOverdue={false}
+                    progressPercent={75}
+                    density="full"
+                    onView={() => console.log('View')}
+                    onSubmit={() => console.log('Submit')}
+                    onMarkComplete={() => console.log('Complete')}
+                  />
+
+                  <TTTrailMissionCard
+                    title="Create an Automated Email Campaign in Mailchimp"
+                    missionType="sprint"
+                    points={55}
+                    status="not-started"
+                    programName="Guided Trail"
+                    dueDate="Unlocks after previous mission"
+                    density="full"
+                    showActions={false}
+                  />
+
+                  <TTTrailMissionCard
+                    title="Integrate Your Systems with Zapier"
+                    missionType="sprint"
+                    points={80}
+                    status="not-started"
+                    programName="Guided Trail"
+                    dueDate="Unlocks after previous mission"
+                    density="full"
+                    showActions={false}
+                  />
+                </div>
+
+                <div className="flex items-center justify-between p-4 bg-white rounded-lg border border-indigo-200">
+                  <div>
+                    <div className="text-slate-900">Week Progress</div>
+                    <div className="text-sm text-slate-600">1 of 4 missions complete</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-slate-900">240 XP Available</div>
+                    <div className="text-sm text-slate-600">65 XP earned</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Capstone Context */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Capstone Project Context</h3>
+                <p className="text-sm text-slate-600">High-value capstone missions with extensive requirements</p>
+              </div>
+              <div className="bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 rounded-lg p-8 space-y-6">
+                <div className="space-y-2">
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-100 text-amber-800 rounded-full text-sm mb-2">
+                    <Trophy className="w-4 h-4" />
+                    <span>Final Project</span>
+                  </div>
+                  <h4 className="text-2xl text-slate-900">Capstone: Nonprofit Digital Platform</h4>
+                  <p className="text-slate-600">
+                    Build a complete solution that demonstrates your mastery of citizen developer tools
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 gap-6">
+                  <TTTrailMissionCard
+                    title="Complete Nonprofit Platform Prototype"
+                    missionType="capstone"
+                    points={250}
+                    status="in-progress"
+                    programName="AI Trail"
+                    dueDate="Due in 14 days"
+                    isOverdue={false}
+                    progressPercent={35}
+                    density="full"
+                    onView={() => console.log('View')}
+                    onSubmit={() => console.log('Submit')}
+                  />
+
+                  <TTTrailMissionCard
+                    title="Present Solution to Partner Organization"
+                    missionType="capstone"
+                    points={150}
+                    status="not-started"
+                    programName="AI Trail"
+                    dueDate="Due in 21 days"
+                    isOverdue={false}
+                    density="full"
+                    onView={() => console.log('View')}
+                  />
+                </div>
+
+                <div className="bg-white rounded-lg border border-amber-200 p-6 space-y-3">
+                  <div className="flex items-center gap-2">
+                    <Award className="w-5 h-5 text-amber-600" />
+                    <div className="text-slate-900">Capstone Requirements</div>
+                  </div>
+                  <ul className="space-y-2 text-sm text-slate-600 ml-7">
+                    <li>• Integration of 3+ citizen developer platforms</li>
+                    <li>• Documented user research and requirements</li>
+                    <li>• Working prototype with real nonprofit use case</li>
+                    <li>• 15-minute presentation to stakeholders</li>
+                  </ul>
+                  <div className="text-sm text-slate-600 pt-2">
+                    <strong>Total Capstone XP:</strong> 400 points
+                  </div>
                 </div>
               </div>
             </div>
