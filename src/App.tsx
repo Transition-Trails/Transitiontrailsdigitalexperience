@@ -41,6 +41,7 @@ import { TTAITrailCard } from './components/tt/AITrailCard';
 import { TTCitizenPlatformCard } from './components/tt/CitizenPlatformCard';
 import { TTTrailMissionCard } from './components/tt/TrailMissionCard';
 import { TTFeatureRoadmapSection } from './components/tt/FeatureRoadmapSection';
+import { TTTrailPathCard } from './components/tt/TrailPathCard';
 import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, Users, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar, GraduationCap, Shield, Eye, Briefcase, Sparkles, Bot, Wand2, Palette, FileType, Link2, Database, Workflow, Layers, PenTool } from 'lucide-react';
 
 // Interactive Donate Demo Component
@@ -195,6 +196,7 @@ export default function App() {
             <span className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full">TTA-120</span>
             <span className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full">TTA-106</span>
             <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full">TTA-110</span>
+            <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full">TTA-105</span>
           </div>
         </header>
 
@@ -233,6 +235,7 @@ export default function App() {
             <a href="#citizenplatform" className="px-3 py-1.5 text-sm text-cyan-700 bg-cyan-50 rounded">Citizen Platform</a>
             <a href="#trailmission" className="px-3 py-1.5 text-sm text-teal-700 bg-teal-50 rounded">Trail Mission</a>
             <a href="#roadmap" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded">Feature Roadmap</a>
+            <a href="#trailpath" className="px-3 py-1.5 text-sm text-orange-700 bg-orange-50 rounded">Trail Path</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -11119,6 +11122,789 @@ interface PennyTipProps {
                     }
                   ]}
                 />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Trail Path Card Section */}
+        <section id="trailpath" className="space-y-6">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+            <div>
+              <h2 className="text-slate-900 mb-2">Trail Path Card (TTA-105)</h2>
+              <p className="text-slate-600">
+                Domain card for displaying Beginner → Intermediate → Advanced learning paths across Admin, BA, Citizen Developer, Product Owner, Architect, Developer, PM, and AI Specialist disciplines.
+              </p>
+            </div>
+
+            {/* All Disciplines - Default Density */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">All Trail Paths - Default Density</h3>
+                <p className="text-sm text-slate-600">Complete learning path showcase across all disciplines with difficulty levels and XP</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <TTTrailPathCard
+                  title="Salesforce Admin"
+                  difficulty="beginner"
+                  xpTotal={450}
+                  icon={<Cloud className="w-full h-full" />}
+                  description="Learn to configure, customize, and manage Salesforce orgs. Perfect for nonprofits looking to maximize their Salesforce investment."
+                  ctaLabel="View Trail"
+                  ctaVariant="primary"
+                  onCtaClick={() => console.log('Salesforce Admin clicked')}
+                />
+                <TTTrailPathCard
+                  title="Business Analyst"
+                  difficulty="intermediate"
+                  xpTotal={600}
+                  icon={<FileText className="w-full h-full" />}
+                  description="Master requirements gathering, stakeholder management, and process documentation. Bridge the gap between users and technology."
+                  ctaLabel="View Trail"
+                  ctaVariant="primary"
+                  onCtaClick={() => console.log('Business Analyst clicked')}
+                />
+                <TTTrailPathCard
+                  title="AI Specialist"
+                  difficulty="beginner"
+                  xpTotal={400}
+                  icon={<Bot className="w-full h-full" />}
+                  description="Explore ChatGPT, Claude, and Midjourney. Learn to leverage AI tools for nonprofit communications, fundraising, and operations."
+                  isNew={true}
+                  ctaLabel="Explore Path"
+                  ctaVariant="primary"
+                  onCtaClick={() => console.log('AI Specialist clicked')}
+                />
+                <TTTrailPathCard
+                  title="Citizen Developer"
+                  difficulty="beginner"
+                  xpTotal={350}
+                  icon={<Zap className="w-full h-full" />}
+                  description="Build solutions without code using Airtable, Zapier, and other no-code platforms. Empower your nonprofit with automation."
+                  ctaLabel="Learn More"
+                  ctaVariant="primary"
+                  onCtaClick={() => console.log('Citizen Developer clicked')}
+                />
+                <TTTrailPathCard
+                  title="Product Owner"
+                  difficulty="intermediate"
+                  xpTotal={550}
+                  icon={<Target className="w-full h-full" />}
+                  description="Lead product strategy, manage backlogs, and prioritize features. Drive successful digital product initiatives."
+                  ctaLabel="View Trail"
+                  ctaVariant="primary"
+                  onCtaClick={() => console.log('Product Owner clicked')}
+                />
+                <TTTrailPathCard
+                  title="Software Architect"
+                  difficulty="advanced"
+                  xpTotal={800}
+                  icon={<Layers className="w-full h-full" />}
+                  description="Design scalable systems, make architectural decisions, and lead technical strategy for complex nonprofit technology."
+                  ctaLabel="View Trail"
+                  ctaVariant="primary"
+                  onCtaClick={() => console.log('Architect clicked')}
+                />
+                <TTTrailPathCard
+                  title="Developer"
+                  difficulty="advanced"
+                  xpTotal={750}
+                  icon={<Code className="w-full h-full" />}
+                  description="Build custom applications using modern web technologies. Create solutions tailored to nonprofit needs."
+                  ctaLabel="Explore Path"
+                  ctaVariant="primary"
+                  onCtaClick={() => console.log('Developer clicked')}
+                />
+                <TTTrailPathCard
+                  title="Project Manager"
+                  difficulty="intermediate"
+                  xpTotal={500}
+                  icon={<Briefcase className="w-full h-full" />}
+                  description="Plan, execute, and deliver technology projects on time and on budget. Master agile and traditional methodologies."
+                  ctaLabel="View Trail"
+                  ctaVariant="primary"
+                  onCtaClick={() => console.log('Project Manager clicked')}
+                />
+              </div>
+            </div>
+
+            {/* Difficulty Variants */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Difficulty Level Variants</h3>
+                <p className="text-sm text-slate-600">Beginner (emerald), Intermediate (blue), and Advanced (purple) difficulty levels</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <TTTrailPathCard
+                  title="Beginner Path"
+                  difficulty="beginner"
+                  xpTotal={300}
+                  icon={<Compass className="w-full h-full" />}
+                  description="Start your journey with foundational concepts and hands-on practice. No prior experience required."
+                  ctaLabel="Get Started"
+                  ctaVariant="primary"
+                />
+                <TTTrailPathCard
+                  title="Intermediate Path"
+                  difficulty="intermediate"
+                  xpTotal={500}
+                  icon={<Map className="w-full h-full" />}
+                  description="Build on your basics with advanced techniques and real-world projects. Take your skills to the next level."
+                  ctaLabel="Continue Learning"
+                  ctaVariant="primary"
+                />
+                <TTTrailPathCard
+                  title="Advanced Path"
+                  difficulty="advanced"
+                  xpTotal={800}
+                  icon={<Trophy className="w-full h-full" />}
+                  description="Master complex concepts and lead technical initiatives. Become an expert in your field."
+                  ctaLabel="Challenge Yourself"
+                  ctaVariant="primary"
+                />
+              </div>
+            </div>
+
+            {/* Compact Density */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Compact Density</h3>
+                <p className="text-sm text-slate-600">Space-efficient layout without descriptions for tighter grids</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <TTTrailPathCard
+                  title="Salesforce Admin"
+                  difficulty="beginner"
+                  xpTotal={450}
+                  icon={<Cloud className="w-full h-full" />}
+                  description=""
+                  density="compact"
+                  ctaLabel="View"
+                  ctaVariant="primary"
+                />
+                <TTTrailPathCard
+                  title="Business Analyst"
+                  difficulty="intermediate"
+                  xpTotal={600}
+                  icon={<FileText className="w-full h-full" />}
+                  description=""
+                  density="compact"
+                  ctaLabel="View"
+                  ctaVariant="primary"
+                />
+                <TTTrailPathCard
+                  title="AI Specialist"
+                  difficulty="beginner"
+                  xpTotal={400}
+                  icon={<Bot className="w-full h-full" />}
+                  description=""
+                  isNew={true}
+                  density="compact"
+                  ctaLabel="View"
+                  ctaVariant="primary"
+                />
+                <TTTrailPathCard
+                  title="Citizen Developer"
+                  difficulty="beginner"
+                  xpTotal={350}
+                  icon={<Zap className="w-full h-full" />}
+                  description=""
+                  density="compact"
+                  ctaLabel="View"
+                  ctaVariant="primary"
+                />
+              </div>
+            </div>
+
+            {/* NEW Chip Variants */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">NEW Chip Showcase</h3>
+                <p className="text-sm text-slate-600">Spotlight newly launched paths with gradient NEW badge</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <TTTrailPathCard
+                  title="AI Specialist"
+                  difficulty="beginner"
+                  xpTotal={400}
+                  icon={<Bot className="w-full h-full" />}
+                  description="Master AI tools like ChatGPT, Claude, and Midjourney. Transform how your nonprofit communicates and operates."
+                  isNew={true}
+                  ctaLabel="Explore Now"
+                  ctaVariant="primary"
+                />
+                <TTTrailPathCard
+                  title="Data Analytics"
+                  difficulty="intermediate"
+                  xpTotal={550}
+                  icon={<TrendingUp className="w-full h-full" />}
+                  description="Use data to measure impact, inform decisions, and tell your nonprofit's story with Tableau and Power BI."
+                  isNew={true}
+                  ctaLabel="Start Learning"
+                  ctaVariant="primary"
+                />
+                <TTTrailPathCard
+                  title="UX/UI Designer"
+                  difficulty="intermediate"
+                  xpTotal={500}
+                  icon={<Palette className="w-full h-full" />}
+                  description="Design beautiful, accessible experiences for nonprofit websites and applications using Figma."
+                  isNew={true}
+                  ctaLabel="Begin Path"
+                  ctaVariant="primary"
+                />
+              </div>
+            </div>
+
+            {/* CTA Variants */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">CTA Button Variants</h3>
+                <p className="text-sm text-slate-600">Primary, secondary, and link button styles for different contexts</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <TTTrailPathCard
+                  title="Primary CTA"
+                  difficulty="beginner"
+                  xpTotal={300}
+                  icon={<Star className="w-full h-full" />}
+                  description="Strong call-to-action for main paths and featured learning experiences."
+                  ctaLabel="View Trail"
+                  ctaVariant="primary"
+                />
+                <TTTrailPathCard
+                  title="Secondary CTA"
+                  difficulty="intermediate"
+                  xpTotal={500}
+                  icon={<Award className="w-full h-full" />}
+                  description="Subtle button style for secondary paths or exploratory browsing."
+                  ctaLabel="Learn More"
+                  ctaVariant="secondary"
+                />
+                <TTTrailPathCard
+                  title="Link CTA"
+                  difficulty="advanced"
+                  xpTotal={750}
+                  icon={<Link2 className="w-full h-full" />}
+                  description="Minimal link-style button for tertiary actions or embedded contexts."
+                  ctaLabel="Explore"
+                  ctaVariant="link"
+                />
+              </div>
+            </div>
+
+            {/* Dark Mode */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Dark Mode Support</h3>
+                <p className="text-sm text-slate-600">Full dark theme variant with proper contrast and accessibility</p>
+              </div>
+              <div className="bg-slate-900 rounded-lg p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  <TTTrailPathCard
+                    title="Salesforce Admin"
+                    difficulty="beginner"
+                    xpTotal={450}
+                    icon={<Cloud className="w-full h-full" />}
+                    description="Learn to configure and manage Salesforce orgs for maximum nonprofit impact."
+                    theme="dark"
+                    ctaLabel="View Trail"
+                    ctaVariant="primary"
+                  />
+                  <TTTrailPathCard
+                    title="AI Specialist"
+                    difficulty="beginner"
+                    xpTotal={400}
+                    icon={<Bot className="w-full h-full" />}
+                    description="Explore ChatGPT, Claude, and Midjourney for nonprofit use cases."
+                    isNew={true}
+                    theme="dark"
+                    ctaLabel="Explore Path"
+                    ctaVariant="primary"
+                  />
+                  <TTTrailPathCard
+                    title="Business Analyst"
+                    difficulty="intermediate"
+                    xpTotal={600}
+                    icon={<FileText className="w-full h-full" />}
+                    description="Master requirements gathering and stakeholder management."
+                    theme="dark"
+                    ctaLabel="Learn More"
+                    ctaVariant="secondary"
+                  />
+                  <TTTrailPathCard
+                    title="Developer"
+                    difficulty="advanced"
+                    xpTotal={750}
+                    icon={<Code className="w-full h-full" />}
+                    description="Build custom applications using modern web technologies."
+                    theme="dark"
+                    ctaLabel="View Trail"
+                    ctaVariant="link"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* 3-Column Grid Layout */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">3-Column Grid (Tablet/Desktop)</h3>
+                <p className="text-sm text-slate-600">Responsive grid optimized for tablet and desktop viewing</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <TTTrailPathCard
+                  title="Salesforce Admin"
+                  difficulty="beginner"
+                  xpTotal={450}
+                  icon={<Cloud className="w-full h-full" />}
+                  description="Master Salesforce configuration and customization for nonprofits seeking to leverage the world's #1 CRM."
+                  ctaLabel="View Trail"
+                  ctaVariant="primary"
+                />
+                <TTTrailPathCard
+                  title="Business Analyst"
+                  difficulty="intermediate"
+                  xpTotal={600}
+                  icon={<FileText className="w-full h-full" />}
+                  description="Bridge the gap between stakeholders and technology teams with requirements gathering expertise."
+                  ctaLabel="View Trail"
+                  ctaVariant="primary"
+                />
+                <TTTrailPathCard
+                  title="AI Specialist"
+                  difficulty="beginner"
+                  xpTotal={400}
+                  icon={<Bot className="w-full h-full" />}
+                  description="Harness AI tools to amplify nonprofit impact through automation and intelligent workflows."
+                  isNew={true}
+                  ctaLabel="Explore Path"
+                  ctaVariant="primary"
+                />
+              </div>
+            </div>
+
+            {/* Single Column Layout */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Single Column (Mobile View)</h3>
+                <p className="text-sm text-slate-600">Full-width layout optimized for narrow mobile screens</p>
+              </div>
+              <div className="max-w-md space-y-4">
+                <TTTrailPathCard
+                  title="Citizen Developer"
+                  difficulty="beginner"
+                  xpTotal={350}
+                  icon={<Zap className="w-full h-full" />}
+                  description="Build powerful solutions without code using Airtable, Zapier, and other no-code platforms."
+                  ctaLabel="Get Started"
+                  ctaVariant="primary"
+                />
+                <TTTrailPathCard
+                  title="Product Owner"
+                  difficulty="intermediate"
+                  xpTotal={550}
+                  icon={<Target className="w-full h-full" />}
+                  description="Lead product strategy, prioritize features, and drive successful digital initiatives."
+                  ctaLabel="View Trail"
+                  ctaVariant="primary"
+                />
+              </div>
+            </div>
+
+            {/* Accessibility Features */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Accessibility Features</h3>
+                <p className="text-sm text-slate-600">WCAG AA compliant with comprehensive semantic structure and keyboard support</p>
+              </div>
+              <div className="bg-slate-50 rounded-lg p-6 space-y-3">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">WCAG AA Contrast Compliance</div>
+                    <div className="text-sm text-slate-600">All text and difficulty chips meet 4.5:1 contrast minimum for both light and dark themes</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Semantic Article Structure</div>
+                    <div className="text-sm text-slate-600">Uses role="article" with unique aria-labelledby for each path card</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Keyboard Navigation</div>
+                    <div className="text-sm text-slate-600">Card container focusable with tabIndex={0} for keyboard users</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Difficulty Status Indicators</div>
+                    <div className="text-sm text-slate-600">Chips include role="status" with full text labels (Beginner/Intermediate/Advanced)</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">NEW Badge Clarity</div>
+                    <div className="text-sm text-slate-600">NEW chip uses role="status" with aria-label="New learning path"</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Icon Accessibility</div>
+                    <div className="text-sm text-slate-600">All decorative icons marked aria-hidden with text equivalents</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">XP Label Context</div>
+                    <div className="text-sm text-slate-600">XP value includes aria-label with full text (e.g., "450 experience points")</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">CTA Button Labels</div>
+                    <div className="text-sm text-slate-600">Button includes full context (e.g., "View Trail for Salesforce Admin")</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Logical Reading Order</div>
+                    <div className="text-sm text-slate-600">Icon → Title → NEW → Difficulty → XP → Description → CTA</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Hover and Focus States</div>
+                    <div className="text-sm text-slate-600">Card shadow enhances on hover, CTA button includes focus ring</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Trail Path Selector Context */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Trail Path Selector (Template Integration)</h3>
+                <p className="text-sm text-slate-600">Choose your learning path interface for onboarding and exploration</p>
+              </div>
+              <div className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-lg p-8 space-y-8">
+                {/* Selector Header */}
+                <div className="text-center space-y-4 pb-6 border-b border-slate-200">
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm mb-2">
+                    <Compass className="w-4 h-4" />
+                    <span>Choose Your Path</span>
+                  </div>
+                  <h2 className="text-3xl text-slate-900">Discover Your Learning Journey</h2>
+                  <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+                    Select a trail path that aligns with your goals and interests. Each path offers hands-on projects, mentorship, and industry-recognized skills.
+                  </p>
+                </div>
+
+                {/* Path Selector Grid */}
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-xl text-slate-900 mb-2">Beginner Paths</h3>
+                    <p className="text-sm text-slate-600 mb-4">Perfect for those starting their tech journey</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                      <TTTrailPathCard
+                        title="Salesforce Admin"
+                        difficulty="beginner"
+                        xpTotal={450}
+                        icon={<Cloud className="w-full h-full" />}
+                        description="Learn to configure, customize, and manage Salesforce orgs for nonprofit success."
+                        ctaLabel="Start Journey"
+                        ctaVariant="primary"
+                      />
+                      <TTTrailPathCard
+                        title="AI Specialist"
+                        difficulty="beginner"
+                        xpTotal={400}
+                        icon={<Bot className="w-full h-full" />}
+                        description="Master ChatGPT, Claude, and Midjourney to amplify nonprofit communications."
+                        isNew={true}
+                        ctaLabel="Explore AI"
+                        ctaVariant="primary"
+                      />
+                      <TTTrailPathCard
+                        title="Citizen Developer"
+                        difficulty="beginner"
+                        xpTotal={350}
+                        icon={<Zap className="w-full h-full" />}
+                        description="Build no-code solutions with Airtable, Zapier, and automation platforms."
+                        ctaLabel="Start Building"
+                        ctaVariant="primary"
+                      />
+                      <TTTrailPathCard
+                        title="Data Analytics"
+                        difficulty="beginner"
+                        xpTotal={380}
+                        icon={<TrendingUp className="w-full h-full" />}
+                        description="Use data to measure impact and tell your nonprofit's story."
+                        ctaLabel="Begin Path"
+                        ctaVariant="primary"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl text-slate-900 mb-2">Intermediate Paths</h3>
+                    <p className="text-sm text-slate-600 mb-4">Level up with advanced skills and real-world projects</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                      <TTTrailPathCard
+                        title="Business Analyst"
+                        difficulty="intermediate"
+                        xpTotal={600}
+                        icon={<FileText className="w-full h-full" />}
+                        description="Bridge stakeholders and technology with requirements expertise."
+                        ctaLabel="View Trail"
+                        ctaVariant="primary"
+                      />
+                      <TTTrailPathCard
+                        title="Product Owner"
+                        difficulty="intermediate"
+                        xpTotal={550}
+                        icon={<Target className="w-full h-full" />}
+                        description="Lead product strategy and drive successful digital initiatives."
+                        ctaLabel="Learn More"
+                        ctaVariant="primary"
+                      />
+                      <TTTrailPathCard
+                        title="Project Manager"
+                        difficulty="intermediate"
+                        xpTotal={500}
+                        icon={<Briefcase className="w-full h-full" />}
+                        description="Plan, execute, and deliver technology projects on time."
+                        ctaLabel="Start Path"
+                        ctaVariant="primary"
+                      />
+                      <TTTrailPathCard
+                        title="UX/UI Designer"
+                        difficulty="intermediate"
+                        xpTotal={500}
+                        icon={<Palette className="w-full h-full" />}
+                        description="Design beautiful, accessible nonprofit digital experiences."
+                        isNew={true}
+                        ctaLabel="Design Path"
+                        ctaVariant="primary"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl text-slate-900 mb-2">Advanced Paths</h3>
+                    <p className="text-sm text-slate-600 mb-4">Master complex technical skills and lead initiatives</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      <TTTrailPathCard
+                        title="Developer"
+                        difficulty="advanced"
+                        xpTotal={750}
+                        icon={<Code className="w-full h-full" />}
+                        description="Build custom applications with modern web technologies."
+                        ctaLabel="Code Trail"
+                        ctaVariant="primary"
+                      />
+                      <TTTrailPathCard
+                        title="Software Architect"
+                        difficulty="advanced"
+                        xpTotal={800}
+                        icon={<Layers className="w-full h-full" />}
+                        description="Design scalable systems and lead technical strategy."
+                        ctaLabel="Architect Path"
+                        ctaVariant="primary"
+                      />
+                      <TTTrailPathCard
+                        title="Data Engineer"
+                        difficulty="advanced"
+                        xpTotal={780}
+                        icon={<Database className="w-full h-full" />}
+                        description="Build data pipelines and infrastructure for impact measurement."
+                        ctaLabel="Engineering Path"
+                        ctaVariant="primary"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* CTA Footer */}
+                <div className="bg-white rounded-xl border border-indigo-200 p-6 text-center space-y-3 mt-8">
+                  <h4 className="text-lg text-slate-900">Not sure which path to choose?</h4>
+                  <p className="text-sm text-slate-600">
+                    Take our skills assessment or talk to a program advisor to find your ideal learning journey.
+                  </p>
+                  <div className="flex items-center justify-center gap-3 pt-2">
+                    <button className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md text-sm transition-colors">
+                      Take Assessment
+                    </button>
+                    <button className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-900 rounded-md text-sm transition-colors">
+                      Talk to Advisor
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Dashboard Context */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Dashboard "Explore Paths" Widget</h3>
+                <p className="text-sm text-slate-600">Compact view for dashboard featuring recommended paths</p>
+              </div>
+              <div className="bg-slate-50 rounded-lg p-6 space-y-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="text-lg text-slate-900">Explore New Paths</h4>
+                    <p className="text-sm text-slate-600">Expand your skills with these recommended trails</p>
+                  </div>
+                  <button className="px-3 py-1.5 text-sm text-blue-600 hover:bg-blue-50 rounded transition-colors">
+                    View All Paths
+                  </button>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <TTTrailPathCard
+                    title="AI Specialist"
+                    difficulty="beginner"
+                    xpTotal={400}
+                    icon={<Bot className="w-full h-full" />}
+                    description="Learn AI tools to amplify your impact"
+                    isNew={true}
+                    density="default"
+                    ctaLabel="Explore"
+                    ctaVariant="secondary"
+                  />
+                  <TTTrailPathCard
+                    title="Data Analytics"
+                    difficulty="beginner"
+                    xpTotal={380}
+                    icon={<TrendingUp className="w-full h-full" />}
+                    description="Measure impact with data visualization"
+                    density="default"
+                    ctaLabel="Learn More"
+                    ctaVariant="secondary"
+                  />
+                  <TTTrailPathCard
+                    title="UX/UI Designer"
+                    difficulty="intermediate"
+                    xpTotal={500}
+                    icon={<Palette className="w-full h-full" />}
+                    description="Design accessible digital experiences"
+                    isNew={true}
+                    density="default"
+                    ctaLabel="Design Path"
+                    ctaVariant="secondary"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Program Overview Page Context */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Program Overview Page Integration</h3>
+                <p className="text-sm text-slate-600">Featured paths section for program marketing pages</p>
+              </div>
+              <div className="bg-gradient-to-br from-slate-50 to-blue-50 rounded-lg p-8 space-y-6">
+                <div className="text-center space-y-2">
+                  <h3 className="text-2xl text-slate-900">Our Learning Paths</h3>
+                  <p className="text-slate-600 max-w-2xl mx-auto">
+                    Transition Trails offers specialized tracks designed to help you build real-world skills and launch your career in nonprofit technology.
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  <TTTrailPathCard
+                    title="Salesforce Admin"
+                    difficulty="beginner"
+                    xpTotal={450}
+                    icon={<Cloud className="w-full h-full" />}
+                    description="Configure and manage Salesforce for nonprofit organizations"
+                    ctaLabel="View Curriculum"
+                    ctaVariant="primary"
+                  />
+                  <TTTrailPathCard
+                    title="Business Analyst"
+                    difficulty="intermediate"
+                    xpTotal={600}
+                    icon={<FileText className="w-full h-full" />}
+                    description="Bridge technology and mission with requirements expertise"
+                    ctaLabel="View Curriculum"
+                    ctaVariant="primary"
+                  />
+                  <TTTrailPathCard
+                    title="AI Specialist"
+                    difficulty="beginner"
+                    xpTotal={400}
+                    icon={<Bot className="w-full h-full" />}
+                    description="Master AI tools for nonprofit communications and operations"
+                    isNew={true}
+                    ctaLabel="View Curriculum"
+                    ctaVariant="primary"
+                  />
+                  <TTTrailPathCard
+                    title="Developer"
+                    difficulty="advanced"
+                    xpTotal={750}
+                    icon={<Code className="w-full h-full" />}
+                    description="Build custom web applications for social impact"
+                    ctaLabel="View Curriculum"
+                    ctaVariant="primary"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Realistic XP Ranges */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Realistic XP Progressions</h3>
+                <p className="text-sm text-slate-600">Different XP totals reflecting path complexity and duration</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="space-y-3">
+                  <h4 className="text-sm text-slate-700">Short Paths (300-400 XP)</h4>
+                  <TTTrailPathCard
+                    title="Email Marketing"
+                    difficulty="beginner"
+                    xpTotal={300}
+                    icon={<Mail className="w-full h-full" />}
+                    description="Build effective email campaigns that engage donors and volunteers."
+                    ctaLabel="View Trail"
+                    ctaVariant="primary"
+                  />
+                </div>
+                <div className="space-y-3">
+                  <h4 className="text-sm text-slate-700">Medium Paths (500-600 XP)</h4>
+                  <TTTrailPathCard
+                    title="Agile Project Management"
+                    difficulty="intermediate"
+                    xpTotal={550}
+                    icon={<Target className="w-full h-full" />}
+                    description="Lead agile projects with scrum and kanban methodologies."
+                    ctaLabel="View Trail"
+                    ctaVariant="primary"
+                  />
+                </div>
+                <div className="space-y-3">
+                  <h4 className="text-sm text-slate-700">Long Paths (700-800 XP)</h4>
+                  <TTTrailPathCard
+                    title="Full Stack Developer"
+                    difficulty="advanced"
+                    xpTotal={820}
+                    icon={<Code className="w-full h-full" />}
+                    description="Master front-end and back-end development for complete solutions."
+                    ctaLabel="View Trail"
+                    ctaVariant="primary"
+                  />
+                </div>
               </div>
             </div>
           </div>
