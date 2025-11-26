@@ -38,7 +38,8 @@ import { TTMetricTile } from './components/tt/MetricTile';
 import { TTDonateSection } from './components/tt/DonateSection';
 import { TTProgramOverviewCard } from './components/tt/ProgramOverviewCard';
 import { TTAITrailCard } from './components/tt/AITrailCard';
-import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, Users, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar, GraduationCap, Shield, Eye, Briefcase, Sparkles, Bot, Wand2, Palette, FileType, Link2 } from 'lucide-react';
+import { TTCitizenPlatformCard } from './components/tt/CitizenPlatformCard';
+import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, Users, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar, GraduationCap, Shield, Eye, Briefcase, Sparkles, Bot, Wand2, Palette, FileType, Link2, Database, Workflow, Layers, PenTool } from 'lucide-react';
 
 // Interactive Donate Demo Component
 function InteractiveDonateDemo() {
@@ -189,6 +190,7 @@ export default function App() {
             <span className="px-3 py-1 bg-rose-100 text-rose-700 rounded-full">TTA-125</span>
             <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full">TTA-122</span>
             <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full">AI Trail Card</span>
+            <span className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full">TTA-120</span>
           </div>
         </header>
 
@@ -224,6 +226,7 @@ export default function App() {
             <a href="#donate" className="px-3 py-1.5 text-sm text-rose-700 bg-rose-50 rounded">Donation CTA</a>
             <a href="#programoverview" className="px-3 py-1.5 text-sm text-indigo-700 bg-indigo-50 rounded">Program Overview</a>
             <a href="#aitrail" className="px-3 py-1.5 text-sm text-purple-700 bg-purple-50 rounded">AI Trail</a>
+            <a href="#citizenplatform" className="px-3 py-1.5 text-sm text-cyan-700 bg-cyan-50 rounded">Citizen Platform</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -8844,6 +8847,701 @@ interface PennyTipProps {
                     detailLevel="compact"
                     showIcons={true}
                   />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Citizen Developer Platform Card Section */}
+        <section id="citizenplatform" className="space-y-6">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+            <div>
+              <h2 className="text-slate-900 mb-2">Citizen Developer Platform Card (TTA-120)</h2>
+              <p className="text-slate-600">
+                Domain component for presenting no-code/low-code platforms. Displays platform name, category, difficulty, XP points, and impact focus. Used in Learning Center and Explorer's Journey.
+              </p>
+            </div>
+
+            {/* All Difficulty Levels */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Difficulty Levels</h3>
+                <p className="text-sm text-slate-600">Beginner, Intermediate, and Advanced difficulty indicators</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <TTCitizenPlatformCard
+                  platformName="Canva"
+                  category="design"
+                  difficulty="beginner"
+                  xpPoints={20}
+                  impactFocus="Create professional marketing materials and social media graphics for nonprofit campaigns"
+                  platformIcon={Palette}
+                  ctaLabel="Learn More"
+                  density="default"
+                  showImpact={true}
+                  onCTAClick={() => console.log('Clicked: Canva')}
+                />
+
+                <TTCitizenPlatformCard
+                  platformName="Airtable"
+                  category="database"
+                  difficulty="intermediate"
+                  xpPoints={50}
+                  impactFocus="Build flexible databases for volunteer management, donor tracking, and program coordination"
+                  platformIcon={Database}
+                  ctaLabel="Learn More"
+                  density="default"
+                  showImpact={true}
+                  onCTAClick={() => console.log('Clicked: Airtable')}
+                />
+
+                <TTCitizenPlatformCard
+                  platformName="Zapier"
+                  category="automation"
+                  difficulty="advanced"
+                  xpPoints={100}
+                  impactFocus="Connect multiple apps and automate complex workflows across your nonprofit operations"
+                  platformIcon={Zap}
+                  ctaLabel="Learn More"
+                  density="default"
+                  showImpact={true}
+                  onCTAClick={() => console.log('Clicked: Zapier')}
+                />
+              </div>
+            </div>
+
+            {/* All Category Types */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Platform Categories</h3>
+                <p className="text-sm text-slate-600">Forms, Work OS, Automation, Email Marketing, Design, Database, and Productivity</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <TTCitizenPlatformCard
+                  platformName="Jotform"
+                  category="forms"
+                  difficulty="beginner"
+                  xpPoints={25}
+                  impactFocus="Build custom forms for event registration, volunteer applications, and donor surveys"
+                  platformIcon={FileType}
+                  ctaLabel="Start Learning"
+                  density="default"
+                  showImpact={true}
+                />
+
+                <TTCitizenPlatformCard
+                  platformName="Monday.com"
+                  category="work-os"
+                  difficulty="intermediate"
+                  xpPoints={60}
+                  impactFocus="Manage projects, track tasks, and coordinate team workflows in one visual workspace"
+                  platformIcon={Layers}
+                  ctaLabel="Start Learning"
+                  density="default"
+                  showImpact={true}
+                />
+
+                <TTCitizenPlatformCard
+                  platformName="Zapier"
+                  category="automation"
+                  difficulty="advanced"
+                  xpPoints={100}
+                  impactFocus="Automate repetitive tasks by connecting apps and building intelligent workflows"
+                  platformIcon={Zap}
+                  ctaLabel="Start Learning"
+                  density="default"
+                  showImpact={true}
+                />
+
+                <TTCitizenPlatformCard
+                  platformName="Mailchimp"
+                  category="email-marketing"
+                  difficulty="intermediate"
+                  xpPoints={45}
+                  impactFocus="Design email campaigns, build audiences, and track engagement for your nonprofit"
+                  platformIcon={Mail}
+                  ctaLabel="Start Learning"
+                  density="default"
+                  showImpact={true}
+                />
+              </div>
+            </div>
+
+            {/* Density Variants */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Density Levels</h3>
+                <p className="text-sm text-slate-600">Default and compact layouts for different contexts</p>
+              </div>
+              <div className="space-y-4">
+                {/* Default Density */}
+                <div>
+                  <h4 className="text-sm text-slate-700 mb-3">Default Density</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <TTCitizenPlatformCard
+                      platformName="Notion"
+                      category="productivity"
+                      difficulty="intermediate"
+                      xpPoints={55}
+                      impactFocus="Create wikis, project trackers, and collaborative workspaces for your nonprofit team"
+                      platformIcon={BookOpen}
+                      ctaLabel="Explore"
+                      density="default"
+                      showImpact={true}
+                    />
+
+                    <TTCitizenPlatformCard
+                      platformName="Canva"
+                      category="design"
+                      difficulty="beginner"
+                      xpPoints={20}
+                      impactFocus="Design professional graphics, presentations, and marketing materials without design experience"
+                      platformIcon={Palette}
+                      ctaLabel="Explore"
+                      density="default"
+                      showImpact={true}
+                    />
+
+                    <TTCitizenPlatformCard
+                      platformName="Airtable"
+                      category="database"
+                      difficulty="intermediate"
+                      xpPoints={50}
+                      impactFocus="Organize information with the power of a database and the simplicity of a spreadsheet"
+                      platformIcon={Database}
+                      ctaLabel="Explore"
+                      density="default"
+                      showImpact={true}
+                    />
+                  </div>
+                </div>
+
+                {/* Compact Density */}
+                <div>
+                  <h4 className="text-sm text-slate-700 mb-3">Compact Density</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                    <TTCitizenPlatformCard
+                      platformName="Jotform"
+                      category="forms"
+                      difficulty="beginner"
+                      xpPoints={25}
+                      impactFocus="Quick forms"
+                      platformIcon={FileType}
+                      ctaLabel="View"
+                      density="compact"
+                      showImpact={true}
+                    />
+
+                    <TTCitizenPlatformCard
+                      platformName="Monday.com"
+                      category="work-os"
+                      difficulty="intermediate"
+                      xpPoints={60}
+                      impactFocus="Project management"
+                      platformIcon={Layers}
+                      ctaLabel="View"
+                      density="compact"
+                      showImpact={true}
+                    />
+
+                    <TTCitizenPlatformCard
+                      platformName="Zapier"
+                      category="automation"
+                      difficulty="advanced"
+                      xpPoints={100}
+                      impactFocus="Workflow automation"
+                      platformIcon={Zap}
+                      ctaLabel="View"
+                      density="compact"
+                      showImpact={true}
+                    />
+
+                    <TTCitizenPlatformCard
+                      platformName="Mailchimp"
+                      category="email-marketing"
+                      difficulty="intermediate"
+                      xpPoints={45}
+                      impactFocus="Email campaigns"
+                      platformIcon={Mail}
+                      ctaLabel="View"
+                      density="compact"
+                      showImpact={true}
+                    />
+
+                    <TTCitizenPlatformCard
+                      platformName="Canva"
+                      category="design"
+                      difficulty="beginner"
+                      xpPoints={20}
+                      impactFocus="Visual design"
+                      platformIcon={Palette}
+                      ctaLabel="View"
+                      density="compact"
+                      showImpact={true}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* With/Without Impact Focus */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Impact Focus Variants</h3>
+                <p className="text-sm text-slate-600">Cards with and without impact description text</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* With Impact */}
+                <div className="space-y-3">
+                  <h4 className="text-sm text-slate-700">With Impact Focus</h4>
+                  <div className="grid grid-cols-1 gap-4">
+                    <TTCitizenPlatformCard
+                      platformName="Zapier"
+                      category="automation"
+                      difficulty="advanced"
+                      xpPoints={100}
+                      impactFocus="Connect apps and automate workflows across your nonprofit operations to save time and reduce manual errors"
+                      platformIcon={Zap}
+                      ctaLabel="Learn More"
+                      density="default"
+                      showImpact={true}
+                    />
+
+                    <TTCitizenPlatformCard
+                      platformName="Mailchimp"
+                      category="email-marketing"
+                      difficulty="intermediate"
+                      xpPoints={45}
+                      impactFocus="Reach your supporters with targeted email campaigns, automated sequences, and donation appeals"
+                      platformIcon={Mail}
+                      ctaLabel="Learn More"
+                      density="default"
+                      showImpact={true}
+                    />
+                  </div>
+                </div>
+
+                {/* Without Impact */}
+                <div className="space-y-3">
+                  <h4 className="text-sm text-slate-700">Without Impact Focus</h4>
+                  <div className="grid grid-cols-1 gap-4">
+                    <TTCitizenPlatformCard
+                      platformName="Zapier"
+                      category="automation"
+                      difficulty="advanced"
+                      xpPoints={100}
+                      platformIcon={Zap}
+                      ctaLabel="Learn More"
+                      density="default"
+                      showImpact={false}
+                    />
+
+                    <TTCitizenPlatformCard
+                      platformName="Mailchimp"
+                      category="email-marketing"
+                      difficulty="intermediate"
+                      xpPoints={45}
+                      platformIcon={Mail}
+                      ctaLabel="Learn More"
+                      density="default"
+                      showImpact={false}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Without Platform Icons */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Without Platform Icons</h3>
+                <p className="text-sm text-slate-600">Cleaner appearance when platform icons aren't available</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <TTCitizenPlatformCard
+                  platformName="Typeform"
+                  category="forms"
+                  difficulty="beginner"
+                  xpPoints={30}
+                  impactFocus="Create conversational forms that increase completion rates"
+                  ctaLabel="Learn More"
+                  density="default"
+                  showImpact={true}
+                />
+
+                <TTCitizenPlatformCard
+                  platformName="Asana"
+                  category="work-os"
+                  difficulty="intermediate"
+                  xpPoints={65}
+                  impactFocus="Coordinate team tasks and track project milestones"
+                  ctaLabel="Learn More"
+                  density="default"
+                  showImpact={true}
+                />
+
+                <TTCitizenPlatformCard
+                  platformName="Make"
+                  category="automation"
+                  difficulty="advanced"
+                  xpPoints={95}
+                  impactFocus="Build visual automation scenarios with advanced logic"
+                  ctaLabel="Learn More"
+                  density="default"
+                  showImpact={true}
+                />
+
+                <TTCitizenPlatformCard
+                  platformName="ConvertKit"
+                  category="email-marketing"
+                  difficulty="intermediate"
+                  xpPoints={40}
+                  impactFocus="Email marketing designed for creators and nonprofits"
+                  ctaLabel="Learn More"
+                  density="default"
+                  showImpact={true}
+                />
+              </div>
+            </div>
+
+            {/* Varying XP Points */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">XP Points Progression</h3>
+                <p className="text-sm text-slate-600">Different point values representing skill complexity and time investment</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+                <TTCitizenPlatformCard
+                  platformName="Canva"
+                  category="design"
+                  difficulty="beginner"
+                  xpPoints={20}
+                  impactFocus="Quick visual design tool"
+                  platformIcon={Palette}
+                  ctaLabel="Start"
+                  density="compact"
+                  showImpact={true}
+                />
+
+                <TTCitizenPlatformCard
+                  platformName="Jotform"
+                  category="forms"
+                  difficulty="beginner"
+                  xpPoints={35}
+                  impactFocus="Form building platform"
+                  platformIcon={FileType}
+                  ctaLabel="Start"
+                  density="compact"
+                  showImpact={true}
+                />
+
+                <TTCitizenPlatformCard
+                  platformName="Mailchimp"
+                  category="email-marketing"
+                  difficulty="intermediate"
+                  xpPoints={50}
+                  impactFocus="Email marketing suite"
+                  platformIcon={Mail}
+                  ctaLabel="Start"
+                  density="compact"
+                  showImpact={true}
+                />
+
+                <TTCitizenPlatformCard
+                  platformName="Airtable"
+                  category="database"
+                  difficulty="intermediate"
+                  xpPoints={75}
+                  impactFocus="Flexible database platform"
+                  platformIcon={Database}
+                  ctaLabel="Start"
+                  density="compact"
+                  showImpact={true}
+                />
+
+                <TTCitizenPlatformCard
+                  platformName="Zapier"
+                  category="automation"
+                  difficulty="advanced"
+                  xpPoints={100}
+                  impactFocus="Advanced automation"
+                  platformIcon={Zap}
+                  ctaLabel="Start"
+                  density="compact"
+                  showImpact={true}
+                />
+              </div>
+            </div>
+
+            {/* Accessibility Features */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Accessibility Features</h3>
+                <p className="text-sm text-slate-600">WCAG AA compliant with comprehensive semantic structure</p>
+              </div>
+              <div className="bg-slate-50 rounded-lg p-6 space-y-3">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">WCAG AA Contrast Compliance</div>
+                    <div className="text-sm text-slate-600">All text and chips meet minimum 4.5:1 contrast ratio for readability</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Category & Difficulty Labels</div>
+                    <div className="text-sm text-slate-600">Both chips include role="status" and aria-label for screen reader context</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">XP Points Clarity</div>
+                    <div className="text-sm text-slate-600">Star icon marked aria-hidden, text includes "experience points" in aria-label</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Platform Icon Accessibility</div>
+                    <div className="text-sm text-slate-600">Icons marked aria-hidden since platform name provides equivalent information</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Descriptive CTA Labels</div>
+                    <div className="text-sm text-slate-600">Aria-label includes platform name: "Learn More about Canva"</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Clear Keyboard Focus</div>
+                    <div className="text-sm text-slate-600">CTA button includes visible focus ring with proper contrast for keyboard navigation</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Logical Reading Order</div>
+                    <div className="text-sm text-slate-600">Platform name → category → difficulty → XP → impact → CTA follows natural flow</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">TTDS Token Compliance</div>
+                    <div className="text-sm text-slate-600">Uses spacing (12/16/20), radius (8px), typography tokens, and TTDS Tag styles</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Learning Center Template Integration */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Learning Center Template (Template 4)</h3>
+                <p className="text-sm text-slate-600">Platform cards in a full Learning Center context with filters</p>
+              </div>
+              <div className="bg-gradient-to-br from-slate-50 to-blue-50 rounded-lg p-8 space-y-6">
+                {/* Header */}
+                <div className="text-center space-y-2">
+                  <h4 className="text-2xl text-slate-900">Citizen Developer Platform Library</h4>
+                  <p className="text-slate-600 max-w-2xl mx-auto">
+                    Master the no-code and low-code tools that power modern nonprofits. 
+                    Build skills across forms, automation, design, and more.
+                  </p>
+                </div>
+
+                {/* Filter Row */}
+                <div className="flex flex-wrap items-center gap-3 p-4 bg-white rounded-lg border border-slate-200">
+                  <div className="text-sm text-slate-700">Filter by:</div>
+                  <button className="px-3 py-1.5 text-sm bg-slate-100 text-slate-700 rounded-md hover:bg-slate-200 transition-colors">
+                    All Categories
+                  </button>
+                  <button className="px-3 py-1.5 text-sm text-slate-600 rounded-md hover:bg-slate-100 transition-colors">
+                    Beginner
+                  </button>
+                  <button className="px-3 py-1.5 text-sm text-slate-600 rounded-md hover:bg-slate-100 transition-colors">
+                    Intermediate
+                  </button>
+                  <button className="px-3 py-1.5 text-sm text-slate-600 rounded-md hover:bg-slate-100 transition-colors">
+                    Advanced
+                  </button>
+                </div>
+
+                {/* Platform Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <TTCitizenPlatformCard
+                    platformName="Canva"
+                    category="design"
+                    difficulty="beginner"
+                    xpPoints={20}
+                    impactFocus="Create professional marketing materials and social media graphics for nonprofit campaigns"
+                    platformIcon={Palette}
+                    ctaLabel="Start Course"
+                    density="default"
+                    showImpact={true}
+                  />
+
+                  <TTCitizenPlatformCard
+                    platformName="Jotform"
+                    category="forms"
+                    difficulty="beginner"
+                    xpPoints={25}
+                    impactFocus="Build custom forms for event registration, volunteer applications, and donor surveys"
+                    platformIcon={FileType}
+                    ctaLabel="Start Course"
+                    density="default"
+                    showImpact={true}
+                  />
+
+                  <TTCitizenPlatformCard
+                    platformName="Mailchimp"
+                    category="email-marketing"
+                    difficulty="intermediate"
+                    xpPoints={45}
+                    impactFocus="Design email campaigns, build audiences, and track engagement for your nonprofit"
+                    platformIcon={Mail}
+                    ctaLabel="Start Course"
+                    density="default"
+                    showImpact={true}
+                  />
+
+                  <TTCitizenPlatformCard
+                    platformName="Airtable"
+                    category="database"
+                    difficulty="intermediate"
+                    xpPoints={50}
+                    impactFocus="Build flexible databases for volunteer management, donor tracking, and program coordination"
+                    platformIcon={Database}
+                    ctaLabel="Start Course"
+                    density="default"
+                    showImpact={true}
+                  />
+
+                  <TTCitizenPlatformCard
+                    platformName="Notion"
+                    category="productivity"
+                    difficulty="intermediate"
+                    xpPoints={55}
+                    impactFocus="Create wikis, project trackers, and collaborative workspaces for your nonprofit team"
+                    platformIcon={BookOpen}
+                    ctaLabel="Start Course"
+                    density="default"
+                    showImpact={true}
+                  />
+
+                  <TTCitizenPlatformCard
+                    platformName="Zapier"
+                    category="automation"
+                    difficulty="advanced"
+                    xpPoints={100}
+                    impactFocus="Connect multiple apps and automate complex workflows across your nonprofit operations"
+                    platformIcon={Zap}
+                    ctaLabel="Start Course"
+                    density="default"
+                    showImpact={true}
+                  />
+                </div>
+
+                {/* Pagination */}
+                <div className="flex items-center justify-center gap-2 pt-4">
+                  <button className="px-3 py-1.5 text-sm text-slate-600 hover:bg-white rounded transition-colors">
+                    Previous
+                  </button>
+                  <button className="px-3 py-1.5 text-sm bg-white text-slate-900 rounded">
+                    1
+                  </button>
+                  <button className="px-3 py-1.5 text-sm text-slate-600 hover:bg-white rounded transition-colors">
+                    2
+                  </button>
+                  <button className="px-3 py-1.5 text-sm text-slate-600 hover:bg-white rounded transition-colors">
+                    3
+                  </button>
+                  <button className="px-3 py-1.5 text-sm text-slate-600 hover:bg-white rounded transition-colors">
+                    Next
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Explorer's Journey Integration */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Explorer's Journey Integration</h3>
+                <p className="text-sm text-slate-600">Platform discovery cards for self-directed learners</p>
+              </div>
+              <div className="bg-gradient-to-br from-blue-50 via-emerald-50 to-slate-50 rounded-lg p-8 space-y-6">
+                <div className="space-y-2">
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-100 text-blue-700 rounded-full text-sm mb-2">
+                    <Compass className="w-4 h-4" />
+                    <span>Explore Tools</span>
+                  </div>
+                  <h4 className="text-2xl text-slate-900">Choose Your Platform Journey</h4>
+                  <p className="text-slate-600 max-w-2xl">
+                    Pick tools that match your interests and build skills at your own pace
+                  </p>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  <TTCitizenPlatformCard
+                    platformName="Canva"
+                    category="design"
+                    difficulty="beginner"
+                    xpPoints={20}
+                    impactFocus="Perfect starting point for visual content creation"
+                    platformIcon={Palette}
+                    ctaLabel="Begin"
+                    density="default"
+                    showImpact={true}
+                  />
+
+                  <TTCitizenPlatformCard
+                    platformName="Mailchimp"
+                    category="email-marketing"
+                    difficulty="intermediate"
+                    xpPoints={45}
+                    impactFocus="Reach supporters with effective campaigns"
+                    platformIcon={Mail}
+                    ctaLabel="Begin"
+                    density="default"
+                    showImpact={true}
+                  />
+
+                  <TTCitizenPlatformCard
+                    platformName="Airtable"
+                    category="database"
+                    difficulty="intermediate"
+                    xpPoints={50}
+                    impactFocus="Organize anything with flexible databases"
+                    platformIcon={Database}
+                    ctaLabel="Begin"
+                    density="default"
+                    showImpact={true}
+                  />
+
+                  <TTCitizenPlatformCard
+                    platformName="Zapier"
+                    category="automation"
+                    difficulty="advanced"
+                    xpPoints={100}
+                    impactFocus="Unlock powerful automation capabilities"
+                    platformIcon={Zap}
+                    ctaLabel="Begin"
+                    density="default"
+                    showImpact={true}
+                  />
+                </div>
+
+                <div className="text-center pt-4">
+                  <p className="text-sm text-slate-600 mb-4">All platforms include hands-on projects and real-world examples</p>
+                  <Button variant="secondary" size="md">
+                    View All 20+ Platforms
+                  </Button>
                 </div>
               </div>
             </div>
