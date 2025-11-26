@@ -35,7 +35,44 @@ import { BadgesAndCreditsPanel } from './components/ttds/BadgesAndCreditsPanel';
 import { PennyTip } from './components/ttds/PennyTip';
 import { TTCommunityPostCard } from './components/tt/CommunityPostCard';
 import { TTMetricTile } from './components/tt/MetricTile';
+import { TTDonateSection } from './components/tt/DonateSection';
 import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, Users, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar } from 'lucide-react';
+
+// Interactive Donate Demo Component
+function InteractiveDonateDemo() {
+  const [selectedTier, setSelectedTier] = React.useState<string>('');
+
+  return (
+    <TTDonateSection
+      headline="Choose your level of impact"
+      supportingText="Select an amount below to see how your support helps build pathways to tech careers."
+      metrics={[
+        { value: '147+', label: 'Interns Supported', subtext: 'Since 2024', icon: Users, iconColor: 'text-emerald-600' },
+        { value: '32', label: 'Nonprofit Projects', subtext: 'Delivered', icon: Target, iconColor: 'text-blue-600' },
+        { value: '1,200', label: 'Volunteer Hours', subtext: 'This year', icon: Trophy, iconColor: 'text-amber-600' },
+      ]}
+      givingTiers={[
+        { amount: '$25', label: 'Supporter' },
+        { amount: '$50', label: 'Advocate' },
+        { amount: '$100', label: 'Champion' },
+        { amount: '$250', label: 'Trailblazer' },
+      ]}
+      selectedTier={selectedTier}
+      donateButtonLabel={selectedTier ? `Donate ${selectedTier}` : 'Select an Amount'}
+      microcopy="Tax-deductible 501(c)(3) gift"
+      alignment="centered"
+      background="light"
+      onDonate={() => {
+        if (selectedTier) {
+          alert(`Thank you for your ${selectedTier} donation!`);
+        } else {
+          alert('Please select a giving level first');
+        }
+      }}
+      onSelectTier={(tier) => setSelectedTier(tier.amount)}
+    />
+  );
+}
 
 // Loading Demo Component
 function LoadingDemo() {
@@ -147,6 +184,7 @@ export default function App() {
             <span className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full">TTA-126</span>
             <span className="px-3 py-1 bg-lime-100 text-lime-700 rounded-full">TTA-108</span>
             <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full">TTA-124</span>
+            <span className="px-3 py-1 bg-rose-100 text-rose-700 rounded-full">TTA-125</span>
           </div>
         </header>
 
@@ -179,6 +217,7 @@ export default function App() {
             <a href="#pennytip" className="px-3 py-1.5 text-sm text-cyan-700 bg-cyan-50 rounded">Penny Tips</a>
             <a href="#communitypost" className="px-3 py-1.5 text-sm text-lime-700 bg-lime-50 rounded">Community Post</a>
             <a href="#metrictile" className="px-3 py-1.5 text-sm text-orange-700 bg-orange-50 rounded">Impact Metrics</a>
+            <a href="#donate" className="px-3 py-1.5 text-sm text-rose-700 bg-rose-50 rounded">Donation CTA</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -7506,6 +7545,292 @@ interface PennyTipProps {
                 <div>
                   <div className="text-slate-900">TTDS Token Compliance</div>
                   <div className="text-sm text-slate-600">Uses spacing (12/16/20/24), radius (6-8px), and typography tokens consistently</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Donation CTA Section */}
+        <section id="donate" className="space-y-6">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+            <div>
+              <h2 className="text-slate-900 mb-2">Donation CTA Section</h2>
+              <p className="text-slate-600">
+                High-impact, hero-style section for Vision/Donor pages. Motivates donors with mission story, impact metrics, suggested giving tiers, and primary CTA button.
+              </p>
+            </div>
+
+            {/* Centered Alignment - Full Example */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Centered Alignment (Default)</h3>
+                <p className="text-sm text-slate-600">Standard hero-style layout with centered content</p>
+              </div>
+              <TTDonateSection
+                headline="Help us expand opportunities for new Salesforce talent"
+                supportingText="Your support empowers job seekers and strengthens nonprofits through real-world project experience."
+                metrics={[
+                  { value: '147+', label: 'Interns Supported', subtext: 'Since 2024', icon: Users, iconColor: 'text-emerald-600' },
+                  { value: '32', label: 'Nonprofit Projects', subtext: 'Successfully delivered', icon: Target, iconColor: 'text-blue-600' },
+                  { value: '1,200', label: 'Volunteer Hours', subtext: 'This year', icon: Trophy, iconColor: 'text-amber-600' },
+                  { value: '89%', label: 'Completion Rate', subtext: 'Past 12 months', icon: TrendingUp, iconColor: 'text-violet-600' },
+                ]}
+                givingTiers={[
+                  { amount: '$25', label: 'Supporter' },
+                  { amount: '$50', label: 'Advocate' },
+                  { amount: '$100', label: 'Champion' },
+                  { amount: '$250', label: 'Trailblazer' },
+                ]}
+                donateButtonLabel="Support Transition Trails"
+                microcopy="Tax-deductible 501(c)(3) gift"
+                alignment="centered"
+                background="light"
+                onDonate={() => console.log('Donate clicked')}
+                onSelectTier={(tier) => console.log('Selected:', tier.amount)}
+              />
+            </div>
+
+            {/* Left-Aligned Variant */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Left-Aligned Layout</h3>
+                <p className="text-sm text-slate-600">Alternative layout for editorial-style pages</p>
+              </div>
+              <TTDonateSection
+                headline="Together, we can build a more inclusive tech workforce"
+                supportingText="Every contribution helps us provide training, mentorship, and real project experience to aspiring professionals."
+                metrics={[
+                  { value: '500+', label: 'Lives Changed', subtext: 'Career switchers and interns', icon: Heart, iconColor: 'text-rose-600' },
+                  { value: '$2.4M', label: 'Community Impact', subtext: 'In donated services', icon: Compass, iconColor: 'text-emerald-600' },
+                  { value: '15 States', label: 'National Reach', subtext: 'And growing', icon: MapPin, iconColor: 'text-blue-600' },
+                ]}
+                givingTiers={[
+                  { amount: '$25' },
+                  { amount: '$50' },
+                  { amount: '$100' },
+                  { amount: '$250' },
+                ]}
+                donateButtonLabel="Donate Now"
+                microcopy="Your donation makes a difference"
+                alignment="left"
+                background="light"
+                onDonate={() => console.log('Donate clicked')}
+              />
+            </div>
+
+            {/* Metrics Count Variants */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">2 Metrics Layout</h3>
+                <p className="text-sm text-slate-600">Simplified view for focused messaging</p>
+              </div>
+              <TTDonateSection
+                headline="Your investment creates lasting change"
+                metrics={[
+                  { value: '95%', label: 'Job Placement Rate', subtext: 'Within 6 months', icon: TrendingUp, iconColor: 'text-emerald-600' },
+                  { value: '450', label: 'Skills Badges Earned', subtext: 'This year', icon: Award, iconColor: 'text-violet-600' },
+                ]}
+                givingTiers={[
+                  { amount: '$25' },
+                  { amount: '$50' },
+                  { amount: '$100' },
+                ]}
+                donateButtonLabel="Donate"
+                alignment="centered"
+                background="light"
+              />
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">3 Metrics Layout</h3>
+                <p className="text-sm text-slate-600">Balanced layout for key impact data</p>
+              </div>
+              <TTDonateSection
+                headline="Build bridges to tech careers"
+                supportingText="Support learners as they transition into meaningful Salesforce roles."
+                metrics={[
+                  { value: '67', label: 'Partner Projects', subtext: 'Since launch', icon: Target, iconColor: 'text-blue-600' },
+                  { value: '12,450', label: 'Learning Hours', subtext: 'Across all programs', icon: BookOpen, iconColor: 'text-violet-600' },
+                  { value: '24', label: 'Partner Orgs', subtext: 'Active collaborations', icon: Building2, iconColor: 'text-emerald-600' },
+                ]}
+                givingTiers={[
+                  { amount: '$50', label: 'Friend' },
+                  { amount: '$100', label: 'Partner' },
+                  { amount: '$250', label: 'Leader' },
+                ]}
+                donateButtonLabel="Give Today"
+                microcopy="All gifts are tax-deductible"
+                alignment="centered"
+              />
+            </div>
+
+            {/* Giving Tier Variants */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">3-Tier Giving Levels</h3>
+                <p className="text-sm text-slate-600">Simplified giving options</p>
+              </div>
+              <TTDonateSection
+                headline="Every dollar counts"
+                metrics={[
+                  { value: '300+', label: 'Learners Served', icon: Users, iconColor: 'text-emerald-600' },
+                  { value: '45', label: 'Active Mentors', icon: Lightbulb, iconColor: 'text-amber-600' },
+                ]}
+                givingTiers={[
+                  { amount: '$25', label: 'Give monthly' },
+                  { amount: '$100', label: 'Give quarterly' },
+                  { amount: '$500', label: 'Give annually' },
+                ]}
+                donateButtonLabel="Start Giving"
+                alignment="centered"
+              />
+            </div>
+
+            {/* Dark Background Variant */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Dark Background Theme</h3>
+                <p className="text-sm text-slate-600">High contrast for impact and emphasis</p>
+              </div>
+              <TTDonateSection
+                headline="Join us in building pathways to success"
+                supportingText="Your generosity creates opportunities that change lives and strengthen communities."
+                metrics={[
+                  { value: '147+', label: 'Interns Supported', subtext: 'Since 2024', icon: Users, iconColor: 'text-emerald-400' },
+                  { value: '32', label: 'Nonprofit Projects', subtext: 'Delivered', icon: Target, iconColor: 'text-blue-400' },
+                  { value: '1,200', label: 'Volunteer Hours', subtext: 'This year', icon: Trophy, iconColor: 'text-amber-400' },
+                ]}
+                givingTiers={[
+                  { amount: '$25', label: 'Supporter' },
+                  { amount: '$50', label: 'Advocate' },
+                  { amount: '$100', label: 'Champion' },
+                  { amount: '$250', label: 'Trailblazer' },
+                ]}
+                donateButtonLabel="Make Your Impact"
+                microcopy="Tax-deductible 501(c)(3) gift"
+                alignment="centered"
+                background="dark"
+              />
+            </div>
+
+            {/* Interactive Tier Selection */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Interactive Tier Selection</h3>
+                <p className="text-sm text-slate-600">Demonstrates tier selection state (click to select)</p>
+              </div>
+              <InteractiveDonateDemo />
+            </div>
+
+            {/* Minimal Version */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Minimal Version - No Metrics</h3>
+                <p className="text-sm text-slate-600">Simplified CTA focused on giving levels</p>
+              </div>
+              <TTDonateSection
+                headline="Support our mission"
+                supportingText="Your contribution helps us empower the next generation of Salesforce professionals."
+                metrics={[]}
+                givingTiers={[
+                  { amount: '$25' },
+                  { amount: '$50' },
+                  { amount: '$100' },
+                  { amount: '$250' },
+                ]}
+                donateButtonLabel="Donate"
+                microcopy="Secure, tax-deductible donation"
+                alignment="centered"
+              />
+            </div>
+
+            {/* No Subtext Version */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">No Supporting Text</h3>
+                <p className="text-sm text-slate-600">Bold headline only for maximum impact</p>
+              </div>
+              <TTDonateSection
+                headline="Transform lives through technology education"
+                metrics={[
+                  { value: '147+', label: 'Interns Supported', icon: Users, iconColor: 'text-emerald-600' },
+                  { value: '32', label: 'Nonprofit Projects', icon: Target, iconColor: 'text-blue-600' },
+                  { value: '89%', label: 'Success Rate', icon: TrendingUp, iconColor: 'text-violet-600' },
+                ]}
+                givingTiers={[
+                  { amount: '$50' },
+                  { amount: '$100' },
+                  { amount: '$250' },
+                ]}
+                donateButtonLabel="Donate Today"
+                alignment="centered"
+              />
+            </div>
+
+            {/* Accessibility Features */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Accessibility Features</h3>
+                <p className="text-sm text-slate-600">WCAG AA compliant with semantic structure and comprehensive ARIA support</p>
+              </div>
+              <div className="bg-slate-50 rounded-lg p-6 space-y-3">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">High Contrast Text</div>
+                    <div className="text-sm text-slate-600">Headline and CTA meet WCAG AA contrast requirements (4.5:1 minimum)</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Semantic Section Structure</div>
+                    <div className="text-sm text-slate-600">Uses semantic &lt;section&gt; with aria-label "Donation call to action"</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Keyboard Navigation</div>
+                    <div className="text-sm text-slate-600">All giving tier buttons include visible focus rings and are keyboard accessible</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">ARIA Labels for Tiers</div>
+                    <div className="text-sm text-slate-600">Each giving tier has descriptive aria-label and aria-pressed state</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Logical Screen Reader Order</div>
+                    <div className="text-sm text-slate-600">Story → Metrics → Giving Levels → CTA button flow</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Region Labels</div>
+                    <div className="text-sm text-slate-600">Impact metrics and giving levels wrapped in labeled regions for context</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">No Color-Only Communication</div>
+                    <div className="text-sm text-slate-600">Tier selection indicated through multiple visual cues (color, border, text)</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">TTDS Token Compliance</div>
+                    <div className="text-sm text-slate-600">Uses spacing (16/24/32/40), radius (8px), and typography tokens throughout</div>
+                  </div>
                 </div>
               </div>
             </div>
