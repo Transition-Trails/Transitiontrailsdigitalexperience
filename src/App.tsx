@@ -37,7 +37,8 @@ import { TTCommunityPostCard } from './components/tt/CommunityPostCard';
 import { TTMetricTile } from './components/tt/MetricTile';
 import { TTDonateSection } from './components/tt/DonateSection';
 import { TTProgramOverviewCard } from './components/tt/ProgramOverviewCard';
-import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, Users, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar, GraduationCap, Shield, Eye, Briefcase } from 'lucide-react';
+import { TTAITrailCard } from './components/tt/AITrailCard';
+import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, Users, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar, GraduationCap, Shield, Eye, Briefcase, Sparkles, Bot, Wand2, Palette, FileType, Link2 } from 'lucide-react';
 
 // Interactive Donate Demo Component
 function InteractiveDonateDemo() {
@@ -187,6 +188,7 @@ export default function App() {
             <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full">TTA-124</span>
             <span className="px-3 py-1 bg-rose-100 text-rose-700 rounded-full">TTA-125</span>
             <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full">TTA-122</span>
+            <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full">AI Trail Card</span>
           </div>
         </header>
 
@@ -221,6 +223,7 @@ export default function App() {
             <a href="#metrictile" className="px-3 py-1.5 text-sm text-orange-700 bg-orange-50 rounded">Impact Metrics</a>
             <a href="#donate" className="px-3 py-1.5 text-sm text-rose-700 bg-rose-50 rounded">Donation CTA</a>
             <a href="#programoverview" className="px-3 py-1.5 text-sm text-indigo-700 bg-indigo-50 rounded">Program Overview</a>
+            <a href="#aitrail" className="px-3 py-1.5 text-sm text-purple-700 bg-purple-50 rounded">AI Trail</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -8349,6 +8352,497 @@ interface PennyTipProps {
                     ctaLabel="Start Free"
                     density="full"
                     ctaStyle="button"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* AI Trail Card Section */}
+        <section id="aitrail" className="space-y-6">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+            <div>
+              <h2 className="text-slate-900 mb-2">AI Trail Card</h2>
+              <p className="text-slate-600">
+                Domain component for AI Specialist Trail. Shows platform integrations, learning modules, capstone project, and the AI Innovation Leader badge.
+              </p>
+            </div>
+
+            {/* Full Detail with All Features */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Full Detail with NEW Badge</h3>
+                <p className="text-sm text-slate-600">Complete card showing all integrations, modules, capstone, and badge</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <TTAITrailCard
+                  trailName="AI Specialist Trail"
+                  isNew={true}
+                  platformIntegrations={[
+                    { name: 'Salesforce', icon: Cloud, color: 'text-blue-600' },
+                    { name: 'Jotform', icon: FileType, color: 'text-orange-600' },
+                    { name: 'Canva', icon: Palette, color: 'text-purple-600' },
+                    { name: 'Zapier', icon: Link2, color: 'text-orange-500' }
+                  ]}
+                  modules={[
+                    'AI Foundations & Ethics',
+                    'Prompt Engineering Basics',
+                    'Automation Patterns with AI',
+                    'AI + Salesforce Integration',
+                    'Building AI-Powered Workflows'
+                  ]}
+                  capstoneTitle="AI-Driven Nonprofit Solution"
+                  badgeTitle="AI Innovation Leader"
+                  ctaLabel="View AI Trail"
+                  detailLevel="full"
+                  showIcons={true}
+                  onCTAClick={() => console.log('Clicked: AI Trail')}
+                />
+
+                <TTAITrailCard
+                  trailName="AI for Marketing Automation"
+                  isNew={false}
+                  platformIntegrations={[
+                    { name: 'Salesforce', icon: Cloud, color: 'text-blue-600' },
+                    { name: 'Canva', icon: Palette, color: 'text-purple-600' },
+                    { name: 'Zapier', icon: Link2, color: 'text-orange-500' }
+                  ]}
+                  modules={[
+                    'AI Content Generation',
+                    'Marketing Cloud + AI',
+                    'Personalization at Scale',
+                    'Campaign Automation'
+                  ]}
+                  capstoneTitle="Automated Marketing Campaign"
+                  badgeTitle="AI Marketing Pioneer"
+                  ctaLabel="Explore Trail"
+                  detailLevel="full"
+                  showIcons={true}
+                  onCTAClick={() => console.log('Clicked')}
+                />
+
+                <TTAITrailCard
+                  trailName="AI-Powered Data Analytics"
+                  isNew={true}
+                  platformIntegrations={[
+                    { name: 'Salesforce', icon: Cloud, color: 'text-blue-600' },
+                    { name: 'Tableau', icon: TrendingUp, color: 'text-blue-500' },
+                    { name: 'Zapier', icon: Link2, color: 'text-orange-500' }
+                  ]}
+                  modules={[
+                    'Predictive Analytics Basics',
+                    'AI-Driven Insights',
+                    'Data Visualization with AI',
+                    'Einstein Analytics Mastery'
+                  ]}
+                  capstoneTitle="Predictive Nonprofit Dashboard"
+                  badgeTitle="AI Analytics Expert"
+                  ctaLabel="Start Learning"
+                  detailLevel="full"
+                  showIcons={true}
+                  onCTAClick={() => console.log('Clicked')}
+                />
+              </div>
+            </div>
+
+            {/* Compact Detail Level */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Compact Detail Level</h3>
+                <p className="text-sm text-slate-600">Simplified cards for quick browsing - shows title, integrations, and CTA only</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <TTAITrailCard
+                  trailName="AI Specialist Trail"
+                  platformIntegrations={[
+                    { name: 'Salesforce', icon: Cloud, color: 'text-blue-600' },
+                    { name: 'Jotform', icon: FileType, color: 'text-orange-600' },
+                    { name: 'Canva', icon: Palette, color: 'text-purple-600' },
+                    { name: 'Zapier', icon: Link2, color: 'text-orange-500' }
+                  ]}
+                  ctaLabel="View Trail"
+                  detailLevel="compact"
+                  showIcons={true}
+                  isNew={true}
+                  onCTAClick={() => console.log('Clicked')}
+                />
+
+                <TTAITrailCard
+                  trailName="AI Marketing Trail"
+                  platformIntegrations={[
+                    { name: 'Salesforce', icon: Cloud, color: 'text-blue-600' },
+                    { name: 'Canva', icon: Palette, color: 'text-purple-600' }
+                  ]}
+                  ctaLabel="Learn More"
+                  detailLevel="compact"
+                  showIcons={true}
+                  onCTAClick={() => console.log('Clicked')}
+                />
+
+                <TTAITrailCard
+                  trailName="AI Data Analytics"
+                  platformIntegrations={[
+                    { name: 'Salesforce', icon: Cloud, color: 'text-blue-600' },
+                    { name: 'Tableau', icon: TrendingUp, color: 'text-blue-500' }
+                  ]}
+                  ctaLabel="Explore"
+                  detailLevel="compact"
+                  showIcons={true}
+                  onCTAClick={() => console.log('Clicked')}
+                />
+
+                <TTAITrailCard
+                  trailName="AI Development Path"
+                  platformIntegrations={[
+                    { name: 'Salesforce', icon: Cloud, color: 'text-blue-600' },
+                    { name: 'GitHub', icon: Code, color: 'text-slate-800' }
+                  ]}
+                  ctaLabel="Start Trail"
+                  detailLevel="compact"
+                  showIcons={true}
+                  isNew={true}
+                  onCTAClick={() => console.log('Clicked')}
+                />
+              </div>
+            </div>
+
+            {/* Without Icons */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Without Platform Icons</h3>
+                <p className="text-sm text-slate-600">Text-only integration chips for cleaner appearance</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <TTAITrailCard
+                  trailName="AI Specialist Trail"
+                  platformIntegrations={[
+                    { name: 'Salesforce', icon: Cloud, color: 'text-blue-600' },
+                    { name: 'Jotform', icon: FileType, color: 'text-orange-600' },
+                    { name: 'Canva', icon: Palette, color: 'text-purple-600' },
+                    { name: 'Zapier', icon: Link2, color: 'text-orange-500' }
+                  ]}
+                  modules={[
+                    'AI Foundations & Ethics',
+                    'Prompt Engineering Basics',
+                    'Automation Patterns with AI',
+                    'AI + Salesforce Integration'
+                  ]}
+                  capstoneTitle="AI-Driven Nonprofit Solution"
+                  badgeTitle="AI Innovation Leader"
+                  ctaLabel="View AI Trail"
+                  detailLevel="full"
+                  showIcons={false}
+                  onCTAClick={() => console.log('Clicked')}
+                />
+
+                <TTAITrailCard
+                  trailName="AI Marketing Automation"
+                  platformIntegrations={[
+                    { name: 'Salesforce', icon: Cloud },
+                    { name: 'Marketing Cloud', icon: Mail },
+                    { name: 'Canva', icon: Palette }
+                  ]}
+                  modules={[
+                    'AI Content Generation',
+                    'Personalization at Scale',
+                    'Campaign Optimization'
+                  ]}
+                  capstoneTitle="AI Marketing Campaign Suite"
+                  badgeTitle="AI Marketing Pioneer"
+                  ctaLabel="Explore Trail"
+                  detailLevel="full"
+                  showIcons={false}
+                  isNew={true}
+                  onCTAClick={() => console.log('Clicked')}
+                />
+              </div>
+            </div>
+
+            {/* Different Module Counts */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Varying Module Counts</h3>
+                <p className="text-sm text-slate-600">Cards adapt to 3, 4, or 5 learning modules</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* 3 Modules */}
+                <TTAITrailCard
+                  trailName="AI Quick Start"
+                  platformIntegrations={[
+                    { name: 'Salesforce', icon: Cloud, color: 'text-blue-600' },
+                    { name: 'Zapier', icon: Link2, color: 'text-orange-500' }
+                  ]}
+                  modules={[
+                    'AI Fundamentals',
+                    'Simple Automations',
+                    'First AI Project'
+                  ]}
+                  capstoneTitle="Basic AI Automation"
+                  badgeTitle="AI Starter"
+                  ctaLabel="Begin Trail"
+                  detailLevel="full"
+                  showIcons={true}
+                />
+
+                {/* 4 Modules */}
+                <TTAITrailCard
+                  trailName="AI Developer Path"
+                  platformIntegrations={[
+                    { name: 'Salesforce', icon: Cloud, color: 'text-blue-600' },
+                    { name: 'GitHub', icon: Code, color: 'text-slate-800' }
+                  ]}
+                  modules={[
+                    'AI APIs & Integration',
+                    'Custom AI Models',
+                    'Deployment Strategies',
+                    'Testing AI Systems'
+                  ]}
+                  capstoneTitle="Production AI Application"
+                  badgeTitle="AI Developer Pro"
+                  ctaLabel="Start Path"
+                  detailLevel="full"
+                  showIcons={true}
+                />
+
+                {/* 5 Modules */}
+                <TTAITrailCard
+                  trailName="AI Master Track"
+                  platformIntegrations={[
+                    { name: 'Salesforce', icon: Cloud, color: 'text-blue-600' },
+                    { name: 'Tableau', icon: TrendingUp, color: 'text-blue-500' },
+                    { name: 'Zapier', icon: Link2, color: 'text-orange-500' }
+                  ]}
+                  modules={[
+                    'Advanced AI Strategies',
+                    'Enterprise Architecture',
+                    'AI Ethics & Governance',
+                    'Team Leadership',
+                    'Innovation Management'
+                  ]}
+                  capstoneTitle="Enterprise AI Transformation"
+                  badgeTitle="AI Master Architect"
+                  ctaLabel="Master Track"
+                  detailLevel="full"
+                  showIcons={true}
+                />
+              </div>
+            </div>
+
+            {/* Accessibility Features */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Accessibility Features</h3>
+                <p className="text-sm text-slate-600">WCAG AA compliant with comprehensive semantic structure</p>
+              </div>
+              <div className="bg-slate-50 rounded-lg p-6 space-y-3">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">WCAG AA Contrast Compliance</div>
+                    <div className="text-sm text-slate-600">All text and chips meet minimum 4.5:1 contrast ratio</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Badge Semantic Markup</div>
+                    <div className="text-sm text-slate-600">Badge includes aria-label with "Earn badge: AI Innovation Leader" context</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Platform Icon Accessibility</div>
+                    <div className="text-sm text-slate-600">Icons include color indicators and text labels, or marked aria-hidden when decorative</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Logical Reading Order</div>
+                    <div className="text-sm text-slate-600">Title → NEW badge → integrations → modules → capstone → badge → CTA</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Clear Keyboard Focus</div>
+                    <div className="text-sm text-slate-600">CTA button has visible focus ring with proper contrast</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Descriptive CTA Labels</div>
+                    <div className="text-sm text-slate-600">Aria-label includes trail name for full context: "View AI Trail - AI Specialist Trail"</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Semantic List Structure</div>
+                    <div className="text-sm text-slate-600">Modules use proper <code className="text-xs bg-slate-200 px-1 rounded">ul</code> and <code className="text-xs bg-slate-200 px-1 rounded">role="list"</code> for screen readers</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">TTDS Token Compliance</div>
+                    <div className="text-sm text-slate-600">Uses spacing (12/16/20/24), radius (8px), typography, and card tokens</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Template Integration Example */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Program Overview Template Integration</h3>
+                <p className="text-sm text-slate-600">AI Trail cards in a full page context with hero section</p>
+              </div>
+              <div className="bg-gradient-to-br from-purple-50 via-blue-50 to-emerald-50 rounded-lg p-8 space-y-6">
+                <div className="text-center space-y-2">
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-purple-100 text-purple-700 rounded-full text-sm mb-2">
+                    <Sparkles className="w-4 h-4" />
+                    <span>New AI Learning Paths</span>
+                  </div>
+                  <h4 className="text-2xl text-slate-900">AI-Powered Trails</h4>
+                  <p className="text-slate-600 max-w-2xl mx-auto">
+                    Master the future of Salesforce with our AI-focused learning paths. 
+                    Learn to integrate cutting-edge AI tools and build intelligent automation solutions.
+                  </p>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <TTAITrailCard
+                    trailName="AI Specialist Trail"
+                    isNew={true}
+                    platformIntegrations={[
+                      { name: 'Salesforce', icon: Cloud, color: 'text-blue-600' },
+                      { name: 'Jotform', icon: FileType, color: 'text-orange-600' },
+                      { name: 'Canva', icon: Palette, color: 'text-purple-600' },
+                      { name: 'Zapier', icon: Link2, color: 'text-orange-500' }
+                    ]}
+                    modules={[
+                      'AI Foundations & Ethics',
+                      'Prompt Engineering Basics',
+                      'Automation Patterns with AI',
+                      'AI + Salesforce Integration',
+                      'Building AI-Powered Workflows'
+                    ]}
+                    capstoneTitle="AI-Driven Nonprofit Solution"
+                    badgeTitle="AI Innovation Leader"
+                    ctaLabel="Enroll Now"
+                    detailLevel="full"
+                    showIcons={true}
+                  />
+
+                  <TTAITrailCard
+                    trailName="AI Marketing Automation"
+                    platformIntegrations={[
+                      { name: 'Salesforce', icon: Cloud, color: 'text-blue-600' },
+                      { name: 'Canva', icon: Palette, color: 'text-purple-600' },
+                      { name: 'Zapier', icon: Link2, color: 'text-orange-500' }
+                    ]}
+                    modules={[
+                      'AI Content Generation',
+                      'Marketing Cloud + AI',
+                      'Personalization at Scale',
+                      'Campaign Automation'
+                    ]}
+                    capstoneTitle="Automated Marketing Campaign"
+                    badgeTitle="AI Marketing Pioneer"
+                    ctaLabel="Enroll Now"
+                    detailLevel="full"
+                    showIcons={true}
+                  />
+
+                  <TTAITrailCard
+                    trailName="AI Data Analytics"
+                    isNew={true}
+                    platformIntegrations={[
+                      { name: 'Salesforce', icon: Cloud, color: 'text-blue-600' },
+                      { name: 'Tableau', icon: TrendingUp, color: 'text-blue-500' },
+                      { name: 'Zapier', icon: Link2, color: 'text-orange-500' }
+                    ]}
+                    modules={[
+                      'Predictive Analytics Basics',
+                      'AI-Driven Insights',
+                      'Data Visualization with AI',
+                      'Einstein Analytics Mastery'
+                    ]}
+                    capstoneTitle="Predictive Dashboard System"
+                    badgeTitle="AI Analytics Expert"
+                    ctaLabel="Enroll Now"
+                    detailLevel="full"
+                    showIcons={true}
+                  />
+                </div>
+
+                <div className="text-center pt-4">
+                  <p className="text-sm text-slate-600 mb-4">All trails include 1-on-1 coaching, peer collaboration, and job placement support</p>
+                  <Button variant="secondary" size="md">
+                    Compare All AI Trails
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Trail Path Layout Example */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Trail Path Layout (Compact Cards)</h3>
+                <p className="text-sm text-slate-600">Quick navigation cards for browsing multiple trail options</p>
+              </div>
+              <div className="bg-slate-50 rounded-lg p-6">
+                <div className="mb-4">
+                  <h4 className="text-lg text-slate-900 mb-1">Choose Your AI Learning Path</h4>
+                  <p className="text-sm text-slate-600">Select a trail that matches your career goals</p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <TTAITrailCard
+                    trailName="AI Specialist"
+                    platformIntegrations={[
+                      { name: 'Salesforce', icon: Cloud, color: 'text-blue-600' },
+                      { name: 'Jotform', icon: FileType, color: 'text-orange-600' },
+                      { name: 'Canva', icon: Palette, color: 'text-purple-600' }
+                    ]}
+                    ctaLabel="View"
+                    detailLevel="compact"
+                    showIcons={true}
+                    isNew={true}
+                  />
+                  <TTAITrailCard
+                    trailName="AI Marketing"
+                    platformIntegrations={[
+                      { name: 'Salesforce', icon: Cloud, color: 'text-blue-600' },
+                      { name: 'Canva', icon: Palette, color: 'text-purple-600' }
+                    ]}
+                    ctaLabel="View"
+                    detailLevel="compact"
+                    showIcons={true}
+                  />
+                  <TTAITrailCard
+                    trailName="AI Analytics"
+                    platformIntegrations={[
+                      { name: 'Salesforce', icon: Cloud, color: 'text-blue-600' },
+                      { name: 'Tableau', icon: TrendingUp, color: 'text-blue-500' }
+                    ]}
+                    ctaLabel="View"
+                    detailLevel="compact"
+                    showIcons={true}
+                    isNew={true}
+                  />
+                  <TTAITrailCard
+                    trailName="AI Development"
+                    platformIntegrations={[
+                      { name: 'Salesforce', icon: Cloud, color: 'text-blue-600' },
+                      { name: 'GitHub', icon: Code, color: 'text-slate-800' }
+                    ]}
+                    ctaLabel="View"
+                    detailLevel="compact"
+                    showIcons={true}
                   />
                 </div>
               </div>
