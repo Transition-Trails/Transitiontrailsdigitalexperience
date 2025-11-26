@@ -28,6 +28,7 @@ import { SkillsAndCertsPanel } from './components/ttds/SkillsAndCertsPanel';
 import { PartnerProjectCard } from './components/ttds/PartnerProjectCard';
 import { EventSessionCard } from './components/ttds/EventSessionCard';
 import { RoadmapItemCard } from './components/ttds/RoadmapItemCard';
+import { LearningActivityCard } from './components/ttds/LearningActivityCard';
 import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar } from 'lucide-react';
 
 // Loading Demo Component
@@ -133,6 +134,7 @@ export default function App() {
             <span className="px-3 py-1 bg-rose-100 text-rose-700 rounded-full">TTA-128</span>
             <span className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full">TTA-127</span>
             <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full">TTA-123</span>
+            <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full">TTA-133</span>
           </div>
         </header>
 
@@ -158,6 +160,7 @@ export default function App() {
             <a href="#partnerproject" className="px-3 py-1.5 text-sm text-rose-700 bg-rose-50 rounded">Partner Projects</a>
             <a href="#eventsession" className="px-3 py-1.5 text-sm text-cyan-700 bg-cyan-50 rounded">Event Sessions</a>
             <a href="#roadmap" className="px-3 py-1.5 text-sm text-indigo-700 bg-indigo-50 rounded">Roadmap</a>
+            <a href="#learningactivity" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded">Learning Activities</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -3709,6 +3712,500 @@ export default function App() {
               <li>Live example link appears at bottom with top border divider</li>
               <li>Recommended layouts: 3 columns desktop, 2 columns tablet, 1 column mobile</li>
               <li>Use truncateDescription prop for 4-column dense layouts</li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Learning Activity Card Section */}
+        <section id="learningactivity" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <h2 className="text-slate-900 mb-2">Learning Activity Card</h2>
+            <p className="text-slate-600">
+              Domain component used across the Learning Center to represent activities such as Study Groups, 
+              Peer Reviews, and Capstone Projects. Supports filtering, browsing, and scanning workflows.
+            </p>
+          </div>
+
+          {/* All Activity Types */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Activity Type Variants</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              The component supports three activity types: Study Group, Peer Review, and Capstone Project. 
+              Each uses a distinct TTDS Tag variant for clear visual categorization.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <LearningActivityCard
+                activityType="study-group"
+                title="Study Group: Reporting Essentials"
+                description="Collaborative session focused on mastering Salesforce reports and dashboards. Learn to create custom reports, build visual dashboards, and use analytics to drive insights."
+                tags={['Reporting', 'Dashboards', 'Analytics']}
+              />
+              <LearningActivityCard
+                activityType="peer-review"
+                title="Peer Review: Dashboard Submission"
+                description="Submit your dashboard project for peer feedback and constructive review. Get actionable insights from fellow learners to improve your work before final submission."
+                tags={['Dashboards', 'Peer Learning', 'Feedback']}
+              />
+              <LearningActivityCard
+                activityType="capstone"
+                title="Capstone: Nonprofit Lead Intake Flow"
+                description="Build a complete lead intake and management system for a nonprofit partner. Demonstrate automation, validation rules, and process builder skills in a real-world scenario."
+                tags={['Automation', 'Flows', 'Validation Rules', 'Nonprofit']}
+              />
+            </div>
+          </div>
+
+          {/* Study Groups */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Study Group Activities</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Study groups are collaborative learning sessions where learners work together on specific topics or skills.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <LearningActivityCard
+                activityType="study-group"
+                title="Study Group: Admin Certification Prep"
+                description="Weekly study sessions preparing for the Salesforce Administrator certification exam. Cover all exam topics with practice questions and group discussions."
+                tags={['Admin Cert', 'Exam Prep', 'Certification']}
+              />
+              <LearningActivityCard
+                activityType="study-group"
+                title="Study Group: Apex Fundamentals"
+                description="Introduction to Apex programming with hands-on exercises. Perfect for learners transitioning from declarative to programmatic development."
+                tags={['Apex', 'Programming', 'Development']}
+              />
+              <LearningActivityCard
+                activityType="study-group"
+                title="Study Group: Experience Cloud Basics"
+                description="Build your first Experience Cloud site from scratch. Learn templates, branding, navigation, and content management in a collaborative environment."
+                tags={['Experience Cloud', 'Communities', 'Sites']}
+              />
+            </div>
+          </div>
+
+          {/* Peer Reviews */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Peer Review Activities</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Peer review activities allow learners to submit work for feedback and review from fellow cohort members.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <LearningActivityCard
+                activityType="peer-review"
+                title="Peer Review: Process Builder Workflow"
+                description="Share your process builder automation for peer critique. Receive feedback on logic, efficiency, and best practices from experienced learners."
+                tags={['Process Builder', 'Automation', 'Best Practices']}
+              />
+              <LearningActivityCard
+                activityType="peer-review"
+                title="Peer Review: Data Model Design"
+                description="Present your custom object schema and relationships for review. Get insights on normalization, scalability, and design patterns."
+                tags={['Data Model', 'Objects', 'Relationships']}
+              />
+              <LearningActivityCard
+                activityType="peer-review"
+                title="Peer Review: Lightning Component"
+                description="Submit your Lightning Web Component for code review. Receive feedback on component design, JavaScript patterns, and accessibility compliance."
+                tags={['LWC', 'JavaScript', 'Components']}
+              />
+            </div>
+          </div>
+
+          {/* Capstone Projects */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Capstone Projects</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Capstone projects are comprehensive, real-world implementations demonstrating mastery across multiple skills.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <LearningActivityCard
+                activityType="capstone"
+                title="Capstone: Small Business CRM"
+                description="Design and build a complete CRM solution for a small business partner. Include lead management, opportunity tracking, reporting, and email integration."
+                tags={['CRM', 'Integration', 'Business Process', 'Reporting']}
+              />
+              <LearningActivityCard
+                activityType="capstone"
+                title="Capstone: Volunteer Management System"
+                description="Create a volunteer management platform for a nonprofit. Track volunteer hours, skills, assignments, and impact metrics with automated communications."
+                tags={['Nonprofit', 'Automation', 'Flows', 'Reporting', 'Email']}
+              />
+              <LearningActivityCard
+                activityType="capstone"
+                title="Capstone: Event Registration Portal"
+                description="Build a public-facing event registration system using Experience Cloud. Handle registrations, payments, confirmations, and attendee management."
+                tags={['Experience Cloud', 'Integration', 'Flows', 'Sites']}
+              />
+            </div>
+          </div>
+
+          {/* With and Without Descriptions */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Description Variants</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Cards can be displayed with or without descriptions depending on layout density and information needs.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">With Description</h4>
+                <LearningActivityCard
+                  activityType="study-group"
+                  title="Study Group: AI Skills for Salesforce"
+                  description="Explore how AI is transforming Salesforce with Einstein GPT, predictive analytics, and intelligent automation. Learn practical applications and implementation strategies."
+                  tags={['AI Skills', 'Einstein', 'Analytics']}
+                />
+              </div>
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">Without Description</h4>
+                <LearningActivityCard
+                  activityType="study-group"
+                  title="Study Group: AI Skills for Salesforce"
+                  tags={['AI Skills', 'Einstein', 'Analytics']}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Tag Variants */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Tag Variants (Skills, Tools, Categories)</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Tags represent skills, tools, or categories. They automatically wrap to multiple rows as needed.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <LearningActivityCard
+                activityType="study-group"
+                title="Quick Workshop: Formula Fields"
+                description="30-minute focused session on building effective formula fields for common business scenarios."
+                tags={['Formula Fields']}
+              />
+              <LearningActivityCard
+                activityType="peer-review"
+                title="Code Review: Trigger Framework"
+                description="Advanced peer review of trigger architecture patterns. Discuss bulkification, recursion prevention, and best practices."
+                tags={['Apex', 'Triggers', 'Best Practices', 'Architecture']}
+              />
+              <LearningActivityCard
+                activityType="capstone"
+                title="Full-Stack Salesforce Project"
+                description="End-to-end Salesforce implementation including custom objects, Apex, LWC, integrations, and reporting for a real partner organization."
+                tags={['Apex', 'LWC', 'Integration', 'Flows', 'Reports', 'Data Model', 'Experience Cloud', 'Testing']}
+              />
+            </div>
+          </div>
+
+          {/* Mixed Content Showcase */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Mixed Activity Types (Learning Center View)</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Example of how different activity types might appear together in a Learning Center browse/filter view.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <LearningActivityCard
+                activityType="study-group"
+                title="Study Group: Platform App Builder Prep"
+                description="Comprehensive preparation for the Platform App Builder certification. Weekly sessions covering declarative development, data modeling, and business logic."
+                tags={['App Builder', 'Certification', 'Exam Prep']}
+              />
+              <LearningActivityCard
+                activityType="capstone"
+                title="Capstone: Grant Management System"
+                description="Build a complete grant tracking and reporting system for a nonprofit partner. Include application workflows, review processes, and impact reporting."
+                tags={['Nonprofit', 'Flows', 'Reporting', 'Automation']}
+              />
+              <LearningActivityCard
+                activityType="peer-review"
+                title="Peer Review: Security Implementation"
+                description="Review security architecture including profiles, permission sets, sharing rules, and field-level security for a multi-org implementation."
+                tags={['Security', 'Permissions', 'Sharing']}
+              />
+              <LearningActivityCard
+                activityType="study-group"
+                title="Study Group: Integration Patterns"
+                description="Learn REST and SOAP APIs, middleware patterns, and integration best practices. Build real integrations with external systems."
+                tags={['Integration', 'APIs', 'Middleware']}
+              />
+              <LearningActivityCard
+                activityType="peer-review"
+                title="Peer Review: Test Coverage Strategy"
+                description="Share your Apex test class design and coverage strategy. Discuss test data factories, assertions, and negative testing approaches."
+                tags={['Apex', 'Testing', 'Best Practices']}
+              />
+              <LearningActivityCard
+                activityType="capstone"
+                title="Capstone: Multi-Org Integration Hub"
+                description="Design and implement an integration hub connecting multiple Salesforce orgs and external systems using MuleSoft or custom middleware."
+                tags={['Integration', 'APIs', 'Architecture', 'MuleSoft']}
+              />
+            </div>
+          </div>
+
+          {/* Real-World Learning Center Layout */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Real-World Learning Center Layout</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Example of a complete Learning Center page with filters and categorized activities.
+            </p>
+            
+            {/* Filter Row (Simulation) */}
+            <div className="flex flex-wrap gap-2 p-4 bg-slate-50 rounded-lg border border-slate-200 mb-4">
+              <span className="text-sm text-slate-700 mr-2">Filter by:</span>
+              <Tag variant="default" label="All Activities" />
+              <Tag variant="trail" label="Study Groups" />
+              <Tag variant="topic" label="Peer Reviews" />
+              <Tag variant="platform" label="Capstone Projects" />
+            </div>
+
+            {/* Activity Grid */}
+            <div className="space-y-6">
+              {/* This Week Section */}
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <h4 className="text-slate-900">This Week</h4>
+                  <Badge variant="updated" label="6 Activities" />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <LearningActivityCard
+                    activityType="study-group"
+                    title="Study Group: Advanced Flows"
+                    description="Master Flow Builder advanced patterns including loops, subflows, and error handling. Build complex automation workflows."
+                    tags={['Flows', 'Automation', 'Advanced']}
+                  />
+                  <LearningActivityCard
+                    activityType="study-group"
+                    title="Study Group: Reports & Dashboards Deep Dive"
+                    description="Advanced reporting techniques including cross-object formulas, bucketing, and dynamic dashboards with multiple subscriptions."
+                    tags={['Reporting', 'Dashboards', 'Analytics']}
+                  />
+                  <LearningActivityCard
+                    activityType="peer-review"
+                    title="Peer Review: Validation Rules & Formulas"
+                    description="Submit your validation rule logic and formula fields for expert review. Learn optimization techniques and edge case handling."
+                    tags={['Validation', 'Formulas', 'Data Quality']}
+                  />
+                </div>
+              </div>
+
+              {/* Upcoming Section */}
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <h4 className="text-slate-900">Coming Soon</h4>
+                  <Badge variant="new" label="4 Activities" />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <LearningActivityCard
+                    activityType="capstone"
+                    title="Capstone: Member Management Portal"
+                    description="Build a member-facing portal using Experience Cloud. Include self-service features, document access, and communication tools."
+                    tags={['Experience Cloud', 'Self-Service', 'Sites']}
+                  />
+                  <LearningActivityCard
+                    activityType="study-group"
+                    title="Study Group: Lightning Web Components"
+                    description="Introduction to LWC development with hands-on component building. Learn lifecycle hooks, component communication, and wire service."
+                    tags={['LWC', 'JavaScript', 'Development']}
+                  />
+                  <LearningActivityCard
+                    activityType="peer-review"
+                    title="Peer Review: Flow Design Patterns"
+                    description="Review your flow architecture for efficiency, maintainability, and scalability. Get feedback from automation experts."
+                    tags={['Flows', 'Design Patterns', 'Best Practices']}
+                  />
+                </div>
+              </div>
+
+              {/* Open Projects Section */}
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <h4 className="text-slate-900">Open Capstone Projects</h4>
+                  <Badge variant="new" label="Available" />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <LearningActivityCard
+                    activityType="capstone"
+                    title="Capstone: Donation Management for Wildlife Conservancy"
+                    description="Build a comprehensive donation tracking system with recurring gifts, tribute donations, and donor impact reporting."
+                    tags={['Nonprofit', 'Payments', 'Reporting', 'Automation']}
+                  />
+                  <LearningActivityCard
+                    activityType="capstone"
+                    title="Capstone: Case Management for Youth Services"
+                    description="Create a case management solution for a youth services nonprofit. Track services, outcomes, and reporting for funding agencies."
+                    tags={['Nonprofit', 'Case Management', 'Reporting', 'Compliance']}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Pagination */}
+            <div className="mt-6">
+              <Pagination
+                currentPage={1}
+                totalPages={5}
+                onPageChange={(page) => console.log('Page:', page)}
+              />
+            </div>
+          </div>
+
+          {/* Component Props Reference */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Component Props & API</h3>
+            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+              <h4 className="text-slate-900 mb-3">Required Props</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm mb-4">
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="h-4 w-4 text-slate-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-slate-900">activityType:</strong>
+                    <span className="text-slate-600"> 'study-group' | 'peer-review' | 'capstone'</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <FileText className="h-4 w-4 text-slate-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-slate-900">title:</strong>
+                    <span className="text-slate-600"> string - Most prominent text in card</span>
+                  </div>
+                </div>
+              </div>
+
+              <h4 className="text-slate-900 mb-3">Optional Props</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                <div>
+                  <strong className="text-slate-900">description:</strong>
+                  <span className="text-slate-600"> string - 1-2 sentence summary (auto-truncated)</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">tags:</strong>
+                  <span className="text-slate-600"> string[] - Skills, tools, or categories (wrap-enabled)</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">truncateDescription:</strong>
+                  <span className="text-slate-600"> boolean - Force 3-line truncation (default: true)</span>
+                </div>
+              </div>
+
+              <div className="mt-4 p-3 bg-blue-50 rounded border border-blue-200">
+                <p className="text-sm text-blue-900">
+                  <strong>Future-Ready Structure:</strong> The component is designed to accommodate future metadata 
+                  such as duration, facilitator, and progress indicators without breaking existing layouts.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Activity Type Reference */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Activity Types & Tag Colors</h3>
+            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+              <h4 className="text-slate-900 mb-3">Activity Type Mapping</h4>
+              <div className="space-y-2 text-sm">
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-700">study-group</span>
+                  <Tag variant="trail" label="Study Group" />
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-700">peer-review</span>
+                  <Tag variant="topic" label="Peer Review" />
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-700">capstone</span>
+                  <Tag variant="platform" label="Capstone Project" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Accessibility Features */}
+          <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
+            <p className="text-sm text-emerald-900">
+              <strong>Accessibility Features:</strong> Semantic HTML with proper heading hierarchy (h3 for title), 
+              WCAG AA contrast ratios on all text and tag combinations, 
+              activity type tags include text labels (no color-only meaning), 
+              logical screen reader order (Activity Type → Title → Description → Tags), 
+              tags are individually focusable for keyboard navigation, 
+              title remains readable at small card sizes (minimum 14px), 
+              sufficient color contrast maintained in both light and dark modes, 
+              no reliance on color alone for information (each activity type has a distinct label).
+            </p>
+          </div>
+
+          {/* Usage Guidelines */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Usage Guidelines</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+              <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-700" />
+                  <strong className="text-emerald-900">Do:</strong>
+                </div>
+                <ul className="text-emerald-800 space-y-1 ml-6 list-disc">
+                  <li>Use clear, descriptive titles (5-10 words)</li>
+                  <li>Keep descriptions to 1-2 sentences maximum</li>
+                  <li>Include 2-6 relevant skill/tool tags per activity</li>
+                  <li>Choose the most accurate activity type</li>
+                  <li>Use truncation for consistent grid layouts</li>
+                  <li>Group similar activities in sections</li>
+                  <li>Provide filtering options in Learning Center views</li>
+                </ul>
+              </div>
+              <div className="p-3 bg-rose-50 rounded-lg border border-rose-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <AlertCircle className="h-4 w-4 text-rose-700" />
+                  <strong className="text-rose-900">Don't:</strong>
+                </div>
+                <ul className="text-rose-800 space-y-1 ml-6 list-disc">
+                  <li>Don't use vague titles like "Group Session" or "Project"</li>
+                  <li>Don't write multi-paragraph descriptions</li>
+                  <li>Don't overload with 10+ tags (reduces scannability)</li>
+                  <li>Don't use activity types interchangeably</li>
+                  <li>Don't omit descriptions when context is needed</li>
+                  <li>Don't mix truncated and non-truncated in same grid</li>
+                  <li>Don't forget to update tags as skills evolve</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Use Cases */}
+          <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <h4 className="text-slate-900 mb-2">Use Cases</h4>
+            <ul className="text-sm text-blue-900 space-y-1 ml-5 list-disc">
+              <li><strong>Learning Center:</strong> Primary browsing interface for discovering and enrolling in activities</li>
+              <li><strong>Dashboard:</strong> Show upcoming or recommended activities based on learner progress</li>
+              <li><strong>Cohort Pages:</strong> Display activities specific to a cohort or learning path</li>
+              <li><strong>Partner Pages:</strong> Showcase available capstone projects from specific partners</li>
+              <li><strong>Activity Search:</strong> Support filtering by activity type, skills, or tools</li>
+            </ul>
+          </div>
+
+          {/* Design Tokens Used */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Design Tokens & Components Used</h3>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Card (elevation: low, padding: normal)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Tag (all variants)</span>
+              <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded">gap-2, gap-3 (8px, 12px spacing)</span>
+              <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded">rounded-lg (8px radius)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">slate-50 to slate-900 (neutrals)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">h-full (card fills container height)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">flex-col (vertical layout)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">line-clamp-3 (description truncation)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">flex-wrap (tag wrapping)</span>
+            </div>
+          </div>
+
+          {/* Responsive Behavior */}
+          <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <h4 className="text-slate-900 mb-2">Responsive Behavior</h4>
+            <ul className="text-sm text-blue-900 space-y-1 ml-5 list-disc">
+              <li>Cards work in 1-3 column grids (recommended: 3 desktop, 2 tablet, 1 mobile)</li>
+              <li>Title text wraps gracefully for long activity names</li>
+              <li>Description auto-truncates at 3 lines by default</li>
+              <li>Tags wrap to multiple rows as needed (flex-wrap)</li>
+              <li>Activity type tag remains visible at all breakpoints</li>
+              <li>Cards maintain consistent height in grid using h-full</li>
+              <li>Minimum card width: 280px for optimal readability</li>
             </ul>
           </div>
         </section>
