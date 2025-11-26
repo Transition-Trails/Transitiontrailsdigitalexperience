@@ -29,6 +29,7 @@ import { PartnerProjectCard } from './components/ttds/PartnerProjectCard';
 import { EventSessionCard } from './components/ttds/EventSessionCard';
 import { RoadmapItemCard } from './components/ttds/RoadmapItemCard';
 import { LearningActivityCard } from './components/ttds/LearningActivityCard';
+import { AssignmentCard } from './components/ttds/AssignmentCard';
 import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar } from 'lucide-react';
 
 // Loading Demo Component
@@ -135,6 +136,7 @@ export default function App() {
             <span className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full">TTA-127</span>
             <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full">TTA-123</span>
             <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full">TTA-133</span>
+            <span className="px-3 py-1 bg-violet-100 text-violet-700 rounded-full">TTA-132</span>
           </div>
         </header>
 
@@ -161,6 +163,7 @@ export default function App() {
             <a href="#eventsession" className="px-3 py-1.5 text-sm text-cyan-700 bg-cyan-50 rounded">Event Sessions</a>
             <a href="#roadmap" className="px-3 py-1.5 text-sm text-indigo-700 bg-indigo-50 rounded">Roadmap</a>
             <a href="#learningactivity" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded">Learning Activities</a>
+            <a href="#assignment" className="px-3 py-1.5 text-sm text-violet-700 bg-violet-50 rounded">Assignments</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -4206,6 +4209,698 @@ export default function App() {
               <li>Activity type tag remains visible at all breakpoints</li>
               <li>Cards maintain consistent height in grid using h-full</li>
               <li>Minimum card width: 280px for optimal readability</li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Assignment Card Section */}
+        <section id="assignment" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <h2 className="text-slate-900 mb-2">Assignment Card</h2>
+            <p className="text-slate-600">
+              Higher-detail domain component used across Guided Trails and Dashboard for coach-guided learning tasks. 
+              Contains more detail than simple activity cards, including resources, submission activity, and evaluation.
+            </p>
+          </div>
+
+          {/* All Submission Status Variants */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Submission Status Variants</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              The component supports five submission states: Not Started, In Progress, Submitted, Returned, and Completed. 
+              Each uses a distinct ChipStatus variant for clear visual feedback.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <AssignmentCard
+                title="Build a Custom Report Dashboard"
+                description="Create a comprehensive dashboard with at least 5 custom reports covering lead conversion, opportunity pipeline, and case resolution metrics. Include filters for date ranges and user-specific views."
+                coachName="Sarah Martinez"
+                submissionStatus="not-started"
+                resources={[
+                  { type: 'file', label: 'Dashboard Requirements.pdf' },
+                  { type: 'link', label: 'Report Builder Guide' },
+                  { type: 'requirement', label: 'Rubric' }
+                ]}
+              />
+              <AssignmentCard
+                title="Implement Validation Rules"
+                description="Design and implement data validation rules for the Lead and Opportunity objects. Ensure proper error messages, field dependencies, and business logic enforcement. Test all edge cases thoroughly."
+                coachName="Michael Chen"
+                submissionStatus="in-progress"
+                resources={[
+                  { type: 'file', label: 'Validation Scenarios.xlsx' },
+                  { type: 'link', label: 'Formula Field Reference' }
+                ]}
+              />
+              <AssignmentCard
+                title="Create Automated Email Flow"
+                description="Build a Flow that automatically sends personalized welcome emails to new contacts, including account information and next steps. Must handle bulk imports and include proper error handling."
+                coachName="Sarah Martinez"
+                submissionStatus="submitted"
+                resources={[
+                  { type: 'file', label: 'Email Templates.docx' },
+                  { type: 'link', label: 'Flow Best Practices' },
+                  { type: 'requirement', label: 'Testing Checklist' }
+                ]}
+              />
+              <AssignmentCard
+                title="Design Custom Object Schema"
+                description="Create a custom object data model for a nonprofit volunteer management system. Include relationships, field types, page layouts, and security settings. Document all design decisions."
+                coachName="Jennifer Lee"
+                submissionStatus="returned"
+                resources={[
+                  { type: 'file', label: 'Schema Template.pdf' },
+                  { type: 'link', label: 'ERD Tool' }
+                ]}
+                rubricGrade="Needs Revision"
+              />
+              <AssignmentCard
+                title="Build Lightning Web Component"
+                description="Develop a Lightning Web Component that displays related records with search, filter, and pagination capabilities. Must follow accessibility guidelines and include comprehensive test coverage."
+                coachName="Michael Chen"
+                submissionStatus="completed"
+                resources={[
+                  { type: 'file', label: 'Component Specs.pdf' },
+                  { type: 'link', label: 'LWC Documentation' },
+                  { type: 'requirement', label: 'Accessibility Checklist' }
+                ]}
+                rubricGrade="95/100"
+              />
+            </div>
+          </div>
+
+          {/* Not Started State Examples */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Not Started Assignments</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Assignments that have been assigned but the learner has not yet begun work.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <AssignmentCard
+                title="Security & Sharing Architecture"
+                description="Design and implement a comprehensive security model including profiles, permission sets, role hierarchy, and sharing rules for a multi-department organization. Document security requirements and test access scenarios."
+                coachName="David Thompson"
+                submissionStatus="not-started"
+                resources={[
+                  { type: 'file', label: 'Security Requirements.pdf' },
+                  { type: 'link', label: 'Sharing Rules Guide' },
+                  { type: 'requirement', label: 'Test Scenarios' }
+                ]}
+              />
+              <AssignmentCard
+                title="Integration with External API"
+                description="Build a REST API integration that syncs data between Salesforce and an external system. Include authentication, error handling, and scheduling. Must handle large data volumes efficiently."
+                coachName="Sarah Martinez"
+                submissionStatus="not-started"
+                resources={[
+                  { type: 'file', label: 'API Documentation.pdf' },
+                  { type: 'link', label: 'Integration Patterns' }
+                ]}
+              />
+            </div>
+          </div>
+
+          {/* In Progress State Examples */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">In Progress Assignments</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Assignments where the learner has started work but has not yet submitted.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <AssignmentCard
+                title="Process Automation Project"
+                description="Analyze a business process and create automation using Process Builder or Flow. Must include decision logic, field updates, and record creation. Document the before and after process flows with clear business justification."
+                coachName="Jennifer Lee"
+                submissionStatus="in-progress"
+                resources={[
+                  { type: 'file', label: 'Process Map Template.pdf' },
+                  { type: 'link', label: 'Automation Tool Selector' },
+                  { type: 'requirement', label: 'Documentation Guidelines' }
+                ]}
+              />
+              <AssignmentCard
+                title="Experience Cloud Site Build"
+                description="Create a public-facing Experience Cloud site for a nonprofit partner. Include custom branding, navigation, content pages, and self-service features. Must be mobile-responsive and accessible."
+                coachName="Michael Chen"
+                submissionStatus="in-progress"
+                resources={[
+                  { type: 'file', label: 'Site Design Mockups.pdf' },
+                  { type: 'link', label: 'Experience Cloud Templates' },
+                  { type: 'link', label: 'Branding Guidelines' }
+                ]}
+              />
+            </div>
+          </div>
+
+          {/* Submitted State Examples */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Submitted Assignments</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Assignments submitted by the learner and awaiting coach review.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <AssignmentCard
+                title="Apex Trigger Development"
+                description="Write Apex triggers to enforce complex business logic on Account and Opportunity objects. Must follow best practices including bulkification, recursion prevention, and proper exception handling. Include comprehensive test classes with 90%+ coverage."
+                coachName="David Thompson"
+                submissionStatus="submitted"
+                resources={[
+                  { type: 'file', label: 'Trigger Requirements.pdf' },
+                  { type: 'link', label: 'Apex Best Practices' },
+                  { type: 'requirement', label: 'Test Coverage Requirements' }
+                ]}
+              />
+              <AssignmentCard
+                title="Advanced Reporting Project"
+                description="Build a suite of advanced reports using custom report types, cross-object formulas, and matrix reporting. Create a dashboard that tells a complete business story. Include documentation explaining report logic and intended audience."
+                coachName="Sarah Martinez"
+                submissionStatus="submitted"
+                resources={[
+                  { type: 'file', label: 'Report Requirements.xlsx' },
+                  { type: 'link', label: 'Dashboard Design Guide' }
+                ]}
+              />
+            </div>
+          </div>
+
+          {/* Returned State Examples */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Returned Assignments (Needs Revision)</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Assignments returned by the coach with feedback requiring revision before final submission.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <AssignmentCard
+                title="Data Migration Plan"
+                description="Create a detailed data migration plan for moving legacy CRM data into Salesforce. Include data mapping, transformation rules, validation strategy, and rollback procedures. Must address data quality and deduplication."
+                coachName="Jennifer Lee"
+                submissionStatus="returned"
+                resources={[
+                  { type: 'file', label: 'Migration Template.xlsx' },
+                  { type: 'link', label: 'Data Loader Guide' },
+                  { type: 'requirement', label: 'Quality Checklist' }
+                ]}
+                rubricGrade="Needs Work"
+              />
+              <AssignmentCard
+                title="Formula Field Challenge"
+                description="Create a set of formula fields that calculate various business metrics including conversion rates, days in stage, and weighted pipeline values. Formulas must handle null values and edge cases gracefully."
+                coachName="Michael Chen"
+                submissionStatus="returned"
+                resources={[
+                  { type: 'file', label: 'Formula Scenarios.docx' },
+                  { type: 'link', label: 'Formula Function Reference' }
+                ]}
+                rubricGrade="See Feedback"
+              />
+            </div>
+          </div>
+
+          {/* Completed State Examples */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Completed Assignments</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Assignments that have been reviewed, graded, and marked complete by the coach.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <AssignmentCard
+                title="Nonprofit CRM Configuration"
+                description="Configure Salesforce for a small nonprofit including custom objects for programs, volunteers, and donations. Set up automation for donor communications and impact reporting. Provide training documentation for staff."
+                coachName="Sarah Martinez"
+                submissionStatus="completed"
+                resources={[
+                  { type: 'file', label: 'Nonprofit Requirements.pdf' },
+                  { type: 'link', label: 'NPSP Documentation' },
+                  { type: 'requirement', label: 'Training Materials Template' }
+                ]}
+                rubricGrade="98/100"
+              />
+              <AssignmentCard
+                title="Multi-Object Flow Builder"
+                description="Design and build a complex Flow that spans multiple objects, includes subflows, loops, and decision elements. Must demonstrate error handling and efficiency with large data volumes. Document the flow logic and use cases."
+                coachName="David Thompson"
+                submissionStatus="completed"
+                resources={[
+                  { type: 'file', label: 'Flow Specifications.pdf' },
+                  { type: 'link', label: 'Flow Performance Tips' }
+                ]}
+                rubricGrade="A+"
+              />
+            </div>
+          </div>
+
+          {/* Resource Variants */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Resource Variants</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Assignments can have no resources, a single resource, or multiple resources that wrap to multiple rows.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <AssignmentCard
+                title="Reflection Essay"
+                description="Write a 500-word reflection on your learning journey so far. Discuss challenges overcome, skills gained, and how you plan to apply what you've learned in your career. Be specific and provide examples."
+                coachName="Jennifer Lee"
+                submissionStatus="not-started"
+              />
+              <AssignmentCard
+                title="Quick Configuration Task"
+                description="Configure page layouts and compact layouts for the Contact object to improve user experience. Ensure required fields are prominent and related lists are ordered logically."
+                coachName="Michael Chen"
+                submissionStatus="in-progress"
+                resources={[
+                  { type: 'link', label: 'Page Layout Best Practices' }
+                ]}
+              />
+              <AssignmentCard
+                title="Comprehensive Capstone Project"
+                description="Build a complete Salesforce solution for a partner organization including custom objects, automation, reports, dashboards, security, and integration. This is your final project demonstrating all skills learned throughout the program."
+                coachName="Sarah Martinez"
+                submissionStatus="in-progress"
+                resources={[
+                  { type: 'file', label: 'Project Requirements.pdf' },
+                  { type: 'file', label: 'Technical Specifications.docx' },
+                  { type: 'link', label: 'Architecture Guidelines' },
+                  { type: 'link', label: 'Code Review Checklist' },
+                  { type: 'requirement', label: 'Rubric (100 points)' },
+                  { type: 'requirement', label: 'Submission Instructions' }
+                ]}
+              />
+            </div>
+          </div>
+
+          {/* With and Without Titles */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Title Variants</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Assignments can optionally include a title. When no title is provided, the description becomes the primary content.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">With Title</h4>
+                <AssignmentCard
+                  title="Deployment & Change Management"
+                  description="Learn and demonstrate proper deployment practices using change sets or CLI tools. Deploy a package of components from sandbox to production, documenting each step and including rollback procedures."
+                  coachName="David Thompson"
+                  submissionStatus="not-started"
+                  resources={[
+                    { type: 'file', label: 'Deployment Guide.pdf' },
+                    { type: 'link', label: 'CLI Documentation' }
+                  ]}
+                />
+              </div>
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">Without Title</h4>
+                <AssignmentCard
+                  description="Learn and demonstrate proper deployment practices using change sets or CLI tools. Deploy a package of components from sandbox to production, documenting each step and including rollback procedures."
+                  coachName="David Thompson"
+                  submissionStatus="not-started"
+                  resources={[
+                    { type: 'file', label: 'Deployment Guide.pdf' },
+                    { type: 'link', label: 'CLI Documentation' }
+                  ]}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Rubric/Grade Variants */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Rubric & Grade Indicator</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Completed or returned assignments can optionally display grade or feedback indicators.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <AssignmentCard
+                title="Test Class Development"
+                description="Write comprehensive Apex test classes for existing triggers and classes. Achieve 90%+ code coverage while testing both positive and negative scenarios. Use test data factories and proper assertions."
+                coachName="David Thompson"
+                submissionStatus="completed"
+                resources={[
+                  { type: 'link', label: 'Testing Best Practices' }
+                ]}
+                rubricGrade="92/100"
+              />
+              <AssignmentCard
+                title="User Training Session"
+                description="Prepare and deliver a 30-minute training session on a Salesforce feature to your cohort. Include hands-on exercises and Q&A. Submit your slides and exercise materials."
+                coachName="Jennifer Lee"
+                submissionStatus="completed"
+                resources={[
+                  { type: 'file', label: 'Training Template.pptx' }
+                ]}
+                rubricGrade="A"
+              />
+              <AssignmentCard
+                title="Code Review Exercise"
+                description="Review a peer's Apex code and provide constructive feedback on code quality, efficiency, and best practices. Submit a written review with specific suggestions for improvement."
+                coachName="Michael Chen"
+                submissionStatus="completed"
+                resources={[
+                  { type: 'requirement', label: 'Review Rubric' }
+                ]}
+                rubricGrade="Pass"
+              />
+            </div>
+          </div>
+
+          {/* Guided Trail Context */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Guided Trail Context</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Example of how Assignment Cards appear in a Guided Trail learning sequence.
+            </p>
+            <div className="space-y-4">
+              <div className="p-4 bg-emerald-50 rounded-lg border border-emerald-200">
+                <div className="flex items-center gap-2 mb-3">
+                  <Compass className="h-5 w-5 text-emerald-700" />
+                  <h4 className="text-emerald-900">Trail: Salesforce Administration Fundamentals</h4>
+                </div>
+                <p className="text-sm text-emerald-800 mb-4">Complete these assignments to master core admin skills</p>
+                <div className="space-y-3">
+                  <AssignmentCard
+                    title="Assignment 1: User Management Setup"
+                    description="Create users, profiles, and permission sets for a fictional company. Demonstrate understanding of the user management hierarchy and security best practices."
+                    coachName="Sarah Martinez"
+                    submissionStatus="completed"
+                    resources={[
+                      { type: 'file', label: 'Company Org Chart.pdf' }
+                    ]}
+                    rubricGrade="95/100"
+                  />
+                  <AssignmentCard
+                    title="Assignment 2: Custom Objects & Fields"
+                    description="Design and build custom objects with appropriate field types, relationships, and validation rules. Consider data integrity and user experience in your design."
+                    coachName="Sarah Martinez"
+                    submissionStatus="completed"
+                    resources={[
+                      { type: 'file', label: 'Data Requirements.xlsx' },
+                      { type: 'link', label: 'Field Type Selector' }
+                    ]}
+                    rubricGrade="88/100"
+                  />
+                  <AssignmentCard
+                    title="Assignment 3: Report & Dashboard Creation"
+                    description="Build reports and dashboards that provide insights into sales performance, case resolution, and user adoption. Use appropriate chart types and filters."
+                    coachName="Sarah Martinez"
+                    submissionStatus="in-progress"
+                    resources={[
+                      { type: 'file', label: 'Business Metrics.pdf' },
+                      { type: 'link', label: 'Dashboard Design Guide' }
+                    ]}
+                  />
+                  <AssignmentCard
+                    title="Assignment 4: Automation Basics"
+                    description="Create workflow rules or flows to automate common business processes. Include field updates, email alerts, and task creation. Test thoroughly."
+                    coachName="Sarah Martinez"
+                    submissionStatus="not-started"
+                    resources={[
+                      { type: 'file', label: 'Process Requirements.docx' },
+                      { type: 'link', label: 'Automation Decision Tree' }
+                    ]}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Dashboard Context */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Dashboard Context</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Example of how Assignment Cards appear in a learner dashboard showing upcoming and overdue assignments.
+            </p>
+            <div className="space-y-4">
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <h4 className="text-slate-900">Due This Week</h4>
+                  <Badge variant="updated" label="3 Assignments" />
+                </div>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                  <AssignmentCard
+                    title="Weekly Reflection"
+                    description="Submit your weekly learning reflection covering key concepts studied, challenges faced, and goals for next week. Be specific and thoughtful."
+                    coachName="Jennifer Lee"
+                    submissionStatus="not-started"
+                  />
+                  <AssignmentCard
+                    title="Peer Code Review"
+                    description="Review assigned peer's Flow implementation and provide constructive feedback. Focus on logic, efficiency, and best practices."
+                    coachName="Michael Chen"
+                    submissionStatus="not-started"
+                    resources={[
+                      { type: 'link', label: 'Review Guidelines' }
+                    ]}
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <h4 className="text-slate-900">Awaiting Grade</h4>
+                  <Badge variant="new" label="2 Submitted" />
+                </div>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                  <AssignmentCard
+                    title="Formula Field Exercise"
+                    description="Create formula fields that calculate business metrics including win rate, average deal size, and days to close. Handle edge cases and null values appropriately."
+                    coachName="David Thompson"
+                    submissionStatus="submitted"
+                    resources={[
+                      { type: 'file', label: 'Requirements.pdf' }
+                    ]}
+                  />
+                  <AssignmentCard
+                    title="Security Model Design"
+                    description="Design a security architecture for a multi-department organization. Include org-wide defaults, role hierarchy, sharing rules, and permission sets."
+                    coachName="Sarah Martinez"
+                    submissionStatus="submitted"
+                    resources={[
+                      { type: 'file', label: 'Org Structure.pdf' },
+                      { type: 'requirement', label: 'Security Checklist' }
+                    ]}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Component Props Reference */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Component Props & API</h3>
+            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+              <h4 className="text-slate-900 mb-3">Required Props</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm mb-4">
+                <div className="flex items-start gap-2">
+                  <FileText className="h-4 w-4 text-slate-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-slate-900">description:</strong>
+                    <span className="text-slate-600"> string - Longer description of the assignment (3-4 line truncation)</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <User className="h-4 w-4 text-slate-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-slate-900">coachName:</strong>
+                    <span className="text-slate-600"> string - Who assigned the task</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="h-4 w-4 text-slate-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-slate-900">submissionStatus:</strong>
+                    <span className="text-slate-600"> 'not-started' | 'in-progress' | 'submitted' | 'returned' | 'completed'</span>
+                  </div>
+                </div>
+              </div>
+
+              <h4 className="text-slate-900 mb-3">Optional Props</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                <div>
+                  <strong className="text-slate-900">title:</strong>
+                  <span className="text-slate-600"> string - Optional assignment title</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">resources:</strong>
+                  <span className="text-slate-600"> AssignmentResource[] - Files, links, or requirements</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">rubricGrade:</strong>
+                  <span className="text-slate-600"> string - Grade or feedback indicator</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">truncateDescription:</strong>
+                  <span className="text-slate-600"> boolean - Force 4-line truncation (default: true)</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">onResourceClick:</strong>
+                  <span className="text-slate-600"> (resource) =&gt; void - Resource click handler</span>
+                </div>
+              </div>
+
+              <div className="mt-4 p-3 bg-blue-50 rounded border border-blue-200">
+                <p className="text-sm text-blue-900">
+                  <strong>Resource Type:</strong> AssignmentResource interface includes type ('file' | 'link' | 'requirement'), 
+                  label (display name), and optional url (for links).
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Submission Status Reference */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Submission Status Mapping</h3>
+            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+              <h4 className="text-slate-900 mb-3">Status to ChipStatus Mapping</h4>
+              <div className="space-y-2 text-sm">
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-700">not-started</span>
+                  <ChipStatus status="notStarted" label="Not Started" />
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-700">in-progress</span>
+                  <ChipStatus status="inProgress" label="In Progress" />
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-700">submitted</span>
+                  <ChipStatus status="submitted" label="Submitted" />
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-700">returned</span>
+                  <ChipStatus status="returned" label="Returned" />
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-700">completed</span>
+                  <ChipStatus status="completed" label="Completed" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Accessibility Features */}
+          <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
+            <p className="text-sm text-emerald-900">
+              <strong>Accessibility Features:</strong> Semantic HTML with proper heading hierarchy (h3 for title, h4 for resource section header), 
+              WCAG AA contrast ratios on all text and status indicators, 
+              submission status includes color and text label (no color-only meaning), 
+              coach name prefixed with "Coach:" for screen reader context, 
+              resource buttons are keyboard accessible with focus states, 
+              resource icons provide visual reinforcement of type, 
+              rubric grade displayed as text tag (not color-dependent), 
+              logical reading order (Title → Description → Resources → Coach → Status → Grade), 
+              sufficient color contrast maintained in all status states.
+            </p>
+          </div>
+
+          {/* Usage Guidelines */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Usage Guidelines</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+              <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-700" />
+                  <strong className="text-emerald-900">Do:</strong>
+                </div>
+                <ul className="text-emerald-800 space-y-1 ml-6 list-disc">
+                  <li>Provide clear, specific descriptions (2-4 sentences)</li>
+                  <li>Include relevant resources that learners need</li>
+                  <li>Update submission status as learners progress</li>
+                  <li>Use descriptive resource labels (not "File 1", "Link")</li>
+                  <li>Provide rubric/grade for completed assignments</li>
+                  <li>Keep resource count reasonable (1-6 items)</li>
+                  <li>Use truncation for consistent layouts</li>
+                </ul>
+              </div>
+              <div className="p-3 bg-rose-50 rounded-lg border border-rose-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <AlertCircle className="h-4 w-4 text-rose-700" />
+                  <strong className="text-rose-900">Don't:</strong>
+                </div>
+                <ul className="text-rose-800 space-y-1 ml-6 list-disc">
+                  <li>Don't write vague descriptions like "Complete the task"</li>
+                  <li>Don't overload with 10+ resource attachments</li>
+                  <li>Don't forget to update status after submission</li>
+                  <li>Don't use generic resource names without context</li>
+                  <li>Don't show grades on not-started assignments</li>
+                  <li>Don't omit coach name (required context)</li>
+                  <li>Don't mix truncated and non-truncated in same view</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Use Cases */}
+          <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <h4 className="text-slate-900 mb-2">Use Cases</h4>
+            <ul className="text-sm text-blue-900 space-y-1 ml-5 list-disc">
+              <li><strong>Guided Trails:</strong> Display sequential assignments within a learning path or trail</li>
+              <li><strong>Learner Dashboard:</strong> Show upcoming, in-progress, and recently completed assignments</li>
+              <li><strong>Coach Dashboard:</strong> Display assignments awaiting review or grading</li>
+              <li><strong>Learning Center:</strong> Browse available assignments for a cohort or program</li>
+              <li><strong>Assignment Detail Preview:</strong> Quick overview before navigating to full detail page</li>
+              <li><strong>Progress Tracking:</strong> Visual timeline of assignment completion in a trail</li>
+            </ul>
+          </div>
+
+          {/* Comparison with Learning Activity Card */}
+          <div className="p-4 bg-violet-50 border border-violet-200 rounded-lg">
+            <h4 className="text-slate-900 mb-2">Assignment Card vs. Learning Activity Card</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+              <div>
+                <h5 className="text-violet-900 mb-2">Assignment Card (TTA-132)</h5>
+                <ul className="text-violet-800 space-y-1 ml-5 list-disc">
+                  <li>Higher detail, coach-guided tasks</li>
+                  <li>Individual work with submission workflow</li>
+                  <li>Resources, coach name, submission status</li>
+                  <li>Grading and evaluation included</li>
+                  <li>Used in Guided Trails and Dashboard</li>
+                  <li>Focus: completion and evaluation</li>
+                </ul>
+              </div>
+              <div>
+                <h5 className="text-emerald-900 mb-2">Learning Activity Card (TTA-133)</h5>
+                <ul className="text-emerald-800 space-y-1 ml-5 list-disc">
+                  <li>Lighter, browsable activities</li>
+                  <li>Group activities (study groups, peer review, capstone)</li>
+                  <li>Activity type tag, title, description, skills tags</li>
+                  <li>No submission or grading workflow</li>
+                  <li>Used primarily in Learning Center</li>
+                  <li>Focus: discovery and enrollment</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Design Tokens Used */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Design Tokens & Components Used</h3>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Card (elevation: low, padding: normal)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">ChipStatus (all variants)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Tag (default variant for grade)</span>
+              <span className="px-3 py-1 bg-violet-100 text-violet-700 rounded">gap-2, gap-3, gap-4 (8px, 12px, 16px spacing)</span>
+              <span className="px-3 py-1 bg-violet-100 text-violet-700 rounded">rounded-md, rounded-lg (6px, 8px radius)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">slate-50 to slate-900 (neutrals)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">User, FileText, Link, Download icons</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">h-full (card fills container height)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">flex-col (vertical layout)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">line-clamp-4 (description truncation)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">flex-wrap (resource wrapping)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">border-t (divider above coach section)</span>
+            </div>
+          </div>
+
+          {/* Responsive Behavior */}
+          <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <h4 className="text-slate-900 mb-2">Responsive Behavior</h4>
+            <ul className="text-sm text-blue-900 space-y-1 ml-5 list-disc">
+              <li>Cards work in both list view (1 column) and grid view (2-3 columns)</li>
+              <li>Title and description text wrap gracefully</li>
+              <li>Description auto-truncates at 4 lines by default for consistent card heights</li>
+              <li>Resources wrap to multiple rows as needed</li>
+              <li>Coach name and status stack vertically on narrow cards</li>
+              <li>Cards maintain consistent height in grid using h-full</li>
+              <li>Recommended: 2 columns on tablet, 1 column on mobile for optimal readability</li>
+              <li>Minimum card width: 320px to accommodate resource buttons</li>
             </ul>
           </div>
         </section>
