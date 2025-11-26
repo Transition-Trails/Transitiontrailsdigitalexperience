@@ -26,7 +26,8 @@ import { LearnerStatsPanel } from './components/ttds/LearnerStatsPanel';
 import { GoalsAndProgressPanel } from './components/ttds/GoalsAndProgressPanel';
 import { SkillsAndCertsPanel } from './components/ttds/SkillsAndCertsPanel';
 import { PartnerProjectCard } from './components/ttds/PartnerProjectCard';
-import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle } from 'lucide-react';
+import { EventSessionCard } from './components/ttds/EventSessionCard';
+import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar } from 'lucide-react';
 
 // Loading Demo Component
 function LoadingDemo() {
@@ -129,6 +130,7 @@ export default function App() {
             <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full">TTA-107</span>
             <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full">TTA-129</span>
             <span className="px-3 py-1 bg-rose-100 text-rose-700 rounded-full">TTA-128</span>
+            <span className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full">TTA-127</span>
           </div>
         </header>
 
@@ -152,6 +154,7 @@ export default function App() {
             <a href="#goalsprogress" className="px-3 py-1.5 text-sm text-purple-700 bg-purple-50 rounded">Goals & Progress</a>
             <a href="#skillscerts" className="px-3 py-1.5 text-sm text-indigo-700 bg-indigo-50 rounded">Skills & Certs</a>
             <a href="#partnerproject" className="px-3 py-1.5 text-sm text-rose-700 bg-rose-50 rounded">Partner Projects</a>
+            <a href="#eventsession" className="px-3 py-1.5 text-sm text-cyan-700 bg-cyan-50 rounded">Event Sessions</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -2729,6 +2732,480 @@ export default function App() {
               <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">shadow-sm to shadow-md</span>
               <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Lucide Icons (Building2, Code, TrendingUp)</span>
             </div>
+          </div>
+        </section>
+
+        {/* Event Session Card Section */}
+        <section id="eventsession" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <h2 className="text-slate-900 mb-2">Event / Session Card</h2>
+            <p className="text-slate-600">
+              Domain component for displaying upcoming and past learning sessions including Trail Talks, study groups, 
+              partner Q&A sessions, cohort meetings, and peer-learning events. Shows all five required content fields 
+              with state-based CTAs.
+            </p>
+          </div>
+
+          {/* Upcoming Sessions */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Upcoming Sessions</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Sessions scheduled for the future display a "Join Session" CTA. Ideal for event calendars and dashboards.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <EventSessionCard
+                title="Trail Talk: Reporting Best Practices"
+                dateTime="Tue, March 11 — 6 PM CT"
+                host="Kim Barnes"
+                sessionType="trail-talk"
+                state="upcoming"
+                onCtaClick={() => alert('Joining session...')}
+              />
+              <EventSessionCard
+                title="Study Group: Einstein Analytics Deep Dive"
+                dateTime="Wed, March 12 — 7 PM CT"
+                host="Alex Rivera"
+                sessionType="study-group"
+                state="upcoming"
+                hostAvatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80"
+                onCtaClick={() => alert('Joining session...')}
+              />
+              <EventSessionCard
+                title="Partner Q&A: Nonprofit Salesforce Solutions"
+                dateTime="Thu, March 13 — 5:30 PM CT"
+                host="Jordan Lee"
+                sessionType="partner-qa"
+                state="upcoming"
+                hostAvatar="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80"
+                onCtaClick={() => alert('Joining session...')}
+              />
+            </div>
+          </div>
+
+          {/* Completed Sessions */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Completed Sessions (Recordings Available)</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Past sessions display a "View Recording" CTA, allowing learners to access recorded content.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <EventSessionCard
+                title="Cohort Session: Career Pathways in Salesforce"
+                dateTime="Mon, March 3 — 6 PM CT"
+                host="Sam Martinez"
+                sessionType="cohort-session"
+                state="completed"
+                hostAvatar="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80"
+                onCtaClick={() => alert('Opening recording...')}
+              />
+              <EventSessionCard
+                title="Workshop: Flow Builder Fundamentals"
+                dateTime="Tue, March 4 — 7 PM CT"
+                host="Taylor Wong"
+                sessionType="workshop"
+                state="completed"
+                onCtaClick={() => alert('Opening recording...')}
+              />
+              <EventSessionCard
+                title="Trail Talk: Admin Certification Tips"
+                dateTime="Wed, March 5 — 6 PM CT"
+                host="Casey Johnson"
+                sessionType="trail-talk"
+                state="completed"
+                hostAvatar="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80"
+                onCtaClick={() => alert('Opening recording...')}
+              />
+            </div>
+          </div>
+
+          {/* All Session Types */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">All Session Types</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              The component supports five distinct session types, each with appropriate tag styling and metadata.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <EventSessionCard
+                title="Trail Talk: Data Modeling Patterns"
+                dateTime="Fri, March 14 — 6 PM CT"
+                host="Morgan Davis"
+                sessionType="trail-talk"
+                state="upcoming"
+                hostAvatar="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80"
+                onCtaClick={() => alert('Joining session...')}
+              />
+              <EventSessionCard
+                title="Study Group: JavaScript for Salesforce Devs"
+                dateTime="Sat, March 15 — 10 AM CT"
+                host="Riley Chen"
+                sessionType="study-group"
+                state="upcoming"
+                onCtaClick={() => alert('Joining session...')}
+              />
+              <EventSessionCard
+                title="Partner Q&A: Small Business CRM Success"
+                dateTime="Mon, March 17 — 5 PM CT"
+                host="Jamie Patel"
+                sessionType="partner-qa"
+                state="upcoming"
+                hostAvatar="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80"
+                onCtaClick={() => alert('Joining session...')}
+              />
+              <EventSessionCard
+                title="Cohort Session: Mid-Program Check-in"
+                dateTime="Tue, March 18 — 6:30 PM CT"
+                host="Avery Thompson"
+                sessionType="cohort-session"
+                state="upcoming"
+                onCtaClick={() => alert('Joining session...')}
+              />
+              <EventSessionCard
+                title="Workshop: LWC Component Development"
+                dateTime="Wed, March 19 — 7 PM CT"
+                host="Drew Anderson"
+                sessionType="workshop"
+                state="upcoming"
+                hostAvatar="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80"
+                onCtaClick={() => alert('Joining session...')}
+              />
+            </div>
+          </div>
+
+          {/* Without Host Avatar */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Sessions Without Host Avatars</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              When no avatar is provided, the component displays a default user icon in an emerald circle.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <EventSessionCard
+                title="Trail Talk: Security & Compliance Basics"
+                dateTime="Thu, March 20 — 6 PM CT"
+                host="Pat Williams"
+                sessionType="trail-talk"
+                state="upcoming"
+                onCtaClick={() => alert('Joining session...')}
+              />
+              <EventSessionCard
+                title="Study Group: Apex Testing Strategies"
+                dateTime="Fri, March 21 — 7 PM CT"
+                host="Quinn Roberts"
+                sessionType="study-group"
+                state="upcoming"
+                onCtaClick={() => alert('Joining session...')}
+              />
+              <EventSessionCard
+                title="Workshop: Reports & Dashboards Mastery"
+                dateTime="Sat, March 22 — 11 AM CT"
+                host="Reese Taylor"
+                sessionType="workshop"
+                state="completed"
+                onCtaClick={() => alert('Opening recording...')}
+              />
+            </div>
+          </div>
+
+          {/* Custom CTA Labels */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Custom CTA Labels</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Override default CTA labels for specialized use cases or different action contexts.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <EventSessionCard
+                title="Trail Talk: Career Transition Stories"
+                dateTime="Mon, March 24 — 6 PM CT"
+                host="Cameron Brooks"
+                sessionType="trail-talk"
+                state="upcoming"
+                ctaLabel="Register Now"
+                hostAvatar="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&q=80"
+                onCtaClick={() => alert('Registering...')}
+              />
+              <EventSessionCard
+                title="Workshop: Advanced Flow Patterns"
+                dateTime="Tue, March 25 — 7 PM CT"
+                host="Dakota Mills"
+                sessionType="workshop"
+                state="completed"
+                ctaLabel="Watch Now"
+                onCtaClick={() => alert('Playing recording...')}
+              />
+              <EventSessionCard
+                title="Cohort Session: Final Project Presentations"
+                dateTime="Wed, March 26 — 6 PM CT"
+                host="Ellis Parker"
+                sessionType="cohort-session"
+                state="upcoming"
+                ctaLabel="RSVP Required"
+                hostAvatar="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=100&q=80"
+                onCtaClick={() => alert('RSVP confirmation...')}
+              />
+            </div>
+          </div>
+
+          {/* Real-World Dashboard Example */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Real-World Dashboard Layout</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Example of how Event Session Cards might appear in a learner dashboard showing this week's schedule.
+            </p>
+            <div className="space-y-4">
+              {/* This Week Section */}
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <h4 className="text-slate-900">This Week's Sessions</h4>
+                  <Button variant="ghost" size="small">View All</Button>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <EventSessionCard
+                    title="Trail Talk: Salesforce Mobile App Best Practices"
+                    dateTime="Today — 6 PM CT"
+                    host="Harper Wilson"
+                    sessionType="trail-talk"
+                    state="upcoming"
+                    hostAvatar="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=100&q=80"
+                    onCtaClick={() => alert('Joining session...')}
+                  />
+                  <EventSessionCard
+                    title="Study Group: Platform Developer I Prep"
+                    dateTime="Tomorrow — 7 PM CT"
+                    host="Finley Garcia"
+                    sessionType="study-group"
+                    state="upcoming"
+                    hostAvatar="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&q=80"
+                    onCtaClick={() => alert('Joining session...')}
+                  />
+                  <EventSessionCard
+                    title="Partner Q&A: Working with Nonprofits"
+                    dateTime="Sat, March 29 — 10 AM CT"
+                    host="Skyler Moore"
+                    sessionType="partner-qa"
+                    state="upcoming"
+                    onCtaClick={() => alert('Joining session...')}
+                  />
+                </div>
+              </div>
+
+              {/* Recently Recorded Section */}
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <h4 className="text-slate-900">Recently Recorded</h4>
+                  <Button variant="ghost" size="small">Browse Library</Button>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <EventSessionCard
+                    title="Workshop: Integration Patterns & APIs"
+                    dateTime="Mon, March 10 — 7 PM CT"
+                    host="River Adams"
+                    sessionType="workshop"
+                    state="completed"
+                    hostAvatar="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&q=80"
+                    onCtaClick={() => alert('Opening recording...')}
+                  />
+                  <EventSessionCard
+                    title="Cohort Session: Building Your Portfolio"
+                    dateTime="Tue, March 11 — 6:30 PM CT"
+                    host="Sage Cooper"
+                    sessionType="cohort-session"
+                    state="completed"
+                    onCtaClick={() => alert('Opening recording...')}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Component Props Reference */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Component Props & API</h3>
+            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+              <h4 className="text-slate-900 mb-3">Required Props (5 Content Fields)</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm mb-4">
+                <div className="flex items-start gap-2">
+                  <FileText className="h-4 w-4 text-slate-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-slate-900">title:</strong>
+                    <span className="text-slate-600"> string - Session title (e.g., "Trail Talk: Reporting Best Practices")</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Calendar className="h-4 w-4 text-slate-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-slate-900">dateTime:</strong>
+                    <span className="text-slate-600"> string - Formatted date and time (e.g., "Tue, March 11 — 6 PM CT")</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <User className="h-4 w-4 text-slate-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-slate-900">host:</strong>
+                    <span className="text-slate-600"> string - Host name (will be prefixed with "Hosted by")</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Tag className="h-4 w-4 text-slate-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-slate-900">sessionType:</strong>
+                    <span className="text-slate-600"> 'trail-talk' | 'study-group' | 'partner-qa' | 'cohort-session' | 'workshop'</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="h-4 w-4 text-slate-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-slate-900">state:</strong>
+                    <span className="text-slate-600"> 'upcoming' | 'completed' (default: 'upcoming')</span>
+                  </div>
+                </div>
+              </div>
+
+              <h4 className="text-slate-900 mb-3">Optional Configuration Props</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                <div>
+                  <strong className="text-slate-900">hostAvatar:</strong>
+                  <span className="text-slate-600"> string - URL for host profile image</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">onCtaClick:</strong>
+                  <span className="text-slate-600"> {`() => void`} - Click handler for CTA button</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">ctaLabel:</strong>
+                  <span className="text-slate-600"> string - Override default CTA label</span>
+                </div>
+              </div>
+
+              <div className="mt-4 p-3 bg-blue-50 rounded border border-blue-200">
+                <p className="text-sm text-blue-900">
+                  <strong>Default CTA Behavior:</strong> If no ctaLabel is provided, the component automatically uses 
+                  "Join Session" for upcoming sessions and "View Recording" for completed sessions.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Session Type Tag Reference */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Session Type Tags & Colors</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                <h4 className="text-slate-900 mb-3">Session Types</h4>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-700">trail-talk</span>
+                    <Tag variant="trail" label="Trail Talk" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-700">study-group</span>
+                    <Tag variant="topic" label="Study Group" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-700">partner-qa</span>
+                    <Tag variant="platform" label="Partner Q&A" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-700">cohort-session</span>
+                    <Tag variant="default" label="Cohort Session" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-700">workshop</span>
+                    <Tag variant="topic" label="Workshop" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                <h4 className="text-slate-900 mb-3">Usage Context</h4>
+                <ul className="space-y-2 text-sm text-slate-700">
+                  <li><strong>Trail Talk:</strong> Weekly community sessions on specific topics</li>
+                  <li><strong>Study Group:</strong> Collaborative learning and exam prep</li>
+                  <li><strong>Partner Q&A:</strong> Sessions with nonprofit/business partners</li>
+                  <li><strong>Cohort Session:</strong> Structured program meetings</li>
+                  <li><strong>Workshop:</strong> Hands-on skill-building sessions</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Accessibility Features */}
+          <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
+            <p className="text-sm text-emerald-900">
+              <strong>Accessibility Features:</strong> Semantic HTML structure with proper heading hierarchy (h3 for session title), 
+              WCAG AA contrast ratios throughout (emerald-700: 7.2:1, slate-600: 7.5:1, slate-900: 14.9:1), 
+              descriptive icon labels (Calendar for date/time, User for host), 
+              keyboard navigation support with proper focus states on CTA button, 
+              session type uses text labels in tags (not color-only), 
+              logical screen reader order (Type → Title → Date/Time → Host → CTA), 
+              CTA button includes aria-label for context, 
+              host avatar has descriptive alt text using host name.
+            </p>
+          </div>
+
+          {/* Usage Guidelines */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Usage Guidelines</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+              <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-700" />
+                  <strong className="text-emerald-900">Do:</strong>
+                </div>
+                <ul className="text-emerald-800 space-y-1 ml-6 list-disc">
+                  <li>Use in 2-3 column grids for event calendars</li>
+                  <li>Provide host avatars when available for personalization</li>
+                  <li>Use descriptive session titles that indicate topic</li>
+                  <li>Include timezone in dateTime for clarity</li>
+                  <li>Group upcoming and completed sessions separately</li>
+                  <li>Implement onCtaClick handlers for all cards</li>
+                  <li>Use appropriate session types for context</li>
+                </ul>
+              </div>
+              <div className="p-3 bg-rose-50 rounded-lg border border-rose-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <AlertCircle className="h-4 w-4 text-rose-700" />
+                  <strong className="text-rose-900">Don't:</strong>
+                </div>
+                <ul className="text-rose-800 space-y-1 ml-6 list-disc">
+                  <li>Don't leave any of the 5 required fields empty</li>
+                  <li>Don't use generic titles like "Meeting" or "Session"</li>
+                  <li>Don't forget to specify timezone in dateTime</li>
+                  <li>Don't mix state variants inconsistently</li>
+                  <li>Don't use custom session types outside the 5 defined</li>
+                  <li>Don't make cards non-interactive (always include CTA)</li>
+                  <li>Don't use low-quality or inappropriate host images</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Design Tokens Used */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Design Tokens & Components Used</h3>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Card</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Tag (all variants)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Button</span>
+              <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded">rounded-lg (8px)</span>
+              <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded">emerald-600 (primary CTA)</span>
+              <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded">emerald-100 (avatar fallback)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">slate-50 to slate-900 (neutrals)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">shadow-sm (card elevation)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Lucide Icons (Calendar, User, Video, ExternalLink)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">border-t border-slate-200 (CTA divider)</span>
+            </div>
+          </div>
+
+          {/* Responsive Behavior */}
+          <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <h4 className="text-slate-900 mb-2">Responsive Behavior</h4>
+            <ul className="text-sm text-blue-900 space-y-1 ml-5 list-disc">
+              <li>Cards work in 1-3 column grids using flexbox</li>
+              <li>Title and host text wrap gracefully for long content</li>
+              <li>CTA button remains fixed at bottom using flex-grow spacer</li>
+              <li>Minimum card height maintained for grid alignment</li>
+              <li>Host avatar scales proportionally at 32px × 32px</li>
+              <li>Recommended max-width: none (cards fill container)</li>
+            </ul>
           </div>
         </section>
 
