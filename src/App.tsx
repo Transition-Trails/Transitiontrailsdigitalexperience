@@ -40,6 +40,7 @@ import { TTProgramOverviewCard } from './components/tt/ProgramOverviewCard';
 import { TTAITrailCard } from './components/tt/AITrailCard';
 import { TTCitizenPlatformCard } from './components/tt/CitizenPlatformCard';
 import { TTTrailMissionCard } from './components/tt/TrailMissionCard';
+import { TTFeatureRoadmapSection } from './components/tt/FeatureRoadmapSection';
 import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, Users, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar, GraduationCap, Shield, Eye, Briefcase, Sparkles, Bot, Wand2, Palette, FileType, Link2, Database, Workflow, Layers, PenTool } from 'lucide-react';
 
 // Interactive Donate Demo Component
@@ -193,6 +194,7 @@ export default function App() {
             <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full">AI Trail Card</span>
             <span className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full">TTA-120</span>
             <span className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full">TTA-106</span>
+            <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full">TTA-110</span>
           </div>
         </header>
 
@@ -230,6 +232,7 @@ export default function App() {
             <a href="#aitrail" className="px-3 py-1.5 text-sm text-purple-700 bg-purple-50 rounded">AI Trail</a>
             <a href="#citizenplatform" className="px-3 py-1.5 text-sm text-cyan-700 bg-cyan-50 rounded">Citizen Platform</a>
             <a href="#trailmission" className="px-3 py-1.5 text-sm text-teal-700 bg-teal-50 rounded">Trail Mission</a>
+            <a href="#roadmap" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded">Feature Roadmap</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -10267,6 +10270,855 @@ interface PennyTipProps {
                     <strong>Total Capstone XP:</strong> 400 points
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Feature Roadmap Section */}
+        <section id="roadmap" className="space-y-6">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+            <div>
+              <h2 className="text-slate-900 mb-2">Feature Roadmap Section (TTA-110)</h2>
+              <p className="text-slate-600">
+                Domain section for Vision/Donor pages showing product and program roadmap in Now/Next/Later format with status chips. Donor-friendly, structured, and aligned with TTDS tokens.
+              </p>
+            </div>
+
+            {/* 3-Column Layout - Default Density */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">3-Column Layout - Default Density</h3>
+                <p className="text-sm text-slate-600">Full roadmap with feature descriptions and status chips</p>
+              </div>
+              <TTFeatureRoadmapSection
+                sectionTitle="What We're Building"
+                sectionDescription="Our roadmap for expanding Transition Trails Academy's impact and building the tools nonprofits need to thrive in the digital age."
+                showLegend={true}
+                showHeader={true}
+                columnLayout="3-column"
+                density="default"
+                columns={[
+                  {
+                    title: 'Now',
+                    features: [
+                      {
+                        name: 'AI Trail Live',
+                        description: 'Full AI-powered learning pathway with ChatGPT, Claude, and Midjourney modules',
+                        status: 'in-progress'
+                      },
+                      {
+                        name: 'Intern + Associate Pathway Features',
+                        description: 'Enhanced onboarding and progression tracking for new learners',
+                        status: 'in-progress'
+                      },
+                      {
+                        name: 'Assignment Engine Improvements',
+                        description: 'Streamlined submission and feedback workflow for coaches',
+                        status: 'in-progress'
+                      },
+                      {
+                        name: 'Dashboard Analytics Enhancement',
+                        description: 'Real-time progress tracking and personalized insights',
+                        status: 'done'
+                      }
+                    ]
+                  },
+                  {
+                    title: 'Next',
+                    features: [
+                      {
+                        name: 'Nonprofit Project Gallery',
+                        description: 'Showcase real partner projects completed by learners',
+                        status: 'planned'
+                      },
+                      {
+                        name: 'Partner Portal Enhancements',
+                        description: 'Improved communication tools for nonprofit partners',
+                        status: 'planned'
+                      },
+                      {
+                        name: 'Advanced Skill Assessments',
+                        description: 'Competency-based evaluations for certification readiness',
+                        status: 'planned'
+                      },
+                      {
+                        name: 'Penny AI Coaching Expansion',
+                        description: 'Context-aware guidance across all learning pathways',
+                        status: 'in-progress'
+                      }
+                    ]
+                  },
+                  {
+                    title: 'Later',
+                    features: [
+                      {
+                        name: 'Automated Theme QA',
+                        description: 'AI-powered quality assurance for learner deliverables',
+                        status: 'planned'
+                      },
+                      {
+                        name: 'Advanced AI Coaching',
+                        description: 'Personalized career guidance and mentorship matching',
+                        status: 'planned'
+                      },
+                      {
+                        name: 'Community Learning Hub',
+                        description: 'Peer collaboration and knowledge sharing platform',
+                        status: 'planned'
+                      },
+                      {
+                        name: 'Mobile Learning App',
+                        description: 'Native iOS and Android apps for learning on-the-go',
+                        status: 'planned'
+                      }
+                    ]
+                  }
+                ]}
+              />
+            </div>
+
+            {/* 3-Column Layout - Compact Density */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">3-Column Layout - Compact Density</h3>
+                <p className="text-sm text-slate-600">Feature names only without descriptions for tighter display</p>
+              </div>
+              <TTFeatureRoadmapSection
+                sectionTitle="Product Roadmap"
+                sectionDescription="Key features and enhancements planned for the next 12 months"
+                showLegend={true}
+                showHeader={true}
+                columnLayout="3-column"
+                density="compact"
+                columns={[
+                  {
+                    title: 'Now',
+                    features: [
+                      { name: 'AI Trail Live', status: 'in-progress' },
+                      { name: 'Intern + Associate Pathway Features', status: 'in-progress' },
+                      { name: 'Assignment Engine Improvements', status: 'in-progress' },
+                      { name: 'Dashboard Analytics Enhancement', status: 'done' },
+                      { name: 'Citizen Developer Tools Integration', status: 'done' }
+                    ]
+                  },
+                  {
+                    title: 'Next',
+                    features: [
+                      { name: 'Nonprofit Project Gallery', status: 'planned' },
+                      { name: 'Partner Portal Enhancements', status: 'planned' },
+                      { name: 'Advanced Skill Assessments', status: 'planned' },
+                      { name: 'Penny AI Coaching Expansion', status: 'in-progress' },
+                      { name: 'Certificate System Overhaul', status: 'planned' }
+                    ]
+                  },
+                  {
+                    title: 'Later',
+                    features: [
+                      { name: 'Automated Theme QA', status: 'planned' },
+                      { name: 'Advanced AI Coaching', status: 'planned' },
+                      { name: 'Community Learning Hub', status: 'planned' },
+                      { name: 'Mobile Learning App', status: 'planned' },
+                      { name: 'Employer Partnership Platform', status: 'planned' }
+                    ]
+                  }
+                ]}
+              />
+            </div>
+
+            {/* 2-Column Layout - Tablet View */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">2-Column Layout (Tablet View)</h3>
+                <p className="text-sm text-slate-600">Optimized for medium screens with responsive grid</p>
+              </div>
+              <TTFeatureRoadmapSection
+                sectionTitle="Platform Roadmap"
+                sectionDescription="Building features that empower nonprofits and learners"
+                showLegend={true}
+                showHeader={true}
+                columnLayout="2-column"
+                density="default"
+                columns={[
+                  {
+                    title: 'Now',
+                    features: [
+                      {
+                        name: 'Salesforce Trail Expansion',
+                        description: 'Advanced admin and developer modules',
+                        status: 'in-progress'
+                      },
+                      {
+                        name: 'Business Analyst Track Refinement',
+                        description: 'Enhanced requirements gathering and stakeholder management',
+                        status: 'in-progress'
+                      }
+                    ]
+                  },
+                  {
+                    title: 'Next',
+                    features: [
+                      {
+                        name: 'Data Analytics Track',
+                        description: 'Tableau, Power BI, and SQL fundamentals',
+                        status: 'planned'
+                      },
+                      {
+                        name: 'UX/UI Design Basics',
+                        description: 'Figma and user research for nonprofit websites',
+                        status: 'planned'
+                      }
+                    ]
+                  }
+                ]}
+              />
+            </div>
+
+            {/* 1-Column Layout - Mobile View */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">1-Column Layout (Mobile View)</h3>
+                <p className="text-sm text-slate-600">Vertical stacked layout for narrow screens</p>
+              </div>
+              <TTFeatureRoadmapSection
+                sectionTitle="Learning Experience Roadmap"
+                sectionDescription="Continuous improvements to our learner experience"
+                showLegend={true}
+                showHeader={true}
+                columnLayout="1-column"
+                density="default"
+                columns={[
+                  {
+                    title: 'Now',
+                    features: [
+                      {
+                        name: 'Personalized Learning Paths',
+                        description: 'AI-recommended tracks based on learner goals',
+                        status: 'in-progress'
+                      },
+                      {
+                        name: 'Real-time Progress Tracking',
+                        description: 'Visual dashboards showing completion and milestones',
+                        status: 'done'
+                      }
+                    ]
+                  },
+                  {
+                    title: 'Next',
+                    features: [
+                      {
+                        name: 'Peer Review System',
+                        description: 'Learner-to-learner feedback on projects',
+                        status: 'planned'
+                      }
+                    ]
+                  },
+                  {
+                    title: 'Later',
+                    features: [
+                      {
+                        name: 'Gamification System',
+                        description: 'Badges, leaderboards, and achievement tracking',
+                        status: 'planned'
+                      }
+                    ]
+                  }
+                ]}
+              />
+            </div>
+
+            {/* Without Legend */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Without Status Legend</h3>
+                <p className="text-sm text-slate-600">Cleaner header when status meanings are already known</p>
+              </div>
+              <TTFeatureRoadmapSection
+                sectionTitle="Q4 2024 Roadmap"
+                showLegend={false}
+                showHeader={true}
+                columnLayout="3-column"
+                density="compact"
+                columns={[
+                  {
+                    title: 'Now',
+                    features: [
+                      { name: 'AI Trail Module 3: Midjourney Mastery', status: 'in-progress' },
+                      { name: 'Sprint Planning Tools', status: 'in-progress' },
+                      { name: 'Capstone Project Framework', status: 'done' }
+                    ]
+                  },
+                  {
+                    title: 'Next',
+                    features: [
+                      { name: 'Industry Certifications Prep', status: 'planned' },
+                      { name: 'Employer Showcase Events', status: 'planned' }
+                    ]
+                  },
+                  {
+                    title: 'Later',
+                    features: [
+                      { name: 'Alumni Network Platform', status: 'planned' },
+                      { name: 'Career Services Portal', status: 'planned' }
+                    ]
+                  }
+                ]}
+              />
+            </div>
+
+            {/* Without Header */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Without Section Header</h3>
+                <p className="text-sm text-slate-600">Standalone roadmap columns for embedded use</p>
+              </div>
+              <TTFeatureRoadmapSection
+                showLegend={false}
+                showHeader={false}
+                columnLayout="3-column"
+                density="default"
+                columns={[
+                  {
+                    title: 'Now',
+                    features: [
+                      {
+                        name: 'API Integration Toolkit',
+                        description: 'Pre-built connectors for common nonprofit tools',
+                        status: 'in-progress'
+                      }
+                    ]
+                  },
+                  {
+                    title: 'Next',
+                    features: [
+                      {
+                        name: 'Custom Workflow Builder',
+                        description: 'No-code automation for repetitive tasks',
+                        status: 'planned'
+                      }
+                    ]
+                  },
+                  {
+                    title: 'Later',
+                    features: [
+                      {
+                        name: 'AI Process Optimization',
+                        description: 'Intelligent suggestions for workflow improvements',
+                        status: 'planned'
+                      }
+                    ]
+                  }
+                ]}
+              />
+            </div>
+
+            {/* Status Variants Showcase */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Status Chip Variants</h3>
+                <p className="text-sm text-slate-600">Planned (gray), In Progress (blue), and Done (green) states</p>
+              </div>
+              <TTFeatureRoadmapSection
+                sectionTitle="Status Examples"
+                showLegend={true}
+                showHeader={true}
+                columnLayout="3-column"
+                density="default"
+                columns={[
+                  {
+                    title: 'Planned Features',
+                    features: [
+                      {
+                        name: 'Feature Planning Stage',
+                        description: 'Initial scoping and requirements gathering',
+                        status: 'planned'
+                      },
+                      {
+                        name: 'User Research Phase',
+                        description: 'Understanding learner and partner needs',
+                        status: 'planned'
+                      },
+                      {
+                        name: 'Design Mockups',
+                        description: 'Wireframes and visual design',
+                        status: 'planned'
+                      }
+                    ]
+                  },
+                  {
+                    title: 'In Progress Features',
+                    features: [
+                      {
+                        name: 'Active Development',
+                        description: 'Engineering team building the feature',
+                        status: 'in-progress'
+                      },
+                      {
+                        name: 'Beta Testing',
+                        description: 'Limited release to select learners',
+                        status: 'in-progress'
+                      },
+                      {
+                        name: 'Quality Assurance',
+                        description: 'Testing and bug fixes in progress',
+                        status: 'in-progress'
+                      }
+                    ]
+                  },
+                  {
+                    title: 'Completed Features',
+                    features: [
+                      {
+                        name: 'Successfully Launched',
+                        description: 'Feature is live and available to all users',
+                        status: 'done'
+                      },
+                      {
+                        name: 'Fully Tested',
+                        description: 'QA passed and stable in production',
+                        status: 'done'
+                      },
+                      {
+                        name: 'Documentation Complete',
+                        description: 'User guides and support materials ready',
+                        status: 'done'
+                      }
+                    ]
+                  }
+                ]}
+              />
+            </div>
+
+            {/* Empty States */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Empty State Handling</h3>
+                <p className="text-sm text-slate-600">Graceful display when columns have no features</p>
+              </div>
+              <TTFeatureRoadmapSection
+                sectionTitle="Future Planning"
+                sectionDescription="As we complete current initiatives, new priorities will emerge"
+                showLegend={true}
+                showHeader={true}
+                columnLayout="3-column"
+                density="default"
+                columns={[
+                  {
+                    title: 'Now',
+                    features: [
+                      {
+                        name: 'Core Platform Stability',
+                        description: 'Ensuring reliable performance for all learners',
+                        status: 'in-progress'
+                      }
+                    ]
+                  },
+                  {
+                    title: 'Next',
+                    features: [
+                      {
+                        name: 'Feature Prioritization',
+                        description: 'Working with partners to determine next priorities',
+                        status: 'planned'
+                      }
+                    ]
+                  },
+                  {
+                    title: 'Later',
+                    features: []
+                  }
+                ]}
+              />
+            </div>
+
+            {/* Different Background Colors */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Background Color Variants</h3>
+                <p className="text-sm text-slate-600">Different surface colors for visual hierarchy</p>
+              </div>
+              
+              {/* White Background */}
+              <div className="space-y-2">
+                <h4 className="text-sm text-slate-700">White Background</h4>
+                <TTFeatureRoadmapSection
+                  sectionTitle="Clean White Surface"
+                  showLegend={false}
+                  showHeader={true}
+                  columnLayout="3-column"
+                  density="compact"
+                  backgroundColor="bg-white"
+                  columns={[
+                    {
+                      title: 'Now',
+                      features: [
+                        { name: 'Platform Optimization', status: 'in-progress' },
+                        { name: 'Performance Enhancements', status: 'done' }
+                      ]
+                    },
+                    {
+                      title: 'Next',
+                      features: [
+                        { name: 'New Feature Set', status: 'planned' }
+                      ]
+                    },
+                    {
+                      title: 'Later',
+                      features: [
+                        { name: 'Advanced Capabilities', status: 'planned' }
+                      ]
+                    }
+                  ]}
+                />
+              </div>
+
+              {/* Gradient Background */}
+              <div className="space-y-2">
+                <h4 className="text-sm text-slate-700">Gradient Background</h4>
+                <TTFeatureRoadmapSection
+                  sectionTitle="Eye-catching Gradient"
+                  showLegend={false}
+                  showHeader={true}
+                  columnLayout="3-column"
+                  density="compact"
+                  backgroundColor="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50"
+                  columns={[
+                    {
+                      title: 'Now',
+                      features: [
+                        { name: 'Visual Refresh', status: 'in-progress' },
+                        { name: 'Brand Updates', status: 'done' }
+                      ]
+                    },
+                    {
+                      title: 'Next',
+                      features: [
+                        { name: 'UI Component Library', status: 'planned' }
+                      ]
+                    },
+                    {
+                      title: 'Later',
+                      features: [
+                        { name: 'Design System V2', status: 'planned' }
+                      ]
+                    }
+                  ]}
+                />
+              </div>
+            </div>
+
+            {/* Accessibility Features */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Accessibility Features</h3>
+                <p className="text-sm text-slate-600">WCAG AA compliant with comprehensive semantic structure</p>
+              </div>
+              <div className="bg-slate-50 rounded-lg p-6 space-y-3">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">WCAG AA Contrast Compliance</div>
+                    <div className="text-sm text-slate-600">All text and status chips meet 4.5:1 contrast minimum against backgrounds</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Semantic Section Structure</div>
+                    <div className="text-sm text-slate-600">Uses semantic HTML5 section element with aria-labelledby</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Column Regions</div>
+                    <div className="text-sm text-slate-600">Each column uses role="region" with labeled headings</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Status Indicators</div>
+                    <div className="text-sm text-slate-600">Chips include role="status" with full text labels, not color-only</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Icon Accessibility</div>
+                    <div className="text-sm text-slate-600">All status icons marked aria-hidden with text equivalents</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">List Semantics</div>
+                    <div className="text-sm text-slate-600">Feature rows use role="list" and role="listitem" for proper structure</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Legend Clarity</div>
+                    <div className="text-sm text-slate-600">Status legend uses role="group" with aria-label for context</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Logical Reading Order</div>
+                    <div className="text-sm text-slate-600">Header → Legend → Now column → Next column → Later column</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Hover States</div>
+                    <div className="text-sm text-slate-600">Feature rows have subtle hover states with border color transition</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Empty State Handling</div>
+                    <div className="text-sm text-slate-600">Dashed border containers with clear messaging when no features exist</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Vision/Donor Page Integration */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Vision/Donor Page Integration (Template 3)</h3>
+                <p className="text-sm text-slate-600">Full donor-focused roadmap section in page context</p>
+              </div>
+              <div className="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 rounded-lg p-8 space-y-8">
+                {/* Page Hero Context */}
+                <div className="text-center space-y-4 pb-8 border-b border-slate-200">
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-100 text-blue-700 rounded-full text-sm mb-2">
+                    <Sparkles className="w-4 h-4" />
+                    <span>Our Vision</span>
+                  </div>
+                  <h2 className="text-3xl text-slate-900">Building the Future of Nonprofit Tech</h2>
+                  <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+                    See where we're headed and how your support drives our mission to empower nonprofits through technology education
+                  </p>
+                </div>
+
+                {/* Roadmap Section */}
+                <TTFeatureRoadmapSection
+                  sectionTitle="Our Roadmap"
+                  sectionDescription="We're building a comprehensive platform that transforms how nonprofits access and leverage technology. Here's what's coming next."
+                  showLegend={true}
+                  showHeader={true}
+                  columnLayout="3-column"
+                  density="default"
+                  backgroundColor="bg-transparent"
+                  columns={[
+                    {
+                      title: 'Now',
+                      features: [
+                        {
+                          name: 'AI Trail Launch',
+                          description: 'Teaching nonprofits to harness AI tools like ChatGPT and Claude for everyday tasks',
+                          status: 'in-progress'
+                        },
+                        {
+                          name: 'Expanded Partner Network',
+                          description: 'Growing our nonprofit partner base to 50+ organizations',
+                          status: 'in-progress'
+                        },
+                        {
+                          name: 'Intern Success Pathway',
+                          description: 'Structured program helping learners land their first tech roles',
+                          status: 'done'
+                        },
+                        {
+                          name: 'Real-world Project Experience',
+                          description: 'Learners solve actual nonprofit challenges, not just tutorials',
+                          status: 'done'
+                        }
+                      ]
+                    },
+                    {
+                      title: 'Next',
+                      features: [
+                        {
+                          name: 'Certification Programs',
+                          description: 'Industry-recognized credentials in Salesforce, Airtable, and more',
+                          status: 'planned'
+                        },
+                        {
+                          name: 'Partner Impact Portal',
+                          description: 'Nonprofits can showcase projects and recruit skilled volunteers',
+                          status: 'planned'
+                        },
+                        {
+                          name: 'Advanced Coaching System',
+                          description: 'AI-powered personalized guidance for every learner',
+                          status: 'in-progress'
+                        },
+                        {
+                          name: 'Employer Hiring Pipeline',
+                          description: 'Direct connections between graduates and mission-driven companies',
+                          status: 'planned'
+                        }
+                      ]
+                    },
+                    {
+                      title: 'Later',
+                      features: [
+                        {
+                          name: 'Global Expansion',
+                          description: 'Bringing our model to nonprofits and learners worldwide',
+                          status: 'planned'
+                        },
+                        {
+                          name: 'Mobile Learning Experience',
+                          description: 'Full-featured iOS and Android apps for learning anywhere',
+                          status: 'planned'
+                        },
+                        {
+                          name: 'Community Learning Platform',
+                          description: 'Peer-to-peer mentorship and collaborative project spaces',
+                          status: 'planned'
+                        },
+                        {
+                          name: 'Enterprise Partnerships',
+                          description: 'Corporate sponsors funding scholarships and internships',
+                          status: 'planned'
+                        }
+                      ]
+                    }
+                  ]}
+                />
+
+                {/* Call to Action Context */}
+                <div className="bg-white rounded-xl border border-blue-200 p-8 text-center space-y-4 mt-8">
+                  <h3 className="text-2xl text-slate-900">Help Us Build This Future</h3>
+                  <p className="text-slate-600 max-w-2xl mx-auto">
+                    Every donation accelerates our roadmap and creates more opportunities for learners to gain skills and nonprofits to increase their impact.
+                  </p>
+                  <div className="flex items-center justify-center gap-4 pt-4">
+                    <Button variant="primary" size="lg">
+                      <Heart className="w-5 h-5 mr-2" />
+                      Make a Donation
+                    </Button>
+                    <Button variant="secondary" size="lg">
+                      Learn More
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Realistic Use Cases */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Real-world Roadmap Examples</h3>
+                <p className="text-sm text-slate-600">Different roadmap contexts across the platform</p>
+              </div>
+
+              {/* Tech Stack Roadmap */}
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">Platform Technology Roadmap</h4>
+                <TTFeatureRoadmapSection
+                  sectionTitle="Technology Stack Evolution"
+                  sectionDescription="Infrastructure and tooling improvements powering our learning platform"
+                  showLegend={true}
+                  showHeader={true}
+                  columnLayout="3-column"
+                  density="compact"
+                  backgroundColor="bg-slate-50"
+                  columns={[
+                    {
+                      title: 'Now',
+                      features: [
+                        { name: 'React + TypeScript Migration', status: 'in-progress' },
+                        { name: 'Design System (TTDS)', status: 'done' },
+                        { name: 'API Performance Optimization', status: 'in-progress' }
+                      ]
+                    },
+                    {
+                      title: 'Next',
+                      features: [
+                        { name: 'GraphQL API', status: 'planned' },
+                        { name: 'Real-time Collaboration Features', status: 'planned' },
+                        { name: 'Advanced Caching Strategy', status: 'planned' }
+                      ]
+                    },
+                    {
+                      title: 'Later',
+                      features: [
+                        { name: 'Microservices Architecture', status: 'planned' },
+                        { name: 'Edge Computing Integration', status: 'planned' },
+                        { name: 'Multi-region Deployment', status: 'planned' }
+                      ]
+                    }
+                  ]}
+                />
+              </div>
+
+              {/* Learning Content Roadmap */}
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">Learning Content Roadmap</h4>
+                <TTFeatureRoadmapSection
+                  sectionTitle="New Learning Pathways"
+                  sectionDescription="Expanding our curriculum to meet nonprofit technology needs"
+                  showLegend={true}
+                  showHeader={true}
+                  columnLayout="3-column"
+                  density="default"
+                  backgroundColor="bg-gradient-to-br from-purple-50 to-pink-50"
+                  columns={[
+                    {
+                      title: 'Now',
+                      features: [
+                        {
+                          name: 'AI Tools Mastery Track',
+                          description: 'ChatGPT, Claude, Midjourney, and more',
+                          status: 'in-progress'
+                        },
+                        {
+                          name: 'Citizen Developer Fundamentals',
+                          description: 'No-code/low-code platforms for nonprofits',
+                          status: 'done'
+                        }
+                      ]
+                    },
+                    {
+                      title: 'Next',
+                      features: [
+                        {
+                          name: 'Data Analytics for Good',
+                          description: 'Using data to measure nonprofit impact',
+                          status: 'planned'
+                        },
+                        {
+                          name: 'Digital Marketing Essentials',
+                          description: 'SEO, social media, and email campaigns',
+                          status: 'planned'
+                        }
+                      ]
+                    },
+                    {
+                      title: 'Later',
+                      features: [
+                        {
+                          name: 'Cybersecurity Basics',
+                          description: 'Protecting nonprofit data and systems',
+                          status: 'planned'
+                        },
+                        {
+                          name: 'Grant Writing with AI',
+                          description: 'Leveraging AI tools for fundraising',
+                          status: 'planned'
+                        }
+                      ]
+                    }
+                  ]}
+                />
               </div>
             </div>
           </div>
