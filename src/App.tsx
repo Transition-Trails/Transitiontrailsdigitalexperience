@@ -27,6 +27,7 @@ import { GoalsAndProgressPanel } from './components/ttds/GoalsAndProgressPanel';
 import { SkillsAndCertsPanel } from './components/ttds/SkillsAndCertsPanel';
 import { PartnerProjectCard } from './components/ttds/PartnerProjectCard';
 import { EventSessionCard } from './components/ttds/EventSessionCard';
+import { RoadmapItemCard } from './components/ttds/RoadmapItemCard';
 import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar } from 'lucide-react';
 
 // Loading Demo Component
@@ -131,6 +132,7 @@ export default function App() {
             <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full">TTA-129</span>
             <span className="px-3 py-1 bg-rose-100 text-rose-700 rounded-full">TTA-128</span>
             <span className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full">TTA-127</span>
+            <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full">TTA-123</span>
           </div>
         </header>
 
@@ -155,6 +157,7 @@ export default function App() {
             <a href="#skillscerts" className="px-3 py-1.5 text-sm text-indigo-700 bg-indigo-50 rounded">Skills & Certs</a>
             <a href="#partnerproject" className="px-3 py-1.5 text-sm text-rose-700 bg-rose-50 rounded">Partner Projects</a>
             <a href="#eventsession" className="px-3 py-1.5 text-sm text-cyan-700 bg-cyan-50 rounded">Event Sessions</a>
+            <a href="#roadmap" className="px-3 py-1.5 text-sm text-indigo-700 bg-indigo-50 rounded">Roadmap</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -3205,6 +3208,507 @@ export default function App() {
               <li>Minimum card height maintained for grid alignment</li>
               <li>Host avatar scales proportionally at 32px × 32px</li>
               <li>Recommended max-width: none (cards fill container)</li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Roadmap Item Card Section */}
+        <section id="roadmap" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <h2 className="text-slate-900 mb-2">Feature Roadmap Card</h2>
+            <p className="text-slate-600">
+              Domain component representing a single roadmap item within the larger Roadmap Section. 
+              Helps learners, nonprofits, donors, and internal staff understand upcoming features, project status, and released items.
+            </p>
+          </div>
+
+          {/* All Status Variants */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Status Variants</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              The component supports three status states: Planned, In Progress, and Done. Each uses the TTDS ChipStatus component 
+              with appropriate styling.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <RoadmapItemCard
+                featureName="AI Trail Launch"
+                description="Introduce an AI-powered learning path that adapts to each learner's pace and prior experience, providing personalized recommendations."
+                audiences={['learners']}
+                status="planned"
+              />
+              <RoadmapItemCard
+                featureName="Partner Portal Preview"
+                description="A dedicated portal where nonprofit and small business partners can track learner progress, post project opportunities, and communicate directly with cohorts."
+                audiences={['nonprofits', 'admins']}
+                status="in-progress"
+              />
+              <RoadmapItemCard
+                featureName="Learner Dashboard"
+                description="Comprehensive dashboard showing progress across all trails, upcoming sessions, certifications earned, and partner projects completed."
+                audiences={['learners', 'admins']}
+                status="done"
+                liveExampleUrl="#"
+                onLiveExampleClick={() => alert('Opening live example...')}
+              />
+            </div>
+          </div>
+
+          {/* With Live Example Links */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Released Features (With Live Example)</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Features marked as "Done" can include an optional "View Live Example" link that directs users to the shipped feature.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <RoadmapItemCard
+                featureName="Trail Talk Library"
+                description="Searchable library of all recorded Trail Talk sessions with transcripts, tags, and bookmarking capabilities for easy reference."
+                audiences={['learners', 'nonprofits', 'donors']}
+                status="done"
+                liveExampleUrl="#library"
+                onLiveExampleClick={() => alert('Navigating to Trail Talk Library...')}
+              />
+              <RoadmapItemCard
+                featureName="Skills & Certifications Panel"
+                description="Visual display of earned certifications, in-progress skills, and recommended next steps based on learner goals and industry demand."
+                audiences={['learners']}
+                status="done"
+                liveExampleUrl="#skills"
+                liveExampleLabel="See Your Skills"
+                onLiveExampleClick={() => alert('Opening skills panel...')}
+              />
+              <RoadmapItemCard
+                featureName="Donor Impact Dashboard"
+                description="Real-time dashboard showing how donor contributions translate into learner outcomes, certification completions, and job placements."
+                audiences={['donors', 'admins']}
+                status="done"
+                liveExampleUrl="#impact"
+                liveExampleLabel="View Impact"
+                onLiveExampleClick={() => alert('Opening impact dashboard...')}
+              />
+            </div>
+          </div>
+
+          {/* Multiple Audiences */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Multi-Audience Features</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Features can target multiple audiences. Tags wrap gracefully to accommodate various combinations.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <RoadmapItemCard
+                featureName="Cohort Collaboration Spaces"
+                description="Virtual spaces where cohort members can collaborate on projects, share resources, schedule peer study sessions, and build community."
+                audiences={['learners', 'admins']}
+                status="planned"
+              />
+              <RoadmapItemCard
+                featureName="Partner Project Matching"
+                description="Smart matching algorithm that pairs learners with nonprofit/business projects based on skills, interests, availability, and career goals."
+                audiences={['learners', 'nonprofits', 'admins']}
+                status="in-progress"
+              />
+              <RoadmapItemCard
+                featureName="Comprehensive Reporting Suite"
+                description="Full reporting capabilities for tracking learner outcomes, partner engagement, donor ROI, and program effectiveness with exportable data."
+                audiences={['learners', 'nonprofits', 'donors', 'admins']}
+                status="planned"
+              />
+            </div>
+          </div>
+
+          {/* Planned Features */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Planned Features (Future Roadmap)</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Features in the planning stage help set expectations and gather feedback from stakeholders.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <RoadmapItemCard
+                featureName="Mobile Learning App"
+                description="Native mobile application for iOS and Android allowing learners to access trails, watch sessions, and track progress on the go."
+                audiences={['learners']}
+                status="planned"
+              />
+              <RoadmapItemCard
+                featureName="Peer Mentorship Program"
+                description="Structured mentorship program connecting experienced learners with newcomers for guidance, support, and knowledge sharing."
+                audiences={['learners', 'admins']}
+                status="planned"
+              />
+              <RoadmapItemCard
+                featureName="Industry Partner Network"
+                description="Expanded network of industry partners offering internships, job shadowing, and employment opportunities to program graduates."
+                audiences={['learners', 'nonprofits']}
+                status="planned"
+              />
+            </div>
+          </div>
+
+          {/* In Progress Features */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">In Progress Features (Active Development)</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Features currently in development show active work and upcoming releases.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <RoadmapItemCard
+                featureName="Advanced Analytics Dashboard"
+                description="Deep analytics showing learning patterns, time-to-completion metrics, skill acquisition trends, and predictive success indicators."
+                audiences={['admins']}
+                status="in-progress"
+              />
+              <RoadmapItemCard
+                featureName="Gamification & Achievements"
+                description="Achievement system with badges, leaderboards, and rewards for completing trails, attending sessions, and contributing to the community."
+                audiences={['learners']}
+                status="in-progress"
+              />
+              <RoadmapItemCard
+                featureName="Resource Library Expansion"
+                description="Curated library of articles, videos, code samples, and external resources aligned with trail curricula and learning objectives."
+                audiences={['learners', 'admins']}
+                status="in-progress"
+              />
+            </div>
+          </div>
+
+          {/* With Description Truncation */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Description Truncation</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              For denser layouts, enable description truncation to limit text to 3-4 lines using the `truncateDescription` prop.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+              <RoadmapItemCard
+                featureName="AI-Powered Resume Builder"
+                description="Intelligent resume builder that uses AI to optimize learner resumes based on target roles, highlighting relevant Salesforce skills and partner project experience. Includes templates, keyword optimization, and ATS compatibility checks to maximize job application success rates."
+                audiences={['learners']}
+                status="planned"
+                truncateDescription
+              />
+              <RoadmapItemCard
+                featureName="Real-Time Session Chat"
+                description="Live chat functionality during Trail Talks and study sessions enabling real-time Q&A, resource sharing, and community interaction. Features include emoji reactions, code snippet sharing, and moderation tools for session hosts."
+                audiences={['learners', 'admins']}
+                status="in-progress"
+                truncateDescription
+              />
+              <RoadmapItemCard
+                featureName="Certification Exam Prep"
+                description="Comprehensive exam preparation tools including practice tests, flashcards, study guides, and performance tracking for all major Salesforce certifications. Adaptive learning identifies weak areas and provides targeted practice questions."
+                audiences={['learners']}
+                status="done"
+                truncateDescription
+                liveExampleUrl="#exam-prep"
+                onLiveExampleClick={() => alert('Opening exam prep...')}
+              />
+              <RoadmapItemCard
+                featureName="Community Forum"
+                description="Dedicated discussion forum where learners can ask questions, share solutions, celebrate wins, and build connections with peers and mentors across all cohorts and learning paths."
+                audiences={['learners', 'admins']}
+                status="in-progress"
+                truncateDescription
+              />
+            </div>
+          </div>
+
+          {/* Real-World Roadmap Section Example */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Real-World Roadmap Page Layout</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Example of how Roadmap Item Cards might appear on a public-facing roadmap page with grouped sections.
+            </p>
+            <div className="space-y-6">
+              {/* Released Section */}
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <h4 className="text-slate-900">Released Features</h4>
+                  <ChipStatus status="completed" label="Live" />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <RoadmapItemCard
+                    featureName="Goals & Progress Tracking"
+                    description="Visual goal tracking with progress bars, milestone celebrations, and personalized recommendations for next learning steps."
+                    audiences={['learners', 'admins']}
+                    status="done"
+                    liveExampleUrl="#goals"
+                    onLiveExampleClick={() => alert('Opening goals panel...')}
+                  />
+                  <RoadmapItemCard
+                    featureName="Partner Project Showcase"
+                    description="Portfolio cards highlighting real-world nonprofit and small business projects completed by learners with impact metrics."
+                    audiences={['learners', 'nonprofits', 'donors']}
+                    status="done"
+                    liveExampleUrl="#projects"
+                    onLiveExampleClick={() => alert('Opening project showcase...')}
+                  />
+                  <RoadmapItemCard
+                    featureName="Event & Session Calendar"
+                    description="Comprehensive calendar of upcoming Trail Talks, study groups, cohort sessions, and partner Q&A events with registration."
+                    audiences={['learners']}
+                    status="done"
+                    liveExampleUrl="#calendar"
+                    onLiveExampleClick={() => alert('Opening calendar...')}
+                  />
+                </div>
+              </div>
+
+              {/* In Development Section */}
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <h4 className="text-slate-900">In Active Development</h4>
+                  <ChipStatus status="in-progress" label="Building Now" />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <RoadmapItemCard
+                    featureName="Slack Integration"
+                    description="Native Slack integration bringing notifications, session reminders, and community discussions directly into learner workspaces."
+                    audiences={['learners', 'admins']}
+                    status="in-progress"
+                  />
+                  <RoadmapItemCard
+                    featureName="Video Transcript Search"
+                    description="Full-text search across all session recordings with timestamp links, making it easy to find and jump to specific topics."
+                    audiences={['learners']}
+                    status="in-progress"
+                  />
+                </div>
+              </div>
+
+              {/* Future Plans Section */}
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <h4 className="text-slate-900">Future Plans</h4>
+                  <ChipStatus status="planned" label="Coming Soon" />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <RoadmapItemCard
+                    featureName="Career Services Hub"
+                    description="Dedicated career services including resume reviews, mock interviews, LinkedIn optimization, and job search strategies."
+                    audiences={['learners', 'admins']}
+                    status="planned"
+                  />
+                  <RoadmapItemCard
+                    featureName="Alumni Network"
+                    description="Network connecting program graduates for continued learning, job referrals, and long-term professional support."
+                    audiences={['learners']}
+                    status="planned"
+                  />
+                  <RoadmapItemCard
+                    featureName="Custom Learning Paths"
+                    description="Ability for learners to create and share custom learning paths combining official trails with community-contributed content."
+                    audiences={['learners', 'admins']}
+                    status="planned"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Component Props Reference */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Component Props & API</h3>
+            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+              <h4 className="text-slate-900 mb-3">Required Props (5 Content Fields)</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm mb-4">
+                <div className="flex items-start gap-2">
+                  <FileText className="h-4 w-4 text-slate-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-slate-900">featureName:</strong>
+                    <span className="text-slate-600"> string - Short, descriptive feature name</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <FileText className="h-4 w-4 text-slate-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-slate-900">description:</strong>
+                    <span className="text-slate-600"> string - 1-2 sentence explanation</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <User className="h-4 w-4 text-slate-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-slate-900">audiences:</strong>
+                    <span className="text-slate-600"> Array of 'learners' | 'nonprofits' | 'donors' | 'admins'</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="h-4 w-4 text-slate-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-slate-900">status:</strong>
+                    <span className="text-slate-600"> 'planned' | 'in-progress' | 'done'</span>
+                  </div>
+                </div>
+              </div>
+
+              <h4 className="text-slate-900 mb-3">Optional Configuration Props</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                <div>
+                  <strong className="text-slate-900">liveExampleUrl:</strong>
+                  <span className="text-slate-600"> string - URL for shipped feature (shown only if provided)</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">liveExampleLabel:</strong>
+                  <span className="text-slate-600"> string - Override default "View Live Example" label</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">onLiveExampleClick:</strong>
+                  <span className="text-slate-600"> {`() => void`} - Click handler for live example link</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">truncateDescription:</strong>
+                  <span className="text-slate-600"> boolean - Limit description to 3-4 lines</span>
+                </div>
+              </div>
+
+              <div className="mt-4 p-3 bg-blue-50 rounded border border-blue-200">
+                <p className="text-sm text-blue-900">
+                  <strong>Conditional Rendering:</strong> The "View Live Example" link only appears when `liveExampleUrl` or 
+                  `onLiveExampleClick` is provided. This ensures unreleased features don't show broken links.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Audience Tag Reference */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Audience Types & Tag Colors</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                <h4 className="text-slate-900 mb-3">Audience Types</h4>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-700">learners</span>
+                    <Tag variant="trail" label="Learners" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-700">nonprofits</span>
+                    <Tag variant="topic" label="Nonprofits" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-700">donors</span>
+                    <Tag variant="platform" label="Donors" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-700">admins</span>
+                    <Tag variant="default" label="Admins" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                <h4 className="text-slate-900 mb-3">Status Types</h4>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-700">planned</span>
+                    <ChipStatus status="planned" label="Planned" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-700">in-progress</span>
+                    <ChipStatus status="in-progress" label="In Progress" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-slate-700">done</span>
+                    <ChipStatus status="completed" label="Done" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Accessibility Features */}
+          <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
+            <p className="text-sm text-emerald-900">
+              <strong>Accessibility Features:</strong> Semantic HTML with proper heading hierarchy (h3 for feature name), 
+              WCAG AA contrast ratios (emerald-600: 7.2:1, slate-600: 7.5:1, slate-900: 14.9:1), 
+              status chips include text labels (not color-only communication), 
+              logical screen reader order (Feature Name → Status → Description → Audiences → Link), 
+              live example link includes visible focus states with 2px emerald ring, 
+              external link icon provides visual affordance, 
+              rel="noopener noreferrer" for security when opening new tabs, 
+              keyboard navigation fully supported with proper tab order.
+            </p>
+          </div>
+
+          {/* Usage Guidelines */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Usage Guidelines</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+              <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-700" />
+                  <strong className="text-emerald-900">Do:</strong>
+                </div>
+                <ul className="text-emerald-800 space-y-1 ml-6 list-disc">
+                  <li>Use clear, concise feature names (3-5 words)</li>
+                  <li>Keep descriptions to 1-2 sentences maximum</li>
+                  <li>Select all relevant audiences for each feature</li>
+                  <li>Update status as features progress through development</li>
+                  <li>Provide live example links for completed features</li>
+                  <li>Use truncation for dense, multi-column layouts</li>
+                  <li>Group roadmap items by status in roadmap pages</li>
+                </ul>
+              </div>
+              <div className="p-3 bg-rose-50 rounded-lg border border-rose-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <AlertCircle className="h-4 w-4 text-rose-700" />
+                  <strong className="text-rose-900">Don't:</strong>
+                </div>
+                <ul className="text-rose-800 space-y-1 ml-6 list-disc">
+                  <li>Don't use vague feature names like "Update" or "New Feature"</li>
+                  <li>Don't write multi-paragraph descriptions</li>
+                  <li>Don't leave audiences array empty</li>
+                  <li>Don't show live example links for planned/in-progress features</li>
+                  <li>Don't use custom status values outside the three defined</li>
+                  <li>Don't forget to update status when features ship</li>
+                  <li>Don't mix different layout densities in the same section</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Use Cases */}
+          <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <h4 className="text-slate-900 mb-2">Use Cases</h4>
+            <ul className="text-sm text-blue-900 space-y-1 ml-5 list-disc">
+              <li><strong>Vision Page:</strong> Public-facing roadmap showing planned features to attract new learners and partners</li>
+              <li><strong>Donor Page:</strong> Demonstrate program growth and how donations fund new capabilities</li>
+              <li><strong>Academy Roadmap:</strong> Internal roadmap for staff to track development priorities and releases</li>
+              <li><strong>Feature Request Portal:</strong> Display requested features with voting and status tracking</li>
+              <li><strong>Release Notes:</strong> Highlight newly shipped features with links to documentation</li>
+            </ul>
+          </div>
+
+          {/* Design Tokens Used */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Design Tokens & Components Used</h3>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Card (elevation: low)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">ChipStatus (all variants)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Tag (all variants)</span>
+              <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded">rounded-lg (8px)</span>
+              <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded">emerald-600 (link color)</span>
+              <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded">emerald-500 (focus ring)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">slate-50 to slate-900 (neutrals)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">shadow-sm (card elevation)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">border-t border-slate-200 (link divider)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Lucide Icon (ExternalLink)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">line-clamp-3 (truncation)</span>
+            </div>
+          </div>
+
+          {/* Responsive Behavior */}
+          <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <h4 className="text-slate-900 mb-2">Responsive Behavior</h4>
+            <ul className="text-sm text-blue-900 space-y-1 ml-5 list-disc">
+              <li>Cards work in 1-4 column grids using flexbox</li>
+              <li>Feature name and description text wrap gracefully</li>
+              <li>Audience tags wrap to multiple lines as needed</li>
+              <li>Status chip aligns to top-right, independent of title length</li>
+              <li>Live example link appears at bottom with top border divider</li>
+              <li>Recommended layouts: 3 columns desktop, 2 columns tablet, 1 column mobile</li>
+              <li>Use truncateDescription prop for 4-column dense layouts</li>
             </ul>
           </div>
         </section>
