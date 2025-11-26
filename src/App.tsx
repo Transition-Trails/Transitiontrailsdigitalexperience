@@ -34,6 +34,7 @@ import { PennyInsightRail } from './components/ttds/PennyInsightRail';
 import { BadgesAndCreditsPanel } from './components/ttds/BadgesAndCreditsPanel';
 import { PennyTip } from './components/ttds/PennyTip';
 import { TTCommunityPostCard } from './components/tt/CommunityPostCard';
+import { TTMetricTile } from './components/tt/MetricTile';
 import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, Users, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar } from 'lucide-react';
 
 // Loading Demo Component
@@ -145,6 +146,7 @@ export default function App() {
             <span className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full">TTA-131</span>
             <span className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full">TTA-126</span>
             <span className="px-3 py-1 bg-lime-100 text-lime-700 rounded-full">TTA-108</span>
+            <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full">TTA-124</span>
           </div>
         </header>
 
@@ -176,6 +178,7 @@ export default function App() {
             <a href="#badges" className="px-3 py-1.5 text-sm text-amber-700 bg-amber-50 rounded">Badges & Credits</a>
             <a href="#pennytip" className="px-3 py-1.5 text-sm text-cyan-700 bg-cyan-50 rounded">Penny Tips</a>
             <a href="#communitypost" className="px-3 py-1.5 text-sm text-lime-700 bg-lime-50 rounded">Community Post</a>
+            <a href="#metrictile" className="px-3 py-1.5 text-sm text-orange-700 bg-orange-50 rounded">Impact Metrics</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -7143,6 +7146,366 @@ interface PennyTipProps {
                 <div>
                   <div className="text-slate-900">Screen Reader Support</div>
                   <div className="text-sm text-slate-600">Post type badges, engagement counts, and metadata are properly announced</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Impact Metrics Tile Section */}
+        <section id="metrictile" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <h2 className="text-slate-900 mb-2">Impact Metrics Tile</h2>
+            <p className="text-slate-600">
+              Domain component for Vision/Donor pages, Program Overviews, and Dashboard summaries. Presents high-level organizational impact data with bold, emotionally resonant KPIs aligned to TTDS tokens.
+            </p>
+          </div>
+
+          {/* Layout Variants */}
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-slate-700 mb-1">Layout Variants</h3>
+              <p className="text-sm text-slate-600">Vertical and horizontal layout options for different use cases</p>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="space-y-3">
+                <div className="text-sm text-slate-700">Vertical Layout</div>
+                <TTMetricTile
+                  value="147+"
+                  label="Interns Supported"
+                  subtext="Since 2024"
+                  icon={Users}
+                  layout="vertical"
+                />
+              </div>
+              <div className="space-y-3">
+                <div className="text-sm text-slate-700">Horizontal Layout</div>
+                <TTMetricTile
+                  value="32 Projects"
+                  label="Nonprofit Projects Delivered"
+                  subtext="Across all programs"
+                  icon={Target}
+                  layout="horizontal"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Density Variants */}
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-slate-700 mb-1">Density Variants</h3>
+              <p className="text-sm text-slate-600">Default and compact modes for different contexts</p>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="space-y-3">
+                <div className="text-sm text-slate-700">Default Density</div>
+                <TTMetricTile
+                  value="1,200 Hours"
+                  label="Volunteer Hours Contributed"
+                  subtext="This year"
+                  icon={Trophy}
+                  density="default"
+                />
+              </div>
+              <div className="space-y-3">
+                <div className="text-sm text-slate-700">Compact Density</div>
+                <TTMetricTile
+                  value="1,200 Hours"
+                  label="Volunteer Hours Contributed"
+                  subtext="This year"
+                  icon={Trophy}
+                  density="compact"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Icon Variants */}
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-slate-700 mb-1">Icon Usage</h3>
+              <p className="text-sm text-slate-600">With and without icons, using TT-branded visuals</p>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <TTMetricTile
+                value="89%"
+                label="Program Completion Rate"
+                subtext="Past 12 months"
+                icon={TrendingUp}
+                iconColor="text-emerald-600"
+              />
+              <TTMetricTile
+                value="24"
+                label="Partner Organizations"
+                subtext="Active collaborations"
+                icon={Building2}
+                iconColor="text-blue-600"
+              />
+              <TTMetricTile
+                value="500+"
+                label="Skills Badges Earned"
+                subtext="All time"
+              />
+            </div>
+          </div>
+
+          {/* Subtext Variants */}
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-slate-700 mb-1">Supporting Text Options</h3>
+              <p className="text-sm text-slate-600">With and without supporting subtext</p>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <TTMetricTile
+                value="15,000+"
+                label="Learning Hours Completed"
+                subtext="Across all trails and programs"
+                icon={BookOpen}
+                iconColor="text-violet-600"
+              />
+              <TTMetricTile
+                value="98%"
+                label="Learner Satisfaction"
+                icon={Star}
+                iconColor="text-amber-500"
+              />
+            </div>
+          </div>
+
+          {/* Impact Dashboard Example */}
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-slate-700 mb-1">Impact Dashboard Layout</h3>
+              <p className="text-sm text-slate-600">Example metrics grid as it would appear on Vision/Donor page</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <TTMetricTile
+                value="147+"
+                label="Interns Supported"
+                subtext="Since 2024"
+                icon={Users}
+                iconColor="text-emerald-600"
+                layout="vertical"
+              />
+              <TTMetricTile
+                value="32"
+                label="Nonprofit Projects"
+                subtext="Successfully delivered"
+                icon={Target}
+                iconColor="text-blue-600"
+                layout="vertical"
+              />
+              <TTMetricTile
+                value="1,200"
+                label="Volunteer Hours"
+                subtext="This year"
+                icon={Trophy}
+                iconColor="text-amber-600"
+                layout="vertical"
+              />
+              <TTMetricTile
+                value="89%"
+                label="Completion Rate"
+                subtext="Past 12 months"
+                icon={TrendingUp}
+                iconColor="text-violet-600"
+                layout="vertical"
+              />
+            </div>
+          </div>
+
+          {/* Vision/Donor Page Example */}
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-slate-700 mb-1">Vision/Donor Page Hero Metrics</h3>
+              <p className="text-sm text-slate-600">Large, bold impact metrics for donor engagement</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <TTMetricTile
+                value="500+"
+                label="Lives Changed"
+                subtext="Career switchers and interns"
+                icon={Heart}
+                iconColor="text-rose-600"
+                layout="vertical"
+              />
+              <TTMetricTile
+                value="$2.4M"
+                label="Community Impact"
+                subtext="In donated services"
+                icon={Compass}
+                iconColor="text-emerald-600"
+                layout="vertical"
+              />
+              <TTMetricTile
+                value="15 States"
+                label="National Reach"
+                subtext="And growing"
+                icon={MapPin}
+                iconColor="text-blue-600"
+                layout="vertical"
+              />
+            </div>
+          </div>
+
+          {/* Compact Dashboard Example */}
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-slate-700 mb-1">Compact Dashboard View</h3>
+              <p className="text-sm text-slate-600">Horizontal compact tiles for dense information displays</p>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <TTMetricTile
+                value="45"
+                label="Active Learners"
+                subtext="This month"
+                icon={Users}
+                iconColor="text-emerald-600"
+                layout="horizontal"
+                density="compact"
+              />
+              <TTMetricTile
+                value="12"
+                label="Projects in Progress"
+                subtext="Across 8 nonprofits"
+                icon={Zap}
+                iconColor="text-amber-600"
+                layout="horizontal"
+                density="compact"
+              />
+              <TTMetricTile
+                value="87%"
+                label="On-Time Delivery"
+                subtext="Last quarter"
+                icon={CheckCircle}
+                iconColor="text-green-600"
+                layout="horizontal"
+                density="compact"
+              />
+              <TTMetricTile
+                value="28"
+                label="Certifications Earned"
+                subtext="This month"
+                icon={Award}
+                iconColor="text-violet-600"
+                layout="horizontal"
+                density="compact"
+              />
+            </div>
+          </div>
+
+          {/* Different Icon Styles */}
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-slate-700 mb-1">Icon Color Variations</h3>
+              <p className="text-sm text-slate-600">TT-branded icons with accent colors for emphasis</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <TTMetricTile
+                value="156"
+                label="GitHub Commits"
+                subtext="This week"
+                icon={Code}
+                iconColor="text-slate-700"
+                layout="vertical"
+                density="compact"
+              />
+              <TTMetricTile
+                value="23"
+                label="Trails Completed"
+                subtext="All time"
+                icon={MapPin}
+                iconColor="text-emerald-600"
+                layout="vertical"
+                density="compact"
+              />
+              <TTMetricTile
+                value="8"
+                label="Mentors Active"
+                subtext="This month"
+                icon={Lightbulb}
+                iconColor="text-amber-500"
+                layout="vertical"
+                density="compact"
+              />
+              <TTMetricTile
+                value="92%"
+                label="Job Placement"
+                subtext="Within 6 months"
+                icon={TrendingUp}
+                iconColor="text-blue-600"
+                layout="vertical"
+                density="compact"
+              />
+            </div>
+          </div>
+
+          {/* No Icon, Simple Display */}
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-slate-700 mb-1">Clean, Text-Only Display</h3>
+              <p className="text-sm text-slate-600">Minimal design for maximum impact</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <TTMetricTile
+                value="12,450"
+                label="Total Learning Hours"
+                subtext="Across all programs"
+              />
+              <TTMetricTile
+                value="67"
+                label="Partner Projects Delivered"
+                subtext="Since launch"
+              />
+              <TTMetricTile
+                value="95%"
+                label="Learner Satisfaction"
+                subtext="Based on 340 surveys"
+              />
+            </div>
+          </div>
+
+          {/* Accessibility Features */}
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-slate-700 mb-1">Accessibility Features</h3>
+              <p className="text-sm text-slate-600">WCAG AA compliant with semantic structure and ARIA labels</p>
+            </div>
+            <div className="bg-slate-50 rounded-lg p-6 space-y-3">
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                <div>
+                  <div className="text-slate-900">High Contrast Values</div>
+                  <div className="text-sm text-slate-600">All metric values meet WCAG AA contrast requirements (4.5:1 minimum)</div>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                <div>
+                  <div className="text-slate-900">Semantic ARIA Labels</div>
+                  <div className="text-sm text-slate-600">Screen readers announce full metric context: label, value, and subtext</div>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                <div>
+                  <div className="text-slate-900">Decorative Icons</div>
+                  <div className="text-sm text-slate-600">Icons marked as aria-hidden to prevent redundant announcements</div>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                <div>
+                  <div className="text-slate-900">No Color-Only Meaning</div>
+                  <div className="text-sm text-slate-600">Information conveyed through text and structure, not color alone</div>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                <div>
+                  <div className="text-slate-900">TTDS Token Compliance</div>
+                  <div className="text-sm text-slate-600">Uses spacing (12/16/20/24), radius (6-8px), and typography tokens consistently</div>
                 </div>
               </div>
             </div>
