@@ -33,6 +33,7 @@ import { AssignmentCard } from './components/ttds/AssignmentCard';
 import { PennyInsightRail } from './components/ttds/PennyInsightRail';
 import { BadgesAndCreditsPanel } from './components/ttds/BadgesAndCreditsPanel';
 import { PennyTip } from './components/ttds/PennyTip';
+import { TTCommunityPostCard } from './components/tt/CommunityPostCard';
 import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, Users, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar } from 'lucide-react';
 
 // Loading Demo Component
@@ -143,6 +144,7 @@ export default function App() {
             <span className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full">TTA-109</span>
             <span className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full">TTA-131</span>
             <span className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full">TTA-126</span>
+            <span className="px-3 py-1 bg-lime-100 text-lime-700 rounded-full">TTA-108</span>
           </div>
         </header>
 
@@ -173,6 +175,7 @@ export default function App() {
             <a href="#penny" className="px-3 py-1.5 text-sm text-pink-700 bg-pink-50 rounded">Penny Insights</a>
             <a href="#badges" className="px-3 py-1.5 text-sm text-amber-700 bg-amber-50 rounded">Badges & Credits</a>
             <a href="#pennytip" className="px-3 py-1.5 text-sm text-cyan-700 bg-cyan-50 rounded">Penny Tips</a>
+            <a href="#communitypost" className="px-3 py-1.5 text-sm text-lime-700 bg-lime-50 rounded">Community Post</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -6782,6 +6785,364 @@ interface PennyTipProps {
                       />
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Community Post Card Section */}
+        <section id="communitypost" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <h2 className="text-slate-900 mb-2">Community Post Card</h2>
+            <p className="text-slate-600">
+              Domain component for Template 5 — Community Feed. Displays community posts with author info, context, post type, engagement metadata, and tags. Supports Question, Win, and Resource post types with variants for density and context presence.
+            </p>
+          </div>
+
+          {/* Post Type Variants */}
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-slate-700 mb-1">Post Type Variants</h3>
+              <p className="text-sm text-slate-600">Three post types with distinct indicators and styling</p>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <TTCommunityPostCard
+                postType="question"
+                authorName="Sarah Chen"
+                authorRole="Career Switcher"
+                authorAvatar="SC"
+                timeAgo="2h ago"
+                title="How do I prepare for a technical interview in cybersecurity?"
+                excerpt="I have my first technical interview next week and I'm not sure what to expect. Should I focus more on theory or hands-on scenarios?"
+                replyCount={12}
+                lastActivity="45m ago"
+                tags={["Career Advice", "Cybersecurity", "Interview Prep"]}
+                context={{
+                  trail: "Cybersecurity Foundations",
+                  program: "Career Transition"
+                }}
+              />
+              <TTCommunityPostCard
+                postType="win"
+                authorName="Marcus Thompson"
+                authorRole="Program Graduate"
+                authorAvatar="MT"
+                timeAgo="1d ago"
+                title="Just landed my first job as a Junior Developer!"
+                excerpt="After 6 months in the program, I accepted an offer today. The mock interviews and portfolio projects made all the difference. Thank you to this amazing community!"
+                replyCount={47}
+                lastActivity="3h ago"
+                tags={["Success Story", "Job Search", "Web Development"]}
+                context={{
+                  trail: "Full Stack Development",
+                  program: "Career Transition"
+                }}
+              />
+              <TTCommunityPostCard
+                postType="resource"
+                authorName="Alex Rivera"
+                authorRole="Mentor"
+                authorAvatar="AR"
+                timeAgo="3d ago"
+                title="Free Certification Study Guide - CompTIA A+"
+                excerpt="I compiled a comprehensive study guide with practice questions and hands-on labs. This helped me pass the exam on my first try."
+                replyCount={28}
+                lastActivity="1d ago"
+                tags={["Certification", "Study Resources", "IT Support"]}
+                context={{
+                  trail: "IT Support Specialist",
+                  program: "Skills Development"
+                }}
+              />
+            </div>
+          </div>
+
+          {/* With and Without Context */}
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-slate-700 mb-1">Context Variants</h3>
+              <p className="text-sm text-slate-600">Posts with and without trail/program context</p>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <TTCommunityPostCard
+                postType="question"
+                authorName="Jamie Lee"
+                authorRole="Active Learner"
+                authorAvatar="JL"
+                timeAgo="5h ago"
+                title="Best practices for Git branching strategies?"
+                excerpt="Our team is growing and we need to standardize our workflow. What branching strategy works best for small teams?"
+                replyCount={8}
+                lastActivity="2h ago"
+                tags={["Git", "Version Control", "Best Practices"]}
+                context={{
+                  trail: "Full Stack Development",
+                  program: "Career Transition"
+                }}
+              />
+              <TTCommunityPostCard
+                postType="question"
+                authorName="Taylor Morgan"
+                authorRole="Community Member"
+                authorAvatar="TM"
+                timeAgo="4h ago"
+                title="Networking events worth attending?"
+                excerpt="Looking for recommendations on tech networking events in the Pacific Northwest. What events have you found valuable?"
+                replyCount={15}
+                lastActivity="1h ago"
+                tags={["Networking", "Events", "Career Development"]}
+              />
+            </div>
+          </div>
+
+          {/* Density Variants */}
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-slate-700 mb-1">Density Variants</h3>
+              <p className="text-sm text-slate-600">Default and compact display modes</p>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="space-y-4">
+                <div className="text-sm text-slate-700">Default Density</div>
+                <TTCommunityPostCard
+                  postType="win"
+                  authorName="Jordan Wells"
+                  authorRole="Program Graduate"
+                  authorAvatar="JW"
+                  timeAgo="2d ago"
+                  title="Completed my first open source contribution!"
+                  excerpt="I was nervous to contribute to open source, but the community was incredibly welcoming. My first PR just got merged!"
+                  replyCount={19}
+                  lastActivity="12h ago"
+                  tags={["Open Source", "Milestone", "Community"]}
+                  context={{
+                    trail: "Full Stack Development"
+                  }}
+                  density="default"
+                />
+              </div>
+              <div className="space-y-4">
+                <div className="text-sm text-slate-700">Compact Density</div>
+                <TTCommunityPostCard
+                  postType="win"
+                  authorName="Jordan Wells"
+                  authorRole="Program Graduate"
+                  authorAvatar="JW"
+                  timeAgo="2d ago"
+                  title="Completed my first open source contribution!"
+                  excerpt="I was nervous to contribute to open source, but the community was incredibly welcoming. My first PR just got merged!"
+                  replyCount={19}
+                  lastActivity="12h ago"
+                  tags={["Open Source", "Milestone", "Community"]}
+                  context={{
+                    trail: "Full Stack Development"
+                  }}
+                  density="compact"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Tag Count Variants */}
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-slate-700 mb-1">Tag Variations</h3>
+              <p className="text-sm text-slate-600">Different numbers of tags with proper wrapping</p>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <TTCommunityPostCard
+                postType="resource"
+                authorName="Casey Park"
+                authorRole="Mentor"
+                authorAvatar="CP"
+                timeAgo="1w ago"
+                title="Ultimate Portfolio Template Collection"
+                excerpt="A collection of portfolio templates designed specifically for career switchers. Includes examples from successful graduates."
+                replyCount={52}
+                lastActivity="2d ago"
+                tags={["Portfolio"]}
+                context={{
+                  trail: "Career Development"
+                }}
+              />
+              <TTCommunityPostCard
+                postType="resource"
+                authorName="Riley Brooks"
+                authorRole="Mentor"
+                authorAvatar="RB"
+                timeAgo="5d ago"
+                title="Comprehensive Guide to Technical Writing"
+                excerpt="Everything you need to know about writing technical documentation, from README files to API docs."
+                replyCount={31}
+                lastActivity="1d ago"
+                tags={["Technical Writing", "Documentation", "Communication", "Career Skills", "Professional Development"]}
+                context={{
+                  trail: "Professional Skills",
+                  program: "Skills Development"
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Engagement States */}
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-slate-700 mb-1">Engagement States</h3>
+              <p className="text-sm text-slate-600">Various levels of community engagement</p>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <TTCommunityPostCard
+                postType="question"
+                authorName="Pat Anderson"
+                authorRole="New Member"
+                authorAvatar="PA"
+                timeAgo="15m ago"
+                title="Just starting out - where to begin?"
+                excerpt="I'm completely new to tech and feeling overwhelmed. What should be my first step?"
+                replyCount={0}
+                lastActivity="15m ago"
+                tags={["Getting Started", "Advice Needed"]}
+              />
+              <TTCommunityPostCard
+                postType="question"
+                authorName="Sam Martinez"
+                authorRole="Active Learner"
+                authorAvatar="SM"
+                timeAgo="6h ago"
+                title="Debugging JavaScript async/await issues"
+                excerpt="I'm having trouble understanding promise chains and async/await. Can someone explain the difference?"
+                replyCount={5}
+                lastActivity="4h ago"
+                tags={["JavaScript", "Async", "Help Wanted"]}
+                context={{
+                  trail: "Full Stack Development"
+                }}
+              />
+              <TTCommunityPostCard
+                postType="resource"
+                authorName="Drew Kim"
+                authorRole="Industry Expert"
+                authorAvatar="DK"
+                timeAgo="2w ago"
+                title="2024 Tech Industry Salary Guide"
+                excerpt="Comprehensive breakdown of tech salaries by role, experience level, and region. Includes remote position data."
+                replyCount={156}
+                lastActivity="1h ago"
+                tags={["Salary", "Career Planning", "Industry Insights"]}
+              />
+            </div>
+          </div>
+
+          {/* Real-world Feed Example */}
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-slate-700 mb-1">Community Feed Example</h3>
+              <p className="text-sm text-slate-600">Mixed post types as they would appear in Template 5</p>
+            </div>
+            <div className="space-y-4 max-w-4xl">
+              <TTCommunityPostCard
+                postType="question"
+                authorName="Morgan Hayes"
+                authorRole="Career Switcher"
+                authorAvatar="MH"
+                timeAgo="1h ago"
+                title="How to explain career gap in interviews?"
+                excerpt="I took 18 months off to complete this program. How do I address this in interviews without it being a red flag?"
+                replyCount={23}
+                lastActivity="30m ago"
+                tags={["Interview Tips", "Career Transition", "Advice"]}
+                context={{
+                  program: "Career Transition"
+                }}
+              />
+              <TTCommunityPostCard
+                postType="win"
+                authorName="Alex Patel"
+                authorRole="Program Graduate"
+                authorAvatar="AP"
+                timeAgo="3h ago"
+                title="Passed AWS Solutions Architect exam!"
+                excerpt="Third attempt was the charm! The study group and practice exams from the community were invaluable."
+                replyCount={34}
+                lastActivity="1h ago"
+                tags={["AWS", "Certification", "Cloud Computing", "Achievement"]}
+                context={{
+                  trail: "Cloud Architecture",
+                  program: "Skills Development"
+                }}
+              />
+              <TTCommunityPostCard
+                postType="resource"
+                authorName="Robin Chen"
+                authorRole="Mentor"
+                authorAvatar="RC"
+                timeAgo="1d ago"
+                title="Free Resume Review Template & Checklist"
+                excerpt="I've reviewed 100+ resumes as a hiring manager. Here's my template for self-reviewing your resume before applying."
+                replyCount={89}
+                lastActivity="4h ago"
+                tags={["Resume", "Job Search", "Career Resources"]}
+              />
+              <TTCommunityPostCard
+                postType="question"
+                authorName="Taylor Swift"
+                authorRole="Active Learner"
+                authorAvatar="TS"
+                timeAgo="2d ago"
+                title="React vs Vue for beginners?"
+                excerpt="I need to choose a framework for my capstone project. Which one has better learning resources and job prospects?"
+                replyCount={41}
+                lastActivity="8h ago"
+                tags={["React", "Vue", "Framework Choice", "Advice Needed"]}
+                context={{
+                  trail: "Full Stack Development"
+                }}
+                density="compact"
+              />
+            </div>
+          </div>
+
+          {/* Accessibility Features */}
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-slate-700 mb-1">Accessibility Features</h3>
+              <p className="text-sm text-slate-600">WCAG AA compliant with semantic HTML and ARIA labels</p>
+            </div>
+            <div className="bg-slate-50 rounded-lg p-6 space-y-3">
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                <div>
+                  <div className="text-slate-900">Semantic HTML Structure</div>
+                  <div className="text-sm text-slate-600">Uses article, header, and time elements for proper document outline</div>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                <div>
+                  <div className="text-slate-900">ARIA Labels</div>
+                  <div className="text-sm text-slate-600">Descriptive labels for all interactive elements and metadata</div>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                <div>
+                  <div className="text-slate-900">Keyboard Navigation</div>
+                  <div className="text-sm text-slate-600">Fully navigable with keyboard, clear focus indicators</div>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                <div>
+                  <div className="text-slate-900">Color Contrast</div>
+                  <div className="text-sm text-slate-600">All text meets WCAG AA standards (4.5:1 for body, 3:1 for large text)</div>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                <div>
+                  <div className="text-slate-900">Screen Reader Support</div>
+                  <div className="text-sm text-slate-600">Post type badges, engagement counts, and metadata are properly announced</div>
                 </div>
               </div>
             </div>
