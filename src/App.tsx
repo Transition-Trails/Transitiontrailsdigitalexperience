@@ -32,6 +32,7 @@ import { LearningActivityCard } from './components/ttds/LearningActivityCard';
 import { AssignmentCard } from './components/ttds/AssignmentCard';
 import { PennyInsightRail } from './components/ttds/PennyInsightRail';
 import { BadgesAndCreditsPanel } from './components/ttds/BadgesAndCreditsPanel';
+import { PennyTip } from './components/ttds/PennyTip';
 import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, Users, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar } from 'lucide-react';
 
 // Loading Demo Component
@@ -141,6 +142,7 @@ export default function App() {
             <span className="px-3 py-1 bg-violet-100 text-violet-700 rounded-full">TTA-132</span>
             <span className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full">TTA-109</span>
             <span className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full">TTA-131</span>
+            <span className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full">TTA-126</span>
           </div>
         </header>
 
@@ -170,6 +172,7 @@ export default function App() {
             <a href="#assignment" className="px-3 py-1.5 text-sm text-violet-700 bg-violet-50 rounded">Assignments</a>
             <a href="#penny" className="px-3 py-1.5 text-sm text-pink-700 bg-pink-50 rounded">Penny Insights</a>
             <a href="#badges" className="px-3 py-1.5 text-sm text-amber-700 bg-amber-50 rounded">Badges & Credits</a>
+            <a href="#pennytip" className="px-3 py-1.5 text-sm text-cyan-700 bg-cyan-50 rounded">Penny Tips</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -6038,6 +6041,747 @@ type PanelDensity = 'default' | 'compact';`}</pre>
                     ctaType="view-suggestions"
                     density="compact"
                   />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Penny Quick Tip Bubble Section */}
+        <section id="pennytip" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <h2 className="text-slate-900 mb-2">Penny Quick Tip Bubble</h2>
+            <p className="text-slate-600">
+              Lightweight, friendly "nudge" bubble for contextual insights—short reminders, quick hints, study nudges, or task clarifications. 
+              Unobtrusive, supportive, fast to scan, and easy to dismiss.
+            </p>
+          </div>
+
+          {/* Basic Examples */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Basic Variants</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Three visual variants: Neutral (default), Info (blue), and Accent (emerald). All support custom icons and context labels.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">Neutral Variant</h4>
+                <PennyTip
+                  tipText="Remember to save your progress before switching trails!"
+                  contextLabel="Study Tip"
+                  icon="sparkles"
+                  variant="neutral"
+                  onDismiss={() => console.log('Dismissed')}
+                />
+              </div>
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">Info Variant</h4>
+                <PennyTip
+                  tipText="Your next quiz unlocks in 2 hours. Great job staying on track!"
+                  contextLabel="Progress Update"
+                  icon="info"
+                  variant="info"
+                  onDismiss={() => console.log('Dismissed')}
+                />
+              </div>
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">Accent Variant</h4>
+                <PennyTip
+                  tipText="You're on a 7-day streak! Keep it going to earn a badge."
+                  contextLabel="Reminder"
+                  icon="star"
+                  variant="accent"
+                  onDismiss={() => console.log('Dismissed')}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Icon Variants */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Icon Options</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Built-in icons: sparkles (default), lightbulb, info, star, zap. Custom React nodes also supported.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              <PennyTip
+                tipText="AI-powered insight"
+                icon="sparkles"
+                onDismiss={() => {}}
+              />
+              <PennyTip
+                tipText="Learning suggestion"
+                icon="lightbulb"
+                onDismiss={() => {}}
+              />
+              <PennyTip
+                tipText="Important information"
+                icon="info"
+                onDismiss={() => {}}
+              />
+              <PennyTip
+                tipText="Achievement unlocked"
+                icon="star"
+                onDismiss={() => {}}
+              />
+              <PennyTip
+                tipText="Quick action tip"
+                icon="zap"
+                onDismiss={() => {}}
+              />
+            </div>
+          </div>
+
+          {/* With CTA */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">With Call-to-Action</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Add optional CTA text link inline or beneath the message. Can be a link (href) or button (onClick).
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl">
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">With Link CTA</h4>
+                <PennyTip
+                  tipText="You have 3 new course recommendations based on your progress."
+                  contextLabel="Navigation"
+                  icon="lightbulb"
+                  ctaText="View recommendations"
+                  ctaHref="#recommendations"
+                  variant="accent"
+                  onDismiss={() => {}}
+                />
+              </div>
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">With Button CTA</h4>
+                <PennyTip
+                  tipText="Review your quiz before submitting to catch any mistakes."
+                  contextLabel="Study Tip"
+                  icon="info"
+                  ctaText="Show me more"
+                  onCTAClick={() => alert('CTA clicked!')}
+                  variant="info"
+                  onDismiss={() => {}}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Density Variants */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Density Variants</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Standard density for main areas, compact for tight spaces like sidebars or inline help.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl">
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">Standard Density (16px padding)</h4>
+                <PennyTip
+                  tipText="Complete 3 more modules to unlock your certification exam."
+                  contextLabel="Progress"
+                  icon="star"
+                  ctaText="View progress"
+                  onCTAClick={() => {}}
+                  density="standard"
+                  onDismiss={() => {}}
+                />
+              </div>
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">Compact Density (12px padding)</h4>
+                <PennyTip
+                  tipText="Complete 3 more modules to unlock your certification exam."
+                  contextLabel="Progress"
+                  icon="star"
+                  ctaText="View progress"
+                  onCTAClick={() => {}}
+                  density="compact"
+                  onDismiss={() => {}}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Content Length */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Content Length Handling</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Supports short (1 line) to medium (2-3 lines) content. Layout adapts gracefully to text length.
+            </p>
+            <div className="space-y-4 max-w-2xl">
+              <div className="space-y-2">
+                <h4 className="text-sm text-slate-700">Short (1 line)</h4>
+                <PennyTip
+                  tipText="Don't forget to save!"
+                  icon="sparkles"
+                  onDismiss={() => {}}
+                />
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm text-slate-700">Medium (2 lines)</h4>
+                <PennyTip
+                  tipText="Your learning path is 75% complete. Just 2 more modules until you unlock the final project!"
+                  contextLabel="Progress Update"
+                  icon="star"
+                  variant="accent"
+                  onDismiss={() => {}}
+                />
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm text-slate-700">Long with CTA (3 lines)</h4>
+                <PennyTip
+                  tipText="Based on your recent quiz results, I recommend reviewing the Flow Builder module before moving forward. This will strengthen your foundation for the advanced topics ahead."
+                  contextLabel="Study Recommendation"
+                  icon="lightbulb"
+                  ctaText="Review module now"
+                  onCTAClick={() => {}}
+                  variant="info"
+                  onDismiss={() => {}}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* With Pointer */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Pointer Variants (Popover Style)</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Add triangular pointer for popover positioning. Four placement options: top, bottom, left, right.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="space-y-12">
+                <div>
+                  <h4 className="text-sm text-slate-700 mb-8">Top Pointer</h4>
+                  <PennyTip
+                    tipText="This tip points upward to the element above"
+                    icon="info"
+                    placement="top"
+                    showPointer={true}
+                    onDismiss={() => {}}
+                  />
+                </div>
+              </div>
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700 mb-2">Bottom Pointer</h4>
+                <PennyTip
+                  tipText="This tip points downward to the element below"
+                  icon="info"
+                  placement="bottom"
+                  showPointer={true}
+                  onDismiss={() => {}}
+                />
+              </div>
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700 mb-2">Left Pointer</h4>
+                <PennyTip
+                  tipText="Points to the left element"
+                  icon="info"
+                  placement="left"
+                  showPointer={true}
+                  onDismiss={() => {}}
+                />
+              </div>
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700 mb-2">Right Pointer</h4>
+                <PennyTip
+                  tipText="Points to the right element"
+                  icon="info"
+                  placement="right"
+                  showPointer={true}
+                  onDismiss={() => {}}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* No Dismiss Button */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Without Dismiss Button</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              For critical messages or persistent tips that shouldn't be dismissed (set showDismiss to false).
+            </p>
+            <div className="max-w-md">
+              <PennyTip
+                tipText="System maintenance scheduled for tonight at 11 PM EST. Save your work frequently."
+                contextLabel="Important Notice"
+                icon="info"
+                variant="info"
+                showDismiss={false}
+              />
+            </div>
+          </div>
+
+          {/* Context Examples */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Context Label Examples</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Context labels help categorize tips: Study Tip, Navigation, Reminder, Progress Update, etc.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <PennyTip
+                tipText="Review key concepts before the quiz"
+                contextLabel="Study Tip"
+                icon="lightbulb"
+                onDismiss={() => {}}
+              />
+              <PennyTip
+                tipText="Find your saved items in the top menu"
+                contextLabel="Navigation"
+                icon="info"
+                variant="info"
+                onDismiss={() => {}}
+              />
+              <PennyTip
+                tipText="Your quiz is due tomorrow at 5 PM"
+                contextLabel="Reminder"
+                icon="zap"
+                variant="accent"
+                onDismiss={() => {}}
+              />
+              <PennyTip
+                tipText="You completed 3 modules this week"
+                contextLabel="Progress Update"
+                icon="star"
+                variant="accent"
+                onDismiss={() => {}}
+              />
+              <PennyTip
+                tipText="New trail available in your learning path"
+                contextLabel="What's New"
+                icon="sparkles"
+                onDismiss={() => {}}
+              />
+              <PennyTip
+                tipText="Connect with peers in the community forum"
+                contextLabel="Community"
+                icon="info"
+                onDismiss={() => {}}
+              />
+            </div>
+          </div>
+
+          {/* Real-World Placement Examples */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Real-World Placement Examples</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Common use cases across the TT Academy platform showing where Penny Tips appear contextually.
+            </p>
+
+            {/* Dashboard Right Rail */}
+            <div className="space-y-3">
+              <h4 className="text-sm text-slate-700">Dashboard Right Rail</h4>
+              <div className="bg-slate-50 rounded-lg border border-slate-200 p-6">
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                  <div className="lg:col-span-3 space-y-4">
+                    <h5 className="text-slate-900">Main Content</h5>
+                    <LearnerStatsPanel
+                      completedMissions={18}
+                      currentStreak={5}
+                      totalXP={2800}
+                      nextMilestone="Admin Certification"
+                    />
+                  </div>
+                  <div className="space-y-4">
+                    <h5 className="text-slate-900">Right Rail with Tips</h5>
+                    <PennyTip
+                      tipText="You're close to a 7-day streak! Log in tomorrow to keep it going."
+                      contextLabel="Motivation"
+                      icon="star"
+                      variant="accent"
+                      density="compact"
+                      onDismiss={() => {}}
+                    />
+                    <PennyInsightRail
+                      aiCoachingNote="Your quiz scores are improving! Keep practicing data modeling."
+                      contextLine="Based on recent performance"
+                      ctaType="view-suggestions"
+                      density="compact"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Above Action Buttons */}
+            <div className="space-y-3">
+              <h4 className="text-sm text-slate-700">Above Action Buttons</h4>
+              <div className="bg-slate-50 rounded-lg border border-slate-200 p-6">
+                <div className="space-y-4 max-w-2xl">
+                  <div className="p-4 bg-white rounded-lg border border-slate-200">
+                    <h5 className="text-slate-900 mb-2">Quiz: Apex Fundamentals</h5>
+                    <p className="text-sm text-slate-600 mb-4">
+                      10 questions • 20 minutes • Must score 80% to pass
+                    </p>
+                  </div>
+                  <PennyTip
+                    tipText="Take your time! You can review questions before submitting."
+                    contextLabel="Study Tip"
+                    icon="lightbulb"
+                    variant="info"
+                    onDismiss={() => {}}
+                  />
+                  <div className="flex gap-3">
+                    <Button variant="primary" size="medium">Start Quiz</Button>
+                    <Button variant="secondary" size="medium">Review Material</Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Under Page Header */}
+            <div className="space-y-3">
+              <h4 className="text-sm text-slate-700">Under Page Header</h4>
+              <div className="bg-slate-50 rounded-lg border border-slate-200 p-6">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between pb-4 border-b border-slate-200">
+                    <h5 className="text-slate-900">My Learning Path</h5>
+                    <Button variant="secondary" size="small">View All</Button>
+                  </div>
+                  <PennyTip
+                    tipText="New recommended trails based on your interests have been added below."
+                    contextLabel="What's New"
+                    icon="sparkles"
+                    ctaText="See recommendations"
+                    onCTAClick={() => {}}
+                    onDismiss={() => {}}
+                  />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <Card variant="outlined" padding="medium">
+                      <div className="space-y-2">
+                        <h6 className="text-slate-900">Platform Developer Trail</h6>
+                        <p className="text-sm text-slate-600">8 modules • 12 hours</p>
+                      </div>
+                    </Card>
+                    <Card variant="outlined" padding="medium">
+                      <div className="space-y-2">
+                        <h6 className="text-slate-900">Admin Essentials</h6>
+                        <p className="text-sm text-slate-600">6 modules • 9 hours</p>
+                      </div>
+                    </Card>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Inline Form Help */}
+            <div className="space-y-3">
+              <h4 className="text-sm text-slate-700">Inline Form Help</h4>
+              <div className="bg-slate-50 rounded-lg border border-slate-200 p-6">
+                <div className="space-y-4 max-w-xl">
+                  <h5 className="text-slate-900">Set Your Learning Goals</h5>
+                  <TextInput
+                    label="Primary Goal"
+                    placeholder="e.g., Earn Admin Certification"
+                  />
+                  <PennyTip
+                    tipText="Setting SMART goals helps you stay focused and motivated."
+                    icon="lightbulb"
+                    density="compact"
+                    onDismiss={() => {}}
+                  />
+                  <TextInput
+                    label="Target Completion Date"
+                    type="date"
+                  />
+                  <Button variant="primary" size="medium">Save Goals</Button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Component Props Reference */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Component Props & API</h3>
+            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+              <h4 className="text-slate-900 mb-3">Content Props</h4>
+              <div className="space-y-2 text-sm mb-4">
+                <div>
+                  <strong className="text-slate-900">tipText:</strong>
+                  <span className="text-slate-600"> string (required) - The main tip message (1-3 lines)</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">contextLabel:</strong>
+                  <span className="text-slate-600"> string - Optional category label ("Study Tip", "Navigation", etc.)</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">ctaText:</strong>
+                  <span className="text-slate-600"> string - Optional CTA button/link text</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">ctaHref:</strong>
+                  <span className="text-slate-600"> string - Optional href for link-style CTA</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">onCTAClick:</strong>
+                  <span className="text-slate-600"> () =&gt; void - CTA click handler</span>
+                </div>
+              </div>
+
+              <h4 className="text-slate-900 mb-3">Icon Props</h4>
+              <div className="space-y-2 text-sm mb-4">
+                <div>
+                  <strong className="text-slate-900">icon:</strong>
+                  <span className="text-slate-600"> 'sparkles' | 'lightbulb' | 'info' | 'star' | 'zap' | React.ReactNode (default: 'sparkles')</span>
+                </div>
+              </div>
+
+              <h4 className="text-slate-900 mb-3">Dismissal Props</h4>
+              <div className="space-y-2 text-sm mb-4">
+                <div>
+                  <strong className="text-slate-900">onDismiss:</strong>
+                  <span className="text-slate-600"> () =&gt; void - Called when X button is clicked</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">showDismiss:</strong>
+                  <span className="text-slate-600"> boolean - Show dismiss X button (default: true)</span>
+                </div>
+              </div>
+
+              <h4 className="text-slate-900 mb-3">Variant Props</h4>
+              <div className="space-y-2 text-sm mb-4">
+                <div>
+                  <strong className="text-slate-900">variant:</strong>
+                  <span className="text-slate-600"> 'neutral' | 'info' | 'accent' - Visual style (default: 'neutral')</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">density:</strong>
+                  <span className="text-slate-600"> 'standard' | 'compact' - Padding density (default: 'standard')</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">placement:</strong>
+                  <span className="text-slate-600"> 'top' | 'bottom' | 'left' | 'right' - Pointer position (default: 'bottom')</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">showPointer:</strong>
+                  <span className="text-slate-600"> boolean - Show triangular pointer (default: false)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Type Definitions */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">TypeScript Type Definitions</h3>
+            <div className="p-4 bg-slate-900 text-slate-100 rounded-lg text-sm overflow-x-auto">
+              <pre>{`type PennyTipPlacement = 'top' | 'bottom' | 'left' | 'right';
+type PennyTipDensity = 'standard' | 'compact';
+type PennyTipIcon = 'sparkles' | 'lightbulb' | 'info' | 'star' | 'zap' | React.ReactNode;
+
+interface PennyTipProps {
+  tipText: string;
+  contextLabel?: string;
+  ctaText?: string;
+  ctaHref?: string;
+  onCTAClick?: () => void;
+  icon?: PennyTipIcon;
+  onDismiss?: () => void;
+  showDismiss?: boolean;
+  placement?: PennyTipPlacement;
+  density?: PennyTipDensity;
+  showPointer?: boolean;
+  variant?: 'neutral' | 'info' | 'accent';
+}`}</pre>
+            </div>
+          </div>
+
+          {/* Accessibility Features */}
+          <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
+            <p className="text-sm text-emerald-900">
+              <strong>Accessibility Features:</strong> Semantic role="note" with aria-live="polite" for screen reader announcements, 
+              WCAG AA contrast on all text variants (slate-900 on white/blue-50/emerald-50 backgrounds), 
+              Dismiss button includes aria-label="Dismiss tip" for screen readers, 
+              Visible focus ring on dismiss button (ring-2 ring-emerald-500) and CTA links, 
+              Icon marked with aria-hidden="true" (meaning conveyed by text), 
+              Context label provides semantic categorization of tip type, 
+              Keyboard accessible: Tab to dismiss button/CTA, Enter/Space to activate, 
+              No color-only meaning (variant colors reinforced by icon and label), 
+              Pointer decorative only (doesn't affect accessibility), 
+              CTA links have underline for clear affordance and proper focus states.
+            </p>
+          </div>
+
+          {/* Usage Guidelines */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Usage Guidelines</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+              <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-700" />
+                  <strong className="text-emerald-900">Do:</strong>
+                </div>
+                <ul className="text-emerald-800 space-y-1 ml-6 list-disc">
+                  <li>Keep messages short and scannable (1-2 lines)</li>
+                  <li>Use contextual placement near related UI elements</li>
+                  <li>Provide dismiss functionality for non-critical tips</li>
+                  <li>Use context labels to categorize tip types</li>
+                  <li>Match variant to tip urgency/importance</li>
+                  <li>Add CTAs when action is needed</li>
+                  <li>Use compact density in tight spaces</li>
+                  <li>Show pointer for true popover contexts</li>
+                  <li>Ensure tips are dismissible by default</li>
+                </ul>
+              </div>
+              <div className="p-3 bg-rose-50 rounded-lg border border-rose-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <AlertCircle className="h-4 w-4 text-rose-700" />
+                  <strong className="text-rose-900">Don't:</strong>
+                </div>
+                <ul className="text-rose-800 space-y-1 ml-6 list-disc">
+                  <li>Don't write long paragraphs (keep to 2-3 lines max)</li>
+                  <li>Don't show multiple tips simultaneously</li>
+                  <li>Don't use for critical system errors (use alerts)</li>
+                  <li>Don't forget to provide onDismiss handler</li>
+                  <li>Don't overuse—causes banner blindness</li>
+                  <li>Don't hide dismiss button on dismissible tips</li>
+                  <li>Don't rely on color alone to convey meaning</li>
+                  <li>Don't show the same tip repeatedly after dismiss</li>
+                  <li>Don't use pointers without proper positioning</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Best Practices */}
+          <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <h4 className="text-slate-900 mb-2">Best Practices for Penny Tips</h4>
+            <div className="space-y-2 text-sm text-blue-900">
+              <div>
+                <strong>Timing:</strong> Show tips at contextually relevant moments (e.g., before quiz, when streak is active, on new feature launch).
+              </div>
+              <div>
+                <strong>Frequency:</strong> Limit to 1-2 tips per page. Respect user dismissals—don't show same tip repeatedly.
+              </div>
+              <div>
+                <strong>Tone:</strong> Keep language friendly, supportive, and encouraging. Match Penny's AI guide persona.
+              </div>
+              <div>
+                <strong>Persistence:</strong> Store dismissal state (localStorage, user preferences) to avoid showing dismissed tips again.
+              </div>
+              <div>
+                <strong>CTAs:</strong> Only include CTAs when there's a clear next action. Keep CTA text action-oriented.
+              </div>
+              <div>
+                <strong>Context Labels:</strong> Use consistent categories: Study Tip, Navigation, Reminder, Progress Update, What's New, Community.
+              </div>
+              <div>
+                <strong>Icons:</strong> Match icons to context (lightbulb for suggestions, star for achievements, info for general guidance).
+              </div>
+            </div>
+          </div>
+
+          {/* Use Cases */}
+          <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <h4 className="text-slate-900 mb-2">Use Cases</h4>
+            <ul className="text-sm text-blue-900 space-y-1 ml-5 list-disc">
+              <li><strong>Study Nudges:</strong> Remind learners to review material before quizzes or save progress</li>
+              <li><strong>Navigation Help:</strong> Guide users to features they haven't discovered yet</li>
+              <li><strong>Progress Celebrations:</strong> Acknowledge achievements and streaks to maintain motivation</li>
+              <li><strong>Feature Announcements:</strong> Introduce new functionality or content updates</li>
+              <li><strong>Contextual Hints:</strong> Provide just-in-time help related to current task</li>
+              <li><strong>Smart Recommendations:</strong> Suggest next steps based on AI analysis of learner behavior</li>
+              <li><strong>Deadline Reminders:</strong> Alert about upcoming due dates or scheduled events</li>
+              <li><strong>Community Engagement:</strong> Encourage participation in forums or peer collaboration</li>
+              <li><strong>Form Assistance:</strong> Offer guidance when filling out complex forms or settings</li>
+              <li><strong>Error Prevention:</strong> Warn about common mistakes before they happen</li>
+            </ul>
+          </div>
+
+          {/* Design Tokens Used */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Design Tokens & Components Used</h3>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">bg-white / bg-blue-50 / bg-emerald-50</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">rounded-lg (8px radius)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">border-slate-200 / border-blue-200 / border-emerald-200</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">shadow-md (level 2 elevation)</span>
+              <span className="px-3 py-1 bg-violet-100 text-violet-700 rounded">p-3, p-4 (12px, 16px padding)</span>
+              <span className="px-3 py-1 bg-violet-100 text-violet-700 rounded">gap-3 (12px spacing)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">text-slate-900 (primary text)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">text-slate-600 (context label)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">text-emerald-700 (CTA links)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">text-slate-400 (dismiss icon)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">h-4 w-4 / h-5 w-5 (icon sizes)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">text-sm / text-xs (typography)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">ring-2 ring-emerald-500 (focus states)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Lucide icons (X, Sparkles, Lightbulb, etc.)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Triangular pointer (CSS borders)</span>
+            </div>
+          </div>
+
+          {/* Animation Suggestions */}
+          <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <h4 className="text-slate-900 mb-2">Animation & Transition Suggestions</h4>
+            <div className="space-y-2 text-sm text-blue-900">
+              <div>
+                <strong>Entry:</strong> Fade in + gentle slide from placement direction (200-300ms). Use when tip first appears.
+              </div>
+              <div>
+                <strong>Dismissal:</strong> Fade out + scale down slightly (150-200ms). Provides clear feedback on dismiss action.
+              </div>
+              <div>
+                <strong>Hover States:</strong> Subtle background darkening on dismiss button, color shift on CTA links (already implemented).
+              </div>
+              <div>
+                <strong>Focus States:</strong> Ring appears with smooth transition (already implemented with focus:ring-2).
+              </div>
+              <div>
+                <strong>Avoid:</strong> Bouncing, spinning, or distracting animations that compete with content.
+              </div>
+            </div>
+          </div>
+
+          {/* Integration with Other Components */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Integration Examples</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Penny Tips work seamlessly with other TTDS components in various contexts.
+            </p>
+            <div className="bg-slate-50 rounded-lg border border-slate-200 p-6">
+              <div className="space-y-6">
+                {/* With Assignment Card */}
+                <div>
+                  <h4 className="text-slate-900 mb-3">With Assignment Card</h4>
+                  <div className="space-y-3 max-w-2xl">
+                    <AssignmentCard
+                      title="Build a Lightning Web Component"
+                      description="Create a custom LWC that displays account data with filtering capabilities and proper error handling."
+                      coachName="Sarah Martinez"
+                      submissionStatus="in-progress"
+                      resources={[
+                        { type: 'file', label: 'LWC Starter Template.zip' },
+                        { type: 'link', label: 'LWC Documentation' }
+                      ]}
+                    />
+                    <PennyTip
+                      tipText="Stuck? Review the LWC documentation or ask for help in the community forum."
+                      contextLabel="Study Tip"
+                      icon="lightbulb"
+                      ctaText="View resources"
+                      onCTAClick={() => {}}
+                      density="compact"
+                      onDismiss={() => {}}
+                    />
+                  </div>
+                </div>
+
+                {/* With Learning Activity Card */}
+                <div>
+                  <h4 className="text-slate-900 mb-3">With Learning Activity Card</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <LearningActivityCard
+                      activityType="study-group"
+                      title="Apex Triggers Deep Dive"
+                      description="Collaborative session covering trigger best practices and bulkification patterns"
+                      tags={['Apex', 'Triggers', 'Database']}
+                    />
+                    <div className="flex items-center">
+                      <PennyTip
+                        tipText="This module builds on your trigger knowledge. Review bulkification first!"
+                        icon="info"
+                        variant="info"
+                        density="compact"
+                        onDismiss={() => {}}
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
