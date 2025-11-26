@@ -42,6 +42,7 @@ import { TTCitizenPlatformCard } from './components/tt/CitizenPlatformCard';
 import { TTTrailMissionCard } from './components/tt/TrailMissionCard';
 import { TTFeatureRoadmapSection } from './components/tt/FeatureRoadmapSection';
 import { TTTrailPathCard } from './components/tt/TrailPathCard';
+import { VisionDonorPage } from './components/tt/templates/VisionDonorPage';
 import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, Users, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar, GraduationCap, Shield, Eye, Briefcase, Sparkles, Bot, Wand2, Palette, FileType, Link2, Database, Workflow, Layers, PenTool } from 'lucide-react';
 
 // Interactive Donate Demo Component
@@ -197,6 +198,7 @@ export default function App() {
             <span className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full">TTA-106</span>
             <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full">TTA-110</span>
             <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full">TTA-105</span>
+            <span className="px-3 py-1 bg-rose-100 text-rose-700 rounded-full">TTA-116</span>
           </div>
         </header>
 
@@ -236,6 +238,7 @@ export default function App() {
             <a href="#trailmission" className="px-3 py-1.5 text-sm text-teal-700 bg-teal-50 rounded">Trail Mission</a>
             <a href="#roadmap" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded">Feature Roadmap</a>
             <a href="#trailpath" className="px-3 py-1.5 text-sm text-orange-700 bg-orange-50 rounded">Trail Path</a>
+            <a href="#visiondonor" className="px-3 py-1.5 text-sm text-rose-700 bg-rose-50 rounded">Vision/Donor Template</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -11904,6 +11907,854 @@ interface PennyTipProps {
                     ctaLabel="View Trail"
                     ctaVariant="primary"
                   />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Vision/Donor Page Template Section */}
+        <section id="visiondonor" className="space-y-6">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+            <div>
+              <h2 className="text-slate-900 mb-2">Vision / Donor Page Template (TTA-116)</h2>
+              <p className="text-slate-600">
+                Complete page-level template assembling TTDS components into a high-impact donor-facing layout with Hero, Impact Metrics, Feature Roadmap, Donation CTA, and Program Journey sections.
+              </p>
+            </div>
+
+            {/* Full Template - Light Mode */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Complete Vision/Donor Page - Light Mode (Without Image Hero)</h3>
+                <p className="text-sm text-slate-600">Full template with all 5 required sections in proper order</p>
+              </div>
+              <div className="border border-slate-200 rounded-lg overflow-hidden">
+                <VisionDonorPage
+                  heroHeading="Building Pathways from Service to Tech Careers"
+                  heroSubheading="Transition Trails empowers veterans, volunteers, and nonprofit professionals to launch meaningful careers in technology through hands-on training, mentorship, and real-world projects."
+                  heroCtaLabel="Learn Our Story"
+                  heroCtaSecondaryLabel="View Programs"
+                  onHeroCtaClick={() => console.log('Hero CTA clicked')}
+                  onHeroCtaSecondaryClick={() => console.log('Hero secondary clicked')}
+                  impactMetrics={[
+                    {
+                      value: '150+',
+                      label: 'Interns Supported',
+                      description: 'Veterans and volunteers trained',
+                      icon: <Users className="w-8 h-8" />
+                    },
+                    {
+                      value: '45',
+                      label: 'Nonprofit Projects',
+                      description: 'Real-world mission impact',
+                      icon: <Award className="w-8 h-8" />
+                    },
+                    {
+                      value: '12,000+',
+                      label: 'Volunteer Hours',
+                      description: 'Contributing to social good',
+                      icon: <TrendingUp className="w-8 h-8" />
+                    },
+                    {
+                      value: '8',
+                      label: 'Learning Paths',
+                      description: 'From beginner to advanced',
+                      icon: <MapPin className="w-8 h-8" />
+                    }
+                  ]}
+                  donationHeading="Help Us Scale Our Impact"
+                  donationStory="Every dollar you contribute goes directly toward training the next generation of nonprofit technologists. Your support provides mentorship, project-based learning, and career pathways for individuals transitioning from military service, volunteer work, and nonprofit careers into tech roles that change lives."
+                  donationTiers={[
+                    {
+                      amount: '$50',
+                      label: 'Supporter',
+                      description: 'Fund course materials for one learner',
+                      impact: 'Provides access to learning platform for 1 month'
+                    },
+                    {
+                      amount: '$250',
+                      label: 'Advocate',
+                      description: 'Sponsor a project-based module',
+                      impact: 'Enables hands-on training with real nonprofit partner'
+                    },
+                    {
+                      amount: '$1,000',
+                      label: 'Champion',
+                      description: 'Support a full learning path',
+                      impact: 'Funds complete trail with mentorship and certification'
+                    }
+                  ]}
+                  onDonateClick={() => console.log('Donate clicked')}
+                  journeyStages={[
+                    {
+                      title: 'Visitor',
+                      description: 'Explore our mission and discover learning paths',
+                      icon: <Eye className="w-full h-full" />
+                    },
+                    {
+                      title: 'Guided Trail',
+                      description: 'Start structured learning with mentorship support',
+                      icon: <Compass className="w-full h-full" />
+                    },
+                    {
+                      title: 'Trail of Mastery',
+                      description: 'Complete advanced projects and earn certifications',
+                      icon: <Map className="w-full h-full" />
+                    },
+                    {
+                      title: 'Explorer Journey',
+                      description: 'Build portfolio through partner projects',
+                      icon: <Target className="w-full h-full" />
+                    },
+                    {
+                      title: 'Alumni',
+                      description: 'Launch career and give back as mentor',
+                      icon: <Trophy className="w-full h-full" />
+                    }
+                  ]}
+                  theme="light"
+                  heroVariant="without-image"
+                  roadmapVariant="full"
+                >
+                  {/* Feature Roadmap Section */}
+                  <TTFeatureRoadmapSection
+                    sectionTitle="Product & Program Roadmap"
+                    sectionDescription="Our commitment to continuous innovation and learner success"
+                    columns={[
+                      {
+                        title: 'Now',
+                        features: [
+                          {
+                            name: 'AI Specialist Trail',
+                            description: 'ChatGPT, Claude, and Midjourney training for nonprofits',
+                            status: 'in-progress'
+                          },
+                          {
+                            name: 'Learner Dashboard Redesign',
+                            description: 'Enhanced progress tracking and personalized insights',
+                            status: 'in-progress'
+                          },
+                          {
+                            name: 'Mentor Matching System',
+                            description: 'Connect learners with industry professionals',
+                            status: 'in-progress'
+                          }
+                        ]
+                      },
+                      {
+                        title: 'Next',
+                        features: [
+                          {
+                            name: 'Industry Certifications',
+                            description: 'Partner with Salesforce, AWS, and Google for credentials',
+                            status: 'planned'
+                          },
+                          {
+                            name: 'Mobile Learning App',
+                            description: 'Learn on-the-go with iOS and Android apps',
+                            status: 'planned'
+                          },
+                          {
+                            name: 'Career Services Hub',
+                            description: 'Resume reviews, interview prep, and job placement',
+                            status: 'planned'
+                          }
+                        ]
+                      },
+                      {
+                        title: 'Later',
+                        features: [
+                          {
+                            name: 'Global Expansion',
+                            description: 'Launch programs in EMEA and APAC regions',
+                            status: 'planned'
+                          },
+                          {
+                            name: 'Enterprise Training Portal',
+                            description: 'B2B platform for corporate social responsibility programs',
+                            status: 'planned'
+                          },
+                          {
+                            name: 'AI Learning Assistant',
+                            description: 'Personalized AI tutor for 24/7 learner support',
+                            status: 'planned'
+                          }
+                        ]
+                      }
+                    ]}
+                    columnLayout="3-column"
+                    density="default"
+                  />
+                </VisionDonorPage>
+              </div>
+            </div>
+
+            {/* Full Template - Dark Mode */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Complete Vision/Donor Page - Dark Mode</h3>
+                <p className="text-sm text-slate-600">Full dark theme variant with proper contrast and accessibility</p>
+              </div>
+              <div className="border border-slate-700 rounded-lg overflow-hidden bg-slate-900">
+                <VisionDonorPage
+                  heroHeading="Technology That Changes Lives"
+                  heroSubheading="We're bridging the gap between mission-driven professionals and careers in tech through structured learning paths, mentorship, and real-world nonprofit projects."
+                  heroCtaLabel="Explore Our Mission"
+                  heroCtaSecondaryLabel="See Programs"
+                  onHeroCtaClick={() => console.log('Hero CTA clicked')}
+                  onHeroCtaSecondaryClick={() => console.log('Hero secondary clicked')}
+                  impactMetrics={[
+                    {
+                      value: '200+',
+                      label: 'Lives Changed',
+                      description: 'Career transitions completed',
+                      icon: <Heart className="w-8 h-8" />
+                    },
+                    {
+                      value: '60+',
+                      label: 'Nonprofit Partners',
+                      description: 'Organizations we support',
+                      icon: <Building2 className="w-8 h-8" />
+                    },
+                    {
+                      value: '95%',
+                      label: 'Job Placement',
+                      description: 'Within 6 months of completion',
+                      icon: <TrendingUp className="w-8 h-8" />
+                    },
+                    {
+                      value: '$65k',
+                      label: 'Avg Starting Salary',
+                      description: 'For program graduates',
+                      icon: <Award className="w-8 h-8" />
+                    }
+                  ]}
+                  donationHeading="Power the Next Generation of Nonprofit Tech"
+                  donationStory="Your investment fuels career transformation. When you support Transition Trails, you're not just funding education—you're creating pathways out of poverty, empowering veterans, and strengthening the nonprofit sector with skilled technologists who understand the mission."
+                  donationTiers={[
+                    {
+                      amount: '$100',
+                      label: 'Trailblazer',
+                      description: 'Support one learner for a month',
+                      impact: 'Full platform access plus mentor sessions'
+                    },
+                    {
+                      amount: '$500',
+                      label: 'Pathfinder',
+                      description: 'Fund a complete learning module',
+                      impact: 'Includes hands-on project with nonprofit partner'
+                    },
+                    {
+                      amount: '$2,500',
+                      label: 'Pioneer',
+                      description: 'Sponsor a full cohort',
+                      impact: 'Support 10 learners through entire program'
+                    }
+                  ]}
+                  onDonateClick={() => console.log('Donate clicked')}
+                  journeyStages={[
+                    {
+                      title: 'Discovery',
+                      description: 'Find your perfect learning path',
+                      icon: <Eye className="w-full h-full" />
+                    },
+                    {
+                      title: 'Foundation',
+                      description: 'Master the fundamentals',
+                      icon: <Compass className="w-full h-full" />
+                    },
+                    {
+                      title: 'Specialization',
+                      description: 'Deep-dive into your discipline',
+                      icon: <Map className="w-full h-full" />
+                    },
+                    {
+                      title: 'Real-World Practice',
+                      description: 'Build portfolio with partners',
+                      icon: <Target className="w-full h-full" />
+                    },
+                    {
+                      title: 'Career Launch',
+                      description: 'Land your dream tech job',
+                      icon: <Trophy className="w-full h-full" />
+                    }
+                  ]}
+                  theme="dark"
+                  heroVariant="without-image"
+                  roadmapVariant="full"
+                >
+                  {/* Feature Roadmap Section */}
+                  <TTFeatureRoadmapSection
+                    sectionTitle="What We're Building"
+                    sectionDescription="Transparent roadmap of features and programs coming soon"
+                    columns={[
+                      {
+                        title: 'Now',
+                        features: [
+                          {
+                            name: 'Data Analytics Trail',
+                            description: 'Tableau and Power BI training for impact measurement',
+                            status: 'in-progress'
+                          },
+                          {
+                            name: 'Portfolio Builder',
+                            description: 'Showcase projects to potential employers',
+                            status: 'in-progress'
+                          }
+                        ]
+                      },
+                      {
+                        title: 'Next',
+                        features: [
+                          {
+                            name: 'Peer Learning Circles',
+                            description: 'Study groups and collaborative projects',
+                            status: 'planned'
+                          },
+                          {
+                            name: 'Scholarship Program',
+                            description: 'Need-based financial aid for learners',
+                            status: 'planned'
+                          }
+                        ]
+                      },
+                      {
+                        title: 'Later',
+                        features: [
+                          {
+                            name: 'University Partnerships',
+                            description: 'Credit-eligible coursework and degrees',
+                            status: 'planned'
+                          },
+                          {
+                            name: 'Freelance Marketplace',
+                            description: 'Connect alumni with nonprofit clients',
+                            status: 'planned'
+                          }
+                        ]
+                      }
+                    ]}
+                    columnLayout="3-column"
+                    density="default"
+                  />
+                </VisionDonorPage>
+              </div>
+            </div>
+
+            {/* Hero Variant - With Image */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Hero Variant - With Image</h3>
+                <p className="text-sm text-slate-600">Two-column hero layout featuring mission image</p>
+              </div>
+              <div className="border border-slate-200 rounded-lg overflow-hidden">
+                <VisionDonorPage
+                  heroHeading="Empowering Purpose-Driven Technologists"
+                  heroSubheading="Join a community of veterans, volunteers, and nonprofit professionals building tech skills that matter."
+                  heroImage="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop"
+                  heroCtaLabel="Start Your Journey"
+                  heroCtaSecondaryLabel="Learn More"
+                  onHeroCtaClick={() => console.log('Hero CTA clicked')}
+                  onHeroCtaSecondaryClick={() => console.log('Hero secondary clicked')}
+                  impactMetrics={[
+                    {
+                      value: '85%',
+                      label: 'Completion Rate',
+                      description: 'Learners finish their trails',
+                      icon: <CheckCircle className="w-8 h-8" />
+                    },
+                    {
+                      value: '40+',
+                      label: 'Partner Organizations',
+                      description: 'Nonprofits we serve',
+                      icon: <Building2 className="w-8 h-8" />
+                    },
+                    {
+                      value: '3,500+',
+                      label: 'Projects Completed',
+                      description: 'Real-world impact delivered',
+                      icon: <Target className="w-8 h-8" />
+                    },
+                    {
+                      value: '24/7',
+                      label: 'Learning Support',
+                      description: 'Community and resources',
+                      icon: <Users className="w-8 h-8" />
+                    }
+                  ]}
+                  donationHeading="Transform Lives Through Technology"
+                  donationStory="Technology is a powerful equalizer. Your support ensures that veterans, volunteers, and nonprofit professionals have access to world-class tech training regardless of their financial situation. Together, we're building a more equitable future."
+                  donationTiers={[
+                    {
+                      amount: '$75',
+                      label: 'Contributor',
+                      description: 'Fund one project module',
+                      impact: 'Real-world learning experience for one learner'
+                    },
+                    {
+                      amount: '$350',
+                      label: 'Benefactor',
+                      description: 'Sponsor a certification exam',
+                      impact: 'Industry credential for career advancement'
+                    },
+                    {
+                      amount: '$1,500',
+                      label: 'Visionary',
+                      description: 'Fund a complete trail path',
+                      impact: 'Full program with mentorship and placement'
+                    }
+                  ]}
+                  onDonateClick={() => console.log('Donate clicked')}
+                  journeyStages={[
+                    {
+                      title: 'Explore',
+                      description: 'Discover learning paths',
+                      icon: <Compass className="w-full h-full" />
+                    },
+                    {
+                      title: 'Learn',
+                      description: 'Build technical skills',
+                      icon: <BookOpen className="w-full h-full" />
+                    },
+                    {
+                      title: 'Practice',
+                      description: 'Apply through projects',
+                      icon: <Code className="w-full h-full" />
+                    },
+                    {
+                      title: 'Connect',
+                      description: 'Network with mentors',
+                      icon: <Users className="w-full h-full" />
+                    },
+                    {
+                      title: 'Launch',
+                      description: 'Start your tech career',
+                      icon: <Sparkles className="w-full h-full" />
+                    }
+                  ]}
+                  theme="light"
+                  heroVariant="with-image"
+                  roadmapVariant="full"
+                >
+                  {/* Compact Roadmap */}
+                  <TTFeatureRoadmapSection
+                    sectionTitle="Product Roadmap"
+                    sectionDescription="Key features and programs in development"
+                    columns={[
+                      {
+                        title: 'Now',
+                        features: [
+                          {
+                            name: 'AI Specialist Trail',
+                            status: 'in-progress'
+                          },
+                          {
+                            name: 'Dashboard Redesign',
+                            status: 'in-progress'
+                          }
+                        ]
+                      },
+                      {
+                        title: 'Next',
+                        features: [
+                          {
+                            name: 'Mobile App',
+                            status: 'planned'
+                          },
+                          {
+                            name: 'Industry Certifications',
+                            status: 'planned'
+                          }
+                        ]
+                      },
+                      {
+                        title: 'Later',
+                        features: [
+                          {
+                            name: 'Global Expansion',
+                            status: 'planned'
+                          },
+                          {
+                            name: 'AI Tutor',
+                            status: 'planned'
+                          }
+                        ]
+                      }
+                    ]}
+                    columnLayout="3-column"
+                    density="compact"
+                  />
+                </VisionDonorPage>
+              </div>
+            </div>
+
+            {/* Responsive Layouts */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Responsive Behavior</h3>
+                <p className="text-sm text-slate-600">Template adapts from desktop 3-column to tablet 2-column to mobile single-column</p>
+              </div>
+              <div className="bg-slate-50 rounded-lg p-6 space-y-3">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Desktop (1024px+)</div>
+                    <div className="text-sm text-slate-600">Full sequential layout with wide hero, 4-column metrics, 3-column roadmap</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Tablet (768px-1023px)</div>
+                    <div className="text-sm text-slate-600">2-column metric tiles, 2-column roadmap, centered donation CTA</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Mobile (&lt;768px)</div>
+                    <div className="text-sm text-slate-600">Stacked tiles, vertical roadmap sections, vertical journey stepper</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Hero Image Responsiveness</div>
+                    <div className="text-sm text-slate-600">Two-column hero becomes single-column stacked on mobile devices</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Section Breakdown */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Template Section Breakdown</h3>
+                <p className="text-sm text-slate-600">Five required sections in exact order per TTA-116 specification</p>
+              </div>
+              <div className="bg-slate-50 rounded-lg p-6 space-y-4">
+                <div className="flex items-start gap-4 pb-4 border-b border-slate-200">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-sm">1</div>
+                  <div className="flex-1">
+                    <h4 className="text-slate-900 mb-1">Hero Section</h4>
+                    <p className="text-sm text-slate-600">Mission-forward hero with large heading, subheading, optional visual, and dual CTAs</p>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      <span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded text-xs">TTDS Typography</span>
+                      <span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded text-xs">Gradient Background</span>
+                      <span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded text-xs">With/Without Image</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 pb-4 border-b border-slate-200">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-sm">2</div>
+                  <div className="flex-1">
+                    <h4 className="text-slate-900 mb-1">Impact Metrics Tiles</h4>
+                    <p className="text-sm text-slate-600">3-4 key metrics with value, label, description, and optional icon (TT/Tile/Metric pattern)</p>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      <span className="px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded text-xs">MetricTile Component</span>
+                      <span className="px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded text-xs">4-Column Grid</span>
+                      <span className="px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded text-xs">Donor-Friendly</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 pb-4 border-b border-slate-200">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center text-sm">3</div>
+                  <div className="flex-1">
+                    <h4 className="text-slate-900 mb-1">Feature Roadmap Section</h4>
+                    <p className="text-sm text-slate-600">TTFeatureRoadmapSection component (TTA-110) with Now/Next/Later columns and status chips</p>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      <span className="px-2 py-0.5 bg-purple-100 text-purple-700 rounded text-xs">TTFeatureRoadmapSection</span>
+                      <span className="px-2 py-0.5 bg-purple-100 text-purple-700 rounded text-xs">3-Column Layout</span>
+                      <span className="px-2 py-0.5 bg-purple-100 text-purple-700 rounded text-xs">Status Chips</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 pb-4 border-b border-slate-200">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-rose-100 text-rose-700 flex items-center justify-center text-sm">4</div>
+                  <div className="flex-1">
+                    <h4 className="text-slate-900 mb-1">Donation CTA Section</h4>
+                    <p className="text-sm text-slate-600">Mission story, suggested giving tiers with impact statements, and primary donate button</p>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      <span className="px-2 py-0.5 bg-rose-100 text-rose-700 rounded text-xs">DonationTierCard</span>
+                      <span className="px-2 py-0.5 bg-rose-100 text-rose-700 rounded text-xs">Gradient Background</span>
+                      <span className="px-2 py-0.5 bg-rose-100 text-rose-700 rounded text-xs">Tax-Deductible Note</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-indigo-100 text-indigo-700 flex items-center justify-center text-sm">5</div>
+                  <div className="flex-1">
+                    <h4 className="text-slate-900 mb-1">"How It Works" — Program Journey</h4>
+                    <p className="text-sm text-slate-600">Horizontal stepped journey showing Visitor → Guided Trail → Trail of Mastery → Explorer → Alumni progression</p>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      <span className="px-2 py-0.5 bg-indigo-100 text-indigo-700 rounded text-xs">JourneyStageCard</span>
+                      <span className="px-2 py-0.5 bg-indigo-100 text-indigo-700 rounded text-xs">5-Stage Flow</span>
+                      <span className="px-2 py-0.5 bg-indigo-100 text-indigo-700 rounded text-xs">Arrow Connectors</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Token Usage Documentation */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">TTDS Token Usage</h3>
+                <p className="text-sm text-slate-600">Template follows TTDS spacing, typography, color, and elevation systems</p>
+              </div>
+              <div className="bg-slate-50 rounded-lg p-6 space-y-4">
+                <div>
+                  <h4 className="text-slate-900 mb-2">Spacing Tokens</h4>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+                    <div className="p-3 bg-white rounded border border-slate-200">
+                      <div className="text-slate-900">py-16 md:py-20</div>
+                      <div className="text-xs text-slate-600">Section padding</div>
+                    </div>
+                    <div className="p-3 bg-white rounded border border-slate-200">
+                      <div className="text-slate-900">py-20 md:py-32</div>
+                      <div className="text-xs text-slate-600">Hero padding</div>
+                    </div>
+                    <div className="p-3 bg-white rounded border border-slate-200">
+                      <div className="text-slate-900">gap-6</div>
+                      <div className="text-xs text-slate-600">Grid gaps</div>
+                    </div>
+                    <div className="p-3 bg-white rounded border border-slate-200">
+                      <div className="text-slate-900">p-6</div>
+                      <div className="text-xs text-slate-600">Card padding</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-slate-900 mb-2">Typography Tokens</h4>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex items-center justify-between p-3 bg-white rounded border border-slate-200">
+                      <span className="text-slate-900">Hero Heading</span>
+                      <code className="text-xs text-blue-600">text-5xl md:text-6xl</code>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-white rounded border border-slate-200">
+                      <span className="text-slate-900">Section Titles</span>
+                      <code className="text-xs text-blue-600">text-3xl md:text-4xl</code>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-white rounded border border-slate-200">
+                      <span className="text-slate-900">Body Text</span>
+                      <code className="text-xs text-blue-600">text-lg</code>
+                    </div>
+                    <div className="flex items-center justify-between p-3 bg-white rounded border border-slate-200">
+                      <span className="text-slate-900">Supporting Text</span>
+                      <code className="text-xs text-blue-600">text-sm</code>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-slate-900 mb-2">Color System</h4>
+                  <div className="grid grid-cols-2 gap-3 text-sm">
+                    <div className="p-3 bg-white rounded border border-slate-200">
+                      <div className="flex items-center gap-2 mb-1">
+                        <div className="w-4 h-4 rounded bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 border border-slate-200"></div>
+                        <span className="text-slate-900">Hero Gradient</span>
+                      </div>
+                      <code className="text-xs text-slate-600">from-blue-50 via-indigo-50 to-purple-50</code>
+                    </div>
+                    <div className="p-3 bg-white rounded border border-slate-200">
+                      <div className="flex items-center gap-2 mb-1">
+                        <div className="w-4 h-4 rounded bg-gradient-to-br from-rose-50 via-pink-50 to-orange-50 border border-slate-200"></div>
+                        <span className="text-slate-900">Donate Gradient</span>
+                      </div>
+                      <code className="text-xs text-slate-600">from-rose-50 via-pink-50 to-orange-50</code>
+                    </div>
+                    <div className="p-3 bg-white rounded border border-slate-200">
+                      <div className="flex items-center gap-2 mb-1">
+                        <div className="w-4 h-4 rounded bg-slate-50 border border-slate-200"></div>
+                        <span className="text-slate-900">Journey Section</span>
+                      </div>
+                      <code className="text-xs text-slate-600">bg-slate-50</code>
+                    </div>
+                    <div className="p-3 bg-white rounded border border-slate-200">
+                      <div className="flex items-center gap-2 mb-1">
+                        <div className="w-4 h-4 rounded bg-white border border-slate-200"></div>
+                        <span className="text-slate-900">Card Background</span>
+                      </div>
+                      <code className="text-xs text-slate-600">bg-white</code>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-slate-900 mb-2">Elevation System</h4>
+                  <div className="grid grid-cols-3 gap-3">
+                    <div className="p-4 bg-white rounded shadow-sm border border-slate-200 text-center">
+                      <div className="text-xs text-slate-600 mb-1">Metric Tiles</div>
+                      <code className="text-xs text-blue-600">shadow-sm</code>
+                    </div>
+                    <div className="p-4 bg-white rounded shadow-lg border border-slate-200 text-center">
+                      <div className="text-xs text-slate-600 mb-1">Hero CTA</div>
+                      <code className="text-xs text-blue-600">shadow-lg</code>
+                    </div>
+                    <div className="p-4 bg-white rounded shadow-2xl border border-slate-200 text-center">
+                      <div className="text-xs text-slate-600 mb-1">Hero Image</div>
+                      <code className="text-xs text-blue-600">shadow-2xl</code>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Accessibility Features */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Accessibility Features</h3>
+                <p className="text-sm text-slate-600">WCAG AA compliant with comprehensive semantic structure</p>
+              </div>
+              <div className="bg-slate-50 rounded-lg p-6 space-y-3">
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">WCAG AA Contrast Compliance</div>
+                    <div className="text-sm text-slate-600">All text meets 4.5:1 minimum in both light and dark themes</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Semantic HTML Structure</div>
+                    <div className="text-sm text-slate-600">Proper section elements with landmark roles for screen readers</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Metric Tiles with role="article"</div>
+                    <div className="text-sm text-slate-600">Each metric announced as separate article with descriptive aria-label</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Donation Tier Buttons</div>
+                    <div className="text-sm text-slate-600">Full context aria-labels (e.g., "Donate $50 - Supporter")</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Journey Stage Icons</div>
+                    <div className="text-sm text-slate-600">Decorative icons marked aria-hidden with text equivalents</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Keyboard Navigation</div>
+                    <div className="text-sm text-slate-600">All interactive elements focusable with visible focus rings</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Logical Reading Order</div>
+                    <div className="text-sm text-slate-600">Hero → Metrics → Roadmap → Donation → Journey follows natural flow</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-slate-900">Alt Text and Labels</div>
+                    <div className="text-sm text-slate-600">Hero images include descriptive alt text for mission context</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Component Dependencies */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Required Child Components</h3>
+                <p className="text-sm text-slate-600">Template assembles existing TTDS domain components</p>
+              </div>
+              <div className="bg-slate-50 rounded-lg p-6 space-y-3">
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0 w-6 h-6 rounded bg-purple-100 text-purple-700 flex items-center justify-center text-xs">✓</div>
+                  <div>
+                    <div className="text-slate-900">TTFeatureRoadmapSection (TTA-110)</div>
+                    <div className="text-sm text-slate-600">Full roadmap component with Now/Next/Later columns - must be passed as children</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0 w-6 h-6 rounded bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs">✓</div>
+                  <div>
+                    <div className="text-slate-900">MetricTile (Built-in)</div>
+                    <div className="text-sm text-slate-600">Internal component for impact metrics display - accepts ImpactMetric[] prop</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0 w-6 h-6 rounded bg-rose-100 text-rose-700 flex items-center justify-center text-xs">✓</div>
+                  <div>
+                    <div className="text-slate-900">DonationTierCard (Built-in)</div>
+                    <div className="text-sm text-slate-600">Internal component for giving levels - accepts DonationTier[] prop</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0 w-6 h-6 rounded bg-indigo-100 text-indigo-700 flex items-center justify-center text-xs">✓</div>
+                  <div>
+                    <div className="text-slate-900">JourneyStageCard (Built-in)</div>
+                    <div className="text-sm text-slate-600">Internal component for program journey stages - accepts JourneyStage[] prop</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0 w-6 h-6 rounded bg-blue-100 text-blue-700 flex items-center justify-center text-xs">✓</div>
+                  <div>
+                    <div className="text-slate-900">Lucide Icons</div>
+                    <div className="text-sm text-slate-600">Users, Award, TrendingUp, MapPin, Heart, Eye, Compass, Map, Target, Trophy, etc.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Usage Guidelines */}
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-slate-700 mb-1">Content Guidelines</h3>
+                <p className="text-sm text-slate-600">Recommended content length and storytelling approach</p>
+              </div>
+              <div className="bg-slate-50 rounded-lg p-6 space-y-4">
+                <div>
+                  <h4 className="text-slate-900 mb-2">Hero Section</h4>
+                  <ul className="text-sm text-slate-600 space-y-1 list-disc list-inside">
+                    <li>Heading: 6-12 words, mission-forward and inspiring</li>
+                    <li>Subheading: 20-35 words, explains who you serve and how</li>
+                    <li>Image (optional): 1200x800px minimum, shows people/impact</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="text-slate-900 mb-2">Impact Metrics</h4>
+                  <ul className="text-sm text-slate-600 space-y-1 list-disc list-inside">
+                    <li>3-4 metrics that demonstrate reach, outcomes, or scale</li>
+                    <li>Use donor-friendly language (people helped, not technical KPIs)</li>
+                    <li>Include brief context description for each metric</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="text-slate-900 mb-2">Donation Story</h4>
+                  <ul className="text-sm text-slate-600 space-y-1 list-disc list-inside">
+                    <li>2-3 sentences connecting donor support to real outcomes</li>
+                    <li>Use "you" language to make donors part of the story</li>
+                    <li>Focus on transformation, not just services provided</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="text-slate-900 mb-2">Journey Stages</h4>
+                  <ul className="text-sm text-slate-600 space-y-1 list-disc list-inside">
+                    <li>5 stages showing clear progression from discovery to success</li>
+                    <li>Each stage: 1-2 word title, 5-8 word description</li>
+                    <li>Use action-oriented language (Explore, Learn, Practice, Connect, Launch)</li>
+                  </ul>
                 </div>
               </div>
             </div>
