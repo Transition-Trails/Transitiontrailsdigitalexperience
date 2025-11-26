@@ -31,7 +31,8 @@ import { RoadmapItemCard } from './components/ttds/RoadmapItemCard';
 import { LearningActivityCard } from './components/ttds/LearningActivityCard';
 import { AssignmentCard } from './components/ttds/AssignmentCard';
 import { PennyInsightRail } from './components/ttds/PennyInsightRail';
-import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar } from 'lucide-react';
+import { BadgesAndCreditsPanel } from './components/ttds/BadgesAndCreditsPanel';
+import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, Users, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar } from 'lucide-react';
 
 // Loading Demo Component
 function LoadingDemo() {
@@ -139,6 +140,7 @@ export default function App() {
             <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full">TTA-133</span>
             <span className="px-3 py-1 bg-violet-100 text-violet-700 rounded-full">TTA-132</span>
             <span className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full">TTA-109</span>
+            <span className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full">TTA-131</span>
           </div>
         </header>
 
@@ -167,6 +169,7 @@ export default function App() {
             <a href="#learningactivity" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded">Learning Activities</a>
             <a href="#assignment" className="px-3 py-1.5 text-sm text-violet-700 bg-violet-50 rounded">Assignments</a>
             <a href="#penny" className="px-3 py-1.5 text-sm text-pink-700 bg-pink-50 rounded">Penny Insights</a>
+            <a href="#badges" className="px-3 py-1.5 text-sm text-amber-700 bg-amber-50 rounded">Badges & Credits</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -5362,9 +5365,13 @@ export default function App() {
                     ]}
                   />
                   <SkillsAndCertsPanel
-                    skills={['Apex', 'Lightning Web Components', 'Flow Builder']}
+                    skills={[
+                      { id: '1', name: 'Apex', variant: 'trail' },
+                      { id: '2', name: 'Lightning Web Components', variant: 'trail' },
+                      { id: '3', name: 'Flow Builder', variant: 'trail' }
+                    ]}
                     certifications={[
-                      { name: 'Salesforce Administrator', status: 'in-progress', progress: 80 }
+                      { id: '1', name: 'Salesforce Administrator', earned: false }
                     ]}
                   />
                 </div>
@@ -5384,6 +5391,653 @@ export default function App() {
                       <li>• Community</li>
                     </ul>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Badges & Credits Panel Section */}
+        <section id="badges" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <h2 className="text-slate-900 mb-2">Badges & Credits Panel</h2>
+            <p className="text-slate-600">
+              Right-column or dashboard panel component showing the learner's earned badges, credits, and achievements. 
+              Features credit summaries (total or category breakdown), badge display with overflow handling, and actionable CTAs.
+            </p>
+          </div>
+
+          {/* Total Credits Variant */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Total Credits (Simple)</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Display total credits only with a prominent number and optional credit icon.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl">
+              <BadgesAndCreditsPanel
+                totalCredits={125}
+                creditsStructure="total"
+                badges={[
+                  { id: '1', title: 'First Steps', icon: <Star className="h-5 w-5 text-amber-500" />, earned: true, description: 'Completed your first learning activity' },
+                  { id: '2', title: 'Trail Blazer', icon: <Zap className="h-5 w-5 text-blue-500" />, earned: true, description: 'Finished 5 trails' },
+                  { id: '3', title: 'Community Helper', icon: <Users className="h-5 w-5 text-emerald-500" />, earned: true, description: 'Helped 10 peers' },
+                  { id: '4', title: 'Knowledge Seeker', icon: <BookOpen className="h-5 w-5 text-purple-500" />, earned: true, description: 'Earned 100 credits' },
+                ]}
+              />
+              <BadgesAndCreditsPanel
+                totalCredits={342}
+                creditsStructure="total"
+                badges={[
+                  { id: '1', title: 'Certification Champion', icon: <Award className="h-5 w-5 text-amber-600" />, earned: true },
+                  { id: '2', title: 'Code Master', icon: <Code className="h-5 w-5 text-indigo-500" />, earned: true },
+                  { id: '3', title: 'Mentor', icon: <Users className="h-5 w-5 text-emerald-500" />, earned: true },
+                ]}
+                showCreditIcon={false}
+              />
+            </div>
+          </div>
+
+          {/* Category Breakdown Variant */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Category Breakdown (Detailed)</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Show total credits with detailed breakdown by category (Learning, Trail, Community). 
+              Each category can include an optional icon.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl">
+              <BadgesAndCreditsPanel
+                totalCredits={285}
+                creditsStructure="breakdown"
+                creditCategories={[
+                  { id: '1', label: 'Learning Credits', amount: 150, icon: <BookOpen className="h-4 w-4" /> },
+                  { id: '2', label: 'Trail Credits', amount: 85, icon: <MapPin className="h-4 w-4" /> },
+                  { id: '3', label: 'Community Credits', amount: 50, icon: <Users className="h-4 w-4" /> },
+                ]}
+                badges={[
+                  { id: '1', title: 'Fast Learner', icon: <Zap className="h-5 w-5 text-amber-500" />, earned: true },
+                  { id: '2', title: 'Trail Master', icon: <Compass className="h-5 w-5 text-blue-500" />, earned: true },
+                  { id: '3', title: 'Team Player', icon: <Users className="h-5 w-5 text-emerald-500" />, earned: true },
+                  { id: '4', title: 'Problem Solver', icon: <Lightbulb className="h-5 w-5 text-purple-500" />, earned: true },
+                ]}
+              />
+              <BadgesAndCreditsPanel
+                totalCredits={420}
+                creditsStructure="breakdown"
+                creditCategories={[
+                  { id: '1', label: 'Learning', amount: 200 },
+                  { id: '2', label: 'Trails', amount: 140 },
+                  { id: '3', label: 'Community', amount: 80 },
+                ]}
+                badges={[
+                  { id: '1', title: 'Admin Expert', icon: <Settings className="h-5 w-5 text-slate-600" />, earned: true },
+                  { id: '2', title: 'Developer Pro', icon: <Code className="h-5 w-5 text-indigo-500" />, earned: true },
+                  { id: '3', title: 'Top Contributor', icon: <Trophy className="h-5 w-5 text-amber-500" />, earned: true },
+                  { id: '4', title: 'Innovator', icon: <Star className="h-5 w-5 text-purple-500" />, earned: true },
+                  { id: '5', title: 'Mentor', icon: <Users className="h-5 w-5 text-emerald-500" />, earned: true },
+                ]}
+              />
+            </div>
+          </div>
+
+          {/* Badge Count Variants */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Badge Count Variants</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Handles various badge counts from few (1-3) to many (7+ with overflow indicator).
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* Few Badges */}
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">Few Badges (2)</h4>
+                <BadgesAndCreditsPanel
+                  totalCredits={45}
+                  badges={[
+                    { id: '1', title: 'Getting Started', icon: <Star className="h-5 w-5 text-amber-500" />, earned: true },
+                    { id: '2', title: 'First Mission', icon: <Target className="h-5 w-5 text-blue-500" />, earned: true },
+                  ]}
+                />
+              </div>
+
+              {/* Normal Badge Count */}
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">Normal (4 badges)</h4>
+                <BadgesAndCreditsPanel
+                  totalCredits={125}
+                  badges={[
+                    { id: '1', title: 'First Steps', icon: <Star className="h-5 w-5 text-amber-500" />, earned: true },
+                    { id: '2', title: 'Trail Blazer', icon: <Zap className="h-5 w-5 text-blue-500" />, earned: true },
+                    { id: '3', title: 'Community Helper', icon: <Users className="h-5 w-5 text-emerald-500" />, earned: true },
+                    { id: '4', title: 'Knowledge Seeker', icon: <BookOpen className="h-5 w-5 text-purple-500" />, earned: true },
+                  ]}
+                />
+              </div>
+
+              {/* Many Badges with Overflow */}
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">Many (9 badges, shows +3)</h4>
+                <BadgesAndCreditsPanel
+                  totalCredits={450}
+                  maxVisibleBadges={6}
+                  badges={[
+                    { id: '1', title: 'First Steps', icon: <Star className="h-5 w-5 text-amber-500" />, earned: true },
+                    { id: '2', title: 'Trail Blazer', icon: <Zap className="h-5 w-5 text-blue-500" />, earned: true },
+                    { id: '3', title: 'Community Helper', icon: <Users className="h-5 w-5 text-emerald-500" />, earned: true },
+                    { id: '4', title: 'Knowledge Seeker', icon: <BookOpen className="h-5 w-5 text-purple-500" />, earned: true },
+                    { id: '5', title: 'Code Master', icon: <Code className="h-5 w-5 text-indigo-500" />, earned: true },
+                    { id: '6', title: 'Mentor', icon: <Trophy className="h-5 w-5 text-amber-600" />, earned: true },
+                    { id: '7', title: 'Problem Solver', icon: <Lightbulb className="h-5 w-5 text-yellow-500" />, earned: true },
+                    { id: '8', title: 'Team Leader', icon: <Target className="h-5 w-5 text-rose-500" />, earned: true },
+                    { id: '9', title: 'Innovator', icon: <Cloud className="h-5 w-5 text-sky-500" />, earned: true },
+                  ]}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Density Variants */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Density Variants</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Default density for main dashboard panels, compact for narrower right rails or mobile views.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl">
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">Default Density (24px padding)</h4>
+                <BadgesAndCreditsPanel
+                  totalCredits={285}
+                  density="default"
+                  badges={[
+                    { id: '1', title: 'Achiever', icon: <Trophy className="h-5 w-5 text-amber-500" />, earned: true },
+                    { id: '2', title: 'Explorer', icon: <Compass className="h-5 w-5 text-blue-500" />, earned: true },
+                    { id: '3', title: 'Collaborator', icon: <Users className="h-5 w-5 text-emerald-500" />, earned: true },
+                  ]}
+                />
+              </div>
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">Compact Density (16px padding)</h4>
+                <BadgesAndCreditsPanel
+                  totalCredits={285}
+                  density="compact"
+                  badges={[
+                    { id: '1', title: 'Achiever', icon: <Trophy className="h-5 w-5 text-amber-500" />, earned: true },
+                    { id: '2', title: 'Explorer', icon: <Compass className="h-5 w-5 text-blue-500" />, earned: true },
+                    { id: '3', title: 'Collaborator', icon: <Users className="h-5 w-5 text-emerald-500" />, earned: true },
+                  ]}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* CTA Variants */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">CTA Variants</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              CTAs can be buttons (default) or text links with icons. Custom text and click handlers supported.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl">
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">Button CTA (Default)</h4>
+                <BadgesAndCreditsPanel
+                  totalCredits={200}
+                  ctaText="View All Achievements"
+                  badges={[
+                    { id: '1', title: 'Star Performer', icon: <Star className="h-5 w-5 text-amber-500" />, earned: true },
+                    { id: '2', title: 'Fast Learner', icon: <Zap className="h-5 w-5 text-blue-500" />, earned: true },
+                  ]}
+                />
+              </div>
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">Link CTA (with href)</h4>
+                <BadgesAndCreditsPanel
+                  totalCredits={200}
+                  ctaText="See Badge Progress"
+                  ctaHref="#badges"
+                  badges={[
+                    { id: '1', title: 'Star Performer', icon: <Star className="h-5 w-5 text-amber-500" />, earned: true },
+                    { id: '2', title: 'Fast Learner', icon: <Zap className="h-5 w-5 text-blue-500" />, earned: true },
+                  ]}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Dashboard Right Rail Context */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Dashboard Right Rail Context</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Primary placement in the dashboard right rail alongside Penny Insights and quick links.
+            </p>
+            <div className="bg-slate-50 rounded-lg border border-slate-200 p-6">
+              <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                {/* Main Content */}
+                <div className="lg:col-span-3 space-y-4">
+                  <h4 className="text-slate-900">Main Dashboard Content</h4>
+                  <LearnerStatsPanel
+                    completedMissions={24}
+                    currentStreak={7}
+                    totalXP={3450}
+                    nextMilestone="Salesforce Admin Cert"
+                  />
+                  <GoalsAndProgressPanel
+                    goals={[
+                      { id: '1', title: 'Complete Admin Trail', progress: 75, dueDate: '2025-12-15' },
+                      { id: '2', title: 'Pass Platform Developer I', progress: 45, dueDate: '2026-01-30' }
+                    ]}
+                  />
+                </div>
+
+                {/* Right Rail */}
+                <div className="space-y-4">
+                  <h4 className="text-slate-900">Right Rail</h4>
+                  <PennyInsightRail
+                    aiCoachingNote="You're on fire! Your recent badge streak shows consistent learning habits."
+                    contextLine="After earning 3 badges this week"
+                    ctaType="view-suggestions"
+                    density="compact"
+                  />
+                  <BadgesAndCreditsPanel
+                    totalCredits={285}
+                    creditsStructure="breakdown"
+                    creditCategories={[
+                      { id: '1', label: 'Learning', amount: 150 },
+                      { id: '2', label: 'Trail', amount: 85 },
+                      { id: '3', label: 'Community', amount: 50 },
+                    ]}
+                    badges={[
+                      { id: '1', title: 'Trail Master', icon: <Compass className="h-5 w-5 text-blue-500" />, earned: true },
+                      { id: '2', title: 'Code Expert', icon: <Code className="h-5 w-5 text-indigo-500" />, earned: true },
+                      { id: '3', title: 'Helper', icon: <Users className="h-5 w-5 text-emerald-500" />, earned: true },
+                      { id: '4', title: 'Achiever', icon: <Trophy className="h-5 w-5 text-amber-500" />, earned: true },
+                    ]}
+                    density="compact"
+                    ctaText="View All"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* No Badges State */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Empty State (No Badges)</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Displays helpful message when learner hasn't earned any badges yet.
+            </p>
+            <div className="max-w-sm">
+              <BadgesAndCreditsPanel
+                totalCredits={15}
+                badges={[]}
+                ctaText="Explore Learning Paths"
+              />
+            </div>
+          </div>
+
+          {/* Real-World Scenarios */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Real-World Profile Scenarios</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Examples showing different learner progression stages.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* Beginner */}
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">Beginner (Week 1)</h4>
+                <BadgesAndCreditsPanel
+                  totalCredits={25}
+                  badges={[
+                    { id: '1', title: 'Welcome Badge', icon: <Star className="h-5 w-5 text-amber-400" />, earned: true, description: 'Joined TT Academy' },
+                    { id: '2', title: 'First Login', icon: <User className="h-5 w-5 text-blue-400" />, earned: true, description: 'Logged in for the first time' },
+                  ]}
+                  ctaText="Explore More"
+                  density="compact"
+                />
+              </div>
+
+              {/* Intermediate */}
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">Intermediate (Month 3)</h4>
+                <BadgesAndCreditsPanel
+                  totalCredits={180}
+                  creditsStructure="breakdown"
+                  creditCategories={[
+                    { id: '1', label: 'Learning', amount: 100 },
+                    { id: '2', label: 'Trail', amount: 55 },
+                    { id: '3', label: 'Community', amount: 25 },
+                  ]}
+                  badges={[
+                    { id: '1', title: 'Consistent Learner', icon: <Target className="h-5 w-5 text-emerald-500" />, earned: true },
+                    { id: '2', title: 'Trail Explorer', icon: <MapPin className="h-5 w-5 text-blue-500" />, earned: true },
+                    { id: '3', title: 'Quiz Master', icon: <BookOpen className="h-5 w-5 text-purple-500" />, earned: true },
+                    { id: '4', title: 'Helper', icon: <Users className="h-5 w-5 text-amber-500" />, earned: true },
+                  ]}
+                  density="compact"
+                />
+              </div>
+
+              {/* Advanced */}
+              <div className="space-y-3">
+                <h4 className="text-sm text-slate-700">Advanced (6+ months)</h4>
+                <BadgesAndCreditsPanel
+                  totalCredits={520}
+                  creditsStructure="breakdown"
+                  creditCategories={[
+                    { id: '1', label: 'Learning', amount: 280 },
+                    { id: '2', label: 'Trail', amount: 160 },
+                    { id: '3', label: 'Community', amount: 80 },
+                  ]}
+                  badges={[
+                    { id: '1', title: 'Certification', icon: <Award className="h-5 w-5 text-amber-600" />, earned: true },
+                    { id: '2', title: 'Code Master', icon: <Code className="h-5 w-5 text-indigo-600" />, earned: true },
+                    { id: '3', title: 'Mentor', icon: <Trophy className="h-5 w-5 text-amber-500" />, earned: true },
+                    { id: '4', title: 'Community Leader', icon: <Users className="h-5 w-5 text-emerald-600" />, earned: true },
+                    { id: '5', title: 'Trail Master', icon: <Compass className="h-5 w-5 text-blue-600" />, earned: true },
+                    { id: '6', title: 'Top Contributor', icon: <Star className="h-5 w-5 text-purple-600" />, earned: true },
+                    { id: '7', title: 'Innovator', icon: <Lightbulb className="h-5 w-5 text-yellow-500" />, earned: true },
+                  ]}
+                  maxVisibleBadges={6}
+                  density="compact"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Component Props Reference */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Component Props & API</h3>
+            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+              <h4 className="text-slate-900 mb-3">Credits Props</h4>
+              <div className="space-y-2 text-sm mb-4">
+                <div>
+                  <strong className="text-slate-900">totalCredits:</strong>
+                  <span className="text-slate-600"> number - Total credits earned (default: 125)</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">creditsStructure:</strong>
+                  <span className="text-slate-600"> 'total' | 'breakdown' - Display mode (default: 'total')</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">creditCategories:</strong>
+                  <span className="text-slate-600"> CreditCategory[] - Array of credit categories with id, label, amount, optional icon</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">showCreditIcon:</strong>
+                  <span className="text-slate-600"> boolean - Show Award icon in header (default: true)</span>
+                </div>
+              </div>
+
+              <h4 className="text-slate-900 mb-3">Badges Props</h4>
+              <div className="space-y-2 text-sm mb-4">
+                <div>
+                  <strong className="text-slate-900">badges:</strong>
+                  <span className="text-slate-600"> Badge[] - Array of badge objects with id, title, icon, earned, optional description</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">maxVisibleBadges:</strong>
+                  <span className="text-slate-600"> number - Maximum badges to show before +N overflow (default: 6)</span>
+                </div>
+              </div>
+
+              <h4 className="text-slate-900 mb-3">CTA Props</h4>
+              <div className="space-y-2 text-sm mb-4">
+                <div>
+                  <strong className="text-slate-900">ctaText:</strong>
+                  <span className="text-slate-600"> string - CTA button/link text (default: "View All Achievements")</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">ctaHref:</strong>
+                  <span className="text-slate-600"> string - Optional href for link-style CTA</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">onCTAClick:</strong>
+                  <span className="text-slate-600"> () =&gt; void - Click handler</span>
+                </div>
+              </div>
+
+              <h4 className="text-slate-900 mb-3">Layout Props</h4>
+              <div className="space-y-2 text-sm">
+                <div>
+                  <strong className="text-slate-900">density:</strong>
+                  <span className="text-slate-600"> 'default' | 'compact' - Panel density (default: 'default')</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Type Definitions */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">TypeScript Type Definitions</h3>
+            <div className="p-4 bg-slate-900 text-slate-100 rounded-lg text-sm overflow-x-auto">
+              <pre>{`type CreditCategory = {
+  id: string;
+  label: string;
+  amount: number;
+  icon?: React.ReactNode;
+};
+
+type Badge = {
+  id: string;
+  title: string;
+  icon: React.ReactNode;
+  earned: boolean;
+  description?: string; // Used for tooltip
+};
+
+type CreditsStructure = 'total' | 'breakdown';
+type PanelDensity = 'default' | 'compact';`}</pre>
+            </div>
+          </div>
+
+          {/* Accessibility Features */}
+          <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
+            <p className="text-sm text-emerald-900">
+              <strong>Accessibility Features:</strong> WCAG AA contrast on all text (emerald-700 credits number, slate-900 labels, slate-600 secondary text), 
+              Badge icons wrapped with Tooltip component for accessible descriptions on hover, 
+              Each badge has role="img" and aria-label with badge title for screen readers, 
+              Overflow indicator (+N) includes aria-label explaining additional badge count, 
+              CTA button/link has proper focus states with visible outline, 
+              Semantic HTML structure with proper heading hierarchy (h3 for panel title, h4 for section titles), 
+              Credit categories use semantic grid layout with clear label-value relationships, 
+              No color-only indicators (all badge meanings conveyed through icon + text tooltip), 
+              Panel maintains readability at all viewport sizes with appropriate text wrapping.
+            </p>
+          </div>
+
+          {/* Usage Guidelines */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Usage Guidelines</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+              <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-700" />
+                  <strong className="text-emerald-900">Do:</strong>
+                </div>
+                <ul className="text-emerald-800 space-y-1 ml-6 list-disc">
+                  <li>Place in dashboard right rail or profile sidebar</li>
+                  <li>Show most recently earned badges first</li>
+                  <li>Use tooltips to provide badge descriptions</li>
+                  <li>Update credit counts in real-time when earned</li>
+                  <li>Use category breakdown for detailed credit tracking</li>
+                  <li>Keep badge icons visually distinct and colorful</li>
+                  <li>Set maxVisibleBadges based on available space</li>
+                  <li>Celebrate new badges with animations/toasts elsewhere</li>
+                </ul>
+              </div>
+              <div className="p-3 bg-rose-50 rounded-lg border border-rose-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <AlertCircle className="h-4 w-4 text-rose-700" />
+                  <strong className="text-rose-900">Don't:</strong>
+                </div>
+                <ul className="text-rose-800 space-y-1 ml-6 list-disc">
+                  <li>Don't show unearned badges (only earned badges)</li>
+                  <li>Don't use category breakdown without categories array</li>
+                  <li>Don't make credit numbers too small to read</li>
+                  <li>Don't forget badge tooltips (accessibility issue)</li>
+                  <li>Don't show stale/cached badge counts</li>
+                  <li>Don't use too many badge categories (3-4 max)</li>
+                  <li>Don't make overflow indicator clickable without handler</li>
+                  <li>Don't place in narrow spaces without compact density</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Badge Icon Guidelines */}
+          <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <h4 className="text-slate-900 mb-2">Badge Icon Design Guidelines</h4>
+            <div className="space-y-2 text-sm text-blue-900">
+              <div>
+                <strong>Icon Size:</strong> Use h-5 w-5 (20px) for optimal badge display. Smaller icons (h-4 w-4) work for compact density.
+              </div>
+              <div>
+                <strong>Color Variety:</strong> Use distinct colors for different badge types (amber for achievements, blue for trails, 
+                emerald for community, purple for learning, etc.).
+              </div>
+              <div>
+                <strong>Icon Selection:</strong> Choose meaningful icons that represent badge purpose (Trophy for achievements, 
+                Star for milestones, Users for community, BookOpen for learning).
+              </div>
+              <div>
+                <strong>Consistency:</strong> Keep icon style consistent within the same badge category (all solid, all outlined, etc.).
+              </div>
+              <div>
+                <strong>Contrast:</strong> Ensure icon colors provide sufficient contrast against the slate-50 background (minimum 3:1 ratio).
+              </div>
+            </div>
+          </div>
+
+          {/* Credit Category Examples */}
+          <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <h4 className="text-slate-900 mb-2">Credit Category Suggestions</h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-blue-900">
+              <div>
+                <strong>Standard Categories:</strong>
+                <ul className="ml-5 list-disc mt-1">
+                  <li>Learning Credits - From completing lessons/activities</li>
+                  <li>Trail Credits - From finishing trails</li>
+                  <li>Community Credits - From peer help/reviews</li>
+                </ul>
+              </div>
+              <div>
+                <strong>Advanced Categories:</strong>
+                <ul className="ml-5 list-disc mt-1">
+                  <li>Project Credits - From partner project work</li>
+                  <li>Certification Credits - From exam preparation</li>
+                  <li>Mentorship Credits - From helping others</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Use Cases */}
+          <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <h4 className="text-slate-900 mb-2">Use Cases</h4>
+            <ul className="text-sm text-blue-900 space-y-1 ml-5 list-disc">
+              <li><strong>Dashboard Right Rail:</strong> Primary placement showing current credits and recent badges</li>
+              <li><strong>Profile Page Sidebar:</strong> Display learner's total achievements and badge collection</li>
+              <li><strong>Learning Center:</strong> Show progress incentives alongside learning paths</li>
+              <li><strong>Gamification:</strong> Encourage continued engagement through visible achievement tracking</li>
+              <li><strong>Onboarding:</strong> Show first badge earned to new learners with congratulatory message</li>
+              <li><strong>Progress Reports:</strong> Include in periodic progress summaries or email digests</li>
+              <li><strong>Leaderboards:</strong> Compare credit totals across cohorts or study groups</li>
+              <li><strong>Motivation:</strong> Display progress toward next badge or credit milestone</li>
+            </ul>
+          </div>
+
+          {/* Design Tokens Used */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Design Tokens & Components Used</h3>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">bg-white (surface)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">rounded-xl (12px radius)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">border-slate-200</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">shadow-sm (minimal elevation)</span>
+              <span className="px-3 py-1 bg-violet-100 text-violet-700 rounded">p-4, p-6 (16px, 24px padding)</span>
+              <span className="px-3 py-1 bg-violet-100 text-violet-700 rounded">gap-4, gap-5 (16px, 20px spacing)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">emerald-700 (credit number)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">emerald-600 (Award icon)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">slate-900 (headings)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">slate-700 (section titles)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">slate-600 (secondary text)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">slate-50 (category/badge backgrounds)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">h-5 w-5 (20px badge icons)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">h-14 w-14 / h-12 w-12 (badge containers)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">rounded-lg (8px badge corners)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Button component</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Tooltip component</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Lucide icons (Award, Trophy, Star, etc.)</span>
+            </div>
+          </div>
+
+          {/* Component Dimensions */}
+          <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <h4 className="text-slate-900 mb-2">Recommended Dimensions</h4>
+            <ul className="text-sm text-blue-900 space-y-1 ml-5 list-disc">
+              <li><strong>Width:</strong> 280-360px (typical right rail width) - component is fluid</li>
+              <li><strong>Default Padding:</strong> 24px (p-6)</li>
+              <li><strong>Compact Padding:</strong> 16px (p-4)</li>
+              <li><strong>Default Section Gap:</strong> 20px (gap-5)</li>
+              <li><strong>Compact Section Gap:</strong> 16px (gap-4)</li>
+              <li><strong>Badge Size Default:</strong> 56px × 56px (h-14 w-14)</li>
+              <li><strong>Badge Size Compact:</strong> 48px × 48px (h-12 w-12)</li>
+              <li><strong>Minimum Width:</strong> 240px before layout breaks</li>
+              <li><strong>Credit Number Font Size (Default):</strong> 2.5rem (40px)</li>
+              <li><strong>Credit Number Font Size (Compact):</strong> 2rem (32px)</li>
+            </ul>
+          </div>
+
+          {/* Integration Patterns */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Common Integration Patterns</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Badges & Credits Panel works well with other dashboard components in various layouts.
+            </p>
+            <div className="bg-slate-50 rounded-lg border border-slate-200 p-6">
+              <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                {/* Main 3-Column Content */}
+                <div className="lg:col-span-3 space-y-4">
+                  <h4 className="text-slate-900">Main Dashboard Area</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <LearnerStatsPanel
+                      completedMissions={32}
+                      currentStreak={12}
+                      totalXP={4200}
+                      nextMilestone="Platform Developer I"
+                    />
+                    <GoalsAndProgressPanel
+                      goals={[
+                        { id: '1', title: 'Complete Admin Trail', progress: 90, dueDate: '2025-12-01' },
+                        { id: '2', title: 'Master Flow Builder', progress: 60, dueDate: '2025-12-20' }
+                      ]}
+                    />
+                  </div>
+                </div>
+
+                {/* Right Rail - Stacked Panels */}
+                <div className="space-y-4">
+                  <h4 className="text-slate-900">Right Rail Stack</h4>
+                  <BadgesAndCreditsPanel
+                    totalCredits={350}
+                    creditsStructure="breakdown"
+                    creditCategories={[
+                      { id: '1', label: 'Learning', amount: 200 },
+                      { id: '2', label: 'Trail', amount: 100 },
+                      { id: '3', label: 'Community', amount: 50 },
+                    ]}
+                    badges={[
+                      { id: '1', title: 'Top Performer', icon: <Trophy className="h-5 w-5 text-amber-500" />, earned: true },
+                      { id: '2', title: 'Streak Master', icon: <Zap className="h-5 w-5 text-blue-500" />, earned: true },
+                      { id: '3', title: 'Community Star', icon: <Star className="h-5 w-5 text-purple-500" />, earned: true },
+                      { id: '4', title: 'Code Expert', icon: <Code className="h-5 w-5 text-indigo-500" />, earned: true },
+                    ]}
+                    density="compact"
+                    ctaText="View All"
+                  />
+                  <PennyInsightRail
+                    aiCoachingNote="You just earned your 25th badge! You're in the top 10% of learners this month."
+                    contextLine="Based on recent achievements"
+                    ctaType="view-suggestions"
+                    density="compact"
+                  />
                 </div>
               </div>
             </div>
