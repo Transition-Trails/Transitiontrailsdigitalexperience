@@ -25,7 +25,8 @@ import { Pagination } from './components/ttds/Pagination';
 import { LearnerStatsPanel } from './components/ttds/LearnerStatsPanel';
 import { GoalsAndProgressPanel } from './components/ttds/GoalsAndProgressPanel';
 import { SkillsAndCertsPanel } from './components/ttds/SkillsAndCertsPanel';
-import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp } from 'lucide-react';
+import { PartnerProjectCard } from './components/ttds/PartnerProjectCard';
+import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle } from 'lucide-react';
 
 // Loading Demo Component
 function LoadingDemo() {
@@ -127,6 +128,7 @@ export default function App() {
             <span className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full">TTA-119</span>
             <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full">TTA-107</span>
             <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full">TTA-129</span>
+            <span className="px-3 py-1 bg-rose-100 text-rose-700 rounded-full">TTA-128</span>
           </div>
         </header>
 
@@ -149,6 +151,7 @@ export default function App() {
             <a href="#learnerstats" className="px-3 py-1.5 text-sm text-orange-700 bg-orange-50 rounded">Learner Stats</a>
             <a href="#goalsprogress" className="px-3 py-1.5 text-sm text-purple-700 bg-purple-50 rounded">Goals & Progress</a>
             <a href="#skillscerts" className="px-3 py-1.5 text-sm text-indigo-700 bg-indigo-50 rounded">Skills & Certs</a>
+            <a href="#partnerproject" className="px-3 py-1.5 text-sm text-rose-700 bg-rose-50 rounded">Partner Projects</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -2300,6 +2303,431 @@ export default function App() {
               <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Tag</span>
               <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Button</span>
               <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Card</span>
+            </div>
+          </div>
+        </section>
+
+        {/* Partner Project Card Section */}
+        <section id="partnerproject" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <h2 className="text-slate-900 mb-2">Partner Project / Portfolio Card</h2>
+            <p className="text-slate-600">
+              Domain component for showcasing real nonprofit or small-business projects completed by learners. 
+              Displays six required content fields with support for multiple layout variants, size options, and optional CTAs.
+            </p>
+          </div>
+
+          {/* Compact Vertical Cards */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Compact Vertical Cards</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Space-efficient cards for grid layouts and dashboards. Ideal for displaying multiple projects in a portfolio view.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <PartnerProjectCard
+                nonprofitName="Ocean Conservation Society"
+                projectTitle="Volunteer Management System"
+                skillsUsed={['Database Design', 'Process Automation', 'User Training']}
+                techStack={['Salesforce', 'Flow Builder', 'Experience Cloud']}
+                projectStatus="completed"
+                impactSummary="Streamlined volunteer coordination for 500+ members, reducing admin time by 40%."
+                size="compact"
+                layout="vertical"
+              />
+              <PartnerProjectCard
+                nonprofitName="Green Valley Food Bank"
+                projectTitle="Donation Tracking Dashboard"
+                skillsUsed={['Reporting', 'Data Analysis', 'Stakeholder Training']}
+                techStack={['Salesforce', 'Tableau', 'Einstein Analytics']}
+                projectStatus="in-progress"
+                impactSummary="Building real-time insights to optimize food distribution across 12 partner locations."
+                size="compact"
+                layout="vertical"
+              />
+              <PartnerProjectCard
+                nonprofitName="Youth STEM Initiative"
+                projectTitle="Student Progress Tracker"
+                skillsUsed={['Custom Objects', 'Workflows', 'Mobile Design']}
+                techStack={['Salesforce', 'Lightning Components', 'Mobile App']}
+                projectStatus="in-review"
+                impactSummary="Tracking academic progress for 200+ students with real-time parent/teacher communication."
+                size="compact"
+                layout="vertical"
+              />
+            </div>
+          </div>
+
+          {/* Full Vertical Cards */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Full Vertical Cards with CTAs</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Full-size cards with detailed information and call-to-action buttons. Best for featured projects or single-column layouts.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <PartnerProjectCard
+                nonprofitName="Community Health Network"
+                projectTitle="Patient Care Coordination Platform"
+                skillsUsed={['Integration', 'Security', 'Compliance', 'Custom Development']}
+                techStack={['Salesforce Health Cloud', 'API Integration', 'Shield']}
+                projectStatus="completed"
+                impactSummary="Integrated care coordination system serving 5,000+ patients annually. Improved care team communication by 60% and reduced appointment no-shows by 35%."
+                size="full"
+                layout="vertical"
+                ctaLabel="View Case Study"
+                onCtaClick={() => alert('Opening case study...')}
+              />
+              <PartnerProjectCard
+                nonprofitName="Animal Rescue Coalition"
+                projectTitle="Adoption & Foster Management System"
+                skillsUsed={['Workflow Automation', 'Email Templates', 'Mobile Forms']}
+                techStack={['Salesforce', 'Flow Builder', 'FormAssembly']}
+                projectStatus="completed"
+                impactSummary="Automated adoption process for 300+ animals per year. Reduced paperwork time by 50% and increased successful adoptions by 25% through better matching algorithms."
+                size="full"
+                layout="vertical"
+                ctaLabel="View Project"
+                onCtaClick={() => alert('Opening project details...')}
+              />
+            </div>
+          </div>
+
+          {/* Horizontal Layout Cards */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Horizontal Layout Cards</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Wide format cards for list views and detailed project showcases. Provides more horizontal space for content.
+            </p>
+            <div className="space-y-4">
+              <PartnerProjectCard
+                nonprofitName="Literacy Foundation"
+                projectTitle="Reading Program Management System"
+                skillsUsed={['Data Modeling', 'Reporting', 'User Experience', 'Training Materials']}
+                techStack={['Salesforce', 'Reports & Dashboards', 'Communities']}
+                projectStatus="completed"
+                impactSummary="Comprehensive platform to manage reading programs across 25 schools. Tracks student progress, volunteer tutors, and program outcomes. Enabled data-driven program improvements that increased reading proficiency by 30%."
+                layout="horizontal"
+                size="full"
+                ctaLabel="Read Success Story"
+                onCtaClick={() => alert('Opening success story...')}
+              />
+              <PartnerProjectCard
+                nonprofitName="Small Business Tech Hub"
+                projectTitle="Entrepreneur Support CRM"
+                skillsUsed={['Business Analysis', 'System Architecture', 'Integration']}
+                techStack={['Salesforce', 'Zapier', 'DocuSign', 'QuickBooks']}
+                projectStatus="in-progress"
+                impactSummary="Building integrated CRM to support 150+ local entrepreneurs with mentorship, resources, and funding opportunities. Creating automated workflows to match businesses with relevant support programs."
+                layout="horizontal"
+                size="full"
+              />
+            </div>
+          </div>
+
+          {/* Vertical Cards with Images */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Cards with Project Images</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Cards with optional hero images for visual project representation. Great for portfolios and case studies.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <PartnerProjectCard
+                nonprofitName="Urban Gardens Collective"
+                projectTitle="Community Garden Network"
+                skillsUsed={['Mapping', 'Community Engagement', 'Resource Management']}
+                techStack={['Salesforce', 'Google Maps API', 'Mobile App']}
+                projectStatus="completed"
+                impactSummary="Connected 50+ urban gardens with resource sharing and volunteer coordination tools."
+                size="compact"
+                showImage={true}
+                imageUrl="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400&q=80"
+              />
+              <PartnerProjectCard
+                nonprofitName="Habitat for Hope"
+                projectTitle="Housing Construction Tracker"
+                skillsUsed={['Project Management', 'Resource Planning', 'Reporting']}
+                techStack={['Salesforce', 'Project Management Tools', 'Dashboards']}
+                projectStatus="completed"
+                impactSummary="Manages construction projects and volunteer scheduling for 20+ homes annually."
+                size="compact"
+                showImage={true}
+                imageUrl="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=400&q=80"
+              />
+              <PartnerProjectCard
+                nonprofitName="Wilderness Education Center"
+                projectTitle="Trail Maintenance Coordinator"
+                skillsUsed={['Field Service', 'Mobile App', 'GPS Integration']}
+                techStack={['Salesforce Field Service', 'Mobile SDK', 'Maps']}
+                projectStatus="in-review"
+                impactSummary="Coordinating maintenance for 200+ miles of trails with real-time volunteer updates."
+                size="compact"
+                showImage={true}
+                imageUrl="https://images.unsplash.com/photo-1551632811-561732d1e306?w=400&q=80"
+              />
+            </div>
+          </div>
+
+          {/* Horizontal Card with Image */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Horizontal Layout with Image</h3>
+            <PartnerProjectCard
+              nonprofitName="Tech Education Alliance"
+              projectTitle="Digital Skills Training Platform"
+              skillsUsed={['Learning Management', 'Gamification', 'Progress Tracking', 'Certification']}
+              techStack={['Salesforce', 'Experience Cloud', 'Trailhead Integration', 'LMS']}
+              projectStatus="completed"
+              impactSummary="Comprehensive learning platform serving 1,000+ students with personalized learning paths, skill assessments, and industry certifications. Achieved 85% course completion rate and 70% job placement within 6 months of program completion."
+              layout="horizontal"
+              size="full"
+              showImage={true}
+              imageUrl="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80"
+              ctaLabel="View Platform Demo"
+              onCtaClick={() => alert('Opening platform demo...')}
+            />
+          </div>
+
+          {/* Interactive Cards */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Interactive Cards (Clickable)</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Cards with click handlers for navigation or modal triggers. Useful for portfolio galleries and project browsers.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <PartnerProjectCard
+                nonprofitName="Arts for All Foundation"
+                projectTitle="Artist Grant Management System"
+                skillsUsed={['Application Processing', 'Review Workflows', 'Payment Processing']}
+                techStack={['Salesforce', 'DocuSign', 'Stripe Integration']}
+                projectStatus="completed"
+                impactSummary="Automated grant application and review process for 500+ artists annually, distributing $2M in funding."
+                size="full"
+                onCardClick={() => alert('Navigating to project details...')}
+              />
+              <PartnerProjectCard
+                nonprofitName="Senior Support Services"
+                projectTitle="Elder Care Coordination Hub"
+                skillsUsed={['Case Management', 'Family Portal', 'Service Scheduling']}
+                techStack={['Salesforce Health Cloud', 'Experience Cloud', 'Calendar Integration']}
+                projectStatus="completed"
+                impactSummary="Coordinating care for 800+ seniors with family portals, service scheduling, and health tracking."
+                size="full"
+                onCardClick={() => alert('Navigating to project details...')}
+              />
+            </div>
+          </div>
+
+          {/* Real-World Portfolio Example */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Real-World Portfolio Layout</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Example of how Partner Project Cards might be used in a learner's portfolio page, combining different variants.
+            </p>
+            <div className="space-y-6">
+              {/* Featured Project */}
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <Star className="h-5 w-5 text-amber-500" />
+                  <h4 className="text-slate-900">Featured Project</h4>
+                </div>
+                <PartnerProjectCard
+                  nonprofitName="Regional Food Co-op Network"
+                  projectTitle="Farm-to-Table Supply Chain Platform"
+                  skillsUsed={['Supply Chain Management', 'Multi-Org Architecture', 'B2B Commerce', 'Analytics']}
+                  techStack={['Salesforce', 'B2B Commerce Cloud', 'Einstein Analytics', 'Integration']}
+                  projectStatus="completed"
+                  impactSummary="Built end-to-end supply chain management system connecting 50+ local farms with 200+ restaurants and retailers. Reduced food waste by 40%, increased farmer income by 30%, and provided real-time inventory tracking. Platform processed $5M in transactions in first year."
+                  layout="horizontal"
+                  size="full"
+                  showImage={true}
+                  imageUrl="https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&q=80"
+                  ctaLabel="View Full Case Study"
+                  onCtaClick={() => alert('Opening featured case study...')}
+                />
+              </div>
+
+              {/* Additional Projects */}
+              <div>
+                <h4 className="text-slate-900 mb-3">Additional Projects</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <PartnerProjectCard
+                    nonprofitName="Climate Action Network"
+                    projectTitle="Carbon Offset Tracking"
+                    skillsUsed={['Data Integration', 'API Development', 'Reporting']}
+                    techStack={['Salesforce', 'Heroku', 'Custom APIs']}
+                    projectStatus="completed"
+                    impactSummary="Tracks carbon reduction initiatives across 30+ partner organizations."
+                    size="compact"
+                    onCardClick={() => alert('Opening project...')}
+                  />
+                  <PartnerProjectCard
+                    nonprofitName="Local Business Alliance"
+                    projectTitle="Member Benefits Portal"
+                    skillsUsed={['Community Building', 'Self-Service Portal', 'Payments']}
+                    techStack={['Salesforce', 'Experience Cloud', 'Payment Gateway']}
+                    projectStatus="completed"
+                    impactSummary="Self-service portal for 300+ business members to access benefits and resources."
+                    size="compact"
+                    onCardClick={() => alert('Opening project...')}
+                  />
+                  <PartnerProjectCard
+                    nonprofitName="Mental Health Services"
+                    projectTitle="Counseling Appointment System"
+                    skillsUsed={['HIPAA Compliance', 'Appointment Scheduling', 'Telehealth']}
+                    techStack={['Salesforce Health Cloud', 'Shield', 'Video Integration']}
+                    projectStatus="in-progress"
+                    impactSummary="Building secure telehealth platform with 500+ appointments per month."
+                    size="compact"
+                    onCardClick={() => alert('Opening project...')}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Component Props Reference */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Component Props & API</h3>
+            <div className="p-4 bg-slate-50 rounded-lg border border-slate-200">
+              <h4 className="text-slate-900 mb-3">Required Props (6 Content Fields)</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm mb-4">
+                <div className="flex items-start gap-2">
+                  <Building2 className="h-4 w-4 text-slate-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-slate-900">nonprofitName:</strong>
+                    <span className="text-slate-600"> string - Organization name (nonprofit or small business)</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <FileText className="h-4 w-4 text-slate-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-slate-900">projectTitle:</strong>
+                    <span className="text-slate-600"> string - Name/title of the project</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Code className="h-4 w-4 text-slate-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-slate-900">skillsUsed:</strong>
+                    <span className="text-slate-600"> string[] - Skills applied (shown as trail tags)</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <Cloud className="h-4 w-4 text-slate-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-slate-900">techStack:</strong>
+                    <span className="text-slate-600"> string[] - Technologies used (shown as platform tags)</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="h-4 w-4 text-slate-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-slate-900">projectStatus:</strong>
+                    <span className="text-slate-600"> 'completed' | 'in-progress' | 'in-review'</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <TrendingUp className="h-4 w-4 text-slate-500 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-slate-900">impactSummary:</strong>
+                    <span className="text-slate-600"> string - Description of project impact and outcomes</span>
+                  </div>
+                </div>
+              </div>
+
+              <h4 className="text-slate-900 mb-3">Optional Configuration Props</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                <div>
+                  <strong className="text-slate-900">layout:</strong>
+                  <span className="text-slate-600"> 'vertical' | 'horizontal' (default: 'vertical')</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">size:</strong>
+                  <span className="text-slate-600"> 'compact' | 'full' (default: 'full')</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">showImage:</strong>
+                  <span className="text-slate-600"> boolean - Show optional project image</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">imageUrl:</strong>
+                  <span className="text-slate-600"> string - URL for project image</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">onCardClick:</strong>
+                  <span className="text-slate-600"> {`() => void`} - Makes entire card clickable</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">onCtaClick:</strong>
+                  <span className="text-slate-600"> {`() => void`} - Click handler for CTA button</span>
+                </div>
+                <div>
+                  <strong className="text-slate-900">ctaLabel:</strong>
+                  <span className="text-slate-600"> string - Label for CTA button</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Accessibility Features */}
+          <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
+            <p className="text-sm text-emerald-900">
+              <strong>Accessibility Features:</strong> Semantic HTML structure with proper heading hierarchy (h3 for project title), 
+              WCAG AA contrast ratios throughout (emerald-600: 7.2:1, slate-700: 9.2:1, slate-900: 14.9:1), 
+              descriptive icon labels (Building2 for organization, Code for skills, TrendingUp for impact), 
+              keyboard navigation support with proper focus states and tabIndex, 
+              clickable cards have role="button" and keyboard event handlers, 
+              status chips use semantic colors with text labels (not icon-only), 
+              all images have descriptive alt text using project title.
+            </p>
+          </div>
+
+          {/* Usage Guidelines */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Usage Guidelines</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+              <div className="p-3 bg-emerald-50 rounded-lg border border-emerald-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <CheckCircle className="h-4 w-4 text-emerald-700" />
+                  <strong className="text-emerald-900">Do:</strong>
+                </div>
+                <ul className="text-emerald-800 space-y-1 ml-6 list-disc">
+                  <li>Use compact vertical cards for portfolio grids (3-4 columns)</li>
+                  <li>Use full cards with CTAs for featured projects</li>
+                  <li>Use horizontal layout for detailed list views</li>
+                  <li>Keep impact summaries concise but specific (metrics help!)</li>
+                  <li>Use appropriate status chips (completed, in-progress, in-review)</li>
+                  <li>Include real project images when available</li>
+                </ul>
+              </div>
+              <div className="p-3 bg-rose-50 rounded-lg border border-rose-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <AlertCircle className="h-4 w-4 text-rose-700" />
+                  <strong className="text-rose-900">Don't:</strong>
+                </div>
+                <ul className="text-rose-800 space-y-1 ml-6 list-disc">
+                  <li>Don't leave any of the 6 required fields empty</li>
+                  <li>Don't use vague skill names ("Problem Solving" → "Workflow Automation")</li>
+                  <li>Don't omit impact metrics when available</li>
+                  <li>Don't mix card sizes inconsistently in the same section</li>
+                  <li>Don't use horizontal layout in narrow containers (&lt; 600px)</li>
+                  <li>Don't forget onClick handlers if using as navigation</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Design Tokens Used */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Design Tokens & Components Used</h3>
+            <div className="flex flex-wrap gap-2">
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Card</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Tag (trail variant)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Tag (platform variant)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">ChipStatus</span>
+              <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded">rounded-lg (8px)</span>
+              <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded">emerald-600 (primary action)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">slate-50 to slate-900 (neutrals)</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">shadow-sm to shadow-md</span>
+              <span className="px-3 py-1 bg-slate-100 text-slate-700 rounded">Lucide Icons (Building2, Code, TrendingUp)</span>
             </div>
           </div>
         </section>
