@@ -46,6 +46,7 @@ import { VisionDonorPage } from './components/tt/templates/VisionDonorPage';
 import { DashboardTemplateShowcase } from './components/tt/templates/DashboardTemplate';
 import { ProgramOverviewTemplateShowcase } from './components/tt/templates/ProgramOverviewTemplate';
 import { LearningCenterTemplateShowcase } from './components/tt/templates/LearningCenterTemplate';
+import { CommunityFeedTemplateShowcase } from './components/tt/templates/CommunityFeedTemplate';
 import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, Users, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar, GraduationCap, Shield, Eye, Briefcase, Sparkles, Bot, Wand2, Palette, FileType, Link2, Database, Workflow, Layers, PenTool } from 'lucide-react';
 
 // Interactive Donate Demo Component
@@ -246,6 +247,7 @@ export default function App() {
             <a href="#dashboard" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded">Dashboard Template</a>
             <a href="#programoverview" className="px-3 py-1.5 text-sm text-purple-700 bg-purple-50 rounded">Program Overview Template</a>
             <a href="#learningcenter" className="px-3 py-1.5 text-sm text-blue-700 bg-blue-50 rounded">Learning Center Template</a>
+            <a href="#communityfeed" className="px-3 py-1.5 text-sm text-cyan-700 bg-cyan-50 rounded">Community Feed Template</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -12945,6 +12947,135 @@ interface PennyTipProps {
             </div>
 
             <LearningCenterTemplateShowcase />
+          </div>
+        </section>
+
+        {/* Community Feed Template Section */}
+        <section id="communityfeed" className="space-y-6">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+            <div className="mb-8">
+              <h2 className="text-slate-900 mb-2">Template 5 — Community Feed</h2>
+              <p className="text-slate-600 mb-4">
+                A social-style layout where learners read community posts, view upcoming events, receive AI insights, and discover channel recommendations.
+              </p>
+              
+              {/* Documentation Section */}
+              <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 mt-6">
+                <h3 className="text-slate-800 mb-3">Template Structure</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                  <div>
+                    <h4 className="text-slate-700 mb-2" style={{ fontWeight: 600 }}>Main Column</h4>
+                    <ul className="list-disc list-inside space-y-1 text-slate-600">
+                      <li><strong>Community Posts Feed:</strong> Vertical stack of CommunityPostCard (TTA-108)</li>
+                      <li>Supports questions, wins, and resource shares</li>
+                      <li>Avatar, username, time, post text, reactions</li>
+                      <li>Spacing: 20–24px between posts</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="text-slate-700 mb-2" style={{ fontWeight: 600 }}>Right Rail (3 Modules)</h4>
+                    <ul className="list-disc list-inside space-y-1 text-slate-600">
+                      <li><strong>Events Module:</strong> Workshops, Trail Talks, cohort kickoffs, deadlines</li>
+                      <li><strong>Penny Insight:</strong> AI-generated coaching nudges and suggestions</li>
+                      <li><strong>Channel Suggestions:</strong> Recommended Slack-like channels to follow</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="mt-6">
+                  <h4 className="text-slate-700 mb-2" style={{ fontWeight: 600 }}>Right Rail Modules Detail</h4>
+                  <div className="space-y-3 text-sm text-slate-600">
+                    <div>
+                      <strong>Events Module:</strong>
+                      <ul className="list-disc list-inside ml-4 mt-1">
+                        <li>Uses EventsList component</li>
+                        <li>Shows upcoming workshops, webinars, meetups</li>
+                        <li>Registration status and attendee counts</li>
+                        <li>Virtual/in-person indicators</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <strong>Penny Insight Module:</strong>
+                      <ul className="list-disc list-inside ml-4 mt-1">
+                        <li>Uses PennyInsightRail component</li>
+                        <li>Smart nudges: "You completed 3 missions this week—keep it up!"</li>
+                        <li>Contextual recommendations: "Try the Admin Reporting Challenge next"</li>
+                        <li>Action buttons for quick engagement</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <strong>Channel Suggestions:</strong>
+                      <ul className="list-disc list-inside ml-4 mt-1">
+                        <li>Channel name with # prefix</li>
+                        <li>Short description of channel purpose</li>
+                        <li>Member count display</li>
+                        <li>Follow/Following button state</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6">
+                  <h4 className="text-slate-700 mb-2" style={{ fontWeight: 600 }}>TTDS Token Usage</h4>
+                  <ul className="list-disc list-inside space-y-1 text-sm text-slate-600">
+                    <li><strong>Spacing:</strong> 20–24px (feed posts), 24–40px (section spacing)</li>
+                    <li><strong>Radius:</strong> 6–8px on all cards and panels</li>
+                    <li><strong>Typography:</strong> heading-sm (module titles) / body-md and body-sm (content)</li>
+                    <li><strong>Layout:</strong> Main column (flexible) + Right rail (fixed 320px)</li>
+                  </ul>
+                </div>
+
+                <div className="mt-6">
+                  <h4 className="text-slate-700 mb-2" style={{ fontWeight: 600 }}>Layout & Responsive Behavior</h4>
+                  <ul className="list-disc list-inside space-y-1 text-sm text-slate-600">
+                    <li><strong>Desktop:</strong> Two columns - Main feed + Right rail (320px)</li>
+                    <li><strong>Tablet:</strong> Right rail collapses below feed in proper order</li>
+                    <li><strong>Mobile:</strong> Single column: Feed → Events → Insight → Channels</li>
+                    <li><strong>Feed Scrolling:</strong> Vertical auto-layout, no masonry required</li>
+                  </ul>
+                </div>
+
+                <div className="mt-6">
+                  <h4 className="text-slate-700 mb-2" style={{ fontWeight: 600 }}>Component References</h4>
+                  <ul className="list-disc list-inside space-y-1 text-sm text-slate-600">
+                    <li><strong>TTA-108:</strong> CommunityPostCard - Main feed content</li>
+                    <li><strong>PennyInsightRail:</strong> AI coaching panel in right rail</li>
+                    <li><strong>EventsList:</strong> Events module with registration</li>
+                    <li><strong>ChannelSuggestionsModule:</strong> Custom component for channel discovery</li>
+                  </ul>
+                </div>
+
+                <div className="mt-6">
+                  <h4 className="text-slate-700 mb-2" style={{ fontWeight: 600 }}>Variants Available</h4>
+                  <ul className="list-disc list-inside space-y-1 text-sm text-slate-600">
+                    <li><strong>Feed Density:</strong> Regular / Compact</li>
+                    <li><strong>Layout:</strong> With Right Rail / Feed Only</li>
+                    <li><strong>Themes:</strong> Light / Dark</li>
+                  </ul>
+                </div>
+
+                <div className="mt-6">
+                  <h4 className="text-slate-700 mb-2" style={{ fontWeight: 600 }}>Interaction & Accessibility</h4>
+                  <ul className="list-disc list-inside space-y-1 text-sm text-slate-600">
+                    <li>Community posts have hover states and are clickable</li>
+                    <li>All buttons follow TTDS Button patterns</li>
+                    <li>WCAG AA contrast in both light and dark themes</li>
+                    <li>Focus rings on all interactive elements</li>
+                    <li>Logical reading order: Header → Feed → Events → Insight → Channels</li>
+                    <li>Right rail modules feel lightweight but structured</li>
+                  </ul>
+                </div>
+
+                <div className="mt-6 pt-6 border-t border-slate-200">
+                  <p className="text-xs text-slate-500">
+                    <strong>Reference:</strong> TTA-115 Community Feed Template | 
+                    <strong className="ml-2">Component Path:</strong> /components/tt/templates/CommunityFeedTemplate.tsx
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <CommunityFeedTemplateShowcase />
           </div>
         </section>
 

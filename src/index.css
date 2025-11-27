@@ -1116,7 +1116,7 @@
     flex-shrink: 0;
   }
 
-  .flex-grow {
+  .flex-grow, .grow {
     flex-grow: 1;
   }
 
@@ -3584,6 +3584,14 @@
 
   .dark\:border-slate-700:is(.dark *) {
     border-color: var(--color-slate-700);
+  }
+
+  .\[\&\>div\]\:border-slate-700 > div {
+    border-color: var(--color-slate-700);
+  }
+
+  .\[\&\>div\]\:bg-slate-800 > div {
+    background-color: var(--color-slate-800);
   }
 
   .animate-shimmer {
