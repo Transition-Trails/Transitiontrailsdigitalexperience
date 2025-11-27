@@ -45,6 +45,7 @@ import { TTTrailPathCard } from './components/tt/TrailPathCard';
 import { VisionDonorPage } from './components/tt/templates/VisionDonorPage';
 import { DashboardTemplateShowcase } from './components/tt/templates/DashboardTemplate';
 import { ProgramOverviewTemplateShowcase } from './components/tt/templates/ProgramOverviewTemplate';
+import { LearningCenterTemplateShowcase } from './components/tt/templates/LearningCenterTemplate';
 import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, Users, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar, GraduationCap, Shield, Eye, Briefcase, Sparkles, Bot, Wand2, Palette, FileType, Link2, Database, Workflow, Layers, PenTool } from 'lucide-react';
 
 // Interactive Donate Demo Component
@@ -244,6 +245,7 @@ export default function App() {
             <a href="#visiondonor" className="px-3 py-1.5 text-sm text-rose-700 bg-rose-50 rounded">Vision/Donor Template</a>
             <a href="#dashboard" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded">Dashboard Template</a>
             <a href="#programoverview" className="px-3 py-1.5 text-sm text-purple-700 bg-purple-50 rounded">Program Overview Template</a>
+            <a href="#learningcenter" className="px-3 py-1.5 text-sm text-blue-700 bg-blue-50 rounded">Learning Center Template</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -12847,6 +12849,102 @@ interface PennyTipProps {
             </div>
 
             <ProgramOverviewTemplateShowcase />
+          </div>
+        </section>
+
+        {/* Learning Center Template Section */}
+        <section id="learningcenter" className="space-y-6">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+            <div className="mb-8">
+              <h2 className="text-slate-900 mb-2">Template 4 — Learning Center</h2>
+              <p className="text-slate-600 mb-4">
+                A master layout for browsing learning content with filters and a mixed content grid.
+                Displays TrailPath cards, CitizenPlatform cards, and LearningActivity cards in a unified view.
+              </p>
+              
+              {/* Documentation Section */}
+              <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 mt-6">
+                <h3 className="text-slate-800 mb-3">Template Structure</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                  <div>
+                    <h4 className="text-slate-700 mb-2" style={{ fontWeight: 600 }}>Required Sections</h4>
+                    <ul className="list-disc list-inside space-y-1 text-slate-600">
+                      <li><strong>Filters Bar:</strong> Three filters (Trails, Platforms, Activities)</li>
+                      <li><strong>Content Grid:</strong> Mixed grid of Trail, Platform, and Activity cards</li>
+                      <li>Page header with title and subtitle</li>
+                      <li>Clear filters functionality</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="text-slate-700 mb-2" style={{ fontWeight: 600 }}>Card Types Displayed</h4>
+                    <ul className="list-disc list-inside space-y-1 text-slate-600">
+                      <li><strong>TrailPathCard</strong> (TTA-105) - Learning trails with XP and difficulty</li>
+                      <li><strong>CitizenPlatformCard</strong> (TTA-120) - Citizen dev platforms</li>
+                      <li><strong>LearningActivityCard</strong> (TTA-133) - Study groups, reviews, capstones</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="mt-6">
+                  <h4 className="text-slate-700 mb-2" style={{ fontWeight: 600 }}>Filters Bar Features</h4>
+                  <ul className="list-disc list-inside space-y-1 text-sm text-slate-600">
+                    <li><strong>Trails Filter:</strong> Single-select dropdown (Admin, Developer, Business Analyst, Architect)</li>
+                    <li><strong>Platforms Filter:</strong> Multi-select for platform categories (Forms, Work OS, Automation, etc.)</li>
+                    <li><strong>Activities Filter:</strong> Multi-select for activity types (Study Groups, Peer Review, Capstone)</li>
+                    <li><strong>Clear All:</strong> Button to reset all filters</li>
+                    <li><strong>Active Filter Chips:</strong> Optional visual display of active filters with remove capability</li>
+                  </ul>
+                </div>
+
+                <div className="mt-6">
+                  <h4 className="text-slate-700 mb-2" style={{ fontWeight: 600 }}>TTDS Token Usage</h4>
+                  <ul className="list-disc list-inside space-y-1 text-sm text-slate-600">
+                    <li><strong>Spacing:</strong> 16px / 24px (filters), 24px / 32px (grid gaps)</li>
+                    <li><strong>Radius:</strong> 6–8px on filter bar and all cards</li>
+                    <li><strong>Typography:</strong> heading-md (section titles) / body-md (labels) / body-sm (helper text)</li>
+                    <li><strong>Components:</strong> Uses TTDS SelectInput, Tag, and Button primitives</li>
+                  </ul>
+                </div>
+
+                <div className="mt-6">
+                  <h4 className="text-slate-700 mb-2" style={{ fontWeight: 600 }}>Responsive Behavior</h4>
+                  <ul className="list-disc list-inside space-y-1 text-sm text-slate-600">
+                    <li><strong>Desktop:</strong> Filters horizontal, 3-column content grid</li>
+                    <li><strong>Tablet:</strong> Filters 2-row layout, 2-column content grid</li>
+                    <li><strong>Mobile:</strong> Filters stacked, 1-column content grid</li>
+                  </ul>
+                </div>
+
+                <div className="mt-6">
+                  <h4 className="text-slate-700 mb-2" style={{ fontWeight: 600 }}>Variants Available</h4>
+                  <ul className="list-disc list-inside space-y-1 text-sm text-slate-600">
+                    <li><strong>Filter Variants:</strong> Default / With Chips / Active Filters</li>
+                    <li><strong>Content Variants:</strong> All / Trails Only / Platforms Only / Activities Only</li>
+                    <li><strong>Themes:</strong> Light / Dark</li>
+                  </ul>
+                </div>
+
+                <div className="mt-6">
+                  <h4 className="text-slate-700 mb-2" style={{ fontWeight: 600 }}>Accessibility Features</h4>
+                  <ul className="list-disc list-inside space-y-1 text-sm text-slate-600">
+                    <li>WCAG AA contrast ratios in both themes</li>
+                    <li>Semantic form labels for all filter controls</li>
+                    <li>Keyboard-accessible filter dropdowns and clear buttons</li>
+                    <li>Removable filter chips with proper ARIA labels</li>
+                    <li>Clear visual hierarchy and logical reading order</li>
+                  </ul>
+                </div>
+
+                <div className="mt-6 pt-6 border-t border-slate-200">
+                  <p className="text-xs text-slate-500">
+                    <strong>Reference:</strong> TTA-114 Learning Center Template | 
+                    <strong className="ml-2">Component Path:</strong> /components/tt/templates/LearningCenterTemplate.tsx
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <LearningCenterTemplateShowcase />
           </div>
         </section>
 
