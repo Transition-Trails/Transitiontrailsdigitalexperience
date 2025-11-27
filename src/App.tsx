@@ -43,6 +43,7 @@ import { TTTrailMissionCard } from './components/tt/TrailMissionCard';
 import { TTFeatureRoadmapSection } from './components/tt/FeatureRoadmapSection';
 import { TTTrailPathCard } from './components/tt/TrailPathCard';
 import { VisionDonorPage } from './components/tt/templates/VisionDonorPage';
+import { DashboardTemplateShowcase } from './components/tt/templates/DashboardTemplate';
 import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, Users, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar, GraduationCap, Shield, Eye, Briefcase, Sparkles, Bot, Wand2, Palette, FileType, Link2, Database, Workflow, Layers, PenTool } from 'lucide-react';
 
 // Interactive Donate Demo Component
@@ -199,6 +200,7 @@ export default function App() {
             <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full">TTA-110</span>
             <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full">TTA-105</span>
             <span className="px-3 py-1 bg-rose-100 text-rose-700 rounded-full">TTA-116</span>
+            <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full">TTA-112</span>
           </div>
         </header>
 
@@ -239,6 +241,7 @@ export default function App() {
             <a href="#roadmap" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded">Feature Roadmap</a>
             <a href="#trailpath" className="px-3 py-1.5 text-sm text-orange-700 bg-orange-50 rounded">Trail Path</a>
             <a href="#visiondonor" className="px-3 py-1.5 text-sm text-rose-700 bg-rose-50 rounded">Vision/Donor Template</a>
+            <a href="#dashboard" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded">Dashboard Template</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -12758,6 +12761,13 @@ interface PennyTipProps {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Dashboard Template Section */}
+        <section id="dashboard" className="space-y-6">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+            <DashboardTemplateShowcase />
           </div>
         </section>
 
