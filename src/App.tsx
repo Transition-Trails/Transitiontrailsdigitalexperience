@@ -44,6 +44,7 @@ import { TTFeatureRoadmapSection } from './components/tt/FeatureRoadmapSection';
 import { TTTrailPathCard } from './components/tt/TrailPathCard';
 import { VisionDonorPage } from './components/tt/templates/VisionDonorPage';
 import { DashboardTemplateShowcase } from './components/tt/templates/DashboardTemplate';
+import { ProgramOverviewTemplateShowcase } from './components/tt/templates/ProgramOverviewTemplate';
 import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, Users, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar, GraduationCap, Shield, Eye, Briefcase, Sparkles, Bot, Wand2, Palette, FileType, Link2, Database, Workflow, Layers, PenTool } from 'lucide-react';
 
 // Interactive Donate Demo Component
@@ -234,7 +235,7 @@ export default function App() {
             <a href="#communitypost" className="px-3 py-1.5 text-sm text-lime-700 bg-lime-50 rounded">Community Post</a>
             <a href="#metrictile" className="px-3 py-1.5 text-sm text-orange-700 bg-orange-50 rounded">Impact Metrics</a>
             <a href="#donate" className="px-3 py-1.5 text-sm text-rose-700 bg-rose-50 rounded">Donation CTA</a>
-            <a href="#programoverview" className="px-3 py-1.5 text-sm text-indigo-700 bg-indigo-50 rounded">Program Overview</a>
+            <a href="#programcard" className="px-3 py-1.5 text-sm text-indigo-700 bg-indigo-50 rounded">Program Overview Card</a>
             <a href="#aitrail" className="px-3 py-1.5 text-sm text-purple-700 bg-purple-50 rounded">AI Trail</a>
             <a href="#citizenplatform" className="px-3 py-1.5 text-sm text-cyan-700 bg-cyan-50 rounded">Citizen Platform</a>
             <a href="#trailmission" className="px-3 py-1.5 text-sm text-teal-700 bg-teal-50 rounded">Trail Mission</a>
@@ -242,6 +243,7 @@ export default function App() {
             <a href="#trailpath" className="px-3 py-1.5 text-sm text-orange-700 bg-orange-50 rounded">Trail Path</a>
             <a href="#visiondonor" className="px-3 py-1.5 text-sm text-rose-700 bg-rose-50 rounded">Vision/Donor Template</a>
             <a href="#dashboard" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded">Dashboard Template</a>
+            <a href="#programoverview" className="px-3 py-1.5 text-sm text-purple-700 bg-purple-50 rounded">Program Overview Template</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -7862,7 +7864,7 @@ interface PennyTipProps {
         </section>
 
         {/* Program Overview Card Section */}
-        <section id="programoverview" className="space-y-6">
+        <section id="programcard" className="space-y-6">
           <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
             <div>
               <h2 className="text-slate-900 mb-2">Program Overview Card</h2>
@@ -12768,6 +12770,83 @@ interface PennyTipProps {
         <section id="dashboard" className="space-y-6">
           <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
             <DashboardTemplateShowcase />
+          </div>
+        </section>
+
+        {/* Program Overview Template Section */}
+        <section id="programoverview" className="space-y-6">
+          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
+            <div className="mb-8">
+              <h2 className="text-slate-900 mb-2">Template 3 — Program Overview</h2>
+              <p className="text-slate-600 mb-4">
+                A complete template for program overview pages including hero section, program cards, features grid, and call-to-action.
+                Used for Explorer's Journey, Trail of Mastery Overview, Guided Trail, and other program-level pages.
+              </p>
+              
+              {/* Documentation Section */}
+              <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 mt-6">
+                <h3 className="text-slate-800 mb-3">Template Structure</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                  <div>
+                    <h4 className="text-slate-700 mb-2" style={{ fontWeight: 600 }}>Required Sections</h4>
+                    <ul className="list-disc list-inside space-y-1 text-slate-600">
+                      <li>Big Hero Section (headline, subheadline, optional imagery/stats)</li>
+                      <li>Program Overview Cards (3–4 cards in grid layout)</li>
+                      <li>Features Grid (multi-column grid of program offerings)</li>
+                      <li>CTA Section (strong call-to-action with primary/secondary buttons)</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="text-slate-700 mb-2" style={{ fontWeight: 600 }}>Variants Available</h4>
+                    <ul className="list-disc list-inside space-y-1 text-slate-600">
+                      <li>Hero: default / with imagery / with stats</li>
+                      <li>Cards: 3-column / 4-column layout</li>
+                      <li>Themes: light / dark</li>
+                      <li>Responsive: desktop → tablet → mobile (stacked)</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="mt-6">
+                  <h4 className="text-slate-700 mb-2" style={{ fontWeight: 600 }}>TTDS Token Usage</h4>
+                  <ul className="list-disc list-inside space-y-1 text-sm text-slate-600">
+                    <li><strong>Spacing:</strong> 12px / 16px / 24px / 32px / 40px vertical section spacing</li>
+                    <li><strong>Radius:</strong> 6–8px on all cards and surfaces</li>
+                    <li><strong>Typography:</strong> heading-xl (hero) / heading-lg (section titles) / body-md (descriptions)</li>
+                    <li><strong>Surfaces:</strong> All cards use TTDS Card component foundation</li>
+                  </ul>
+                </div>
+
+                <div className="mt-6">
+                  <h4 className="text-slate-700 mb-2" style={{ fontWeight: 600 }}>Accessibility Features</h4>
+                  <ul className="list-disc list-inside space-y-1 text-sm text-slate-600">
+                    <li>WCAG AA contrast ratios in both light and dark themes</li>
+                    <li>Clear heading hierarchy (H1 → H2 → H3)</li>
+                    <li>Visible focus rings on all interactive elements</li>
+                    <li>Logical reading order: Hero → Cards → Features → CTA</li>
+                    <li>Semantic HTML structure with proper ARIA labels</li>
+                  </ul>
+                </div>
+
+                <div className="mt-6">
+                  <h4 className="text-slate-700 mb-2" style={{ fontWeight: 600 }}>Responsive Behavior</h4>
+                  <ul className="list-disc list-inside space-y-1 text-sm text-slate-600">
+                    <li><strong>Desktop:</strong> Hero full-width, 3–4 column card grid, multi-column features</li>
+                    <li><strong>Tablet:</strong> 2-column cards, features collapse to 1–2 columns</li>
+                    <li><strong>Mobile:</strong> All content stacked, single-column layout throughout</li>
+                  </ul>
+                </div>
+
+                <div className="mt-6 pt-6 border-t border-slate-200">
+                  <p className="text-xs text-slate-500">
+                    <strong>Reference:</strong> TTA-113 Program Overview Template | 
+                    <strong className="ml-2">Component Path:</strong> /components/tt/templates/ProgramOverviewTemplate.tsx
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <ProgramOverviewTemplateShowcase />
           </div>
         </section>
 
