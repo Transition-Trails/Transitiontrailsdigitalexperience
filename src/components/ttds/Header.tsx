@@ -16,6 +16,9 @@ export interface HeaderProps {
   scrolled?: boolean;
   onMenuClick?: () => void;
   className?: string;
+  userButtonLabel?: string;
+  userButtonVariant?: 'profile' | 'login' | 'logout';
+  onNavClick?: (pageId: string) => void;
 }
 
 export const Header = React.forwardRef<HTMLElement, HeaderProps>(
@@ -28,6 +31,9 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
       scrolled = false,
       onMenuClick,
       className = '',
+      userButtonLabel,
+      userButtonVariant = 'profile',
+      onNavClick,
     },
     ref
   ) => {
@@ -84,6 +90,7 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
                     focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
                   `}
                   aria-current={item.active ? 'page' : undefined}
+                  onClick={() => onNavClick?.(item.id)}
                 >
                   {item.label}
                 </a>
@@ -111,15 +118,26 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
               )}
 
               {/* User Area - Desktop */}
-              {showUserArea && (
+              {showUserArea && userButtonVariant === 'login' && (
+                <button
+                  className="hidden md:flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white hover:bg-emerald-700 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+                  aria-label="Log in"
+                  style={{ fontWeight: 600 }}
+                  onClick={() => onNavClick?.('dashboard')}
+                >
+                  <span className="text-sm">{userButtonLabel || 'Log In'}</span>
+                </button>
+              )}
+              {showUserArea && userButtonVariant !== 'login' && (
                 <button
                   className="hidden md:flex items-center gap-2 px-3 py-1.5 text-slate-700 hover:bg-slate-100 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                   aria-label="User menu"
+                  onClick={() => userButtonVariant === 'logout' ? onNavClick?.('home') : undefined}
                 >
                   <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
                     <User className="h-4 w-4 text-blue-700" />
                   </div>
-                  <span className="text-sm">Profile</span>
+                  <span className="text-sm">{userButtonLabel || 'Profile'}</span>
                 </button>
               )}
 
@@ -153,6 +171,7 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
                     }
                   `}
                   aria-current={item.active ? 'page' : undefined}
+                  onClick={() => onNavClick?.(item.id)}
                 >
                   {item.label}
                 </a>
@@ -184,7 +203,7 @@ export const Header = React.forwardRef<HTMLElement, HeaderProps>(
                   <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
                     <User className="h-4 w-4 text-blue-700" />
                   </div>
-                  <span className="text-sm">Profile</span>
+                  <span className="text-sm">{userButtonLabel || 'Profile'}</span>
                 </button>
               )}
             </div>

@@ -47,6 +47,7 @@ import { DashboardTemplateShowcase } from './components/tt/templates/DashboardTe
 import { ProgramOverviewTemplateShowcase } from './components/tt/templates/ProgramOverviewTemplate';
 import { LearningCenterTemplateShowcase } from './components/tt/templates/LearningCenterTemplate';
 import { CommunityFeedTemplateShowcase } from './components/tt/templates/CommunityFeedTemplate';
+import { SitePagesShowcase } from './components/tt/SitePagesShowcase';
 import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, Users, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar, GraduationCap, Shield, Eye, Briefcase, Sparkles, Bot, Wand2, Palette, FileType, Link2, Database, Workflow, Layers, PenTool } from 'lucide-react';
 
 // Interactive Donate Demo Component
@@ -248,6 +249,7 @@ export default function App() {
             <a href="#programoverview" className="px-3 py-1.5 text-sm text-purple-700 bg-purple-50 rounded">Program Overview Template</a>
             <a href="#learningcenter" className="px-3 py-1.5 text-sm text-blue-700 bg-blue-50 rounded">Learning Center Template</a>
             <a href="#communityfeed" className="px-3 py-1.5 text-sm text-cyan-700 bg-cyan-50 rounded">Community Feed Template</a>
+            <a href="#sitepages" className="px-3 py-1.5 text-sm text-slate-900 bg-yellow-100 border border-yellow-300 rounded">🌲 Site Pages</a>
             <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
             <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
             <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
@@ -13077,6 +13079,11 @@ interface PennyTipProps {
 
             <CommunityFeedTemplateShowcase />
           </div>
+        </section>
+
+        {/* Site Pages Section */}
+        <section id="sitepages" className="space-y-6">
+          <SitePagesShowcase />
         </section>
 
         {/* Cards Section */}
