@@ -72,7 +72,7 @@ import { AccessibilityDocs } from './components/accessibility/AccessibilityDocs'
 import { ComponentStatusBadge, getComponentById, getDocumentationProgress } from './components/status/ComponentStatus';
 import { StatusDashboard } from './components/status/StatusDashboard';
 import { ComponentPlayground } from './components/playground/ComponentPlayground';
-import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, Users, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar, GraduationCap, Shield, Eye, Briefcase, Sparkles, Bot, Wand2, Palette, FileType, Link2, Database, Workflow, Layers, PenTool } from 'lucide-react';
+import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, Users, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar, GraduationCap, Shield, Eye, Briefcase, Sparkles, Bot, Wand2, Palette, FileType, Link2, Database, Workflow, Layers, PenTool, X, Menu } from 'lucide-react';
 
 // Interactive Donate Demo Component
 function InteractiveDonateDemo() {
@@ -192,6 +192,13 @@ export default function App() {
 
   const [activeSection, setActiveSection] = React.useState('primitives');
   
+  // Quick Nav state
+  const [showQuickNav, setShowQuickNav] = React.useState(true);
+  
+  // Sticky Nav state
+  const [showStickyNav, setShowStickyNav] = React.useState(true);
+  const [lastScrollY, setLastScrollY] = React.useState(0);
+  
   // Search and filter state
   const [showSearchPanel, setShowSearchPanel] = React.useState(false);
   const {
@@ -230,12 +237,45 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Auto-hide sticky nav on scroll down, show on scroll up
+  React.useEffect(() => {
+    const handleNavScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Show nav at top of page
+      if (currentScrollY < 100) {
+        setShowStickyNav(true);
+      }
+      // Hide when scrolling down, show when scrolling up
+      else if (currentScrollY > lastScrollY) {
+        setShowStickyNav(false);
+      } else if (currentScrollY < lastScrollY) {
+        setShowStickyNav(true);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleNavScroll);
+    return () => window.removeEventListener('scroll', handleNavScroll);
+  }, [lastScrollY]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-stone-100 p-8">
       {/* Floating Quick Navigation */}
-      <div className="fixed left-8 top-1/2 -translate-y-1/2 z-50 hidden xl:block">
-        <div className="bg-white rounded-lg shadow-lg border border-slate-200 p-4 space-y-2">
-          <h4 className="text-xs text-slate-500 mb-3" style={{ fontWeight: 700 }}>QUICK NAV</h4>
+      {showQuickNav && (
+        <div className="fixed left-8 top-1/2 -translate-y-1/2 z-50 hidden xl:block">
+          <div className="bg-white rounded-lg shadow-lg border border-slate-200 p-4 space-y-2 relative">
+            <div className="flex items-center justify-between mb-3">
+              <h4 className="text-xs text-slate-500" style={{ fontWeight: 700 }}>QUICK NAV</h4>
+              <button
+                onClick={() => setShowQuickNav(false)}
+                className="p-1 hover:bg-slate-100 rounded transition-colors"
+                aria-label="Close Quick Navigation"
+              >
+                <X className="h-3 w-3 text-slate-400" />
+              </button>
+            </div>
           <a 
             href="#design-tokens" 
             className={`block text-xs px-3 py-2 rounded transition-colors ${activeSection === 'design-tokens' ? 'bg-emerald-600 text-white' : 'text-emerald-600 hover:bg-emerald-50'}`}
@@ -310,6 +350,30 @@ export default function App() {
           </a>
         </div>
       </div>
+      )}
+
+      {/* Quick Nav Toggle Button (shown when Quick Nav is hidden) */}
+      {!showQuickNav && (
+        <button
+          onClick={() => setShowQuickNav(true)}
+          className="fixed left-8 top-1/2 -translate-y-1/2 z-50 hidden xl:flex items-center justify-center w-12 h-12 bg-white rounded-lg shadow-lg border border-slate-200 hover:bg-slate-50 transition-colors"
+          aria-label="Show Quick Navigation"
+        >
+          <Menu className="h-5 w-5 text-slate-600" />
+        </button>
+      )}
+
+      {/* Sticky Nav Toggle Button (shown when nav is hidden) */}
+      {!showStickyNav && (
+        <button
+          onClick={() => setShowStickyNav(true)}
+          className="fixed top-4 right-8 z-50 flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg shadow-lg hover:bg-emerald-700 transition-colors"
+          aria-label="Show Navigation Menu"
+        >
+          <Menu className="h-4 w-4" />
+          <span className="text-sm">Show Menu</span>
+        </button>
+      )}
 
       <div className="max-w-7xl mx-auto space-y-12">
         {/* Header */}
@@ -562,7 +626,16 @@ export default function App() {
         </div>
 
         {/* Navigation */}
-        <nav className="sticky top-0 z-40 bg-white rounded-lg shadow-sm border border-slate-200 p-6">
+        <nav className={`sticky top-0 z-40 bg-white rounded-lg shadow-sm border border-slate-200 p-6 transition-transform duration-300 relative ${showStickyNav ? 'translate-y-0' : '-translate-y-full'}`}>
+          {/* Close button */}
+          <button
+            onClick={() => setShowStickyNav(false)}
+            className="absolute top-3 right-3 p-1.5 hover:bg-slate-100 rounded transition-colors"
+            aria-label="Hide Navigation Menu"
+          >
+            <X className="h-4 w-4 text-slate-400" />
+          </button>
+          
           <div className="space-y-3">
             {/* System Row */}
             <div className="flex flex-wrap items-center gap-2 pb-2 border-b border-slate-200">
