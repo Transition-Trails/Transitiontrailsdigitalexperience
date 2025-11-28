@@ -18,6 +18,10 @@ import { Tag } from './components/ttds/Tag';
 import { Stepper } from './components/ttds/Stepper';
 import { Tooltip } from './components/ttds/Tooltip';
 import { Skeleton, SkeletonText, SkeletonCard, SkeletonList } from './components/ttds/Skeleton';
+import { Card } from './components/ttds/Card';
+import { Panel } from './components/ttds/Panel';
+import { Modal } from './components/ttds/Modal';
+import { Toast } from './components/ttds/Toast';
 import { Header } from './components/ttds/Header';
 import { TabStrip } from './components/ttds/TabStrip';
 import { Breadcrumbs } from './components/ttds/Breadcrumbs';
@@ -25,6 +29,9 @@ import { Pagination } from './components/ttds/Pagination';
 import { LearnerStatsPanel } from './components/ttds/LearnerStatsPanel';
 import { GoalsAndProgressPanel } from './components/ttds/GoalsAndProgressPanel';
 import { SkillsAndCertsPanel } from './components/ttds/SkillsAndCertsPanel';
+import { PennyInsightRail } from './components/ttds/PennyInsightRail';
+import { BadgesAndCreditsPanel } from './components/ttds/BadgesAndCreditsPanel';
+import { PennyTip } from './components/ttds/PennyTip';
 import { PartnerProjectCard } from './components/ttds/PartnerProjectCard';
 import { EventSessionCard } from './components/ttds/EventSessionCard';
 import { RoadmapItemCard } from './components/ttds/RoadmapItemCard';
@@ -48,7 +55,24 @@ import { ProgramOverviewTemplateShowcase } from './components/tt/templates/Progr
 import { LearningCenterTemplateShowcase } from './components/tt/templates/LearningCenterTemplate';
 import { CommunityFeedTemplateShowcase } from './components/tt/templates/CommunityFeedTemplate';
 import { SitePagesShowcase } from './components/tt/SitePagesShowcase';
-import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, Users, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar, GraduationCap, Shield, Eye, Briefcase, Sparkles, Bot, Wand2, Palette, FileType, Link2, Database, Workflow, Layers, PenTool } from 'lucide-react';
+import { SalesforceHandoffBoard } from './components/tt/SalesforceHandoffBoard';
+import { PropsTable } from './components/documentation/PropsTable';
+import { CodeSnippet } from './components/documentation/CodeSnippet';
+import { UsageExample, UsageExamples } from './components/documentation/UsageExample';
+import { ComponentDocSection } from './components/documentation/ComponentDocSection';
+import { DocProgress } from './components/documentation/DocProgress';
+import { DocProgressCategoryBreakdown } from './components/documentation/DocProgressCategoryBreakdown';
+import { DocQualityMetrics } from './components/documentation/DocQualityMetrics';
+import { SearchBar } from './components/search/SearchBar';
+import { FilterPanel } from './components/search/FilterPanel';
+import { SearchResults } from './components/search/SearchResults';
+import { useComponentSearch } from './components/search/useComponentSearch';
+import { DesignTokenVisualizer } from './components/tokens/DesignTokenVisualizer';
+import { AccessibilityDocs } from './components/accessibility/AccessibilityDocs';
+import { ComponentStatusBadge, getComponentById, getDocumentationProgress } from './components/status/ComponentStatus';
+import { StatusDashboard } from './components/status/StatusDashboard';
+import { ComponentPlayground } from './components/playground/ComponentPlayground';
+import { Mail, Download, Heart, Settings, Plus, Filter, MoreVertical, Edit, Trash2, Map, Code, BookOpen, Zap, Cloud, Compass, User, Users, FileText, CheckCircle, Home, Layout, Library, Award, Trophy, Target, Star, Lightbulb, MapPin, Edit2, TrendingUp, Building2, AlertCircle, Calendar, GraduationCap, Shield, Eye, Briefcase, Sparkles, Bot, Wand2, Palette, FileType, Link2, Database, Workflow, Layers, PenTool, X, Menu } from 'lucide-react';
 
 // Interactive Donate Demo Component
 function InteractiveDonateDemo() {
@@ -166,8 +190,191 @@ export default function App() {
   const [activeTab, setActiveTab] = React.useState('overview');
   const [currentPage, setCurrentPage] = React.useState(1);
 
+  const [activeSection, setActiveSection] = React.useState('primitives');
+  
+  // Quick Nav state
+  const [showQuickNav, setShowQuickNav] = React.useState(true);
+  
+  // Sticky Nav state
+  const [showStickyNav, setShowStickyNav] = React.useState(true);
+  const [lastScrollY, setLastScrollY] = React.useState(0);
+  
+  // Search and filter state
+  const [showSearchPanel, setShowSearchPanel] = React.useState(false);
+  const {
+    searchQuery,
+    setSearchQuery,
+    selectedCategory,
+    setSelectedCategory,
+    selectedStatus,
+    setSelectedStatus,
+    selectedTags,
+    handleToggleTag,
+    handleClearSearch,
+    handleClearFilters,
+    filteredResults,
+    totalResults
+  } = useComponentSearch();
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['design-tokens', 'accessibility', 'status', 'playground', 'primitives', 'navigation', 'panels', 'domain-cards', 'sections', 'templates', 'site-pages', 'salesforce-handoff'];
+      const scrollPosition = window.scrollY + 200;
+
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(sectionId);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Auto-hide sticky nav on scroll down, show on scroll up
+  React.useEffect(() => {
+    const handleNavScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Show nav at top of page
+      if (currentScrollY < 100) {
+        setShowStickyNav(true);
+      }
+      // Hide when scrolling down, show when scrolling up
+      else if (currentScrollY > lastScrollY) {
+        setShowStickyNav(false);
+      } else if (currentScrollY < lastScrollY) {
+        setShowStickyNav(true);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleNavScroll);
+    return () => window.removeEventListener('scroll', handleNavScroll);
+  }, [lastScrollY]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-stone-100 p-8">
+      {/* Floating Quick Navigation */}
+      {showQuickNav && (
+        <div className="fixed left-8 top-1/2 -translate-y-1/2 z-50 hidden xl:block">
+          <div className="bg-white rounded-lg shadow-lg border border-slate-200 p-4 space-y-2 relative">
+            <div className="flex items-center justify-between mb-3">
+              <h4 className="text-xs text-slate-500" style={{ fontWeight: 700 }}>QUICK NAV</h4>
+              <button
+                onClick={() => setShowQuickNav(false)}
+                className="p-1 hover:bg-slate-100 rounded transition-colors"
+                aria-label="Close Quick Navigation"
+              >
+                <X className="h-3 w-3 text-slate-400" />
+              </button>
+            </div>
+          <a 
+            href="#design-tokens" 
+            className={`block text-xs px-3 py-2 rounded transition-colors ${activeSection === 'design-tokens' ? 'bg-emerald-600 text-white' : 'text-emerald-600 hover:bg-emerald-50'}`}
+          >
+            🎨 Design Tokens
+          </a>
+          <a 
+            href="#accessibility" 
+            className={`block text-xs px-3 py-2 rounded transition-colors ${activeSection === 'accessibility' ? 'bg-indigo-600 text-white' : 'text-indigo-600 hover:bg-indigo-50'}`}
+          >
+            ♿ Accessibility
+          </a>
+          <a 
+            href="#status" 
+            className={`block text-xs px-3 py-2 rounded transition-colors ${activeSection === 'status' ? 'bg-purple-600 text-white' : 'text-purple-600 hover:bg-purple-50'}`}
+          >
+            📊 Status Dashboard
+          </a>
+          <a 
+            href="#playground" 
+            className={`block text-xs px-3 py-2 rounded transition-colors ${activeSection === 'playground' ? 'bg-teal-600 text-white' : 'text-teal-600 hover:bg-teal-50'}`}
+          >
+            🎮 Playground
+          </a>
+          <a 
+            href="#primitives" 
+            className={`block text-xs px-3 py-2 rounded transition-colors ${activeSection === 'primitives' ? 'bg-slate-900 text-white' : 'text-slate-600 hover:bg-slate-100'}`}
+          >
+            Primitives
+          </a>
+          <a 
+            href="#navigation" 
+            className={`block text-xs px-3 py-2 rounded transition-colors ${activeSection === 'navigation' ? 'bg-teal-600 text-white' : 'text-teal-600 hover:bg-teal-50'}`}
+          >
+            Navigation
+          </a>
+          <a 
+            href="#panels" 
+            className={`block text-xs px-3 py-2 rounded transition-colors ${activeSection === 'panels' ? 'bg-purple-600 text-white' : 'text-purple-600 hover:bg-purple-50'}`}
+          >
+            Panels
+          </a>
+          <a 
+            href="#domain-cards" 
+            className={`block text-xs px-3 py-2 rounded transition-colors ${activeSection === 'domain-cards' ? 'bg-emerald-600 text-white' : 'text-emerald-600 hover:bg-emerald-50'}`}
+          >
+            Domain Cards
+          </a>
+          <a 
+            href="#sections" 
+            className={`block text-xs px-3 py-2 rounded transition-colors ${activeSection === 'sections' ? 'bg-orange-600 text-white' : 'text-orange-600 hover:bg-orange-50'}`}
+          >
+            Sections
+          </a>
+          <a 
+            href="#templates" 
+            className={`block text-xs px-3 py-2 rounded transition-colors ${activeSection === 'templates' ? 'bg-rose-600 text-white' : 'text-rose-600 hover:bg-rose-50'}`}
+          >
+            Templates
+          </a>
+          <a 
+            href="#site-pages" 
+            className={`block text-xs px-3 py-2 rounded transition-colors ${activeSection === 'site-pages' ? 'bg-yellow-600 text-white' : 'text-slate-700 hover:bg-yellow-50'}`}
+          >
+            🌲 Site Pages
+          </a>
+          <a 
+            href="#salesforce-handoff" 
+            className={`block text-xs px-3 py-2 rounded transition-colors ${activeSection === 'salesforce-handoff' ? 'bg-blue-600 text-white' : 'text-slate-700 hover:bg-blue-50'}`}
+          >
+            ⚡ Salesforce
+          </a>
+        </div>
+      </div>
+      )}
+
+      {/* Quick Nav Toggle Button (shown when Quick Nav is hidden) */}
+      {!showQuickNav && (
+        <button
+          onClick={() => setShowQuickNav(true)}
+          className="fixed left-8 top-1/2 -translate-y-1/2 z-50 hidden xl:flex items-center justify-center w-12 h-12 bg-white rounded-lg shadow-lg border border-slate-200 hover:bg-slate-50 transition-colors"
+          aria-label="Show Quick Navigation"
+        >
+          <Menu className="h-5 w-5 text-slate-600" />
+        </button>
+      )}
+
+      {/* Sticky Nav Toggle Button (shown when nav is hidden) */}
+      {!showStickyNav && (
+        <button
+          onClick={() => setShowStickyNav(true)}
+          className="fixed top-4 right-8 z-50 flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg shadow-lg hover:bg-emerald-700 transition-colors"
+          aria-label="Show Navigation Menu"
+        >
+          <Menu className="h-4 w-4" />
+          <span className="text-sm">Show Menu</span>
+        </button>
+      )}
+
       <div className="max-w-7xl mx-auto space-y-12">
         {/* Header */}
         <header className="text-center space-y-4 py-8">
@@ -176,94 +383,598 @@ export default function App() {
             Complete design system for the Transition Trails Academy.
             Built with accessibility, clean design, and an outdoors-inspired aesthetic.
           </p>
-          <div className="flex items-center justify-center gap-2 text-sm text-slate-500 flex-wrap">
-            <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full">WCAG AA</span>
-            <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full">Keyboard Accessible</span>
-            <span className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full">TTA-103</span>
-            <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full">TTA-104</span>
-            <span className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full">TTA-117</span>
-            <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full">TTA-118</span>
-            <span className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full">TTA-119</span>
-            <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full">TTA-107</span>
-            <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full">TTA-129</span>
-            <span className="px-3 py-1 bg-rose-100 text-rose-700 rounded-full">TTA-128</span>
-            <span className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full">TTA-127</span>
-            <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full">TTA-123</span>
-            <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full">TTA-133</span>
-            <span className="px-3 py-1 bg-violet-100 text-violet-700 rounded-full">TTA-132</span>
-            <span className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full">TTA-109</span>
-            <span className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full">TTA-131</span>
-            <span className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full">TTA-126</span>
-            <span className="px-3 py-1 bg-lime-100 text-lime-700 rounded-full">TTA-108</span>
-            <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full">TTA-124</span>
-            <span className="px-3 py-1 bg-rose-100 text-rose-700 rounded-full">TTA-125</span>
-            <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full">TTA-122</span>
-            <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full">AI Trail Card</span>
-            <span className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full">TTA-120</span>
-            <span className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full">TTA-106</span>
-            <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full">TTA-110</span>
-            <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full">TTA-105</span>
-            <span className="px-3 py-1 bg-rose-100 text-rose-700 rounded-full">TTA-116</span>
-            <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full">TTA-112</span>
+          <div className="space-y-3">
+            {/* Linear Issues Section */}
+            <div className="flex flex-col items-center gap-2">
+              <h3 className="text-xs text-slate-500" style={{ fontWeight: 600 }}>Linear Issues</h3>
+              <div className="flex items-center justify-center gap-2 text-sm flex-wrap">
+                <a href="https://linear.app/transition-trails/issue/TTA-103" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full hover:bg-amber-200 transition-colors">TTA-103</a>
+                <a href="https://linear.app/transition-trails/issue/TTA-104" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full hover:bg-purple-200 transition-colors">TTA-104</a>
+                <a href="https://linear.app/transition-trails/issue/TTA-105" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 transition-colors">TTA-105</a>
+                <a href="https://linear.app/transition-trails/issue/TTA-106" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full hover:bg-teal-200 transition-colors">TTA-106</a>
+                <a href="https://linear.app/transition-trails/issue/TTA-107" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 transition-colors">TTA-107</a>
+                <a href="https://linear.app/transition-trails/issue/TTA-108" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-lime-100 text-lime-700 rounded-full hover:bg-lime-200 transition-colors">TTA-108</a>
+                <a href="https://linear.app/transition-trails/issue/TTA-109" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full hover:bg-pink-200 transition-colors">TTA-109</a>
+                <a href="https://linear.app/transition-trails/issue/TTA-110" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full hover:bg-emerald-200 transition-colors">TTA-110</a>
+                <a href="https://linear.app/transition-trails/issue/TTA-112" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full hover:bg-emerald-200 transition-colors">TTA-112</a>
+                <a href="https://linear.app/transition-trails/issue/TTA-116" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-rose-100 text-rose-700 rounded-full hover:bg-rose-200 transition-colors">TTA-116</a>
+                <a href="https://linear.app/transition-trails/issue/TTA-117" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full hover:bg-pink-200 transition-colors">TTA-117</a>
+                <a href="https://linear.app/transition-trails/issue/TTA-118" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full hover:bg-indigo-200 transition-colors">TTA-118</a>
+                <a href="https://linear.app/transition-trails/issue/TTA-119" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full hover:bg-teal-200 transition-colors">TTA-119</a>
+                <a href="https://linear.app/transition-trails/issue/TTA-120" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full hover:bg-cyan-200 transition-colors">TTA-120</a>
+                <a href="https://linear.app/transition-trails/issue/TTA-122" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full hover:bg-indigo-200 transition-colors">TTA-122</a>
+                <a href="https://linear.app/transition-trails/issue/TTA-123" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full hover:bg-indigo-200 transition-colors">TTA-123</a>
+                <a href="https://linear.app/transition-trails/issue/TTA-124" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full hover:bg-orange-200 transition-colors">TTA-124</a>
+                <a href="https://linear.app/transition-trails/issue/TTA-125" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-rose-100 text-rose-700 rounded-full hover:bg-rose-200 transition-colors">TTA-125</a>
+                <a href="https://linear.app/transition-trails/issue/TTA-126" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full hover:bg-cyan-200 transition-colors">TTA-126</a>
+                <a href="https://linear.app/transition-trails/issue/TTA-127" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full hover:bg-cyan-200 transition-colors">TTA-127</a>
+                <a href="https://linear.app/transition-trails/issue/TTA-128" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-rose-100 text-rose-700 rounded-full hover:bg-rose-200 transition-colors">TTA-128</a>
+                <a href="https://linear.app/transition-trails/issue/TTA-129" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full hover:bg-purple-200 transition-colors">TTA-129</a>
+                <a href="https://linear.app/transition-trails/issue/TTA-131" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full hover:bg-amber-200 transition-colors">TTA-131</a>
+                <a href="https://linear.app/transition-trails/issue/TTA-132" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-violet-100 text-violet-700 rounded-full hover:bg-violet-200 transition-colors">TTA-132</a>
+                <a href="https://linear.app/transition-trails/issue/TTA-133" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full hover:bg-emerald-200 transition-colors">TTA-133</a>
+              </div>
+            </div>
+
+            {/* Other Badges Section */}
+            <div className="flex flex-col items-center gap-2">
+              <h3 className="text-xs text-slate-500" style={{ fontWeight: 600 }}>Standards & Features</h3>
+              <div className="flex items-center justify-center gap-2 text-sm flex-wrap">
+                <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full">WCAG AA</span>
+                <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full">Keyboard Accessible</span>
+                <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full">AI Trail Card</span>
+              </div>
+            </div>
           </div>
         </header>
 
+        {/* Documentation Progress Tracker */}
+        <DocProgress 
+          total={getDocumentationProgress().total}
+          documented={getDocumentationProgress().documented}
+          partial={getDocumentationProgress().partial}
+          showDetails={true}
+        />
+
+        {/* Category Breakdown */}
+        <DocProgressCategoryBreakdown />
+
+        {/* Quality Metrics */}
+        <DocQualityMetrics />
+
+        {/* Search & Filter Panel */}
+        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <BookOpen className="h-5 w-5 text-emerald-600" />
+              <h2 className="text-lg text-slate-900" style={{ fontWeight: 700 }}>
+                Find Components
+              </h2>
+            </div>
+            <button
+              onClick={() => setShowSearchPanel(!showSearchPanel)}
+              className="px-3 py-1.5 text-xs text-emerald-700 bg-emerald-50 hover:bg-emerald-100 rounded-lg border border-emerald-200 transition-colors"
+              style={{ fontWeight: 600 }}
+            >
+              {showSearchPanel ? 'Hide Search' : 'Show Search'}
+            </button>
+          </div>
+
+          {showSearchPanel && (
+            <div className="space-y-4">
+              {/* Search Bar */}
+              <SearchBar
+                value={searchQuery}
+                onChange={setSearchQuery}
+                onClear={handleClearSearch}
+                placeholder="Search by name, description, or tag..."
+                autoFocus={false}
+              />
+
+              {/* Filter Panel */}
+              <FilterPanel
+                selectedCategory={selectedCategory}
+                selectedStatus={selectedStatus}
+                onCategoryChange={setSelectedCategory}
+                onStatusChange={setSelectedStatus}
+                showTags={true}
+                selectedTags={selectedTags}
+                onTagToggle={handleToggleTag}
+              />
+
+              {/* Search Results */}
+              {(searchQuery || selectedCategory !== 'all' || selectedStatus !== 'all' || selectedTags.length > 0) && (
+                <div className="pt-4 border-t border-slate-200">
+                  <SearchResults
+                    results={filteredResults}
+                    searchQuery={searchQuery}
+                    onResultClick={(result) => {
+                      // Scroll to component
+                      const element = document.querySelector(result.href);
+                      if (element) {
+                        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        setShowSearchPanel(false);
+                      }
+                    }}
+                  />
+                </div>
+              )}
+
+              {/* Quick Stats */}
+              {!searchQuery && selectedCategory === 'all' && selectedStatus === 'all' && selectedTags.length === 0 && (
+                <div className="bg-gradient-to-r from-slate-50 to-blue-50 rounded-lg p-4 border border-slate-200">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div>
+                      <div className="text-2xl text-slate-900" style={{ fontWeight: 700 }}>{totalResults}</div>
+                      <div className="text-xs text-slate-600">Total Components</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl text-emerald-600" style={{ fontWeight: 700 }}>3</div>
+                      <div className="text-xs text-slate-600">Documented</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl text-slate-900" style={{ fontWeight: 700 }}>9</div>
+                      <div className="text-xs text-slate-600">Categories</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl text-blue-600" style={{ fontWeight: 700 }}>⌘K</div>
+                      <div className="text-xs text-slate-600">Quick Search</div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Quick Reference Guide */}
+        <div className="bg-gradient-to-br from-emerald-50 to-blue-50 border-2 border-emerald-200 rounded-xl p-6">
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 rounded-lg bg-emerald-600 flex items-center justify-center flex-shrink-0">
+              <Library className="h-6 w-6 text-white" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-xl text-slate-900 mb-3" style={{ fontWeight: 700 }}>
+                Component Organization Guide
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="bg-white rounded-lg p-3 border border-slate-200">
+                  <h4 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>
+                    🔹 Primitives
+                  </h4>
+                  <p className="text-xs text-slate-600">
+                    Basic building blocks: buttons, inputs, controls, chips, badges, tags, card, panel, modal, toast, stepper, tooltip, skeleton
+                  </p>
+                </div>
+                <div className="bg-white rounded-lg p-3 border border-teal-200">
+                  <h4 className="text-sm text-teal-700 mb-2" style={{ fontWeight: 700 }}>
+                    🧭 Navigation
+                  </h4>
+                  <p className="text-xs text-slate-600">
+                    Site-wide navigation: header, tab strip, breadcrumbs, pagination
+                  </p>
+                </div>
+                <div className="bg-white rounded-lg p-3 border border-purple-200">
+                  <h4 className="text-sm text-purple-700 mb-2" style={{ fontWeight: 700 }}>
+                    📊 Panels
+                  </h4>
+                  <p className="text-xs text-slate-600">
+                    Dashboard widgets: learner stats, goals & progress, skills & certs, Penny insights
+                  </p>
+                </div>
+                <div className="bg-white rounded-lg p-3 border border-emerald-200">
+                  <h4 className="text-sm text-emerald-700 mb-2" style={{ fontWeight: 700 }}>
+                    🎴 Domain Cards
+                  </h4>
+                  <p className="text-xs text-slate-600">
+                    Content cards: partner projects, events, roadmap, learning activities, trails, missions
+                  </p>
+                </div>
+                <div className="bg-white rounded-lg p-3 border border-orange-200">
+                  <h4 className="text-sm text-orange-700 mb-2" style={{ fontWeight: 700 }}>
+                    🏗️ Sections
+                  </h4>
+                  <p className="text-xs text-slate-600">
+                    Page sections: impact metrics, donation CTA, feature roadmap
+                  </p>
+                </div>
+                <div className="bg-white rounded-lg p-3 border border-rose-200">
+                  <h4 className="text-sm text-rose-700 mb-2" style={{ fontWeight: 700 }}>
+                    📄 Templates
+                  </h4>
+                  <p className="text-xs text-slate-600">
+                    Full page layouts: vision/donor, dashboard, program overview, learning center, community feed
+                  </p>
+                </div>
+              </div>
+              <div className="mt-4 pt-4 border-t border-slate-200">
+                <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-4">
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0">
+                      <Sparkles className="h-4 w-4 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="text-sm text-blue-900 mb-2" style={{ fontWeight: 700 }}>
+                        ✨ Enhanced Documentation Now Available
+                      </h4>
+                      <p className="text-xs text-slate-700 mb-2">
+                        Select components now include interactive documentation with:
+                      </p>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                        <div className="flex items-center gap-1.5 text-slate-600">
+                          <div className="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
+                          <span>Props & API tables</span>
+                        </div>
+                        <div className="flex items-center gap-1.5 text-slate-600">
+                          <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
+                          <span>Code examples</span>
+                        </div>
+                        <div className="flex items-center gap-1.5 text-slate-600">
+                          <div className="w-1.5 h-1.5 rounded-full bg-purple-500"></div>
+                          <span>Real-world usage</span>
+                        </div>
+                      </div>
+                      <p className="text-xs text-slate-500 mt-2">
+                        Look for expandable sections in <strong>Buttons</strong> and <strong>Cards</strong> components below!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Navigation */}
-        <nav className="sticky top-0 z-40 bg-white rounded-lg shadow-sm border border-slate-200 p-4">
-          <div className="flex flex-wrap gap-2">
-            <a href="#buttons" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Buttons</a>
-            <a href="#inputs" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Inputs</a>
-            <a href="#controls" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Controls</a>
-            <a href="#chips" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Chips</a>
-            <a href="#badges" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Badges</a>
-            <a href="#tags" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Tags</a>
-            <a href="#stepper" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Stepper</a>
-            <a href="#tooltip" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Tooltip</a>
-            <a href="#skeleton" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Skeleton</a>
-            <a href="#header" className="px-3 py-1.5 text-sm text-teal-700 bg-teal-50 rounded">Header</a>
-            <a href="#tabstrip" className="px-3 py-1.5 text-sm text-teal-700 bg-teal-50 rounded">TabStrip</a>
-            <a href="#breadcrumbs" className="px-3 py-1.5 text-sm text-teal-700 bg-teal-50 rounded">Breadcrumbs</a>
-            <a href="#pagination" className="px-3 py-1.5 text-sm text-teal-700 bg-teal-50 rounded">Pagination</a>
-            <a href="#learnerstats" className="px-3 py-1.5 text-sm text-orange-700 bg-orange-50 rounded">Learner Stats</a>
-            <a href="#goalsprogress" className="px-3 py-1.5 text-sm text-purple-700 bg-purple-50 rounded">Goals & Progress</a>
-            <a href="#skillscerts" className="px-3 py-1.5 text-sm text-indigo-700 bg-indigo-50 rounded">Skills & Certs</a>
-            <a href="#partnerproject" className="px-3 py-1.5 text-sm text-rose-700 bg-rose-50 rounded">Partner Projects</a>
-            <a href="#eventsession" className="px-3 py-1.5 text-sm text-cyan-700 bg-cyan-50 rounded">Event Sessions</a>
-            <a href="#roadmap" className="px-3 py-1.5 text-sm text-indigo-700 bg-indigo-50 rounded">Roadmap</a>
-            <a href="#learningactivity" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded">Learning Activities</a>
-            <a href="#assignment" className="px-3 py-1.5 text-sm text-violet-700 bg-violet-50 rounded">Assignments</a>
-            <a href="#penny" className="px-3 py-1.5 text-sm text-pink-700 bg-pink-50 rounded">Penny Insights</a>
-            <a href="#badges" className="px-3 py-1.5 text-sm text-amber-700 bg-amber-50 rounded">Badges & Credits</a>
-            <a href="#pennytip" className="px-3 py-1.5 text-sm text-cyan-700 bg-cyan-50 rounded">Penny Tips</a>
-            <a href="#communitypost" className="px-3 py-1.5 text-sm text-lime-700 bg-lime-50 rounded">Community Post</a>
-            <a href="#metrictile" className="px-3 py-1.5 text-sm text-orange-700 bg-orange-50 rounded">Impact Metrics</a>
-            <a href="#donate" className="px-3 py-1.5 text-sm text-rose-700 bg-rose-50 rounded">Donation CTA</a>
-            <a href="#programcard" className="px-3 py-1.5 text-sm text-indigo-700 bg-indigo-50 rounded">Program Overview Card</a>
-            <a href="#aitrail" className="px-3 py-1.5 text-sm text-purple-700 bg-purple-50 rounded">AI Trail</a>
-            <a href="#citizenplatform" className="px-3 py-1.5 text-sm text-cyan-700 bg-cyan-50 rounded">Citizen Platform</a>
-            <a href="#trailmission" className="px-3 py-1.5 text-sm text-teal-700 bg-teal-50 rounded">Trail Mission</a>
-            <a href="#roadmap" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded">Feature Roadmap</a>
-            <a href="#trailpath" className="px-3 py-1.5 text-sm text-orange-700 bg-orange-50 rounded">Trail Path</a>
-            <a href="#visiondonor" className="px-3 py-1.5 text-sm text-rose-700 bg-rose-50 rounded">Vision/Donor Template</a>
-            <a href="#dashboard" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded">Dashboard Template</a>
-            <a href="#programoverview" className="px-3 py-1.5 text-sm text-purple-700 bg-purple-50 rounded">Program Overview Template</a>
-            <a href="#learningcenter" className="px-3 py-1.5 text-sm text-blue-700 bg-blue-50 rounded">Learning Center Template</a>
-            <a href="#communityfeed" className="px-3 py-1.5 text-sm text-cyan-700 bg-cyan-50 rounded">Community Feed Template</a>
-            <a href="#sitepages" className="px-3 py-1.5 text-sm text-slate-900 bg-yellow-100 border border-yellow-300 rounded">🌲 Site Pages</a>
-            <a href="#cards" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Cards</a>
-            <a href="#panels" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Panels</a>
-            <a href="#modals" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modals</a>
-            <a href="#toasts" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Toasts</a>
+        <nav className={`sticky top-0 z-40 bg-white rounded-lg shadow-sm border border-slate-200 p-6 transition-transform duration-300 relative ${showStickyNav ? 'translate-y-0' : '-translate-y-full'}`}>
+          {/* Close button */}
+          <button
+            onClick={() => setShowStickyNav(false)}
+            className="absolute top-3 right-3 p-1.5 hover:bg-slate-100 rounded transition-colors"
+            aria-label="Hide Navigation Menu"
+          >
+            <X className="h-4 w-4 text-slate-400" />
+          </button>
+          
+          <div className="space-y-3">
+            {/* System Row */}
+            <div className="flex flex-wrap items-center gap-2 pb-2 border-b border-slate-200">
+              <span className="text-xs text-slate-500 mr-2" style={{ fontWeight: 600 }}>System:</span>
+              <a href="#design-tokens" className="px-3 py-1.5 text-sm text-slate-900 bg-emerald-100 border border-emerald-300 rounded hover:bg-emerald-200 transition-colors" style={{ fontWeight: 600 }}>🎨 Design Tokens</a>
+              <a href="#accessibility" className="px-3 py-1.5 text-sm text-slate-900 bg-indigo-100 border border-indigo-300 rounded hover:bg-indigo-200 transition-colors" style={{ fontWeight: 600 }}>♿ Accessibility</a>
+              <a href="#status" className="px-3 py-1.5 text-sm text-slate-900 bg-purple-100 border border-purple-300 rounded hover:bg-purple-200 transition-colors" style={{ fontWeight: 600 }}>📊 Status Dashboard</a>
+              <a href="#playground" className="px-3 py-1.5 text-sm text-slate-900 bg-teal-100 border border-teal-300 rounded hover:bg-teal-200 transition-colors" style={{ fontWeight: 600 }}>🎮 Playground</a>
+            </div>
+
+            {/* Primitives Row */}
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xs text-slate-500 mr-2" style={{ fontWeight: 600 }}>Primitives:</span>
+              <a href="#buttons" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Buttons</a>
+              <a href="#inputs" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Inputs</a>
+              <a href="#controls" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Controls</a>
+              <a href="#chips" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Chips</a>
+              <a href="#badges" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Badges</a>
+              <a href="#tags" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Tags</a>
+              <a href="#stepper" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Stepper</a>
+              <a href="#tooltip" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Tooltip</a>
+              <a href="#skeleton" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Skeleton</a>
+              <a href="#modal" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Modal</a>
+              <a href="#toast" className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded transition-colors">Toast</a>
+            </div>
+
+            {/* Navigation Components Row */}
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xs text-teal-600 mr-2" style={{ fontWeight: 600 }}>Navigation:</span>
+              <a href="#header" className="px-3 py-1.5 text-sm text-teal-700 bg-teal-50 rounded hover:bg-teal-100 transition-colors">Header</a>
+              <a href="#tabstrip" className="px-3 py-1.5 text-sm text-teal-700 bg-teal-50 rounded hover:bg-teal-100 transition-colors">TabStrip</a>
+              <a href="#breadcrumbs" className="px-3 py-1.5 text-sm text-teal-700 bg-teal-50 rounded hover:bg-teal-100 transition-colors">Breadcrumbs</a>
+              <a href="#pagination" className="px-3 py-1.5 text-sm text-teal-700 bg-teal-50 rounded hover:bg-teal-100 transition-colors">Pagination</a>
+            </div>
+
+            {/* Dashboard Panels Row */}
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xs text-purple-600 mr-2" style={{ fontWeight: 600 }}>Panels:</span>
+              <a href="#learnerstats" className="px-3 py-1.5 text-sm text-purple-700 bg-purple-50 rounded hover:bg-purple-100 transition-colors">Learner Stats</a>
+              <a href="#goalsprogress" className="px-3 py-1.5 text-sm text-purple-700 bg-purple-50 rounded hover:bg-purple-100 transition-colors">Goals & Progress</a>
+              <a href="#skillscerts" className="px-3 py-1.5 text-sm text-purple-700 bg-purple-50 rounded hover:bg-purple-100 transition-colors">Skills & Certs</a>
+              <a href="#penny" className="px-3 py-1.5 text-sm text-purple-700 bg-purple-50 rounded hover:bg-purple-100 transition-colors">Penny Insights</a>
+              <a href="#badgespanel" className="px-3 py-1.5 text-sm text-purple-700 bg-purple-50 rounded hover:bg-purple-100 transition-colors">Badges & Credits</a>
+              <a href="#pennytip" className="px-3 py-1.5 text-sm text-purple-700 bg-purple-50 rounded hover:bg-purple-100 transition-colors">Penny Tips</a>
+            </div>
+
+            {/* Domain Cards Row */}
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xs text-emerald-600 mr-2" style={{ fontWeight: 600 }}>Domain Cards:</span>
+              <a href="#partnerproject" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded hover:bg-emerald-100 transition-colors">Partner Projects</a>
+              <a href="#eventsession" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded hover:bg-emerald-100 transition-colors">Event Sessions</a>
+              <a href="#roadmap" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded hover:bg-emerald-100 transition-colors">Roadmap</a>
+              <a href="#learningactivity" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded hover:bg-emerald-100 transition-colors">Learning Activities</a>
+              <a href="#assignment" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded hover:bg-emerald-100 transition-colors">Assignments</a>
+              <a href="#communitypost" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded hover:bg-emerald-100 transition-colors">Community Post</a>
+              <a href="#programcard" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded hover:bg-emerald-100 transition-colors">Program Overview Card</a>
+              <a href="#aitrail" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded hover:bg-emerald-100 transition-colors">AI Trail</a>
+              <a href="#citizenplatform" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded hover:bg-emerald-100 transition-colors">Citizen Platform</a>
+              <a href="#trailmission" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded hover:bg-emerald-100 transition-colors">Trail Mission</a>
+              <a href="#trailpath" className="px-3 py-1.5 text-sm text-emerald-700 bg-emerald-50 rounded hover:bg-emerald-100 transition-colors">Trail Path</a>
+            </div>
+
+            {/* Sections Row */}
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xs text-orange-600 mr-2" style={{ fontWeight: 600 }}>Sections:</span>
+              <a href="#metrictile" className="px-3 py-1.5 text-sm text-orange-700 bg-orange-50 rounded hover:bg-orange-100 transition-colors">Impact Metrics</a>
+              <a href="#donate" className="px-3 py-1.5 text-sm text-orange-700 bg-orange-50 rounded hover:bg-orange-100 transition-colors">Donation CTA</a>
+              <a href="#featureroadmap" className="px-3 py-1.5 text-sm text-orange-700 bg-orange-50 rounded hover:bg-orange-100 transition-colors">Feature Roadmap</a>
+            </div>
+
+            {/* Templates Row */}
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xs text-rose-600 mr-2" style={{ fontWeight: 600 }}>Templates:</span>
+              <a href="#visiondonor" className="px-3 py-1.5 text-sm text-rose-700 bg-rose-50 rounded hover:bg-rose-100 transition-colors">Vision/Donor</a>
+              <a href="#dashboard" className="px-3 py-1.5 text-sm text-rose-700 bg-rose-50 rounded hover:bg-rose-100 transition-colors">Dashboard</a>
+              <a href="#programoverview" className="px-3 py-1.5 text-sm text-rose-700 bg-rose-50 rounded hover:bg-rose-100 transition-colors">Program Overview</a>
+              <a href="#learningcenter" className="px-3 py-1.5 text-sm text-rose-700 bg-rose-50 rounded hover:bg-rose-100 transition-colors">Learning Center</a>
+              <a href="#communityfeed" className="px-3 py-1.5 text-sm text-rose-700 bg-rose-50 rounded hover:bg-rose-100 transition-colors">Community Feed</a>
+            </div>
+
+            {/* Special Pages Row */}
+            <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-200">
+              <a href="#sitepages" className="px-3 py-1.5 text-sm text-slate-900 bg-yellow-100 border border-yellow-300 rounded hover:bg-yellow-200 transition-colors" style={{ fontWeight: 600 }}>🌲 Site Pages</a>
+              <a href="#salesforce-handoff" className="px-3 py-1.5 text-sm text-slate-900 bg-blue-100 border border-blue-300 rounded hover:bg-blue-200 transition-colors" style={{ fontWeight: 600 }}>⚡ Salesforce Handoff (LWC)</a>
+            </div>
           </div>
         </nav>
+
+        {/* DESIGN TOKENS SECTION */}
+        <DesignTokenVisualizer />
+
+        {/* ACCESSIBILITY DOCUMENTATION SECTION */}
+        <div id="accessibility" className="scroll-mt-8 mb-12">
+          <AccessibilityDocs />
+        </div>
+
+        {/* COMPONENT STATUS DASHBOARD SECTION */}
+        <div id="status" className="scroll-mt-8 mb-12">
+          <StatusDashboard />
+        </div>
+
+        {/* INTERACTIVE PLAYGROUND SECTION */}
+        <div id="playground" className="scroll-mt-8 mb-12">
+          <ComponentPlayground />
+        </div>
+
+        {/* PRIMITIVES SECTION */}
+        <div id="primitives" className="scroll-mt-8">
+          <div className="mb-8">
+            <h2 className="text-slate-900 mb-2">🔹 Primitives</h2>
+            <p className="text-slate-600">
+              Basic building blocks for the design system
+            </p>
+          </div>
 
         {/* Buttons Section */}
         <section id="buttons" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
           <div>
-            <h2 className="text-slate-900 mb-2">Buttons</h2>
-            <p className="text-slate-600">
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-slate-900">Buttons</h2>
+              <ComponentStatusBadge status="salesforce-ready" size="md" />
+            </div>
+            <p className="text-slate-600 mb-4">
               Four variants (Primary, Secondary, Ghost, IconOnly) with multiple states and sizes.
             </p>
+            
+            {/* Common Use Cases */}
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
+              <h3 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Common Use Cases</h3>
+              <ul className="space-y-1 text-sm text-slate-600">
+                <li>• <strong>Primary:</strong> Main CTAs like "Submit", "Save", "Join Trail"</li>
+                <li>• <strong>Secondary:</strong> Supporting actions like "Cancel", "Learn More"</li>
+                <li>• <strong>Ghost:</strong> Tertiary actions, navigation links within content</li>
+                <li>• <strong>IconOnly:</strong> Settings, favorites, edit, delete actions</li>
+              </ul>
+            </div>
+
+            {/* Usage Guidelines */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <h4 className="text-sm text-green-800 mb-2" style={{ fontWeight: 700 }}>✓ Do</h4>
+                <ul className="space-y-1 text-xs text-green-700">
+                  <li>• Use one primary button per page section</li>
+                  <li>• Keep button text concise (2-3 words max)</li>
+                  <li>• Use verb-first labels ("Save Changes", "Start Trail")</li>
+                  <li>• Provide aria-label for icon-only buttons</li>
+                </ul>
+              </div>
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <h4 className="text-sm text-red-800 mb-2" style={{ fontWeight: 700 }}>✗ Don't</h4>
+                <ul className="space-y-1 text-xs text-red-700">
+                  <li>• Don't use multiple primary buttons side-by-side</li>
+                  <li>• Don't use ghost buttons for critical actions</li>
+                  <li>• Don't rely on icon-only buttons without tooltips</li>
+                  <li>• Don't use buttons for navigation (use links instead)</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Enhanced Documentation Sections */}
+            <div className="space-y-4">
+              <ComponentDocSection title="📋 Props & API Reference" defaultExpanded={true}>
+                <PropsTable props={[
+                  {
+                    name: 'variant',
+                    type: 'string',
+                    required: false,
+                    default: '"primary"',
+                    description: 'Visual style of the button',
+                    options: ['primary', 'secondary', 'ghost', 'iconOnly']
+                  },
+                  {
+                    name: 'size',
+                    type: 'string',
+                    required: false,
+                    default: '"medium"',
+                    description: 'Size of the button',
+                    options: ['small', 'medium', 'large']
+                  },
+                  {
+                    name: 'disabled',
+                    type: 'boolean',
+                    required: false,
+                    default: 'false',
+                    description: 'Disables the button and prevents interaction'
+                  },
+                  {
+                    name: 'loading',
+                    type: 'boolean',
+                    required: false,
+                    default: 'false',
+                    description: 'Shows loading spinner and disables button'
+                  },
+                  {
+                    name: 'iconLeft',
+                    type: 'React.ReactNode',
+                    required: false,
+                    description: 'Icon element to display on the left side of the button text'
+                  },
+                  {
+                    name: 'iconRight',
+                    type: 'React.ReactNode',
+                    required: false,
+                    description: 'Icon element to display on the right side of the button text'
+                  },
+                  {
+                    name: 'onClick',
+                    type: '() => void',
+                    required: false,
+                    description: 'Callback function when button is clicked'
+                  },
+                  {
+                    name: 'children',
+                    type: 'React.ReactNode',
+                    required: false,
+                    description: 'Button label text or icon (required for iconOnly variant)'
+                  },
+                  {
+                    name: 'aria-label',
+                    type: 'string',
+                    required: false,
+                    description: 'Accessibility label (required for iconOnly buttons)'
+                  }
+                ]} />
+              </ComponentDocSection>
+
+              <ComponentDocSection title="💻 Code Examples">
+                <div className="space-y-4">
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Basic Usage</h5>
+                    <CodeSnippet 
+                      title="Primary Button Example"
+                      code={`import { Button } from './components/ttds/Button';
+
+function MyComponent() {
+  return (
+    <Button 
+      variant="primary" 
+      onClick={() => console.log('Clicked!')}
+    >
+      Start Trail
+    </Button>
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>With Icons</h5>
+                    <CodeSnippet 
+                      title="Button with Icon"
+                      code={`import { Button } from './components/ttds/Button';
+import { Mail, Download } from 'lucide-react';
+
+function MyComponent() {
+  return (
+    <>
+      <Button 
+        variant="primary" 
+        iconLeft={<Mail className="h-4 w-4" />}
+      >
+        Send Email
+      </Button>
+      
+      <Button 
+        variant="secondary" 
+        iconRight={<Download className="h-4 w-4" />}
+      >
+        Download
+      </Button>
+    </>
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Loading State</h5>
+                    <CodeSnippet 
+                      title="Async Button Pattern"
+                      code={`import { Button } from './components/ttds/Button';
+import { useState } from 'react';
+
+function MyComponent() {
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    try {
+      await submitForm();
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <Button 
+      variant="primary" 
+      loading={loading}
+      onClick={handleSubmit}
+    >
+      Submit Application
+    </Button>
+  );
+}`} 
+                    />
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🌍 Real-World Usage">
+                <UsageExamples examples={[
+                  {
+                    title: 'Dashboard CTAs',
+                    description: 'Primary button for starting new trails, secondary for viewing progress details',
+                    context: 'Dashboard Page',
+                    icon: 'page'
+                  },
+                  {
+                    title: 'Learning Center Filters',
+                    description: 'Ghost buttons in the filter toolbar for lightweight, non-intrusive actions',
+                    context: 'Learning Center Template',
+                    icon: 'page'
+                  },
+                  {
+                    title: 'Card Actions',
+                    description: 'Icon-only buttons for quick actions like favorite, share, or more options',
+                    context: 'Partner Project Card, Event Card',
+                    icon: 'section'
+                  },
+                  {
+                    title: 'Form Submissions',
+                    description: 'Primary for submit, secondary for cancel or reset actions',
+                    context: 'Contact Form, Sign In Page',
+                    icon: 'pattern'
+                  }
+                ]} />
+              </ComponentDocSection>
+            </div>
           </div>
 
           {/* Primary Buttons */}
@@ -328,6 +1039,48 @@ export default function App() {
             </div>
           </div>
 
+          {/* Common Button Combinations */}
+          <div className="space-y-3">
+            <h3 className="text-slate-700">Common Button Combinations</h3>
+            <p className="text-sm text-slate-600 mb-3">
+              Examples showing typical button pairings in real use cases
+            </p>
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-6 space-y-6">
+              <div>
+                <p className="text-xs text-slate-500 mb-2" style={{ fontWeight: 600 }}>Form Actions (Primary + Secondary)</p>
+                <div className="flex gap-3">
+                  <Button variant="secondary">Cancel</Button>
+                  <Button variant="primary">Save Changes</Button>
+                </div>
+              </div>
+              <div>
+                <p className="text-xs text-slate-500 mb-2" style={{ fontWeight: 600 }}>Card Actions (Ghost + IconOnly)</p>
+                <div className="flex items-center justify-between">
+                  <Button variant="ghost" size="small">Learn More</Button>
+                  <div className="flex gap-2">
+                    <Button variant="iconOnly" size="small" aria-label="Favorite">
+                      <Heart className="h-4 w-4" />
+                    </Button>
+                    <Button variant="iconOnly" size="small" aria-label="More options">
+                      <MoreVertical className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p className="text-xs text-slate-500 mb-2" style={{ fontWeight: 600 }}>Desktop (lg): grid-cols-5 (all stats in one row)</p>
+                <div className="flex gap-3">
+                  <Button variant="primary" iconLeft={<Plus className="h-4 w-4" />}>
+                    Add New Trail
+                  </Button>
+                  <Button variant="secondary" iconLeft={<Filter className="h-4 w-4" />}>
+                    Filter
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Full Width */}
           <div className="space-y-3">
             <h3 className="text-slate-700">Full Width</h3>
@@ -340,9 +1093,190 @@ export default function App() {
         <section id="inputs" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
           <div>
             <h2 className="text-slate-900 mb-2">Text Inputs</h2>
-            <p className="text-slate-600">
+            <p className="text-slate-600 mb-6">
               Standard text input with label, helper text, and error states.
             </p>
+
+            {/* Enhanced Documentation */}
+            <div className="space-y-4 mb-8">
+              <ComponentDocSection title="📋 Props & API Reference" defaultExpanded={false}>
+                <PropsTable props={[
+                  {
+                    name: 'label',
+                    type: 'string',
+                    required: false,
+                    description: 'Label text displayed above the input field'
+                  },
+                  {
+                    name: 'placeholder',
+                    type: 'string',
+                    required: false,
+                    description: 'Placeholder text shown when input is empty'
+                  },
+                  {
+                    name: 'helperText',
+                    type: 'string',
+                    required: false,
+                    description: 'Helper text displayed below the input (guidance or instructions)'
+                  },
+                  {
+                    name: 'error',
+                    type: 'string',
+                    required: false,
+                    description: 'Error message to display. When present, input shows error state'
+                  },
+                  {
+                    name: 'disabled',
+                    type: 'boolean',
+                    required: false,
+                    default: 'false',
+                    description: 'Disables the input field and prevents user interaction'
+                  },
+                  {
+                    name: 'fullWidth',
+                    type: 'boolean',
+                    required: false,
+                    default: 'false',
+                    description: 'Makes input expand to fill container width'
+                  },
+                  {
+                    name: 'defaultValue',
+                    type: 'string',
+                    required: false,
+                    description: 'Initial value of the input field'
+                  },
+                  {
+                    name: 'value',
+                    type: 'string',
+                    required: false,
+                    description: 'Controlled value of the input (use with onChange)'
+                  },
+                  {
+                    name: 'onChange',
+                    type: '(e: ChangeEvent) => void',
+                    required: false,
+                    description: 'Callback fired when input value changes'
+                  },
+                  {
+                    name: 'type',
+                    type: 'string',
+                    required: false,
+                    default: '"text"',
+                    description: 'HTML input type',
+                    options: ['text', 'email', 'password', 'number', 'tel', 'url']
+                  }
+                ]} />
+              </ComponentDocSection>
+
+              <ComponentDocSection title="💻 Code Examples">
+                <div className="space-y-4">
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Basic Input</h5>
+                    <CodeSnippet 
+                      title="Simple Text Input"
+                      code={`import { TextInput } from './components/ttds/TextInput';
+
+function MyComponent() {
+  return (
+    <TextInput
+      label="Email Address"
+      placeholder="you@example.com"
+      helperText="We'll never share your email."
+      fullWidth
+    />
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Controlled Input with Validation</h5>
+                    <CodeSnippet 
+                      title="Form Input with State"
+                      code={`import { TextInput } from './components/ttds/TextInput';
+import { useState } from 'react';
+
+function MyComponent() {
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+    
+    // Simple validation
+    if (value && !value.includes('@')) {
+      setError('Please enter a valid email address');
+    } else {
+      setError('');
+    }
+  };
+
+  return (
+    <TextInput
+      label="Email"
+      type="email"
+      value={email}
+      onChange={handleChange}
+      error={error}
+      fullWidth
+    />
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Password Input</h5>
+                    <CodeSnippet 
+                      title="Password Field"
+                      code={`import { TextInput } from './components/ttds/TextInput';
+
+function MyComponent() {
+  return (
+    <TextInput
+      label="Password"
+      type="password"
+      placeholder="Enter your password"
+      helperText="Must be at least 8 characters"
+      fullWidth
+    />
+  );
+}`} 
+                    />
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🌍 Real-World Usage">
+                <UsageExamples examples={[
+                  {
+                    title: 'Sign In Form',
+                    description: 'Email and password inputs for user authentication',
+                    context: 'Sign In Page',
+                    icon: 'page'
+                  },
+                  {
+                    title: 'Contact Forms',
+                    description: 'Name, email, and message inputs for user inquiries',
+                    context: 'Contact Us Page',
+                    icon: 'page'
+                  },
+                  {
+                    title: 'Profile Settings',
+                    description: 'Editable fields for user information and preferences',
+                    context: 'Dashboard - Settings Section',
+                    icon: 'section'
+                  },
+                  {
+                    title: 'Search & Filter',
+                    description: 'Search inputs combined with filter dropdowns',
+                    context: 'Learning Center, Partner Portal',
+                    icon: 'pattern'
+                  }
+                ]} />
+              </ComponentDocSection>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -445,9 +1379,41 @@ export default function App() {
         <section id="controls" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
           <div>
             <h2 className="text-slate-900 mb-2">Control Components</h2>
-            <p className="text-slate-600">
+            <p className="text-slate-600 mb-4">
               Checkboxes, radio buttons, and switches with proper states.
             </p>
+
+            {/* Common Use Cases */}
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
+              <h3 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Common Use Cases</h3>
+              <ul className="space-y-1 text-sm text-slate-600">
+                <li>• <strong>Checkbox:</strong> Multi-select options, terms acceptance, filter selections</li>
+                <li>• <strong>Radio:</strong> Single-choice selections like difficulty level, program type</li>
+                <li>• <strong>Switch:</strong> Settings toggles (notifications, auto-save, dark mode)</li>
+              </ul>
+            </div>
+
+            {/* Usage Guidelines */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <h4 className="text-sm text-green-800 mb-2" style={{ fontWeight: 700 }}>✓ Do</h4>
+                <ul className="space-y-1 text-xs text-green-700">
+                  <li>• Use switches for instant on/off actions</li>
+                  <li>• Group related radio buttons together</li>
+                  <li>• Show 5-7 key metrics maximum</li>
+                  <li>• Format large numbers with commas for readability</li>
+                </ul>
+              </div>
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <h4 className="text-sm text-red-800 mb-2" style={{ fontWeight: 700 }}>✗ Don't</h4>
+                <ul className="space-y-1 text-xs text-red-700">
+                  <li>• Don't use switches for actions requiring "Apply" or "Save"</li>
+                  <li>• Don't use checkboxes for exclusive choices (use radio)</li>
+                  <li>• Don't mix different metric types (keep related)</li>
+                  <li>• Don't use horizontal layout on mobile</li>
+                </ul>
+              </div>
+            </div>
           </div>
 
           {/* Checkboxes */}
@@ -1198,81 +2164,2381 @@ export default function App() {
           </div>
         </section>
 
+        {/* Modal Section */}
+        <section id="modal" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-slate-900">Modal</h2>
+              <ComponentStatusBadge status="needs-lwc" size="md" />
+            </div>
+            <p className="text-slate-600 mb-4">
+              Overlay dialog component for forms, confirmations, and focused content interactions. Features backdrop blur, ESC key support, and focus trapping.
+            </p>
+            
+            {/* Common Use Cases */}
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
+              <h3 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Common Use Cases</h3>
+              <ul className="space-y-1 text-sm text-slate-600">
+                <li>• <strong>Forms:</strong> User registration, profile editing, content creation</li>
+                <li>• <strong>Confirmations:</strong> Delete actions, navigation warnings, critical decisions</li>
+                <li>• <strong>Media Viewers:</strong> Image galleries, video players, document previews</li>
+                <li>• <strong>Multi-step Wizards:</strong> Onboarding flows, complex forms, guided processes</li>
+              </ul>
+            </div>
+
+            {/* Usage Guidelines */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <h4 className="text-sm text-green-800 mb-2" style={{ fontWeight: 700 }}>✓ Do</h4>
+                <ul className="space-y-1 text-xs text-green-700">
+                  <li>• Use for focused tasks requiring user attention</li>
+                  <li>• Provide clear header describing modal purpose</li>
+                  <li>• Include close button or cancel action</li>
+                  <li>• Disable body scroll when modal is open</li>
+                  <li>• Keep modal content concise and scannable</li>
+                </ul>
+              </div>
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <h4 className="text-sm text-red-800 mb-2" style={{ fontWeight: 700 }}>✗ Don't</h4>
+                <ul className="space-y-1 text-xs text-red-700">
+                  <li>• Don't stack multiple modals (avoid modal-over-modal)</li>
+                  <li>• Don't use for simple notifications (use Toast instead)</li>
+                  <li>• Don't include too much scrollable content</li>
+                  <li>• Don't use for primary navigation</li>
+                  <li>• Don't forget to handle mobile viewport sizing</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Enhanced Documentation Sections */}
+            <div className="space-y-4">
+              <ComponentDocSection title="📋 Props & API Reference" defaultExpanded={true}>
+                <PropsTable props={[
+                  {
+                    name: 'open',
+                    type: 'boolean',
+                    required: false,
+                    default: 'false',
+                    description: 'Controls modal visibility'
+                  },
+                  {
+                    name: 'onClose',
+                    type: '() => void',
+                    required: false,
+                    description: 'Callback fired when user attempts to close modal (ESC key, backdrop click, close button)'
+                  },
+                  {
+                    name: 'header',
+                    type: 'React.ReactNode',
+                    required: false,
+                    description: 'Header content (typically title or heading)'
+                  },
+                  {
+                    name: 'footer',
+                    type: 'React.ReactNode',
+                    required: false,
+                    description: 'Footer content (typically action buttons)'
+                  },
+                  {
+                    name: 'children',
+                    type: 'React.ReactNode',
+                    required: false,
+                    description: 'Main modal body content'
+                  },
+                  {
+                    name: 'showCloseButton',
+                    type: 'boolean',
+                    required: false,
+                    default: 'true',
+                    description: 'Whether to display X close button in header'
+                  },
+                  {
+                    name: 'size',
+                    type: 'string',
+                    required: false,
+                    default: '"medium"',
+                    description: 'Modal width size',
+                    options: ['small', 'medium', 'large', 'fullscreen']
+                  }
+                ]} />
+              </ComponentDocSection>
+
+              <ComponentDocSection title="💻 Code Examples">
+                <div className="space-y-4">
+                  <CodeSnippet 
+                    title="Basic Confirmation Modal"
+                    code={`import { Modal, Button } from './components/ttds';
+import { useState } from 'react';
+
+function DeleteConfirmation() {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleDelete = () => {
+    // Perform delete action
+    console.log('Item deleted');
+    setShowModal(false);
+  };
+
+  return (
+    <>
+      <Button variant="danger" onClick={() => setShowModal(true)}>
+        Delete Item
+      </Button>
+
+      <Modal
+        open={showModal}
+        onClose={() => setShowModal(false)}
+        header={<h3>Confirm Deletion</h3>}
+        footer={
+          <div className="flex gap-3 justify-end">
+            <Button variant="secondary" onClick={() => setShowModal(false)}>
+              Cancel
+            </Button>
+            <Button variant="danger" onClick={handleDelete}>
+              Delete
+            </Button>
+          </div>
+        }
+      >
+        <p>Are you sure you want to delete this item? This action cannot be undone.</p>
+      </Modal>
+    </>
+  );
+}`}
+                  />
+
+                  <CodeSnippet 
+                    title="Form Modal with Validation"
+                    code={`import { Modal, Button, TextInput } from './components/ttds';
+import { useState } from 'react';
+
+function ProfileEditModal({ open, onClose, user }) {
+  const [name, setName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Save changes
+    console.log('Profile updated:', { name, email });
+    onClose();
+  };
+
+  return (
+    <Modal
+      open={open}
+      onClose={onClose}
+      size="medium"
+      header={<h3>Edit Profile</h3>}
+      footer={
+        <div className="flex gap-3 justify-end">
+          <Button variant="secondary" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button variant="primary" onClick={handleSubmit}>
+            Save Changes
+          </Button>
+        </div>
+      }
+    >
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <TextInput
+          label="Full Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+        <TextInput
+          label="Email Address"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+      </form>
+    </Modal>
+  );
+}`}
+                  />
+
+                  <CodeSnippet 
+                    title="Multi-step Wizard Modal"
+                    code={`import { Modal, Button } from './components/ttds';
+import { useState } from 'react';
+
+function OnboardingWizard({ open, onClose }) {
+  const [step, setStep] = useState(1);
+  const totalSteps = 3;
+
+  const handleNext = () => setStep(s => Math.min(s + 1, totalSteps));
+  const handlePrevious = () => setStep(s => Math.max(s - 1, 1));
+  const handleComplete = () => {
+    console.log('Onboarding complete');
+    onClose();
+  };
+
+  return (
+    <Modal
+      open={open}
+      onClose={onClose}
+      size="large"
+      header={<h3>Welcome to Transition Trails - Step {step} of {totalSteps}</h3>}
+      footer={
+        <div className="flex gap-3 justify-between w-full">
+          <Button 
+            variant="secondary" 
+            onClick={handlePrevious}
+            disabled={step === 1}
+          >
+            Previous
+          </Button>
+          {step < totalSteps ? (
+            <Button variant="primary" onClick={handleNext}>
+              Next
+            </Button>
+          ) : (
+            <Button variant="primary" onClick={handleComplete}>
+              Get Started
+            </Button>
+          )}
+        </div>
+      }
+    >
+      {step === 1 && <div>Step 1 content...</div>}
+      {step === 2 && <div>Step 2 content...</div>}
+      {step === 3 && <div>Step 3 content...</div>}
+    </Modal>
+  );
+}`}
+                  />
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Live Examples">
+                <UsageExample
+                  title="Modal Size Variants"
+                  description="Modals support small, medium, large, and fullscreen sizes"
+                >
+                  <div className="flex flex-wrap gap-3">
+                    <Button variant="secondary" size="small" onClick={() => {}}>
+                      Small Modal
+                    </Button>
+                    <Button variant="secondary" size="small" onClick={() => {}}>
+                      Medium Modal
+                    </Button>
+                    <Button variant="secondary" size="small" onClick={() => {}}>
+                      Large Modal
+                    </Button>
+                    <Button variant="secondary" size="small" onClick={() => {}}>
+                      Fullscreen
+                    </Button>
+                  </div>
+                  <p className="text-xs text-slate-500 mt-3">
+                    Click buttons above to see modal examples (disabled in documentation for UX)
+                  </p>
+                </UsageExample>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="♿ Accessibility">
+                <div className="space-y-3 text-sm text-slate-700">
+                  <div className="flex gap-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <strong>ARIA Attributes:</strong> Uses role="dialog", aria-modal="true", and aria-labelledby for proper screen reader announcement
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <strong>Keyboard Support:</strong> ESC key closes modal, focus trap keeps keyboard navigation within modal
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <strong>Focus Management:</strong> Automatically disables body scroll when open, restores on close
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <strong>Backdrop:</strong> Click-to-close backdrop with proper aria-hidden="true" attribute
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <strong>Close Button:</strong> Includes aria-label="Close modal" for screen reader users
+                    </div>
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Design Tokens">
+                <div className="space-y-3">
+                  <div className="grid grid-cols-2 gap-3 text-sm">
+                    <div className="p-3 bg-slate-50 rounded border border-slate-200">
+                      <div className="text-xs text-slate-500 mb-1">Border Radius</div>
+                      <code className="text-emerald-700">ttds-radius-lg</code>
+                    </div>
+                    <div className="p-3 bg-slate-50 rounded border border-slate-200">
+                      <div className="text-xs text-slate-500 mb-1">Elevation</div>
+                      <code className="text-emerald-700">shadow-2xl</code>
+                    </div>
+                    <div className="p-3 bg-slate-50 rounded border border-slate-200">
+                      <div className="text-xs text-slate-500 mb-1">Backdrop</div>
+                      <code className="text-emerald-700">bg-slate-900/50</code>
+                    </div>
+                    <div className="p-3 bg-slate-50 rounded border border-slate-200">
+                      <div className="text-xs text-slate-500 mb-1">Border</div>
+                      <code className="text-emerald-700">border-slate-200</code>
+                    </div>
+                  </div>
+                  <div className="p-3 bg-slate-50 rounded border border-slate-200 text-sm">
+                    <div className="text-xs text-slate-500 mb-2">Spacing (Header/Footer/Body)</div>
+                    <code className="text-emerald-700">ttds-space-24 (px-6 py-4)</code>
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🔗 Related Components">
+                <div className="flex flex-wrap gap-2">
+                  <a href="#buttons" className="px-3 py-1.5 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
+                    Button
+                  </a>
+                  <a href="#toast" className="px-3 py-1.5 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
+                    Toast
+                  </a>
+                  <a href="#card" className="px-3 py-1.5 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
+                    Card
+                  </a>
+                  <a href="#inputs" className="px-3 py-1.5 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
+                    Form Inputs
+                  </a>
+                </div>
+              </ComponentDocSection>
+            </div>
+          </div>
+        </section>
+
+        {/* Toast Section */}
+        <section id="toast" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-slate-900">Toast Notifications</h2>
+              <ComponentStatusBadge status="needs-lwc" size="md" />
+            </div>
+            <p className="text-slate-600 mb-4">
+              Lightweight notification component for user feedback. Supports success, warning, error, and info variants with auto-dismiss and action buttons.
+            </p>
+            
+            {/* Common Use Cases */}
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
+              <h3 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Common Use Cases</h3>
+              <ul className="space-y-1 text-sm text-slate-600">
+                <li>• <strong>Success:</strong> Form submissions, save confirmations, task completions</li>
+                <li>• <strong>Error:</strong> Validation failures, network errors, permission issues</li>
+                <li>• <strong>Warning:</strong> Unsaved changes, approaching limits, deprecation notices</li>
+                <li>• <strong>Info:</strong> System updates, helpful tips, feature announcements</li>
+              </ul>
+            </div>
+
+            {/* Usage Guidelines */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <h4 className="text-sm text-green-800 mb-2" style={{ fontWeight: 700 }}>✓ Do</h4>
+                <ul className="space-y-1 text-xs text-green-700">
+                  <li>• Keep messages brief (1-2 lines max)</li>
+                  <li>• Use appropriate variant for message type</li>
+                  <li>• Provide action button when user can respond</li>
+                  <li>• Auto-dismiss informational toasts (3-5 seconds)</li>
+                  <li>• Stack multiple toasts vertically</li>
+                </ul>
+              </div>
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <h4 className="text-sm text-red-800 mb-2" style={{ fontWeight: 700 }}>✗ Don't</h4>
+                <ul className="space-y-1 text-xs text-red-700">
+                  <li>• Don't use for critical information requiring user action</li>
+                  <li>• Don't show too many toasts simultaneously (max 3)</li>
+                  <li>• Don't auto-dismiss error messages</li>
+                  <li>• Don't use as primary error display for forms</li>
+                  <li>• Don't include lengthy explanations</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Enhanced Documentation Sections */}
+            <div className="space-y-4">
+              <ComponentDocSection title="📋 Props & API Reference" defaultExpanded={true}>
+                <PropsTable props={[
+                  {
+                    name: 'variant',
+                    type: 'string',
+                    required: false,
+                    default: '"info"',
+                    description: 'Visual style and icon of the toast',
+                    options: ['success', 'warning', 'error', 'info']
+                  },
+                  {
+                    name: 'message',
+                    type: 'React.ReactNode',
+                    required: true,
+                    description: 'Toast message content'
+                  },
+                  {
+                    name: 'action',
+                    type: 'React.ReactNode',
+                    required: false,
+                    description: 'Optional action button or link'
+                  },
+                  {
+                    name: 'onClose',
+                    type: '() => void',
+                    required: false,
+                    description: 'Callback fired when toast is closed'
+                  },
+                  {
+                    name: 'showCloseButton',
+                    type: 'boolean',
+                    required: false,
+                    default: 'true',
+                    description: 'Whether to display close button'
+                  }
+                ]} />
+                
+                <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                  <h4 className="text-sm text-blue-900 mb-2" style={{ fontWeight: 700 }}>ToastContainer Props</h4>
+                  <PropsTable props={[
+                    {
+                      name: 'position',
+                      type: 'string',
+                      required: false,
+                      default: '"top-right"',
+                      description: 'Screen position for toast notifications',
+                      options: ['top-right', 'top-center', 'bottom-right', 'bottom-center']
+                    },
+                    {
+                      name: 'children',
+                      type: 'React.ReactNode',
+                      required: false,
+                      description: 'Toast components to display'
+                    }
+                  ]} />
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="💻 Code Examples">
+                <div className="space-y-4">
+                  <CodeSnippet 
+                    title="Basic Toast Notifications"
+                    code={`import { Toast, ToastContainer } from './components/ttds';
+import { useState } from 'react';
+
+function NotificationDemo() {
+  const [toasts, setToasts] = useState([]);
+
+  const showToast = (variant, message) => {
+    const id = Date.now();
+    const newToast = { id, variant, message };
+    setToasts(prev => [...prev, newToast]);
+    
+    // Auto-dismiss after 3 seconds
+    setTimeout(() => {
+      setToasts(prev => prev.filter(t => t.id !== id));
+    }, 3000);
+  };
+
+  return (
+    <>
+      <button onClick={() => showToast('success', 'Trail completed!')}>
+        Show Success
+      </button>
+      <button onClick={() => showToast('error', 'Failed to save changes')}>
+        Show Error
+      </button>
+
+      <ToastContainer position="top-right">
+        {toasts.map(toast => (
+          <Toast
+            key={toast.id}
+            variant={toast.variant}
+            message={toast.message}
+            onClose={() => setToasts(prev => prev.filter(t => t.id !== toast.id))}
+          />
+        ))}
+      </ToastContainer>
+    </>
+  );
+}`}
+                  />
+
+                  <CodeSnippet 
+                    title="Toast with Action Button"
+                    code={`import { Toast, Button } from './components/ttds';
+
+function UndoToast({ onUndo, onClose }) {
+  return (
+    <Toast
+      variant="info"
+      message="Item deleted"
+      action={
+        <Button 
+          variant="ghost" 
+          size="small"
+          onClick={() => {
+            onUndo();
+            onClose();
+          }}
+        >
+          Undo
+        </Button>
+      }
+      onClose={onClose}
+    />
+  );
+}`}
+                  />
+
+                  <CodeSnippet 
+                    title="Using with Sonner Library"
+                    code={`import { toast } from 'sonner@2.0.3';
+
+function App() {
+  const handleSubmit = async () => {
+    try {
+      await saveData();
+      toast.success('Changes saved successfully!');
+    } catch (error) {
+      toast.error('Failed to save changes. Please try again.');
+    }
+  };
+
+  return (
+    <div>
+      {/* Your app content */}
+      <button onClick={handleSubmit}>Save</button>
+    </div>
+  );
+}`}
+                  />
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Live Examples">
+                <UsageExample
+                  title="Toast Variants"
+                  description="All toast notification styles available in the design system"
+                >
+                  <div className="space-y-3">
+                    <Toast 
+                      variant="success" 
+                      message="Trail completed! You earned 50 XP points."
+                      showCloseButton={false}
+                    />
+                    <Toast 
+                      variant="warning" 
+                      message="You have unsaved changes. Save before leaving?"
+                      showCloseButton={false}
+                    />
+                    <Toast 
+                      variant="error" 
+                      message="Failed to submit quiz. Please check your answers."
+                      showCloseButton={false}
+                    />
+                    <Toast 
+                      variant="info" 
+                      message="New learning path available: Salesforce Admin Trail"
+                      showCloseButton={false}
+                    />
+                  </div>
+                </UsageExample>
+
+                <UsageExample
+                  title="Toast with Actions"
+                  description="Toasts can include action buttons for quick responses"
+                >
+                  <div className="space-y-3">
+                    <Toast 
+                      variant="success" 
+                      message="Assignment submitted successfully!"
+                      action={
+                        <Button variant="ghost" size="small">
+                          View Details
+                        </Button>
+                      }
+                      showCloseButton={false}
+                    />
+                    <Toast 
+                      variant="info" 
+                      message="New badge unlocked: Quick Learner"
+                      action={
+                        <Button variant="ghost" size="small">
+                          View Badge
+                        </Button>
+                      }
+                      showCloseButton={false}
+                    />
+                  </div>
+                </UsageExample>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="♿ Accessibility">
+                <div className="space-y-3 text-sm text-slate-700">
+                  <div className="flex gap-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <strong>ARIA Live Regions:</strong> Uses role="status" and aria-live="polite" for screen reader announcements
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <strong>Color + Icon:</strong> Never relies on color alone; all variants include distinct icons
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <strong>Close Button:</strong> Includes aria-label="Close notification" for assistive technology
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <strong>Contrast:</strong> All variants meet WCAG AA contrast requirements (4.5:1 minimum)
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <strong>Keyboard Support:</strong> Close button and action buttons are fully keyboard accessible
+                    </div>
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Design Tokens">
+                <div className="space-y-3">
+                  <div className="grid grid-cols-2 gap-3 text-sm">
+                    <div className="p-3 bg-emerald-50 rounded border border-emerald-200">
+                      <div className="text-xs text-emerald-700 mb-1">Success Colors</div>
+                      <code className="text-xs text-emerald-900">bg-emerald-50, border-emerald-200, text-emerald-900</code>
+                    </div>
+                    <div className="p-3 bg-amber-50 rounded border border-amber-200">
+                      <div className="text-xs text-amber-700 mb-1">Warning Colors</div>
+                      <code className="text-xs text-amber-900">bg-amber-50, border-amber-200, text-amber-900</code>
+                    </div>
+                    <div className="p-3 bg-red-50 rounded border border-red-200">
+                      <div className="text-xs text-red-700 mb-1">Error Colors</div>
+                      <code className="text-xs text-red-900">bg-red-50, border-red-200, text-red-900</code>
+                    </div>
+                    <div className="p-3 bg-blue-50 rounded border border-blue-200">
+                      <div className="text-xs text-blue-700 mb-1">Info Colors</div>
+                      <code className="text-xs text-blue-900">bg-blue-50, border-blue-200, text-blue-900</code>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3 text-sm">
+                    <div className="p-3 bg-slate-50 rounded border border-slate-200">
+                      <div className="text-xs text-slate-500 mb-1">Border Radius</div>
+                      <code className="text-emerald-700">ttds-radius-lg</code>
+                    </div>
+                    <div className="p-3 bg-slate-50 rounded border border-slate-200">
+                      <div className="text-xs text-slate-500 mb-1">Elevation</div>
+                      <code className="text-emerald-700">shadow-lg</code>
+                    </div>
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🔗 Related Components">
+                <div className="flex flex-wrap gap-2">
+                  <a href="#modal" className="px-3 py-1.5 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
+                    Modal
+                  </a>
+                  <a href="#buttons" className="px-3 py-1.5 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
+                    Button
+                  </a>
+                  <a href="#chip-status" className="px-3 py-1.5 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
+                    Status Chips
+                  </a>
+                </div>
+              </ComponentDocSection>
+            </div>
+          </div>
+        </section>
+
+        {/* Card Section */}
+        <section id="card" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-slate-900">Card</h2>
+              <ComponentStatusBadge status="salesforce-ready" size="md" />
+            </div>
+            <p className="text-slate-600 mb-4">
+              Flexible container component with elevation, padding, and optional header/footer sections. Perfect for grouping related content with visual hierarchy.
+            </p>
+            
+            {/* Common Use Cases */}
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
+              <h3 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Common Use Cases</h3>
+              <ul className="space-y-1 text-sm text-slate-600">
+                <li>• <strong>Content Cards:</strong> Project displays, blog posts, product listings</li>
+                <li>• <strong>Dashboard Widgets:</strong> Stats, metrics, quick actions</li>
+                <li>• <strong>Form Sections:</strong> Grouped form fields with headers</li>
+                <li>• <strong>Information Displays:</strong> User profiles, settings panels, data views</li>
+              </ul>
+            </div>
+
+            {/* Usage Guidelines */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <h4 className="text-sm text-green-800 mb-2" style={{ fontWeight: 700 }}>✓ Do</h4>
+                <ul className="space-y-1 text-xs text-green-700">
+                  <li>• Use consistent elevation levels across similar cards</li>
+                  <li>• Match padding to content density needs</li>
+                  <li>• Use headers for card titles and context</li>
+                  <li>• Use footers for actions or metadata</li>
+                  <li>• Keep card content focused and related</li>
+                </ul>
+              </div>
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <h4 className="text-sm text-red-800 mb-2" style={{ fontWeight: 700 }}>✗ Don't</h4>
+                <ul className="space-y-1 text-xs text-red-700">
+                  <li>• Don't nest cards too deeply (max 2 levels)</li>
+                  <li>• Don't use high elevation for non-interactive cards</li>
+                  <li>• Don't mix different padding styles in card groups</li>
+                  <li>• Don't overload cards with too much content</li>
+                  <li>• Don't use cards for simple text blocks</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Enhanced Documentation Sections */}
+            <div className="space-y-4">
+              <ComponentDocSection title="📋 Props & API Reference" defaultExpanded={true}>
+                <PropsTable props={[
+                  {
+                    name: 'elevation',
+                    type: 'string',
+                    required: false,
+                    default: '"low"',
+                    description: 'Shadow depth of the card',
+                    options: ['none', 'low', 'medium', 'high']
+                  },
+                  {
+                    name: 'padding',
+                    type: 'string',
+                    required: false,
+                    default: '"normal"',
+                    description: 'Internal padding of the card',
+                    options: ['none', 'tight', 'normal', 'spacious']
+                  },
+                  {
+                    name: 'header',
+                    type: 'React.ReactNode',
+                    required: false,
+                    description: 'Optional header section with bottom border'
+                  },
+                  {
+                    name: 'footer',
+                    type: 'React.ReactNode',
+                    required: false,
+                    description: 'Optional footer section with top border'
+                  },
+                  {
+                    name: 'children',
+                    type: 'React.ReactNode',
+                    required: true,
+                    description: 'Main content of the card'
+                  },
+                  {
+                    name: 'className',
+                    type: 'string',
+                    required: false,
+                    description: 'Additional CSS classes'
+                  }
+                ]} />
+              </ComponentDocSection>
+
+              <ComponentDocSection title="💻 Code Examples">
+                <div className="space-y-4">
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Basic Card</h5>
+                    <CodeSnippet 
+                      title="Simple Content Card"
+                      code={`import { Card } from './components/ttds/Card';
+
+function MyComponent() {
+  return (
+    <Card elevation="low" padding="normal">
+      <h3>Card Title</h3>
+      <p>This is the main content of the card.</p>
+    </Card>
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Card with Header and Footer</h5>
+                    <CodeSnippet 
+                      title="Full Featured Card"
+                      code={`import { Card } from './components/ttds/Card';
+import { Button } from './components/ttds/Button';
+
+function MyComponent() {
+  return (
+    <Card
+      elevation="medium"
+      padding="normal"
+      header={<h3>Project Overview</h3>}
+      footer={
+        <div className="flex gap-2">
+          <Button variant="primary">View Details</Button>
+          <Button variant="secondary">Edit</Button>
+        </div>
+      }
+    >
+      <p>Project description and key metrics go here.</p>
+    </Card>
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Elevation Variants</h5>
+                    <CodeSnippet 
+                      title="Different Elevation Levels"
+                      code={`import { Card } from './components/ttds/Card';
+
+function MyComponent() {
+  return (
+    <div className="space-y-4">
+      <Card elevation="none">Flat card with no shadow</Card>
+      <Card elevation="low">Subtle shadow for grouped content</Card>
+      <Card elevation="medium">Medium shadow for emphasis</Card>
+      <Card elevation="high">High shadow for important elements</Card>
+    </div>
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Interactive Card Grid</h5>
+                    <CodeSnippet 
+                      title="Card Grid Layout"
+                      code={`import { Card } from './components/ttds/Card';
+
+function MyComponent() {
+  const items = [
+    { id: 1, title: 'Item 1', description: 'Description 1' },
+    { id: 2, title: 'Item 2', description: 'Description 2' },
+    { id: 3, title: 'Item 3', description: 'Description 3' },
+  ];
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {items.map(item => (
+        <Card 
+          key={item.id}
+          elevation="low"
+          className="cursor-pointer hover:shadow-lg transition-shadow"
+        >
+          <h4>{item.title}</h4>
+          <p>{item.description}</p>
+        </Card>
+      ))}
+    </div>
+  );
+}`} 
+                    />
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Usage Examples" defaultExpanded={true}>
+                <div className="space-y-6">
+                  <UsageExamples
+                    title="Elevation Variants"
+                    description="Cards with different shadow depths for visual hierarchy"
+                  >
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                      <Card elevation="none" padding="normal">
+                        <div className="text-sm text-slate-700 mb-1" style={{ fontWeight: 700 }}>No Elevation</div>
+                        <p className="text-xs text-slate-600">Flat card without shadow</p>
+                      </Card>
+                      <Card elevation="low" padding="normal">
+                        <div className="text-sm text-slate-700 mb-1" style={{ fontWeight: 700 }}>Low Elevation</div>
+                        <p className="text-xs text-slate-600">Subtle shadow (default)</p>
+                      </Card>
+                      <Card elevation="medium" padding="normal">
+                        <div className="text-sm text-slate-700 mb-1" style={{ fontWeight: 700 }}>Medium Elevation</div>
+                        <p className="text-xs text-slate-600">Noticeable shadow</p>
+                      </Card>
+                      <Card elevation="high" padding="normal">
+                        <div className="text-sm text-slate-700 mb-1" style={{ fontWeight: 700 }}>High Elevation</div>
+                        <p className="text-xs text-slate-600">Strong shadow</p>
+                      </Card>
+                    </div>
+                  </UsageExamples>
+
+                  <UsageExamples
+                    title="Padding Variants"
+                    description="Different padding options for various content densities"
+                  >
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <Card elevation="low" padding="tight">
+                        <div className="text-sm text-slate-700 mb-1" style={{ fontWeight: 700 }}>Tight Padding</div>
+                        <p className="text-xs text-slate-600">Compact spacing for dense content</p>
+                      </Card>
+                      <Card elevation="low" padding="normal">
+                        <div className="text-sm text-slate-700 mb-1" style={{ fontWeight: 700 }}>Normal Padding</div>
+                        <p className="text-xs text-slate-600">Standard spacing (default)</p>
+                      </Card>
+                      <Card elevation="low" padding="spacious">
+                        <div className="text-sm text-slate-700 mb-1" style={{ fontWeight: 700 }}>Spacious Padding</div>
+                        <p className="text-xs text-slate-600">Generous spacing for emphasis</p>
+                      </Card>
+                      <Card elevation="low" padding="none">
+                        <div className="p-4">
+                          <div className="text-sm text-slate-700 mb-1" style={{ fontWeight: 700 }}>No Padding</div>
+                          <p className="text-xs text-slate-600">Custom padding control</p>
+                        </div>
+                      </Card>
+                    </div>
+                  </UsageExamples>
+
+                  <UsageExamples
+                    title="Card with Header and Footer"
+                    description="Structured card with separate header and footer sections"
+                  >
+                    <Card
+                      elevation="low"
+                      padding="normal"
+                      header={
+                        <div>
+                          <div className="text-sm text-slate-900 mb-1" style={{ fontWeight: 700 }}>Learning Activity</div>
+                          <p className="text-xs text-slate-600">Introduction to React Hooks</p>
+                        </div>
+                      }
+                      footer={
+                        <div className="flex items-center justify-between">
+                          <div className="text-xs text-slate-600">Due: Dec 15, 2024</div>
+                          <Button variant="primary" size="small">Start Activity</Button>
+                        </div>
+                      }
+                    >
+                      <p className="text-sm text-slate-700">
+                        Learn the fundamentals of React Hooks including useState, useEffect, and custom hooks. 
+                        Complete hands-on exercises and build a practical project.
+                      </p>
+                    </Card>
+                  </UsageExamples>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="♿ Accessibility">
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <ul className="space-y-2 text-sm text-blue-900">
+                    <li>• <strong>Semantic HTML:</strong> Uses div with proper ARIA when interactive</li>
+                    <li>• <strong>Clickable Cards:</strong> Use role="button" or wrap in &lt;a&gt; tag for interactive cards</li>
+                    <li>• <strong>Focus Management:</strong> Ensure interactive cards are keyboard accessible</li>
+                    <li>• <strong>Content Structure:</strong> Use semantic headings within cards for screen readers</li>
+                    <li>• <strong>WCAG AA:</strong> Maintains proper contrast ratios for all text content</li>
+                  </ul>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Design Tokens">
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+                    <div>
+                      <div className="text-slate-500 mb-1">Background</div>
+                      <code className="text-xs">ttds-color-surface-0</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Border</div>
+                      <code className="text-xs">ttds-border-default</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Radius</div>
+                      <code className="text-xs">ttds-radius-md</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Elevation</div>
+                      <code className="text-xs">ttds-elevation-sm/md</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Padding</div>
+                      <code className="text-xs">ttds-space-16/24/32</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Hover</div>
+                      <code className="text-xs">ttds-elevation-md/lg</code>
+                    </div>
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🔗 Related Components">
+                <div className="flex flex-wrap gap-2">
+                  <a href="#panel" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Panel
+                  </a>
+                  <a href="#modal" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Modal
+                  </a>
+                  <a href="#partnerproject" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Partner Project Card
+                  </a>
+                  <a href="#eventsession" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Event Session Card
+                  </a>
+                </div>
+              </ComponentDocSection>
+            </div>
+          </div>
+        </section>
+
+        {/* Panel Section */}
+        <section id="panel" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-slate-900">Panel</h2>
+              <ComponentStatusBadge status="complete" size="md" />
+            </div>
+            <p className="text-slate-600 mb-4">
+              Surface container component with built-in header and actions support. Designed for page sections, dashboard widgets, and organized content areas.
+            </p>
+            
+            {/* Common Use Cases */}
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
+              <h3 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Common Use Cases</h3>
+              <ul className="space-y-1 text-sm text-slate-600">
+                <li>• <strong>Dashboard Sections:</strong> Stats panels, activity feeds, progress trackers</li>
+                <li>• <strong>Settings Panels:</strong> Configuration sections with headers and actions</li>
+                <li>• <strong>Content Sections:</strong> Grouped page content with clear boundaries</li>
+                <li>• <strong>Data Displays:</strong> Tables, lists, and grids with headers</li>
+              </ul>
+            </div>
+
+            {/* Usage Guidelines */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <h4 className="text-sm text-green-800 mb-2" style={{ fontWeight: 700 }}>✓ Do</h4>
+                <ul className="space-y-1 text-xs text-green-700">
+                  <li>• Use headers to clearly label panel content</li>
+                  <li>• Place relevant actions in the actions slot</li>
+                  <li>• Use consistent elevation within layouts</li>
+                  <li>• Keep panel content focused on one topic</li>
+                  <li>• Use for major page sections and widgets</li>
+                </ul>
+              </div>
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <h4 className="text-sm text-red-800 mb-2" style={{ fontWeight: 700 }}>✗ Don't</h4>
+                <ul className="space-y-1 text-xs text-red-700">
+                  <li>• Don't use panels for small inline content</li>
+                  <li>• Don't nest panels more than 2 levels deep</li>
+                  <li>• Don't mix panel and card inconsistently</li>
+                  <li>• Don't overload the actions area</li>
+                  <li>• Don't use without a clear content purpose</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Enhanced Documentation Sections */}
+            <div className="space-y-4">
+              <ComponentDocSection title="📋 Props & API Reference" defaultExpanded={true}>
+                <PropsTable props={[
+                  {
+                    name: 'elevation',
+                    type: 'number',
+                    required: false,
+                    default: '0',
+                    description: 'Shadow depth level',
+                    options: ['0', '1', '2']
+                  },
+                  {
+                    name: 'header',
+                    type: 'React.ReactNode',
+                    required: false,
+                    description: 'Header content (title, description)'
+                  },
+                  {
+                    name: 'actions',
+                    type: 'React.ReactNode',
+                    required: false,
+                    description: 'Action buttons or controls for the header'
+                  },
+                  {
+                    name: 'children',
+                    type: 'React.ReactNode',
+                    required: true,
+                    description: 'Main panel content'
+                  },
+                  {
+                    name: 'className',
+                    type: 'string',
+                    required: false,
+                    description: 'Additional CSS classes'
+                  }
+                ]} />
+              </ComponentDocSection>
+
+              <ComponentDocSection title="💻 Code Examples">
+                <div className="space-y-4">
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Basic Panel</h5>
+                    <CodeSnippet 
+                      title="Simple Content Panel"
+                      code={`import { Panel } from './components/ttds/Panel';
+
+function MyComponent() {
+  return (
+    <Panel
+      header={<h3>Panel Title</h3>}
+    >
+      <p>Panel content goes here.</p>
+    </Panel>
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Panel with Actions</h5>
+                    <CodeSnippet 
+                      title="Panel with Header Actions"
+                      code={`import { Panel } from './components/ttds/Panel';
+import { Button } from './components/ttds/Button';
+import { Settings } from 'lucide-react';
+
+function MyComponent() {
+  return (
+    <Panel
+      elevation={1}
+      header={
+        <div>
+          <h3>Activity Feed</h3>
+          <p className="text-sm text-slate-600">Recent updates</p>
+        </div>
+      }
+      actions={
+        <>
+          <Button variant="ghost" size="small" iconOnly>
+            <Settings className="h-4 w-4" />
+          </Button>
+          <Button variant="primary" size="small">
+            View All
+          </Button>
+        </>
+      }
+    >
+      {/* Activity list content */}
+      <div className="space-y-2">
+        <div className="p-3 bg-slate-50 rounded">Activity 1</div>
+        <div className="p-3 bg-slate-50 rounded">Activity 2</div>
+      </div>
+    </Panel>
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Dashboard Layout</h5>
+                    <CodeSnippet 
+                      title="Multiple Panels Layout"
+                      code={`import { Panel } from './components/ttds/Panel';
+
+function Dashboard() {
+  return (
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <Panel
+        elevation={1}
+        header={<h3>Stats Overview</h3>}
+      >
+        {/* Stats content */}
+      </Panel>
+      
+      <Panel
+        elevation={1}
+        header={<h3>Recent Activity</h3>}
+      >
+        {/* Activity content */}
+      </Panel>
+      
+      <Panel
+        elevation={1}
+        header={<h3>Goals & Progress</h3>}
+        className="lg:col-span-2"
+      >
+        {/* Goals content */}
+      </Panel>
+    </div>
+  );
+}`} 
+                    />
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Usage Examples" defaultExpanded={true}>
+                <div className="space-y-6">
+                  <UsageExamples
+                    title="Elevation Levels"
+                    description="Different shadow depths for visual hierarchy"
+                  >
+                    <div className="space-y-4">
+                      <Panel elevation={0} header={<h4>Elevation 0 (Flat)</h4>}>
+                        <p className="text-sm text-slate-600">No shadow, minimal visual separation</p>
+                      </Panel>
+                      <Panel elevation={1} header={<h4>Elevation 1 (Subtle)</h4>}>
+                        <p className="text-sm text-slate-600">Light shadow, good for dashboard sections</p>
+                      </Panel>
+                      <Panel elevation={2} header={<h4>Elevation 2 (Emphasized)</h4>}>
+                        <p className="text-sm text-slate-600">Medium shadow, draws attention</p>
+                      </Panel>
+                    </div>
+                  </UsageExamples>
+
+                  <UsageExamples
+                    title="Panel with Actions"
+                    description="Header with action buttons for common operations"
+                  >
+                    <Panel
+                      elevation={1}
+                      header={
+                        <div>
+                          <div className="text-sm text-slate-900 mb-1" style={{ fontWeight: 700 }}>Learning Progress</div>
+                          <p className="text-xs text-slate-600">Your current trail activities</p>
+                        </div>
+                      }
+                      actions={
+                        <div className="flex gap-2">
+                          <Button variant="secondary" size="small">Filter</Button>
+                          <Button variant="primary" size="small">View All</Button>
+                        </div>
+                      }
+                    >
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between p-3 bg-emerald-50 rounded-lg">
+                          <span className="text-sm text-slate-700">React Fundamentals</span>
+                          <span className="text-sm text-emerald-700" style={{ fontWeight: 600 }}>75%</span>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                          <span className="text-sm text-slate-700">JavaScript ES6+</span>
+                          <span className="text-sm text-blue-700" style={{ fontWeight: 600 }}>60%</span>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-amber-50 rounded-lg">
+                          <span className="text-sm text-slate-700">TypeScript Basics</span>
+                          <span className="text-sm text-amber-700" style={{ fontWeight: 600 }}>40%</span>
+                        </div>
+                      </div>
+                    </Panel>
+                  </UsageExamples>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="♿ Accessibility">
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <ul className="space-y-2 text-sm text-blue-900">
+                    <li>• <strong>Semantic Structure:</strong> Uses header and body sections for clear content hierarchy</li>
+                    <li>• <strong>Headings:</strong> Use proper heading levels in the header prop</li>
+                    <li>• <strong>Actions:</strong> Ensure all action buttons have proper labels</li>
+                    <li>• <strong>Keyboard Navigation:</strong> All interactive elements are keyboard accessible</li>
+                    <li>• <strong>Screen Readers:</strong> Content is announced in logical order</li>
+                  </ul>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Design Tokens">
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+                    <div>
+                      <div className="text-slate-500 mb-1">Surface</div>
+                      <code className="text-xs">ttds-color-surface-0</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Border</div>
+                      <code className="text-xs">ttds-border-default</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Radius</div>
+                      <code className="text-xs">ttds-radius-md</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Header Padding</div>
+                      <code className="text-xs">ttds-space-16/24</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Body Padding</div>
+                      <code className="text-xs">ttds-space-24</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Elevation</div>
+                      <code className="text-xs">ttds-elevation-none/sm/md</code>
+                    </div>
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🔗 Related Components">
+                <div className="flex flex-wrap gap-2">
+                  <a href="#card" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Card
+                  </a>
+                  <a href="#learnerstats" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Learner Stats Panel
+                  </a>
+                  <a href="#goalsprogress" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Goals & Progress Panel
+                  </a>
+                  <a href="#skillscerts" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Skills & Certifications Panel
+                  </a>
+                </div>
+              </ComponentDocSection>
+            </div>
+          </div>
+        </section>
+
+        {/* Modal Section */}
+        <section id="modal" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-slate-900">Modal</h2>
+              <ComponentStatusBadge status="needs-lwc" size="md" />
+            </div>
+            <p className="text-slate-600 mb-4">
+              Overlay dialog component with backdrop, focus trap, and ESC key handling. Perfect for confirmations, forms, and focused content interactions.
+            </p>
+            
+            {/* Common Use Cases */}
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
+              <h3 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Common Use Cases</h3>
+              <ul className="space-y-1 text-sm text-slate-600">
+                <li>• <strong>Confirmations:</strong> Delete confirmations, action approvals, warnings</li>
+                <li>• <strong>Forms:</strong> Quick edits, data entry, multi-step processes</li>
+                <li>• <strong>Details:</strong> Expanded views, full information displays</li>
+                <li>• <strong>Media:</strong> Image galleries, video players, document viewers</li>
+              </ul>
+            </div>
+
+            {/* Usage Guidelines */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <h4 className="text-sm text-green-800 mb-2" style={{ fontWeight: 700 }}>✓ Do</h4>
+                <ul className="space-y-1 text-xs text-green-700">
+                  <li>• Provide clear way to close (X button, Cancel, ESC key)</li>
+                  <li>• Use appropriate size for content</li>
+                  <li>• Keep modals focused on single task</li>
+                  <li>• Use headers to provide context</li>
+                  <li>• Place primary action in footer</li>
+                </ul>
+              </div>
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <h4 className="text-sm text-red-800 mb-2" style={{ fontWeight: 700 }}>✗ Don't</h4>
+                <ul className="space-y-1 text-xs text-red-700">
+                  <li>• Don't nest modals within modals</li>
+                  <li>• Don't auto-open modals without user action</li>
+                  <li>• Don't use for lengthy content (use pages instead)</li>
+                  <li>• Don't make modals dismissable during critical actions</li>
+                  <li>• Don't overload modals with too many options</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Enhanced Documentation Sections */}
+            <div className="space-y-4">
+              <ComponentDocSection title="📋 Props & API Reference" defaultExpanded={true}>
+                <PropsTable props={[
+                  {
+                    name: 'open',
+                    type: 'boolean',
+                    required: false,
+                    default: 'false',
+                    description: 'Controls modal visibility'
+                  },
+                  {
+                    name: 'onClose',
+                    type: '() => void',
+                    required: false,
+                    description: 'Callback when modal is closed'
+                  },
+                  {
+                    name: 'header',
+                    type: 'React.ReactNode',
+                    required: false,
+                    description: 'Header content (typically title)'
+                  },
+                  {
+                    name: 'footer',
+                    type: 'React.ReactNode',
+                    required: false,
+                    description: 'Footer content (typically actions)'
+                  },
+                  {
+                    name: 'size',
+                    type: 'string',
+                    required: false,
+                    default: '"medium"',
+                    description: 'Modal width',
+                    options: ['small', 'medium', 'large', 'fullscreen']
+                  },
+                  {
+                    name: 'showCloseButton',
+                    type: 'boolean',
+                    required: false,
+                    default: 'true',
+                    description: 'Show X button in header'
+                  },
+                  {
+                    name: 'children',
+                    type: 'React.ReactNode',
+                    required: true,
+                    description: 'Modal body content'
+                  }
+                ]} />
+              </ComponentDocSection>
+
+              <ComponentDocSection title="💻 Code Examples">
+                <div className="space-y-4">
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Basic Modal</h5>
+                    <CodeSnippet 
+                      title="Simple Confirmation Modal"
+                      code={`import { Modal } from './components/ttds/Modal';
+import { Button } from './components/ttds/Button';
+import { useState } from 'react';
+
+function MyComponent() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open Modal</Button>
+      
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        header={<h3>Confirm Action</h3>}
+        footer={
+          <div className="flex gap-2 justify-end">
+            <Button variant="secondary" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button variant="primary" onClick={() => setOpen(false)}>
+              Confirm
+            </Button>
+          </div>
+        }
+      >
+        <p>Are you sure you want to proceed with this action?</p>
+      </Modal>
+    </>
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Form Modal</h5>
+                    <CodeSnippet 
+                      title="Modal with Form"
+                      code={`import { Modal } from './components/ttds/Modal';
+import { Button } from './components/ttds/Button';
+import { TextInput } from './components/ttds/TextInput';
+import { useState } from 'react';
+
+function MyComponent() {
+  const [open, setOpen] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '' });
+
+  const handleSubmit = () => {
+    console.log('Submit:', formData);
+    setOpen(false);
+  };
+
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Add Contact</Button>
+      
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        header={<h3>Add New Contact</h3>}
+        size="medium"
+        footer={
+          <div className="flex gap-2 justify-end">
+            <Button variant="secondary" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button variant="primary" onClick={handleSubmit}>
+              Save Contact
+            </Button>
+          </div>
+        }
+      >
+        <div className="space-y-4">
+          <TextInput
+            label="Name"
+            value={formData.name}
+            onChange={(e) => setFormData({...formData, name: e.target.value})}
+          />
+          <TextInput
+            label="Email"
+            type="email"
+            value={formData.email}
+            onChange={(e) => setFormData({...formData, email: e.target.value})}
+          />
+        </div>
+      </Modal>
+    </>
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Size Variants</h5>
+                    <CodeSnippet 
+                      title="Different Modal Sizes"
+                      code={`import { Modal } from './components/ttds/Modal';
+import { Button } from './components/ttds/Button';
+
+function MyComponent() {
+  return (
+    <>
+      {/* Small modal for simple confirmations */}
+      <Modal size="small" header="Small Modal">
+        Compact content
+      </Modal>
+
+      {/* Medium modal for forms (default) */}
+      <Modal size="medium" header="Medium Modal">
+        Standard forms and content
+      </Modal>
+
+      {/* Large modal for detailed content */}
+      <Modal size="large" header="Large Modal">
+        Detailed information and complex forms
+      </Modal>
+
+      {/* Fullscreen for media or extensive content */}
+      <Modal size="fullscreen" header="Fullscreen Modal">
+        Media galleries or complex workflows
+      </Modal>
+    </>
+  );
+}`} 
+                    />
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Usage Examples" defaultExpanded={true}>
+                <UsageExamples
+                  title="Modal Demo"
+                  description="Click to see different modal configurations"
+                >
+                  <div className="flex flex-wrap gap-3">
+                    <Button
+                      variant="primary"
+                      onClick={() => {
+                        // Modal demo would go here
+                        alert('Modal example - Small confirmation');
+                      }}
+                    >
+                      Small Modal
+                    </Button>
+                    <Button
+                      variant="primary"
+                      onClick={() => {
+                        alert('Modal example - Medium form');
+                      }}
+                    >
+                      Form Modal
+                    </Button>
+                    <Button
+                      variant="primary"
+                      onClick={() => {
+                        alert('Modal example - Large content');
+                      }}
+                    >
+                      Large Modal
+                    </Button>
+                  </div>
+                  <p className="text-xs text-slate-600 mt-4">
+                    💡 Click buttons to see modal examples (interactive modals require state management in live app)
+                  </p>
+                </UsageExamples>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="♿ Accessibility">
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <ul className="space-y-2 text-sm text-blue-900">
+                    <li>• <strong>ARIA Attributes:</strong> Uses role="dialog" and aria-modal="true"</li>
+                    <li>• <strong>Focus Trap:</strong> Keeps focus within modal while open</li>
+                    <li>• <strong>ESC Key:</strong> Closes modal when ESC is pressed</li>
+                    <li>• <strong>Backdrop Click:</strong> Closes modal when clicking outside (optional)</li>
+                    <li>• <strong>Screen Reader:</strong> Header is properly labeled with aria-labelledby</li>
+                    <li>• <strong>Body Scroll:</strong> Prevents page scrolling while modal is open</li>
+                    <li>• <strong>Focus Return:</strong> Returns focus to trigger element on close</li>
+                  </ul>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Design Tokens">
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+                    <div>
+                      <div className="text-slate-500 mb-1">Backdrop</div>
+                      <code className="text-xs">bg-slate-900/50</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Surface</div>
+                      <code className="text-xs">ttds-color-surface-0</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Border</div>
+                      <code className="text-xs">ttds-border-default</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Radius</div>
+                      <code className="text-xs">ttds-radius-md</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Padding</div>
+                      <code className="text-xs">ttds-space-24</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Elevation</div>
+                      <code className="text-xs">shadow-2xl</code>
+                    </div>
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🔗 Related Components">
+                <div className="flex flex-wrap gap-2">
+                  <a href="#toast" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Toast
+                  </a>
+                  <a href="#buttons" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Button
+                  </a>
+                  <a href="#inputs" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Form Inputs
+                  </a>
+                </div>
+              </ComponentDocSection>
+            </div>
+          </div>
+        </section>
+
+        {/* Toast Section */}
+        <section id="toast" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-slate-900">Toast Notifications</h2>
+              <ComponentStatusBadge status="needs-lwc" size="md" />
+            </div>
+            <p className="text-slate-600 mb-4">
+              Temporary notification component with success, warning, error, and info variants. Designed for non-intrusive feedback with ARIA live regions.
+            </p>
+            
+            {/* Common Use Cases */}
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
+              <h3 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Common Use Cases</h3>
+              <ul className="space-y-1 text-sm text-slate-600">
+                <li>• <strong>Success:</strong> Form submissions, saves, completions</li>
+                <li>• <strong>Error:</strong> Failed operations, validation errors, system errors</li>
+                <li>• <strong>Warning:</strong> Important notices, potential issues, confirmations</li>
+                <li>• <strong>Info:</strong> System messages, tips, updates, notifications</li>
+              </ul>
+            </div>
+
+            {/* Usage Guidelines */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <h4 className="text-sm text-green-800 mb-2" style={{ fontWeight: 700 }}>✓ Do</h4>
+                <ul className="space-y-1 text-xs text-green-700">
+                  <li>• Keep messages concise (1-2 sentences)</li>
+                  <li>• Use appropriate variant for message type</li>
+                  <li>• Auto-dismiss after 3-5 seconds</li>
+                  <li>• Provide close button for user control</li>
+                  <li>• Stack multiple toasts vertically</li>
+                </ul>
+              </div>
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <h4 className="text-sm text-red-800 mb-2" style={{ fontWeight: 700 }}>✗ Don't</h4>
+                <ul className="space-y-1 text-xs text-red-700">
+                  <li>• Don't use for critical errors (use modals)</li>
+                  <li>• Don't show too many toasts at once</li>
+                  <li>• Don't use for lengthy messages</li>
+                  <li>• Don't auto-dismiss error messages too quickly</li>
+                  <li>• Don't rely solely on color to convey meaning</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Enhanced Documentation Sections */}
+            <div className="space-y-4">
+              <ComponentDocSection title="📋 Props & API Reference" defaultExpanded={true}>
+                <PropsTable props={[
+                  {
+                    name: 'variant',
+                    type: 'string',
+                    required: false,
+                    default: '"info"',
+                    description: 'Toast style and icon',
+                    options: ['success', 'warning', 'error', 'info']
+                  },
+                  {
+                    name: 'message',
+                    type: 'React.ReactNode',
+                    required: true,
+                    description: 'Main notification message'
+                  },
+                  {
+                    name: 'action',
+                    type: 'React.ReactNode',
+                    required: false,
+                    description: 'Optional action button or link'
+                  },
+                  {
+                    name: 'onClose',
+                    type: '() => void',
+                    required: false,
+                    description: 'Callback when toast is closed'
+                  },
+                  {
+                    name: 'showCloseButton',
+                    type: 'boolean',
+                    required: false,
+                    default: 'true',
+                    description: 'Show X button'
+                  }
+                ]} />
+              </ComponentDocSection>
+
+              <ComponentDocSection title="💻 Code Examples">
+                <div className="space-y-4">
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Basic Toast Usage</h5>
+                    <CodeSnippet 
+                      title="Simple Success Toast"
+                      code={`import { Toast, ToastContainer } from './components/ttds/Toast';
+import { useState } from 'react';
+
+function MyComponent() {
+  const [showToast, setShowToast] = useState(false);
+
+  return (
+    <>
+      <button onClick={() => setShowToast(true)}>
+        Show Success
+      </button>
+
+      <ToastContainer position="top-right">
+        {showToast && (
+          <Toast
+            variant="success"
+            message="Changes saved successfully!"
+            onClose={() => setShowToast(false)}
+          />
+        )}
+      </ToastContainer>
+    </>
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Toast with Action</h5>
+                    <CodeSnippet 
+                      title="Actionable Toast"
+                      code={`import { Toast } from './components/ttds/Toast';
+import { Button } from './components/ttds/Button';
+
+function MyComponent() {
+  return (
+    <Toast
+      variant="info"
+      message="New update available"
+      action={
+        <Button 
+          variant="ghost" 
+          size="small"
+          onClick={() => console.log('Refresh')}
+        >
+          Refresh Now
+        </Button>
+      }
+      onClose={() => console.log('Closed')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Auto-Dismiss Pattern</h5>
+                    <CodeSnippet 
+                      title="Auto-Dismiss Toast"
+                      code={`import { Toast } from './components/ttds/Toast';
+import { useEffect, useState } from 'react';
+
+function MyComponent() {
+  const [toasts, setToasts] = useState([]);
+
+  const showToast = (variant, message) => {
+    const id = Date.now();
+    setToasts(prev => [...prev, { id, variant, message }]);
+
+    // Auto-dismiss after 5 seconds
+    setTimeout(() => {
+      setToasts(prev => prev.filter(t => t.id !== id));
+    }, 5000);
+  };
+
+  return (
+    <>
+      <button onClick={() => showToast('success', 'Saved!')}>
+        Save
+      </button>
+
+      <ToastContainer position="top-right">
+        {toasts.map(toast => (
+          <Toast
+            key={toast.id}
+            variant={toast.variant}
+            message={toast.message}
+            onClose={() => setToasts(prev => 
+              prev.filter(t => t.id !== toast.id)
+            )}
+          />
+        ))}
+      </ToastContainer>
+    </>
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>All Variants</h5>
+                    <CodeSnippet 
+                      title="Toast Variants"
+                      code={`import { Toast } from './components/ttds/Toast';
+
+function MyComponent() {
+  return (
+    <>
+      <Toast 
+        variant="success" 
+        message="Action completed successfully!" 
+      />
+      
+      <Toast 
+        variant="warning" 
+        message="Please review before proceeding" 
+      />
+      
+      <Toast 
+        variant="error" 
+        message="Failed to save changes. Please try again." 
+      />
+      
+      <Toast 
+        variant="info" 
+        message="New features are now available" 
+      />
+    </>
+  );
+}`} 
+                    />
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Usage Examples" defaultExpanded={true}>
+                <div className="space-y-6">
+                  <UsageExamples
+                    title="Toast Variants"
+                    description="Different notification types for various scenarios"
+                  >
+                    <div className="space-y-3">
+                      <Toast
+                        variant="success"
+                        message="Your changes have been saved successfully!"
+                        showCloseButton={true}
+                        onClose={() => {}}
+                      />
+                      <Toast
+                        variant="warning"
+                        message="Your session will expire in 5 minutes. Please save your work."
+                        showCloseButton={true}
+                        onClose={() => {}}
+                      />
+                      <Toast
+                        variant="error"
+                        message="Failed to upload file. File size exceeds 10MB limit."
+                        showCloseButton={true}
+                        onClose={() => {}}
+                      />
+                      <Toast
+                        variant="info"
+                        message="New learning activities have been added to your trail."
+                        showCloseButton={true}
+                        onClose={() => {}}
+                      />
+                    </div>
+                  </UsageExamples>
+
+                  <UsageExamples
+                    title="Toast with Action Button"
+                    description="Interactive toast with actionable CTA"
+                  >
+                    <Toast
+                      variant="info"
+                      message="Your application has been submitted for review."
+                      action={
+                        <Button 
+                          variant="ghost" 
+                          size="small"
+                          className="text-blue-700 hover:text-blue-800"
+                        >
+                          View Status
+                        </Button>
+                      }
+                      showCloseButton={true}
+                      onClose={() => {}}
+                    />
+                  </UsageExamples>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="♿ Accessibility">
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <ul className="space-y-2 text-sm text-blue-900">
+                    <li>• <strong>ARIA Live Region:</strong> Uses role="status" and aria-live="polite"</li>
+                    <li>• <strong>Screen Readers:</strong> Announces messages automatically</li>
+                    <li>• <strong>Icon + Text:</strong> Uses both icon and text, not color alone</li>
+                    <li>• <strong>Keyboard:</strong> Close button is keyboard accessible</li>
+                    <li>• <strong>Focus Management:</strong> Doesn't steal focus from current task</li>
+                    <li>• <strong>Timing:</strong> Provides sufficient time to read (3-5 seconds minimum)</li>
+                    <li>• <strong>Contrast:</strong> All variants meet WCAG AA contrast requirements</li>
+                  </ul>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Design Tokens">
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+                    <div>
+                      <div className="text-slate-500 mb-1">Success</div>
+                      <code className="text-xs">ttds-color-status-success</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Warning</div>
+                      <code className="text-xs">ttds-color-status-warning</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Error</div>
+                      <code className="text-xs">ttds-color-status-critical</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Info</div>
+                      <code className="text-xs">ttds-color-status-info</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Padding</div>
+                      <code className="text-xs">ttds-space-16</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Radius</div>
+                      <code className="text-xs">ttds-radius-md</code>
+                    </div>
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🔗 Related Components">
+                <div className="flex flex-wrap gap-2">
+                  <a href="#modal" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Modal
+                  </a>
+                  <a href="#buttons" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Button
+                  </a>
+                </div>
+              </ComponentDocSection>
+            </div>
+          </div>
+        </section>
+        </div>
+        {/* END PRIMITIVES */}
+
+        {/* NAVIGATION SECTION */}
+        <div id="navigation" className="scroll-mt-8">
+          <div className="mb-8">
+            <h2 className="text-slate-900 mb-2">🧭 Navigation</h2>
+            <p className="text-slate-600">
+              Site-wide navigation components
+            </p>
+          </div>
+
         {/* Header Section */}
         <section id="header" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
           <div>
-            <h2 className="text-slate-900 mb-2">Header Navigation</h2>
-            <p className="text-slate-600">
-              Global navigation used across all Academy pages. Includes logo, main nav items, utilities, and user area.
-            </p>
-          </div>
-
-          {/* Default Header */}
-          <div className="space-y-3">
-            <h3 className="text-slate-700">Default Header</h3>
-            <div className="-m-8 mb-4">
-              <Header
-                navItems={[
-                  { id: '1', label: 'Dashboard', href: '#', active: true },
-                  { id: '2', label: 'Trails', href: '#' },
-                  { id: '3', label: 'Learning Center', href: '#' },
-                  { id: '4', label: 'Community', href: '#' },
-                ]}
-              />
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-slate-900">Header Navigation</h2>
+              <ComponentStatusBadge status="needs-lwc" size="md" />
             </div>
-          </div>
-
-          {/* Scrolled Header */}
-          <div className="space-y-3">
-            <h3 className="text-slate-700">Scrolled State (Reduced Height)</h3>
-            <p className="text-sm text-slate-600 mb-3">
-              Header reduces height when scrolled for better space utilization.
+            <p className="text-slate-600 mb-4">
+              Global navigation component used across all Academy pages. Features responsive design, mobile menu, utility actions, and user area with customizable logo and navigation items.
             </p>
-            <div className="-m-8 mb-4">
-              <Header
-                navItems={[
-                  { id: '1', label: 'Dashboard', href: '#', active: true },
-                  { id: '2', label: 'Trails', href: '#' },
-                  { id: '3', label: 'Learning Center', href: '#' },
-                  { id: '4', label: 'Community', href: '#' },
-                ]}
-                scrolled={true}
-              />
+            
+            {/* Common Use Cases */}
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
+              <h3 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Common Use Cases</h3>
+              <ul className="space-y-1 text-sm text-slate-600">
+                <li>• <strong>Main Navigation:</strong> Top-level site navigation across all pages</li>
+                <li>• <strong>Learner Dashboard:</strong> Personalized header with user profile and notifications</li>
+                <li>• <strong>Marketing Site:</strong> Public-facing header with login/signup CTAs</li>
+                <li>• <strong>Admin Portal:</strong> Header with system utilities and settings access</li>
+              </ul>
             </div>
-          </div>
 
-          {/* Custom Logo Header */}
-          <div className="space-y-3">
-            <h3 className="text-slate-700">With Custom Logo</h3>
-            <div className="-m-8 mb-4">
-              <Header
-                logo={
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-blue-600 rounded-lg flex items-center justify-center">
-                      <Compass className="h-6 w-6 text-white" />
+            {/* Usage Guidelines */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <h4 className="text-sm text-green-800 mb-2" style={{ fontWeight: 700 }}>✓ Do</h4>
+                <ul className="space-y-1 text-xs text-green-700">
+                  <li>• Limit main navigation to 4-6 primary items</li>
+                  <li>• Indicate current page with active state</li>
+                  <li>• Ensure mobile menu is easily accessible</li>
+                  <li>• Provide skip navigation link for accessibility</li>
+                  <li>• Keep header sticky for easy navigation</li>
+                </ul>
+              </div>
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <h4 className="text-sm text-red-800 mb-2" style={{ fontWeight: 700 }}>✗ Don't</h4>
+                <ul className="space-y-1 text-xs text-red-700">
+                  <li>• Don't overcrowd with too many navigation items</li>
+                  <li>• Don't hide critical actions in overflow menus</li>
+                  <li>• Don't use inconsistent header across pages</li>
+                  <li>• Don't make mobile menu difficult to access</li>
+                  <li>• Don't forget keyboard navigation support</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Enhanced Documentation Sections */}
+            <div className="space-y-4">
+              <ComponentDocSection title="📋 Props & API Reference" defaultExpanded={true}>
+                <PropsTable props={[
+                  {
+                    name: 'logo',
+                    type: 'React.ReactNode',
+                    required: false,
+                    description: 'Custom logo component or element'
+                  },
+                  {
+                    name: 'navItems',
+                    type: 'HeaderNavItem[]',
+                    required: false,
+                    default: '[]',
+                    description: 'Array of navigation items with id, label, href, and active properties'
+                  },
+                  {
+                    name: 'showUserArea',
+                    type: 'boolean',
+                    required: false,
+                    default: 'true',
+                    description: 'Whether to display user profile area'
+                  },
+                  {
+                    name: 'showUtilities',
+                    type: 'boolean',
+                    required: false,
+                    default: 'true',
+                    description: 'Whether to display utility buttons (notifications, settings)'
+                  },
+                  {
+                    name: 'scrolled',
+                    type: 'boolean',
+                    required: false,
+                    default: 'false',
+                    description: 'Reduces header height when scrolled (58px → 56px)'
+                  },
+                  {
+                    name: 'onMenuClick',
+                    type: '() => void',
+                    required: false,
+                    description: 'Callback when mobile menu is toggled'
+                  },
+                  {
+                    name: 'onNavClick',
+                    type: '(pageId: string) => void',
+                    required: false,
+                    description: 'Callback when navigation item is clicked'
+                  },
+                  {
+                    name: 'userButtonLabel',
+                    type: 'string',
+                    required: false,
+                    description: 'Custom label for user button'
+                  },
+                  {
+                    name: 'userButtonVariant',
+                    type: 'string',
+                    required: false,
+                    default: '"profile"',
+                    description: 'User button style',
+                    options: ['profile', 'login', 'logout']
+                  },
+                  {
+                    name: 'className',
+                    type: 'string',
+                    required: false,
+                    description: 'Additional CSS classes'
+                  }
+                ]} />
+              </ComponentDocSection>
+
+              <ComponentDocSection title="💻 Code Examples">
+                <div className="space-y-4">
+                  <CodeSnippet 
+                    title="Basic Header"
+                    code={`import { Header } from './components/ttds';
+
+function App() {
+  return (
+    <Header
+      navItems={[
+        { id: 'dashboard', label: 'Dashboard', href: '/dashboard', active: true },
+        { id: 'trails', label: 'Trails', href: '/trails' },
+        { id: 'learning', label: 'Learning Center', href: '/learning' },
+        { id: 'community', label: 'Community', href: '/community' },
+      ]}
+    />
+  );
+}`}
+                  />
+
+                  <CodeSnippet 
+                    title="Header with Custom Logo"
+                    code={`import { Header } from './components/ttds';
+import { Compass } from 'lucide-react';
+
+function App() {
+  return (
+    <Header
+      logo={
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-blue-600 rounded-lg flex items-center justify-center">
+            <Compass className="h-6 w-6 text-white" />
+          </div>
+          <div>
+            <div className="text-sm text-slate-900">Transition Trails</div>
+            <div className="text-xs text-slate-500">Academy</div>
+          </div>
+        </div>
+      }
+      navItems={[
+        { id: 'home', label: 'Home', href: '/' },
+        { id: 'about', label: 'About', href: '/about' },
+        { id: 'programs', label: 'Programs', href: '/programs', active: true },
+      ]}
+    />
+  );
+}`}
+                  />
+
+                  <CodeSnippet 
+                    title="Responsive Header with Scroll Behavior"
+                    code={`import { Header } from './components/ttds';
+import { useState, useEffect } from 'react';
+
+function App() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <Header
+      scrolled={scrolled}
+      navItems={[
+        { id: 'dashboard', label: 'Dashboard', href: '/dashboard' },
+        { id: 'trails', label: 'Trails', href: '/trails' },
+      ]}
+      onNavClick={(pageId) => {
+        console.log('Navigating to:', pageId);
+      }}
+    />
+  );
+}`}
+                  />
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Live Examples">
+                <div className="space-y-6">
+                  <UsageExample
+                    title="Default Header"
+                    description="Standard header with navigation and user area"
+                  >
+                    <div className="-m-8 mb-4">
+                      <Header
+                        navItems={[
+                          { id: '1', label: 'Dashboard', href: '#', active: true },
+                          { id: '2', label: 'Trails', href: '#' },
+                          { id: '3', label: 'Learning Center', href: '#' },
+                          { id: '4', label: 'Community', href: '#' },
+                        ]}
+                      />
                     </div>
+                  </UsageExample>
+
+                  <UsageExample
+                    title="Scrolled State"
+                    description="Header reduces height when scrolled for better space utilization"
+                  >
+                    <div className="-m-8 mb-4">
+                      <Header
+                        navItems={[
+                          { id: '1', label: 'Dashboard', href: '#', active: true },
+                          { id: '2', label: 'Trails', href: '#' },
+                          { id: '3', label: 'Learning Center', href: '#' },
+                        ]}
+                        scrolled={true}
+                      />
+                    </div>
+                  </UsageExample>
+
+                  <UsageExample
+                    title="Custom Logo"
+                    description="Header with custom branding and logo"
+                  >
+                    <div className="-m-8 mb-4">
+                      <Header
+                        logo={
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-blue-600 rounded-lg flex items-center justify-center">
+                              <Compass className="h-6 w-6 text-white" />
+                            </div>
+                            <div>
+                              <div className="text-sm text-slate-900">Transition Trails</div>
+                              <div className="text-xs text-slate-500">Academy</div>
+                            </div>
+                          </div>
+                        }
+                        navItems={[
+                          { id: '1', label: 'Home', href: '#' },
+                          { id: '2', label: 'Trails', href: '#', active: true },
+                          { id: '3', label: 'Progress', href: '#' },
+                        ]}
+                      />
+                    </div>
+                  </UsageExample>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="♿ Accessibility">
+                <div className="space-y-3 text-sm text-slate-700">
+                  <div className="flex gap-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
                     <div>
-                      <div className="text-sm text-slate-900">Transition Trails</div>
-                      <div className="text-xs text-slate-500">Academy</div>
+                      <strong>Semantic HTML:</strong> Uses proper nav and landmark roles with aria-label="Main navigation"
                     </div>
                   </div>
-                }
-                navItems={[
-                  { id: '1', label: 'Home', href: '#' },
-                  { id: '2', label: 'Trails', href: '#', active: true },
-                  { id: '3', label: 'Progress', href: '#' },
-                  { id: '4', label: 'Resources', href: '#' },
-                ]}
-              />
-            </div>
-          </div>
+                  <div className="flex gap-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <strong>Active State:</strong> Uses aria-current="page" to indicate current page for screen readers
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <strong>Keyboard Navigation:</strong> All interactive elements are keyboard accessible with visible focus states
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <strong>Mobile Menu:</strong> Proper aria-expanded and aria-label attributes for mobile menu button
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <strong>Touch Targets:</strong> Minimum 44px touch target size for mobile interaction
+                    </div>
+                  </div>
+                </div>
+              </ComponentDocSection>
 
-          {/* Accessibility Note */}
-          <div className="p-4 bg-teal-50 border border-teal-200 rounded-lg">
-            <p className="text-sm text-teal-900">
-              <strong>Accessibility Features:</strong> role="navigation", aria-label="Main navigation", 
-              aria-current="page" for active items, keyboard focus states, mobile menu with proper ARIA attributes.
-            </p>
+              <ComponentDocSection title="🎨 Design Tokens">
+                <div className="space-y-3">
+                  <div className="grid grid-cols-2 gap-3 text-sm">
+                    <div className="p-3 bg-slate-50 rounded border border-slate-200">
+                      <div className="text-xs text-slate-500 mb-1">Height (Default)</div>
+                      <code className="text-emerald-700">h-16 (64px)</code>
+                    </div>
+                    <div className="p-3 bg-slate-50 rounded border border-slate-200">
+                      <div className="text-xs text-slate-500 mb-1">Height (Scrolled)</div>
+                      <code className="text-emerald-700">h-14 (56px)</code>
+                    </div>
+                    <div className="p-3 bg-slate-50 rounded border border-slate-200">
+                      <div className="text-xs text-slate-500 mb-1">Background</div>
+                      <code className="text-emerald-700">bg-white</code>
+                    </div>
+                    <div className="p-3 bg-slate-50 rounded border border-slate-200">
+                      <div className="text-xs text-slate-500 mb-1">Border</div>
+                      <code className="text-emerald-700">border-slate-200</code>
+                    </div>
+                    <div className="p-3 bg-slate-50 rounded border border-slate-200">
+                      <div className="text-xs text-slate-500 mb-1">Active State</div>
+                      <code className="text-emerald-700">bg-emerald-50, text-emerald-700</code>
+                    </div>
+                    <div className="p-3 bg-slate-50 rounded border border-slate-200">
+                      <div className="text-xs text-slate-500 mb-1">Border Radius</div>
+                      <code className="text-emerald-700">ttds-radius-lg (rounded-lg)</code>
+                    </div>
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🔗 Related Components">
+                <div className="flex flex-wrap gap-2">
+                  <a href="#breadcrumbs" className="px-3 py-1.5 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
+                    Breadcrumbs
+                  </a>
+                  <a href="#tabstrip" className="px-3 py-1.5 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
+                    TabStrip
+                  </a>
+                  <a href="#buttons" className="px-3 py-1.5 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
+                    Button
+                  </a>
+                  <a href="#badge" className="px-3 py-1.5 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
+                    Badge
+                  </a>
+                </div>
+              </ComponentDocSection>
+            </div>
           </div>
         </section>
 
@@ -1531,10 +4797,366 @@ export default function App() {
         {/* Pagination Section */}
         <section id="pagination" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
           <div>
-            <h2 className="text-slate-900 mb-2">Pagination</h2>
-            <p className="text-slate-600">
-              Navigate through multi-page content like search results, lists, missions, and learning activities.
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-slate-900">Pagination</h2>
+              <ComponentStatusBadge status="needs-lwc" size="md" />
+            </div>
+            <p className="text-slate-600 mb-4">
+              Navigate through multi-page content with smart ellipsis, first/last controls, and keyboard support. Ideal for search results, tables, and content grids.
             </p>
+            
+            {/* Common Use Cases */}
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
+              <h3 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Common Use Cases</h3>
+              <ul className="space-y-1 text-sm text-slate-600">
+                <li>• <strong>Learning Center:</strong> Browse trails, courses, and activities</li>
+                <li>• <strong>Search Results:</strong> Navigate filtered content lists</li>
+                <li>• <strong>Activity History:</strong> Review past missions and completions</li>
+                <li>• <strong>Community Feed:</strong> Explore posts and discussions</li>
+              </ul>
+            </div>
+
+            {/* Usage Guidelines */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <h4 className="text-sm text-green-800 mb-2" style={{ fontWeight: 700 }}>✓ Do</h4>
+                <ul className="space-y-1 text-xs text-green-700">
+                  <li>• Show total page count or result count</li>
+                  <li>• Use smart ellipsis for large page counts</li>
+                  <li>• Maintain scroll position after page change</li>
+                  <li>• Provide keyboard navigation support</li>
+                  <li>• Center-align pagination below content</li>
+                </ul>
+              </div>
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <h4 className="text-sm text-red-800 mb-2" style={{ fontWeight: 700 }}>✗ Don't</h4>
+                <ul className="space-y-1 text-xs text-red-700">
+                  <li>• Don't show pagination for less than 2 pages</li>
+                  <li>• Don't use for infinite scroll scenarios</li>
+                  <li>• Don't make page numbers too small to tap (min 44px)</li>
+                  <li>• Don't forget to disable prev/next at boundaries</li>
+                  <li>• Don't show more than 7-9 page buttons</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Enhanced Documentation Sections */}
+            <div className="space-y-4">
+              <ComponentDocSection title="📋 Props & API Reference" defaultExpanded={true}>
+                <PropsTable props={[
+                  {
+                    name: 'currentPage',
+                    type: 'number',
+                    required: true,
+                    description: 'Currently active page number (1-indexed)'
+                  },
+                  {
+                    name: 'totalPages',
+                    type: 'number',
+                    required: true,
+                    description: 'Total number of pages available'
+                  },
+                  {
+                    name: 'onPageChange',
+                    type: '(page: number) => void',
+                    required: false,
+                    description: 'Callback fired when user changes page'
+                  },
+                  {
+                    name: 'showFirstLast',
+                    type: 'boolean',
+                    required: false,
+                    default: 'true',
+                    description: 'Whether to show first/last page buttons'
+                  },
+                  {
+                    name: 'maxPageButtons',
+                    type: 'number',
+                    required: false,
+                    default: '7',
+                    description: 'Maximum page numbers to show before adding ellipsis'
+                  },
+                  {
+                    name: 'className',
+                    type: 'string',
+                    required: false,
+                    description: 'Additional CSS classes'
+                  }
+                ]} />
+              </ComponentDocSection>
+
+              <ComponentDocSection title="💻 Code Examples">
+                <div className="space-y-4">
+                  <CodeSnippet 
+                    title="Basic Pagination"
+                    code={`import { Pagination } from './components/ttds';
+import { useState } from 'react';
+
+function SearchResults() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 10;
+
+  return (
+    <div>
+      {/* Your content here */}
+      <div className="results">
+        {/* Display items for current page */}
+      </div>
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={(page) => {
+          setCurrentPage(page);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+      />
+    </div>
+  );
+}`}
+                  />
+
+                  <CodeSnippet 
+                    title="With Data Fetching"
+                    code={`import { Pagination } from './components/ttds';
+import { useState, useEffect } from 'react';
+
+function TrailsGrid() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [trails, setTrails] = useState([]);
+  const [totalPages, setTotalPages] = useState(0);
+  const itemsPerPage = 12;
+
+  useEffect(() => {
+    fetchTrails(currentPage);
+  }, [currentPage]);
+
+  const fetchTrails = async (page) => {
+    const response = await fetch(\`/api/trails?page=\${page}&limit=\${itemsPerPage}\`);
+    const data = await response.json();
+    setTrails(data.items);
+    setTotalPages(Math.ceil(data.total / itemsPerPage));
+  };
+
+  return (
+    <div>
+      <div className="grid grid-cols-3 gap-4">
+        {trails.map(trail => (
+          <TrailCard key={trail.id} trail={trail} />
+        ))}
+      </div>
+
+      <div className="mt-8">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
+      </div>
+    </div>
+  );
+}`}
+                  />
+
+                  <CodeSnippet 
+                    title="Compact Without First/Last"
+                    code={`import { Pagination } from './components/ttds';
+
+function CompactList({ currentPage, totalPages, onPageChange }) {
+  return (
+    <Pagination
+      currentPage={currentPage}
+      totalPages={totalPages}
+      onPageChange={onPageChange}
+      showFirstLast={false}
+      maxPageButtons={5}
+    />
+  );
+}`}
+                  />
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Live Examples">
+                <div className="space-y-6">
+                  <UsageExample
+                    title="Basic Pagination"
+                    description="Standard pagination with all controls"
+                  >
+                    <Pagination
+                      currentPage={currentPage}
+                      totalPages={10}
+                      onPageChange={setCurrentPage}
+                    />
+                  </UsageExample>
+
+                  <UsageExample
+                    title="Without First/Last Buttons"
+                    description="Simpler layout for mobile or compact views"
+                  >
+                    <Pagination
+                      currentPage={3}
+                      totalPages={8}
+                      showFirstLast={false}
+                    />
+                  </UsageExample>
+
+                  <UsageExample
+                    title="Few Pages"
+                    description="All pages shown when count fits maxPageButtons"
+                  >
+                    <Pagination
+                      currentPage={2}
+                      totalPages={5}
+                    />
+                  </UsageExample>
+
+                  <UsageExample
+                    title="Many Pages with Ellipsis"
+                    description="Smart ellipsis placement for large page counts"
+                  >
+                    <div className="space-y-3">
+                      <div>
+                        <p className="text-xs text-slate-500 mb-2">Page 1 of 20:</p>
+                        <Pagination currentPage={1} totalPages={20} />
+                      </div>
+                      <div>
+                        <p className="text-xs text-slate-500 mb-2">Page 10 of 20:</p>
+                        <Pagination currentPage={10} totalPages={20} />
+                      </div>
+                      <div>
+                        <p className="text-xs text-slate-500 mb-2">Page 20 of 20:</p>
+                        <Pagination currentPage={20} totalPages={20} />
+                      </div>
+                    </div>
+                  </UsageExample>
+
+                  <UsageExample
+                    title="In Context - Search Results"
+                    description="Pagination integrated with content listing"
+                  >
+                    <Card elevation="low">
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <h4 className="text-slate-900">Trail Search Results</h4>
+                            <p className="text-sm text-slate-600">Page {currentPage} of 10 • 100 results</p>
+                          </div>
+                          <Button variant="secondary" size="small">
+                            <Filter className="h-4 w-4" />
+                          </Button>
+                        </div>
+                        
+                        <div className="space-y-2">
+                          {[1, 2, 3, 4, 5].map((item) => (
+                            <div key={item} className="p-3 bg-slate-50 rounded-lg flex items-center justify-between">
+                              <div className="flex items-center gap-3">
+                                <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center">
+                                  <Map className="h-6 w-6 text-emerald-700" />
+                                </div>
+                                <div>
+                                  <p className="text-sm text-slate-900">Trail Result {((currentPage - 1) * 5) + item}</p>
+                                  <p className="text-xs text-slate-500">Intermediate • 3 hours</p>
+                                </div>
+                              </div>
+                              <ChipLevel variant="intermediate" />
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="border-t border-slate-200 pt-4">
+                          <Pagination
+                            currentPage={currentPage}
+                            totalPages={10}
+                            onPageChange={setCurrentPage}
+                          />
+                        </div>
+                      </div>
+                    </Card>
+                  </UsageExample>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="♿ Accessibility">
+                <div className="space-y-3 text-sm text-slate-700">
+                  <div className="flex gap-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <strong>ARIA Labels:</strong> Uses aria-label="Pagination" on nav and aria-label="Go to page X" on each button
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <strong>Current Page:</strong> Active page button includes aria-current="page" for screen readers
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <strong>Disabled States:</strong> Prev/first buttons disabled on page 1, next/last disabled on final page
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <strong>Keyboard Navigation:</strong> All buttons are keyboard accessible with visible focus indicators
+                    </div>
+                  </div>
+                  <div className="flex gap-3">
+                    <CheckCircle className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <strong>Touch Targets:</strong> Minimum 44px touch target size on all interactive elements
+                    </div>
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Design Tokens">
+                <div className="space-y-3">
+                  <div className="grid grid-cols-2 gap-3 text-sm">
+                    <div className="p-3 bg-slate-50 rounded border border-slate-200">
+                      <div className="text-xs text-slate-500 mb-1">Active Page</div>
+                      <code className="text-emerald-700">bg-emerald-600, text-white</code>
+                    </div>
+                    <div className="p-3 bg-slate-50 rounded border border-slate-200">
+                      <div className="text-xs text-slate-500 mb-1">Inactive Page</div>
+                      <code className="text-emerald-700">text-slate-700, hover:bg-slate-100</code>
+                    </div>
+                    <div className="p-3 bg-slate-50 rounded border border-slate-200">
+                      <div className="text-xs text-slate-500 mb-1">Disabled State</div>
+                      <code className="text-emerald-700">text-slate-300, cursor-not-allowed</code>
+                    </div>
+                    <div className="p-3 bg-slate-50 rounded border border-slate-200">
+                      <div className="text-xs text-slate-500 mb-1">Border Radius</div>
+                      <code className="text-emerald-700">ttds-radius-lg (rounded-lg)</code>
+                    </div>
+                    <div className="p-3 bg-slate-50 rounded border border-slate-200">
+                      <div className="text-xs text-slate-500 mb-1">Spacing (Gap)</div>
+                      <code className="text-emerald-700">ttds-space-4 (gap-1)</code>
+                    </div>
+                    <div className="p-3 bg-slate-50 rounded border border-slate-200">
+                      <div className="text-xs text-slate-500 mb-1">Min Touch Target</div>
+                      <code className="text-emerald-700">min-w-[2.25rem] (36px)</code>
+                    </div>
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🔗 Related Components">
+                <div className="flex flex-wrap gap-2">
+                  <a href="#buttons" className="px-3 py-1.5 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
+                    Button
+                  </a>
+                  <a href="#card" className="px-3 py-1.5 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
+                    Card
+                  </a>
+                  <a href="#tabstrip" className="px-3 py-1.5 text-sm bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
+                    TabStrip
+                  </a>
+                </div>
+              </ComponentDocSection>
+            </div>
           </div>
 
           {/* Basic Pagination */}
@@ -1665,11 +5287,25 @@ export default function App() {
             </p>
           </div>
         </section>
+        </div>
+        {/* END NAVIGATION */}
+
+        {/* PANELS SECTION */}
+        <div id="panels" className="scroll-mt-8">
+          <div className="mb-8">
+            <h2 className="text-slate-900 mb-2">📊 Panels</h2>
+            <p className="text-slate-600">
+              Dashboard widgets and information panels
+            </p>
+          </div>
 
         {/* Learner Stats Panel Section */}
         <section id="learnerstats" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
           <div>
-            <h2 className="text-slate-900 mb-2">Learner Stats Panel</h2>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-slate-900">Learner Stats Panel</h2>
+              <ComponentStatusBadge status="salesforce-ready" size="md" />
+            </div>
             <p className="text-slate-600">
               Domain-specific panel for displaying learner progress metrics. Shows points, trails, missions, capstones, and badges in a scannable layout.
             </p>
@@ -1865,9 +5501,31 @@ export default function App() {
         <section id="goalsprogress" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
           <div>
             <h2 className="text-slate-900 mb-2">Goals & Progress Panel</h2>
-            <p className="text-slate-600">
+            <p className="text-slate-600 mb-4">
               Domain-specific panel for displaying learner goals and recommended next steps. Shows career goal, current trail, and recommendations.
             </p>
+
+            {/* Common Use Cases */}
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
+              <h3 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Common Use Cases</h3>
+              <ul className="space-y-1 text-sm text-slate-600">
+                <li>• Dashboard learner view (main panel)</li>
+                <li>• Profile overview pages</li>
+                <li>• Onboarding flows to set initial goals</li>
+                <li>• Coach view when reviewing learner progress</li>
+              </ul>
+            </div>
+
+            {/* Accessibility Features */}
+            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-4">
+              <h3 className="text-sm text-amber-900 mb-2" style={{ fontWeight: 700 }}>Accessibility Features</h3>
+              <ul className="space-y-1 text-sm text-amber-800">
+                <li>• Semantic structure with proper heading hierarchy</li>
+                <li>• Clear visual hierarchy for goal → trail → recommendations</li>
+                <li>• Actionable "Update Goal" button with clear label</li>
+                <li>• Icons paired with text (never icon-only)</li>
+              </ul>
+            </div>
           </div>
 
           {/* Default (Full) */}
@@ -2405,10 +6063,1072 @@ export default function App() {
           </div>
         </section>
 
+        {/* Penny Insight Rail Section */}
+        <section id="pennyinsightrail" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-slate-900">Penny Insight Rail</h2>
+              <ComponentStatusBadge status="needs-lwc" size="md" />
+            </div>
+            <p className="text-slate-600 mb-4">
+              AI-powered coaching sidebar component featuring contextual insights from Penny, the AI coach. Displays personalized recommendations with smart CTAs.
+            </p>
+            
+            {/* Common Use Cases */}
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
+              <h3 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Common Use Cases</h3>
+              <ul className="space-y-1 text-sm text-slate-600">
+                <li>• <strong>Dashboard Sidebar:</strong> Right rail with personalized AI coaching tips</li>
+                <li>• <strong>Learning Suggestions:</strong> Contextual activity recommendations based on progress</li>
+                <li>• <strong>Quick Actions:</strong> AI-driven quick quiz prompts and trail suggestions</li>
+                <li>• <strong>Adaptive Coaching:</strong> Dynamic insights that change based on user behavior</li>
+              </ul>
+            </div>
+
+            {/* Usage Guidelines */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <h4 className="text-sm text-green-800 mb-2" style={{ fontWeight: 700 }}>✓ Do</h4>
+                <ul className="space-y-1 text-xs text-green-700">
+                  <li>• Keep coaching notes concise (1-2 sentences)</li>
+                  <li>• Provide clear context for why insight is shown</li>
+                  <li>• Use appropriate CTA type for action</li>
+                  <li>• Update insights based on user progress</li>
+                  <li>• Show Penny label for AI transparency</li>
+                </ul>
+              </div>
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <h4 className="text-sm text-red-800 mb-2" style={{ fontWeight: 700 }}>✗ Don't</h4>
+                <ul className="space-y-1 text-xs text-red-700">
+                  <li>• Don't overload with too much text</li>
+                  <li>• Don't show irrelevant or generic insights</li>
+                  <li>• Don't hide the AI coach attribution</li>
+                  <li>• Don't use multiple insight rails on same page</li>
+                  <li>• Don't make insights feel robotic or impersonal</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Enhanced Documentation Sections */}
+            <div className="space-y-4">
+              <ComponentDocSection title="📋 Props & API Reference" defaultExpanded={true}>
+                <PropsTable props={[
+                  {
+                    name: 'aiCoachingNote',
+                    type: 'string',
+                    required: true,
+                    description: 'Short AI-generated insight or suggestion (1-2 sentences)'
+                  },
+                  {
+                    name: 'contextLine',
+                    type: 'string',
+                    required: true,
+                    description: 'Explains why this insight is being shown to the user'
+                  },
+                  {
+                    name: 'ctaType',
+                    type: 'string',
+                    required: true,
+                    description: 'Type of action button to display',
+                    options: ['view-suggestions', 'quick-quiz', 'ai-trail-recommendations']
+                  },
+                  {
+                    name: 'density',
+                    type: 'string',
+                    required: false,
+                    default: '"full"',
+                    description: 'Layout density for different contexts',
+                    options: ['full', 'compact']
+                  },
+                  {
+                    name: 'showPennyLabel',
+                    type: 'boolean',
+                    required: false,
+                    default: 'true',
+                    description: 'Show "Insight from Penny" label with sparkles icon'
+                  },
+                  {
+                    name: 'onCTAClick',
+                    type: '() => void',
+                    required: false,
+                    description: 'Callback when CTA button is clicked'
+                  },
+                  {
+                    name: 'className',
+                    type: 'string',
+                    required: false,
+                    description: 'Additional CSS classes'
+                  }
+                ]} />
+              </ComponentDocSection>
+
+              <ComponentDocSection title="💻 Code Examples">
+                <div className="space-y-4">
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Basic Insight Rail</h5>
+                    <CodeSnippet 
+                      title="Simple AI Coaching Insight"
+                      code={`import { PennyInsightRail } from './components/ttds/PennyInsightRail';
+
+function DashboardSidebar() {
+  return (
+    <PennyInsightRail
+      aiCoachingNote="You're making great progress! Consider taking a quick quiz to reinforce what you've learned."
+      contextLine="Based on your recent completion of React Fundamentals"
+      ctaType="quick-quiz"
+      onCTAClick={() => console.log('Quiz clicked')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Trail Recommendations</h5>
+                    <CodeSnippet 
+                      title="AI Trail Suggestions"
+                      code={`import { PennyInsightRail } from './components/ttds/PennyInsightRail';
+
+function MyComponent() {
+  const handleRecommendations = () => {
+    // Navigate to AI recommendations page
+    console.log('Show AI trail recommendations');
+  };
+
+  return (
+    <PennyInsightRail
+      aiCoachingNote="Ready to level up? I've found some trails that match your interests and skill level."
+      contextLine="You've completed 3 JavaScript trails"
+      ctaType="ai-trail-recommendations"
+      onCTAClick={handleRecommendations}
+    />
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Compact Density</h5>
+                    <CodeSnippet 
+                      title="Compact Layout for Mobile"
+                      code={`import { PennyInsightRail } from './components/ttds/PennyInsightRail';
+
+function MobileDashboard() {
+  return (
+    <PennyInsightRail
+      aiCoachingNote="Check out personalized activity suggestions based on your learning style."
+      contextLine="Tailored to your preferences"
+      ctaType="view-suggestions"
+      density="compact"
+      onCTAClick={() => console.log('View suggestions')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Without Penny Label</h5>
+                    <CodeSnippet 
+                      title="Minimal Version"
+                      code={`import { PennyInsightRail } from './components/ttds/PennyInsightRail';
+
+function MyComponent() {
+  return (
+    <PennyInsightRail
+      aiCoachingNote="Your next recommended activity is available."
+      contextLine="Based on your learning path"
+      ctaType="view-suggestions"
+      showPennyLabel={false}
+      onCTAClick={() => console.log('Navigate')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Usage Examples" defaultExpanded={true}>
+                <div className="space-y-6">
+                  <UsageExamples
+                    title="Full Density with Quick Quiz CTA"
+                    description="Standard layout with AI coaching suggestion"
+                  >
+                    <PennyInsightRail
+                      aiCoachingNote="You're on a roll! Test your knowledge with a quick quiz to reinforce what you've learned today."
+                      contextLine="Based on your recent completion of 'Introduction to React Hooks'"
+                      ctaType="quick-quiz"
+                      density="full"
+                      onCTAClick={() => alert('Quiz clicked!')}
+                    />
+                  </UsageExamples>
+
+                  <UsageExamples
+                    title="AI Trail Recommendations"
+                    description="Personalized trail suggestions based on learner progress"
+                  >
+                    <PennyInsightRail
+                      aiCoachingNote="I've found 5 new trails that match your skills and career goals. Let's explore your next learning adventure!"
+                      contextLine="You've mastered JavaScript fundamentals"
+                      ctaType="ai-trail-recommendations"
+                      onCTAClick={() => alert('Show recommendations')}
+                    />
+                  </UsageExamples>
+
+                  <UsageExamples
+                    title="Compact Density"
+                    description="Space-efficient layout for sidebars and mobile views"
+                  >
+                    <PennyInsightRail
+                      aiCoachingNote="View personalized suggestions for your next learning activity."
+                      contextLine="Updated based on your recent progress"
+                      ctaType="view-suggestions"
+                      density="compact"
+                      onCTAClick={() => alert('View suggestions')}
+                    />
+                  </UsageExamples>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="♿ Accessibility">
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <ul className="space-y-2 text-sm text-blue-900">
+                    <li>• <strong>AI Transparency:</strong> "Insight from Penny" label clearly identifies AI-generated content</li>
+                    <li>• <strong>Semantic Structure:</strong> Uses proper heading hierarchy and content grouping</li>
+                    <li>• <strong>Keyboard Navigation:</strong> CTA button is fully keyboard accessible</li>
+                    <li>• <strong>Focus Indicators:</strong> Clear focus states on interactive elements</li>
+                    <li>• <strong>Icon Meaning:</strong> Sparkles icon paired with text label, not color alone</li>
+                    <li>• <strong>Screen Readers:</strong> Content announced in logical order</li>
+                  </ul>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Design Tokens">
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+                    <div>
+                      <div className="text-slate-500 mb-1">Surface</div>
+                      <code className="text-xs">ttds-color-surface-0</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Border</div>
+                      <code className="text-xs">ttds-border-default</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Radius</div>
+                      <code className="text-xs">ttds-radius-md</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Icon Color</div>
+                      <code className="text-xs">ttds-color-accent-primary</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Padding (Full)</div>
+                      <code className="text-xs">ttds-space-24</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Padding (Compact)</div>
+                      <code className="text-xs">ttds-space-16</code>
+                    </div>
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🔗 Related Components">
+                <div className="flex flex-wrap gap-2">
+                  <a href="#pennytip" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Penny Tip
+                  </a>
+                  <a href="#buttons" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Button
+                  </a>
+                  <a href="#panel" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Panel
+                  </a>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🏗️ Salesforce Implementation">
+                <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                  <h4 className="text-sm text-purple-900 mb-3" style={{ fontWeight: 700 }}>
+                    Lightning Web Component Mapping
+                  </h4>
+                  <div className="space-y-3 text-sm text-purple-900">
+                    <div>
+                      <div className="text-xs text-purple-700 mb-1">Component Name</div>
+                      <code className="text-xs bg-white px-2 py-1 rounded">c-penny-insight-rail</code>
+                    </div>
+                    <div>
+                      <div className="text-xs text-purple-700 mb-1">Salesforce Objects</div>
+                      <ul className="text-xs space-y-1 mt-1">
+                        <li>• <code>AI_Coaching_Insight__c</code> - Stores AI-generated coaching notes</li>
+                        <li>• <code>Learner_Progress__c</code> - Context for personalization</li>
+                        <li>• <code>Trail_Recommendation__c</code> - AI trail suggestions</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <div className="text-xs text-purple-700 mb-1">Key Considerations</div>
+                      <ul className="text-xs space-y-1 mt-1">
+                        <li>• Integrate with Einstein AI for coaching note generation</li>
+                        <li>• Cache insights to reduce API calls</li>
+                        <li>• Track CTA click analytics</li>
+                        <li>• Implement content rotation logic</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </ComponentDocSection>
+            </div>
+          </div>
+        </section>
+
+        {/* Badges and Credits Panel Section */}
+        <section id="badgescredits" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-slate-900">Badges & Credits Panel</h2>
+              <ComponentStatusBadge status="needs-lwc" size="md" />
+            </div>
+            <p className="text-slate-600 mb-4">
+              Gamification panel displaying earned credits and achievement badges. Supports total or breakdown credit views with badge overflow handling.
+            </p>
+            
+            {/* Common Use Cases */}
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
+              <h3 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Common Use Cases</h3>
+              <ul className="space-y-1 text-sm text-slate-600">
+                <li>• <strong>Dashboard Widget:</strong> Sidebar or top section showing learner achievements</li>
+                <li>• <strong>Profile Summary:</strong> Overview of earned credits and badges</li>
+                <li>• <strong>Progress Tracking:</strong> Visual motivation through gamification elements</li>
+                <li>• <strong>Achievements Page:</strong> Detailed view with category breakdowns</li>
+              </ul>
+            </div>
+
+            {/* Usage Guidelines */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <h4 className="text-sm text-green-800 mb-2" style={{ fontWeight: 700 }}>✓ Do</h4>
+                <ul className="space-y-1 text-xs text-green-700">
+                  <li>• Show most recent or relevant badges</li>
+                  <li>• Use tooltips for badge descriptions</li>
+                  <li>• Provide clear CTA to view all achievements</li>
+                  <li>• Update credits in real-time when earned</li>
+                  <li>• Use consistent badge icon sizing</li>
+                </ul>
+              </div>
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <h4 className="text-sm text-red-800 mb-2" style={{ fontWeight: 700 }}>✗ Don't</h4>
+                <ul className="space-y-1 text-xs text-red-700">
+                  <li>• Don't show unearned badges in this panel</li>
+                  <li>• Don't overcrowd with too many visible badges</li>
+                  <li>• Don't hide credit totals</li>
+                  <li>• Don't use unlabeled icons without tooltips</li>
+                  <li>• Don't make badges too small to recognize</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Enhanced Documentation Sections */}
+            <div className="space-y-4">
+              <ComponentDocSection title="📋 Props & API Reference" defaultExpanded={true}>
+                <PropsTable props={[
+                  {
+                    name: 'totalCredits',
+                    type: 'number',
+                    required: false,
+                    default: '125',
+                    description: 'Total credits earned by learner'
+                  },
+                  {
+                    name: 'creditCategories',
+                    type: 'CreditCategory[]',
+                    required: false,
+                    default: '[]',
+                    description: 'Array of credit category breakdowns (id, label, amount, icon)'
+                  },
+                  {
+                    name: 'creditsStructure',
+                    type: 'string',
+                    required: false,
+                    default: '"total"',
+                    description: 'Display format for credits',
+                    options: ['total', 'breakdown']
+                  },
+                  {
+                    name: 'badges',
+                    type: 'Badge[]',
+                    required: false,
+                    description: 'Array of badge objects (id, title, icon, earned, description)'
+                  },
+                  {
+                    name: 'maxVisibleBadges',
+                    type: 'number',
+                    required: false,
+                    default: '6',
+                    description: 'Maximum badges to show before displaying overflow indicator'
+                  },
+                  {
+                    name: 'ctaText',
+                    type: 'string',
+                    required: false,
+                    default: '"View All Achievements"',
+                    description: 'CTA button or link text'
+                  },
+                  {
+                    name: 'ctaHref',
+                    type: 'string',
+                    required: false,
+                    description: 'Optional href for link (renders as link if provided, button otherwise)'
+                  },
+                  {
+                    name: 'onCTAClick',
+                    type: '() => void',
+                    required: false,
+                    description: 'Click handler for CTA'
+                  },
+                  {
+                    name: 'density',
+                    type: 'string',
+                    required: false,
+                    default: '"default"',
+                    description: 'Layout density',
+                    options: ['default', 'compact']
+                  },
+                  {
+                    name: 'showCreditIcon',
+                    type: 'boolean',
+                    required: false,
+                    default: 'true',
+                    description: 'Show Award icon next to header'
+                  }
+                ]} />
+              </ComponentDocSection>
+
+              <ComponentDocSection title="💻 Code Examples">
+                <div className="space-y-4">
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Simple Total Credits</h5>
+                    <CodeSnippet 
+                      title="Basic Credits & Badges Panel"
+                      code={`import { BadgesAndCreditsPanel } from './components/ttds/BadgesAndCreditsPanel';
+import { Star, Zap, Award } from 'lucide-react';
+
+function DashboardSidebar() {
+  const badges = [
+    { 
+      id: '1', 
+      title: 'First Steps', 
+      icon: <Star className="h-5 w-5 text-amber-500" />, 
+      earned: true,
+      description: 'Completed your first learning activity'
+    },
+    { 
+      id: '2', 
+      title: 'Trail Blazer', 
+      icon: <Zap className="h-5 w-5 text-blue-500" />, 
+      earned: true,
+      description: 'Finished 5 trails'
+    },
+  ];
+
+  return (
+    <BadgesAndCreditsPanel
+      totalCredits={125}
+      badges={badges}
+      onCTAClick={() => console.log('View all achievements')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Credit Breakdown</h5>
+                    <CodeSnippet 
+                      title="Credits with Category Breakdown"
+                      code={`import { BadgesAndCreditsPanel } from './components/ttds/BadgesAndCreditsPanel';
+import { BookOpen, Users, Trophy } from 'lucide-react';
+
+function MyComponent() {
+  const creditCategories = [
+    { 
+      id: 'learning', 
+      label: 'Learning Activities', 
+      amount: 85,
+      icon: <BookOpen className="h-4 w-4" />
+    },
+    { 
+      id: 'community', 
+      label: 'Community Contributions', 
+      amount: 25,
+      icon: <Users className="h-4 w-4" />
+    },
+    { 
+      id: 'challenges', 
+      label: 'Challenges Completed', 
+      amount: 15,
+      icon: <Trophy className="h-4 w-4" />
+    },
+  ];
+
+  return (
+    <BadgesAndCreditsPanel
+      totalCredits={125}
+      creditCategories={creditCategories}
+      creditsStructure="breakdown"
+      badges={myBadges}
+      onCTAClick={() => console.log('Navigate to achievements')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Compact Density</h5>
+                    <CodeSnippet 
+                      title="Space-Efficient Layout"
+                      code={`import { BadgesAndCreditsPanel } from './components/ttds/BadgesAndCreditsPanel';
+
+function MobileDashboard() {
+  return (
+    <BadgesAndCreditsPanel
+      totalCredits={125}
+      badges={myBadges}
+      density="compact"
+      maxVisibleBadges={4}
+      ctaText="View More"
+      onCTAClick={() => console.log('View achievements')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>With Link CTA</h5>
+                    <CodeSnippet 
+                      title="Link to Achievements Page"
+                      code={`import { BadgesAndCreditsPanel } from './components/ttds/BadgesAndCreditsPanel';
+
+function MyComponent() {
+  return (
+    <BadgesAndCreditsPanel
+      totalCredits={125}
+      badges={myBadges}
+      ctaText="View All Achievements"
+      ctaHref="/achievements"
+      onCTAClick={() => console.log('Navigate to /achievements')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Usage Examples" defaultExpanded={true}>
+                <div className="space-y-6">
+                  <UsageExamples
+                    title="Total Credits Display"
+                    description="Simple view showing total credits and recent badges"
+                  >
+                    <BadgesAndCreditsPanel
+                      totalCredits={125}
+                      creditsStructure="total"
+                      maxVisibleBadges={4}
+                      onCTAClick={() => alert('View all achievements')}
+                    />
+                  </UsageExamples>
+
+                  <UsageExamples
+                    title="Credit Category Breakdown"
+                    description="Detailed view with credit categories"
+                  >
+                    <BadgesAndCreditsPanel
+                      totalCredits={125}
+                      creditCategories={[
+                        { id: '1', label: 'Learning Activities', amount: 85, icon: <BookOpen className="h-4 w-4" /> },
+                        { id: '2', label: 'Community Help', amount: 25, icon: <Users className="h-4 w-4" /> },
+                        { id: '3', label: 'Challenges', amount: 15, icon: <Trophy className="h-4 w-4" /> },
+                      ]}
+                      creditsStructure="breakdown"
+                      maxVisibleBadges={4}
+                      onCTAClick={() => alert('View all achievements')}
+                    />
+                  </UsageExamples>
+
+                  <UsageExamples
+                    title="Compact Density"
+                    description="Space-efficient layout for sidebars"
+                  >
+                    <BadgesAndCreditsPanel
+                      totalCredits={125}
+                      density="compact"
+                      maxVisibleBadges={3}
+                      ctaText="View More"
+                      onCTAClick={() => alert('View achievements')}
+                    />
+                  </UsageExamples>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="♿ Accessibility">
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <ul className="space-y-2 text-sm text-blue-900">
+                    <li>• <strong>Badge Tooltips:</strong> Each badge has descriptive tooltip for context</li>
+                    <li>• <strong>ARIA Labels:</strong> Badge containers have proper aria-label attributes</li>
+                    <li>• <strong>Keyboard Navigation:</strong> All interactive elements are keyboard accessible</li>
+                    <li>• <strong>Overflow Indicator:</strong> "+X" indicator clearly shows additional badges</li>
+                    <li>• <strong>Screen Readers:</strong> Credits and categories announced properly</li>
+                    <li>• <strong>Focus States:</strong> Clear focus indicators on badges and CTA</li>
+                  </ul>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Design Tokens">
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+                    <div>
+                      <div className="text-slate-500 mb-1">Surface</div>
+                      <code className="text-xs">ttds-color-surface-0</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Border</div>
+                      <code className="text-xs">ttds-border-default</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Radius</div>
+                      <code className="text-xs">ttds-radius-lg</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Credits Color</div>
+                      <code className="text-xs">ttds-color-accent-primary</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Padding</div>
+                      <code className="text-xs">ttds-space-24/16</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Badge Size</div>
+                      <code className="text-xs">ttds-space-56</code>
+                    </div>
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🔗 Related Components">
+                <div className="flex flex-wrap gap-2">
+                  <a href="#tooltip" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Tooltip
+                  </a>
+                  <a href="#buttons" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Button
+                  </a>
+                  <a href="#badge" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Badge
+                  </a>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🏗️ Salesforce Implementation">
+                <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                  <h4 className="text-sm text-purple-900 mb-3" style={{ fontWeight: 700 }}>
+                    Lightning Web Component Mapping
+                  </h4>
+                  <div className="space-y-3 text-sm text-purple-900">
+                    <div>
+                      <div className="text-xs text-purple-700 mb-1">Component Name</div>
+                      <code className="text-xs bg-white px-2 py-1 rounded">c-badges-and-credits-panel</code>
+                    </div>
+                    <div>
+                      <div className="text-xs text-purple-700 mb-1">Salesforce Objects</div>
+                      <ul className="text-xs space-y-1 mt-1">
+                        <li>• <code>Learner_Credit__c</code> - Tracks earned credits by category</li>
+                        <li>• <code>Achievement_Badge__c</code> - Badge definitions and metadata</li>
+                        <li>• <code>Learner_Badge__c</code> - Junction object for earned badges</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <div className="text-xs text-purple-700 mb-1">Key Considerations</div>
+                      <ul className="text-xs space-y-1 mt-1">
+                        <li>• Aggregate credit totals from multiple sources</li>
+                        <li>• Filter to show only earned badges</li>
+                        <li>• Implement badge icon mapping system</li>
+                        <li>• Track badge view analytics</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </ComponentDocSection>
+            </div>
+          </div>
+        </section>
+
+        {/* Penny Tip Section */}
+        <section id="pennytip" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-slate-900">Penny Tip</h2>
+              <ComponentStatusBadge status="complete" size="md" />
+            </div>
+            <p className="text-slate-600 mb-4">
+              Contextual tooltip-style coaching component with optional pointer, dismiss, and CTA. Perfect for inline guidance and quick tips.
+            </p>
+            
+            {/* Common Use Cases */}
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
+              <h3 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Common Use Cases</h3>
+              <ul className="space-y-1 text-sm text-slate-600">
+                <li>• <strong>Inline Help:</strong> Contextual tips next to form fields or features</li>
+                <li>• <strong>Onboarding:</strong> Step-by-step guidance for new users</li>
+                <li>• <strong>Feature Announcements:</strong> Highlight new features with pointers</li>
+                <li>• <strong>Quick Reminders:</strong> Non-intrusive nudges and study tips</li>
+              </ul>
+            </div>
+
+            {/* Usage Guidelines */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <h4 className="text-sm text-green-800 mb-2" style={{ fontWeight: 700 }}>✓ Do</h4>
+                <ul className="space-y-1 text-xs text-green-700">
+                  <li>• Keep tip text to 1-2 sentences</li>
+                  <li>• Use pointers to connect tip to UI element</li>
+                  <li>• Provide dismiss option for user control</li>
+                  <li>• Use appropriate icon for tip type</li>
+                  <li>• Add context labels for clarity</li>
+                </ul>
+              </div>
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <h4 className="text-sm text-red-800 mb-2" style={{ fontWeight: 700 }}>✗ Don't</h4>
+                <ul className="space-y-1 text-xs text-red-700">
+                  <li>• Don't show too many tips at once</li>
+                  <li>• Don't use for critical error messages</li>
+                  <li>• Don't make tips non-dismissible without reason</li>
+                  <li>• Don't overuse pointer decoration</li>
+                  <li>• Don't hide important information in tips</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Enhanced Documentation Sections */}
+            <div className="space-y-4">
+              <ComponentDocSection title="📋 Props & API Reference" defaultExpanded={true}>
+                <PropsTable props={[
+                  {
+                    name: 'tipText',
+                    type: 'string',
+                    required: true,
+                    description: 'Main tip message (1-2 sentences)'
+                  },
+                  {
+                    name: 'contextLabel',
+                    type: 'string',
+                    required: false,
+                    description: 'Optional label like "Study Tip", "Navigation", "Reminder"'
+                  },
+                  {
+                    name: 'ctaText',
+                    type: 'string',
+                    required: false,
+                    description: 'Optional CTA link text'
+                  },
+                  {
+                    name: 'ctaHref',
+                    type: 'string',
+                    required: false,
+                    description: 'Optional href for CTA'
+                  },
+                  {
+                    name: 'onCTAClick',
+                    type: '() => void',
+                    required: false,
+                    description: 'CTA click handler'
+                  },
+                  {
+                    name: 'icon',
+                    type: 'string | React.ReactNode',
+                    required: false,
+                    default: '"sparkles"',
+                    description: 'Icon to display',
+                    options: ['sparkles', 'lightbulb', 'info', 'star', 'zap', 'custom']
+                  },
+                  {
+                    name: 'onDismiss',
+                    type: '() => void',
+                    required: false,
+                    description: 'Called when dismiss button is clicked'
+                  },
+                  {
+                    name: 'showDismiss',
+                    type: 'boolean',
+                    required: false,
+                    default: 'true',
+                    description: 'Show dismiss X button'
+                  },
+                  {
+                    name: 'placement',
+                    type: 'string',
+                    required: false,
+                    default: '"bottom"',
+                    description: 'Pointer position',
+                    options: ['top', 'bottom', 'left', 'right']
+                  },
+                  {
+                    name: 'density',
+                    type: 'string',
+                    required: false,
+                    default: '"standard"',
+                    description: 'Layout density',
+                    options: ['standard', 'compact']
+                  },
+                  {
+                    name: 'showPointer',
+                    type: 'boolean',
+                    required: false,
+                    default: 'false',
+                    description: 'Show triangular pointer'
+                  },
+                  {
+                    name: 'variant',
+                    type: 'string',
+                    required: false,
+                    default: '"neutral"',
+                    description: 'Background color variant',
+                    options: ['neutral', 'info', 'accent']
+                  }
+                ]} />
+              </ComponentDocSection>
+
+              <ComponentDocSection title="💻 Code Examples">
+                <div className="space-y-4">
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Basic Tip</h5>
+                    <CodeSnippet 
+                      title="Simple Contextual Tip"
+                      code={`import { PennyTip } from './components/ttds/PennyTip';
+
+function MyComponent() {
+  return (
+    <PennyTip
+      tipText="Click here to start your first learning activity!"
+      onDismiss={() => console.log('Tip dismissed')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>With Context Label and CTA</h5>
+                    <CodeSnippet 
+                      title="Study Tip with Action"
+                      code={`import { PennyTip } from './components/ttds/PennyTip';
+
+function MyComponent() {
+  return (
+    <PennyTip
+      contextLabel="Study Tip"
+      tipText="Review your notes before taking the quiz for better retention."
+      ctaText="View Study Guide"
+      ctaHref="/study-guide"
+      icon="lightbulb"
+      variant="info"
+      onDismiss={() => console.log('Dismissed')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>With Pointer</h5>
+                    <CodeSnippet 
+                      title="Onboarding Tip with Pointer"
+                      code={`import { PennyTip } from './components/ttds/PennyTip';
+
+function MyComponent() {
+  return (
+    <div className="relative">
+      {/* Feature button */}
+      <button>New Feature</button>
+      
+      {/* Tip pointing to button */}
+      <div className="absolute top-full mt-2">
+        <PennyTip
+          tipText="Try our new AI-powered recommendations!"
+          placement="top"
+          showPointer={true}
+          icon="star"
+          variant="accent"
+          onDismiss={() => console.log('Dismissed')}
+        />
+      </div>
+    </div>
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Compact Variant</h5>
+                    <CodeSnippet 
+                      title="Space-Efficient Tip"
+                      code={`import { PennyTip } from './components/ttds/PennyTip';
+
+function MyComponent() {
+  return (
+    <PennyTip
+      tipText="Save your work frequently!"
+      icon="info"
+      density="compact"
+      showDismiss={false}
+    />
+  );
+}`} 
+                    />
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Usage Examples" defaultExpanded={true}>
+                <div className="space-y-6">
+                  <UsageExamples
+                    title="Neutral Variant"
+                    description="Standard tip with default styling"
+                  >
+                    <PennyTip
+                      tipText="Start your learning journey by selecting a trail that matches your interests!"
+                      icon="sparkles"
+                      variant="neutral"
+                      onDismiss={() => alert('Tip dismissed')}
+                    />
+                  </UsageExamples>
+
+                  <UsageExamples
+                    title="Info Variant with Context"
+                    description="Study tip with context label and CTA"
+                  >
+                    <PennyTip
+                      contextLabel="Study Tip"
+                      tipText="Taking breaks every 25 minutes improves retention and focus."
+                      ctaText="Learn More"
+                      icon="lightbulb"
+                      variant="info"
+                      onCTAClick={() => alert('CTA clicked')}
+                      onDismiss={() => alert('Tip dismissed')}
+                    />
+                  </UsageExamples>
+
+                  <UsageExamples
+                    title="Accent Variant with Star Icon"
+                    description="Feature highlight with accent styling"
+                  >
+                    <PennyTip
+                      contextLabel="New Feature"
+                      tipText="Check out our new AI-powered trail recommendations tailored just for you!"
+                      ctaText="Try It Now"
+                      icon="star"
+                      variant="accent"
+                      onCTAClick={() => alert('Navigate to recommendations')}
+                      onDismiss={() => alert('Tip dismissed')}
+                    />
+                  </UsageExamples>
+
+                  <UsageExamples
+                    title="Compact Density"
+                    description="Space-efficient layout for inline tips"
+                  >
+                    <PennyTip
+                      tipText="Remember to complete your daily learning goal!"
+                      icon="zap"
+                      density="compact"
+                      onDismiss={() => alert('Tip dismissed')}
+                    />
+                  </UsageExamples>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="♿ Accessibility">
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <ul className="space-y-2 text-sm text-blue-900">
+                    <li>• <strong>ARIA Attributes:</strong> Uses role="note" and aria-live="polite"</li>
+                    <li>• <strong>Dismiss Button:</strong> Has aria-label="Dismiss tip"</li>
+                    <li>• <strong>Keyboard Navigation:</strong> All interactive elements keyboard accessible</li>
+                    <li>• <strong>Focus Indicators:</strong> Clear focus states on CTA and dismiss button</li>
+                    <li>• <strong>Icon Decoration:</strong> Icons marked as aria-hidden, text provides meaning</li>
+                    <li>• <strong>Screen Readers:</strong> Content announced in logical order</li>
+                  </ul>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Design Tokens">
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+                    <div>
+                      <div className="text-slate-500 mb-1">Surface (Neutral)</div>
+                      <code className="text-xs">ttds-color-surface-0</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Surface (Info)</div>
+                      <code className="text-xs">bg-blue-50</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Surface (Accent)</div>
+                      <code className="text-xs">bg-emerald-50</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Border</div>
+                      <code className="text-xs">ttds-border-default</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Radius</div>
+                      <code className="text-xs">ttds-radius-md</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Padding</div>
+                      <code className="text-xs">ttds-space-12/16</code>
+                    </div>
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🔗 Related Components">
+                <div className="flex flex-wrap gap-2">
+                  <a href="#pennyinsightrail" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Penny Insight Rail
+                  </a>
+                  <a href="#tooltip" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Tooltip
+                  </a>
+                  <a href="#toast" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Toast
+                  </a>
+                </div>
+              </ComponentDocSection>
+            </div>
+          </div>
+        </section>
+        </div>
+        {/* END PANELS */}
+
+        {/* DOMAIN CARDS SECTION */}
+        <div id="domain-cards" className="scroll-mt-8">
+          <div className="mb-8">
+            <h2 className="text-slate-900 mb-2">🎴 Domain Cards</h2>
+            <p className="text-slate-600">
+              Content cards for specific domain entities
+            </p>
+          </div>
+
         {/* Partner Project Card Section */}
         <section id="partnerproject" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
           <div>
-            <h2 className="text-slate-900 mb-2">Partner Project / Portfolio Card</h2>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-slate-900">Partner Project / Portfolio Card</h2>
+              <ComponentStatusBadge status="salesforce-ready" size="md" />
+            </div>
             <p className="text-slate-600">
               Domain component for showcasing real nonprofit or small-business projects completed by learners. 
               Displays six required content fields with support for multiple layout variants, size options, and optional CTAs.
@@ -2833,7 +7553,10 @@ export default function App() {
         {/* Event Session Card Section */}
         <section id="eventsession" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
           <div>
-            <h2 className="text-slate-900 mb-2">Event / Session Card</h2>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-slate-900">Event / Session Card</h2>
+              <ComponentStatusBadge status="salesforce-ready" size="md" />
+            </div>
             <p className="text-slate-600">
               Domain component for displaying upcoming and past learning sessions including Trail Talks, study groups, 
               partner Q&A sessions, cohort meetings, and peer-learning events. Shows all five required content fields 
@@ -6868,7 +11591,10 @@ interface PennyTipProps {
         {/* Community Post Card Section */}
         <section id="communitypost" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
           <div>
-            <h2 className="text-slate-900 mb-2">Community Post Card</h2>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-slate-900">Community Post Card</h2>
+              <ComponentStatusBadge status="needs-lwc" size="md" />
+            </div>
             <p className="text-slate-600">
               Domain component for Template 5 — Community Feed. Displays community posts with author info, context, post type, engagement metadata, and tags. Supports Question, Win, and Resource post types with variants for density and context presence.
             </p>
@@ -7222,6 +11948,1782 @@ interface PennyTipProps {
             </div>
           </div>
         </section>
+
+        {/* Roadmap Item Card Section */}
+        <section id="roadmapitemcard" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-slate-900">Roadmap Item Card</h2>
+              <ComponentStatusBadge status="needs-lwc" size="md" />
+            </div>
+            <p className="text-slate-600 mb-4">
+              Feature roadmap card displaying planned, in-progress, or completed features with audience tags and optional live example links.
+            </p>
+            
+            {/* Common Use Cases */}
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
+              <h3 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Common Use Cases</h3>
+              <ul className="space-y-1 text-sm text-slate-600">
+                <li>• <strong>Product Roadmap Pages:</strong> Display upcoming features and their progress</li>
+                <li>• <strong>Vision Donor Pages:</strong> Show transparency about platform development</li>
+                <li>• <strong>Feature Updates:</strong> Communicate what's being built to stakeholders</li>
+                <li>• <strong>Release Planning:</strong> Track features by status and audience</li>
+              </ul>
+            </div>
+
+            {/* Usage Guidelines */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <h4 className="text-sm text-green-800 mb-2" style={{ fontWeight: 700 }}>✓ Do</h4>
+                <ul className="space-y-1 text-xs text-green-700">
+                  <li>• Provide clear, user-facing feature names</li>
+                  <li>• Write descriptions that explain user benefits</li>
+                  <li>• Include all relevant audience tags</li>
+                  <li>• Update status regularly as features progress</li>
+                  <li>• Link to live examples when features ship</li>
+                </ul>
+              </div>
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <h4 className="text-sm text-red-800 mb-2" style={{ fontWeight: 700 }}>✗ Don't</h4>
+                <ul className="space-y-1 text-xs text-red-700">
+                  <li>• Don't use technical jargon in feature names</li>
+                  <li>• Don't leave status outdated or inaccurate</li>
+                  <li>• Don't show live example links for planned features</li>
+                  <li>• Don't make descriptions too long or technical</li>
+                  <li>• Don't omit audience tags</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Enhanced Documentation Sections */}
+            <div className="space-y-4">
+              <ComponentDocSection title="📋 Props & API Reference" defaultExpanded={true}>
+                <PropsTable props={[
+                  {
+                    name: 'featureName',
+                    type: 'string',
+                    required: true,
+                    description: 'User-facing feature name'
+                  },
+                  {
+                    name: 'description',
+                    type: 'string',
+                    required: true,
+                    description: 'Feature description explaining user benefits'
+                  },
+                  {
+                    name: 'audiences',
+                    type: 'RoadmapAudience[]',
+                    required: true,
+                    description: 'Target audiences for this feature',
+                    options: ['learners', 'nonprofits', 'donors', 'admins']
+                  },
+                  {
+                    name: 'status',
+                    type: 'RoadmapStatus',
+                    required: true,
+                    description: 'Current feature status',
+                    options: ['planned', 'in-progress', 'done']
+                  },
+                  {
+                    name: 'liveExampleUrl',
+                    type: 'string',
+                    required: false,
+                    description: 'URL to live example (only for shipped features)'
+                  },
+                  {
+                    name: 'liveExampleLabel',
+                    type: 'string',
+                    required: false,
+                    default: '"View Live Example"',
+                    description: 'Custom label for live example link'
+                  },
+                  {
+                    name: 'onLiveExampleClick',
+                    type: '() => void',
+                    required: false,
+                    description: 'Click handler for live example link'
+                  },
+                  {
+                    name: 'truncateDescription',
+                    type: 'boolean',
+                    required: false,
+                    default: 'false',
+                    description: 'Truncate description to 3-4 lines'
+                  }
+                ]} />
+              </ComponentDocSection>
+
+              <ComponentDocSection title="💻 Code Examples">
+                <div className="space-y-4">
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Planned Feature</h5>
+                    <CodeSnippet 
+                      title="Upcoming Feature Card"
+                      code={`import { RoadmapItemCard } from './components/ttds/RoadmapItemCard';
+
+function RoadmapPage() {
+  return (
+    <RoadmapItemCard
+      featureName="AI-Powered Trail Recommendations"
+      description="Get personalized learning path suggestions based on your skills, interests, and career goals."
+      audiences={['learners']}
+      status="planned"
+    />
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>In-Progress Feature</h5>
+                    <CodeSnippet 
+                      title="Feature Under Development"
+                      code={`import { RoadmapItemCard } from './components/ttds/RoadmapItemCard';
+
+function MyComponent() {
+  return (
+    <RoadmapItemCard
+      featureName="Nonprofit Project Gallery"
+      description="Browse and contribute to real-world nonprofit projects to build your portfolio while making an impact."
+      audiences={['learners', 'nonprofits']}
+      status="in-progress"
+    />
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Completed Feature with Live Example</h5>
+                    <CodeSnippet 
+                      title="Shipped Feature with Link"
+                      code={`import { RoadmapItemCard } from './components/ttds/RoadmapItemCard';
+
+function MyComponent() {
+  return (
+    <RoadmapItemCard
+      featureName="Interactive Learning Dashboard"
+      description="Track your progress, view achievements, and manage your learning journey all in one place."
+      audiences={['learners', 'admins']}
+      status="done"
+      liveExampleUrl="/dashboard"
+      liveExampleLabel="Try the Dashboard"
+      onLiveExampleClick={() => console.log('Navigate to dashboard')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Truncated Description</h5>
+                    <CodeSnippet 
+                      title="Grid Layout with Truncation"
+                      code={`import { RoadmapItemCard } from './components/ttds/RoadmapItemCard';
+
+function MyComponent() {
+  return (
+    <RoadmapItemCard
+      featureName="Enhanced Donation Portal"
+      description="A comprehensive platform for donors to discover impact opportunities, track contributions, and engage with nonprofit partners. Includes analytics dashboard, receipt management, and personalized recommendations."
+      audiences={['donors', 'nonprofits']}
+      status="in-progress"
+      truncateDescription={true}
+    />
+  );
+}`} 
+                    />
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Usage Examples" defaultExpanded={true}>
+                <div className="space-y-6">
+                  <UsageExamples
+                    title="Planned Feature"
+                    description="Feature card showing planned status"
+                  >
+                    <RoadmapItemCard
+                      featureName="AI-Powered Trail Recommendations"
+                      description="Get personalized learning path suggestions based on your skills, interests, and career goals using advanced AI."
+                      audiences={['learners']}
+                      status="planned"
+                    />
+                  </UsageExamples>
+
+                  <UsageExamples
+                    title="In-Progress Feature"
+                    description="Feature card showing active development"
+                  >
+                    <RoadmapItemCard
+                      featureName="Nonprofit Project Gallery"
+                      description="Browse and contribute to real-world nonprofit projects to build your portfolio while making an impact."
+                      audiences={['learners', 'nonprofits']}
+                      status="in-progress"
+                    />
+                  </UsageExamples>
+
+                  <UsageExamples
+                    title="Completed Feature with Live Example"
+                    description="Shipped feature with link to try it"
+                  >
+                    <RoadmapItemCard
+                      featureName="Interactive Learning Dashboard"
+                      description="Track your progress, view achievements, and manage your learning journey all in one place with real-time updates."
+                      audiences={['learners', 'admins']}
+                      status="done"
+                      liveExampleUrl="#"
+                      liveExampleLabel="Try the Dashboard"
+                      onLiveExampleClick={() => alert('Navigate to dashboard')}
+                    />
+                  </UsageExamples>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="♿ Accessibility">
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <ul className="space-y-2 text-sm text-blue-900">
+                    <li>• <strong>Status Chips:</strong> Clear visual and text indication of feature status</li>
+                    <li>• <strong>Audience Tags:</strong> Color-coded with text labels for all user types</li>
+                    <li>• <strong>Focus States:</strong> Clear focus indicators on live example links</li>
+                    <li>• <strong>External Links:</strong> Opens in new tab with proper rel attributes</li>
+                    <li>• <strong>Screen Readers:</strong> Semantic HTML structure with proper headings</li>
+                    <li>• <strong>Keyboard Navigation:</strong> All interactive elements keyboard accessible</li>
+                  </ul>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Design Tokens">
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+                    <div>
+                      <div className="text-slate-500 mb-1">Card Surface</div>
+                      <code className="text-xs">ttds-color-surface-0</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Border</div>
+                      <code className="text-xs">ttds-border-default</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Radius</div>
+                      <code className="text-xs">ttds-radius-md</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Link Color</div>
+                      <code className="text-xs">ttds-color-text-link</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Padding</div>
+                      <code className="text-xs">ttds-space-24</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Gap</div>
+                      <code className="text-xs">ttds-space-16</code>
+                    </div>
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🔗 Related Components">
+                <div className="flex flex-wrap gap-2">
+                  <a href="#card" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Card
+                  </a>
+                  <a href="#chipstatus" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Chip Status
+                  </a>
+                  <a href="#tag" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Tag
+                  </a>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🏗️ Salesforce Implementation">
+                <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                  <h4 className="text-sm text-purple-900 mb-3" style={{ fontWeight: 700 }}>
+                    Lightning Web Component Mapping
+                  </h4>
+                  <div className="space-y-3 text-sm text-purple-900">
+                    <div>
+                      <div className="text-xs text-purple-700 mb-1">Component Name</div>
+                      <code className="text-xs bg-white px-2 py-1 rounded">c-roadmap-item-card</code>
+                    </div>
+                    <div>
+                      <div className="text-xs text-purple-700 mb-1">Salesforce Objects</div>
+                      <ul className="text-xs space-y-1 mt-1">
+                        <li>• <code>Platform_Feature__c</code> - Stores roadmap feature information</li>
+                        <li>• <code>Feature_Audience__c</code> - Junction object for feature-audience relationships</li>
+                        <li>• <code>Feature_Release__c</code> - Tracks release dates and live URLs</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <div className="text-xs text-purple-700 mb-1">Key Considerations</div>
+                      <ul className="text-xs space-y-1 mt-1">
+                        <li>• Filter features by audience type based on user context</li>
+                        <li>• Implement status workflow automation</li>
+                        <li>• Track feature view analytics</li>
+                        <li>• Support multiple audience assignments per feature</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </ComponentDocSection>
+            </div>
+          </div>
+        </section>
+
+        {/* Community Post Card Section */}
+        <section id="communitypostcard" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-slate-900">Community Post Card</h2>
+              <ComponentStatusBadge status="needs-lwc" size="md" />
+            </div>
+            <p className="text-slate-600 mb-4">
+              Community forum post card displaying questions, wins, or resources with author info, engagement metrics, and contextual tags.
+            </p>
+            
+            {/* Common Use Cases */}
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
+              <h3 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Common Use Cases</h3>
+              <ul className="space-y-1 text-sm text-slate-600">
+                <li>• <strong>Community Forums:</strong> Display discussion threads and questions</li>
+                <li>• <strong>Activity Feeds:</strong> Show recent community activity</li>
+                <li>• <strong>Resource Sharing:</strong> Highlight shared learning materials</li>
+                <li>• <strong>Success Stories:</strong> Showcase learner wins and achievements</li>
+              </ul>
+            </div>
+
+            {/* Usage Guidelines */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <h4 className="text-sm text-green-800 mb-2" style={{ fontWeight: 700 }}>✓ Do</h4>
+                <ul className="space-y-1 text-xs text-green-700">
+                  <li>• Show author avatar for better engagement</li>
+                  <li>• Include contextual trail/program information</li>
+                  <li>• Display engagement metrics (replies, activity)</li>
+                  <li>• Use appropriate post type badges</li>
+                  <li>• Keep excerpts concise (1-2 lines)</li>
+                </ul>
+              </div>
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <h4 className="text-sm text-red-800 mb-2" style={{ fontWeight: 700 }}>✗ Don't</h4>
+                <ul className="space-y-1 text-xs text-red-700">
+                  <li>• Don't show full post content in card</li>
+                  <li>• Don't omit author attribution</li>
+                  <li>• Don't hide engagement metrics</li>
+                  <li>• Don't use unclear post type labels</li>
+                  <li>• Don't make entire card clickable without visual cue</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Enhanced Documentation Sections */}
+            <div className="space-y-4">
+              <ComponentDocSection title="📋 Props & API Reference" defaultExpanded={true}>
+                <PropsTable props={[
+                  {
+                    name: 'authorName',
+                    type: 'string',
+                    required: true,
+                    description: 'Post author name'
+                  },
+                  {
+                    name: 'authorRole',
+                    type: 'string',
+                    required: true,
+                    description: 'Author role or status (e.g., "Career Switcher", "Mentor")'
+                  },
+                  {
+                    name: 'postType',
+                    type: 'PostType',
+                    required: true,
+                    description: 'Type of community post',
+                    options: ['question', 'win', 'resource']
+                  },
+                  {
+                    name: 'replyCount',
+                    type: 'number',
+                    required: true,
+                    description: 'Number of replies to the post'
+                  },
+                  {
+                    name: 'lastActivity',
+                    type: 'string',
+                    required: true,
+                    description: 'Last activity timestamp (e.g., "2h ago", "yesterday")'
+                  },
+                  {
+                    name: 'context',
+                    type: 'object',
+                    required: false,
+                    description: 'Optional trail/program context with trail and program properties'
+                  },
+                  {
+                    name: 'tags',
+                    type: 'string[]',
+                    required: false,
+                    default: '[]',
+                    description: 'Array of tag strings'
+                  },
+                  {
+                    name: 'title',
+                    type: 'string',
+                    required: false,
+                    description: 'Optional post title'
+                  },
+                  {
+                    name: 'excerpt',
+                    type: 'string',
+                    required: false,
+                    description: 'Post preview text (1-2 lines)'
+                  },
+                  {
+                    name: 'authorAvatar',
+                    type: 'string',
+                    required: false,
+                    description: 'Author avatar URL or initials'
+                  },
+                  {
+                    name: 'timeAgo',
+                    type: 'string',
+                    required: false,
+                    description: 'Alternative time display (e.g., "2h ago")'
+                  },
+                  {
+                    name: 'density',
+                    type: 'PostDensity',
+                    required: false,
+                    default: '"default"',
+                    description: 'Layout density',
+                    options: ['default', 'compact']
+                  },
+                  {
+                    name: 'onPostClick',
+                    type: '() => void',
+                    required: false,
+                    description: 'Called when card is clicked'
+                  },
+                  {
+                    name: 'onMenuClick',
+                    type: '() => void',
+                    required: false,
+                    description: 'Called when menu button is clicked'
+                  }
+                ]} />
+              </ComponentDocSection>
+
+              <ComponentDocSection title="💻 Code Examples">
+                <div className="space-y-4">
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Question Post</h5>
+                    <CodeSnippet 
+                      title="Basic Question Card"
+                      code={`import { TTCommunityPostCard } from './components/tt/CommunityPostCard';
+
+function CommunityFeed() {
+  return (
+    <TTCommunityPostCard
+      postType="question"
+      authorName="Sarah Chen"
+      authorRole="Career Switcher"
+      replyCount={12}
+      lastActivity="2h ago"
+      title="Best practices for Admin certification exam?"
+      excerpt="I'm preparing for my Admin cert and wondering what study strategies worked best for you all."
+      tags={['Exam Prep', 'Admin Track']}
+      onPostClick={() => console.log('Open post')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Win Post with Context</h5>
+                    <CodeSnippet 
+                      title="Success Story Card"
+                      code={`import { TTCommunityPostCard } from './components/tt/CommunityPostCard';
+
+function MyComponent() {
+  return (
+    <TTCommunityPostCard
+      postType="win"
+      authorName="Marcus Thompson"
+      authorRole="Active Learner"
+      authorAvatar="MT"
+      replyCount={24}
+      lastActivity="yesterday"
+      context={{
+        trail: 'Salesforce Admin Essentials',
+        program: 'Career Transition'
+      }}
+      title="Just passed my Admin certification! 🎉"
+      excerpt="Thanks to this community for all the support and study tips. Couldn't have done it without you all!"
+      tags={['Certification', 'Admin Track']}
+      onPostClick={() => console.log('Open post')}
+      onMenuClick={() => console.log('Open menu')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Resource Post</h5>
+                    <CodeSnippet 
+                      title="Shared Resource Card"
+                      code={`import { TTCommunityPostCard } from './components/tt/CommunityPostCard';
+
+function MyComponent() {
+  return (
+    <TTCommunityPostCard
+      postType="resource"
+      authorName="Alex Rivera"
+      authorRole="Mentor"
+      authorAvatar="https://i.pravatar.cc/150?img=3"
+      replyCount={8}
+      lastActivity="3d ago"
+      title="Curated list of Salesforce learning resources"
+      excerpt="I've compiled a comprehensive guide of free and paid resources that helped me in my journey."
+      tags={['Study Materials', 'Resource Guide']}
+      onPostClick={() => console.log('Open post')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Compact Density</h5>
+                    <CodeSnippet 
+                      title="Compact Layout for Sidebars"
+                      code={`import { TTCommunityPostCard } from './components/tt/CommunityPostCard';
+
+function Sidebar() {
+  return (
+    <TTCommunityPostCard
+      postType="question"
+      authorName="Jamie Lee"
+      authorRole="New Learner"
+      replyCount={5}
+      lastActivity="1h ago"
+      title="Getting started with Apex?"
+      density="compact"
+      onPostClick={() => console.log('Open post')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Usage Examples" defaultExpanded={true}>
+                <div className="space-y-6">
+                  <UsageExamples
+                    title="Question Post"
+                    description="Community question with engagement metrics"
+                  >
+                    <TTCommunityPostCard
+                      postType="question"
+                      authorName="Sarah Chen"
+                      authorRole="Career Switcher"
+                      authorAvatar="SC"
+                      replyCount={12}
+                      lastActivity="2h ago"
+                      title="Best practices for Admin certification exam?"
+                      excerpt="I'm preparing for my Admin cert and wondering what study strategies worked best for you all."
+                      tags={['Exam Prep', 'Admin Track']}
+                      onPostClick={() => alert('Open post')}
+                      onMenuClick={() => alert('Open menu')}
+                    />
+                  </UsageExamples>
+
+                  <UsageExamples
+                    title="Win Post with Context"
+                    description="Success story with trail/program context"
+                  >
+                    <TTCommunityPostCard
+                      postType="win"
+                      authorName="Marcus Thompson"
+                      authorRole="Active Learner"
+                      authorAvatar="MT"
+                      replyCount={24}
+                      lastActivity="yesterday"
+                      context={{
+                        trail: 'Salesforce Admin Essentials',
+                        program: 'Career Transition'
+                      }}
+                      title="Just passed my Admin certification! 🎉"
+                      excerpt="Thanks to this community for all the support and study tips. Couldn't have done it without you all!"
+                      tags={['Certification']}
+                      onPostClick={() => alert('Open post')}
+                    />
+                  </UsageExamples>
+
+                  <UsageExamples
+                    title="Resource Post"
+                    description="Shared learning resource"
+                  >
+                    <TTCommunityPostCard
+                      postType="resource"
+                      authorName="Alex Rivera"
+                      authorRole="Mentor"
+                      authorAvatar="AR"
+                      replyCount={8}
+                      lastActivity="3d ago"
+                      title="Curated list of Salesforce learning resources"
+                      excerpt="I've compiled a comprehensive guide of free and paid resources that helped me in my journey."
+                      tags={['Study Materials']}
+                      onPostClick={() => alert('Open post')}
+                    />
+                  </UsageExamples>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="♿ Accessibility">
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <ul className="space-y-2 text-sm text-blue-900">
+                    <li>• <strong>Semantic HTML:</strong> Uses article, header, footer elements for structure</li>
+                    <li>• <strong>ARIA Labels:</strong> Role badges and engagement counts properly labeled</li>
+                    <li>• <strong>Avatar Alt Text:</strong> Descriptive alt text for author avatars</li>
+                    <li>• <strong>Time Element:</strong> Uses semantic time element with datetime attribute</li>
+                    <li>• <strong>Keyboard Navigation:</strong> Card and menu button are keyboard accessible</li>
+                    <li>• <strong>Focus States:</strong> Clear focus indicators on interactive elements</li>
+                  </ul>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Design Tokens">
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+                    <div>
+                      <div className="text-slate-500 mb-1">Card Surface</div>
+                      <code className="text-xs">ttds-color-surface-0</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Border</div>
+                      <code className="text-xs">ttds-border-default</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Radius</div>
+                      <code className="text-xs">ttds-radius-md</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Avatar Size</div>
+                      <code className="text-xs">ttds-space-40</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Padding</div>
+                      <code className="text-xs">ttds-space-24/16</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Gap</div>
+                      <code className="text-xs">ttds-space-12/16</code>
+                    </div>
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🔗 Related Components">
+                <div className="flex flex-wrap gap-2">
+                  <a href="#card" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Card
+                  </a>
+                  <a href="#tag" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Tag
+                  </a>
+                  <a href="#badge" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Badge
+                  </a>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🏗️ Salesforce Implementation">
+                <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                  <h4 className="text-sm text-purple-900 mb-3" style={{ fontWeight: 700 }}>
+                    Lightning Web Component Mapping
+                  </h4>
+                  <div className="space-y-3 text-sm text-purple-900">
+                    <div>
+                      <div className="text-xs text-purple-700 mb-1">Component Name</div>
+                      <code className="text-xs bg-white px-2 py-1 rounded">c-community-post-card</code>
+                    </div>
+                    <div>
+                      <div className="text-xs text-purple-700 mb-1">Salesforce Objects</div>
+                      <ul className="text-xs space-y-1 mt-1">
+                        <li>• <code>Community_Post__c</code> - Stores post content and metadata</li>
+                        <li>• <code>Post_Reply__c</code> - Tracks replies and engagement</li>
+                        <li>• <code>Post_Tag__c</code> - Junction object for post tagging</li>
+                        <li>• <code>User</code> - Author information and avatars</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <div className="text-xs text-purple-700 mb-1">Key Considerations</div>
+                      <ul className="text-xs space-y-1 mt-1">
+                        <li>• Implement real-time reply count updates</li>
+                        <li>• Support Chatter integration for community features</li>
+                        <li>• Track post engagement analytics</li>
+                        <li>• Filter posts by type, trail, or program context</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </ComponentDocSection>
+            </div>
+          </div>
+        </section>
+
+        {/* Program Overview Card Section */}
+        <section id="programoverviewcard" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-slate-900">Program Overview Card</h2>
+              <ComponentStatusBadge status="needs-lwc" size="md" />
+            </div>
+            <p className="text-slate-600 mb-4">
+              Program overview card highlighting pathways like Intern, Associate, Membership, or Visitor tracks with duration, outcomes, and enrollment CTAs.
+            </p>
+            
+            {/* Common Use Cases */}
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
+              <h3 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Common Use Cases</h3>
+              <ul className="space-y-1 text-sm text-slate-600">
+                <li>• <strong>Programs Page:</strong> Display available learning pathways</li>
+                <li>• <strong>Onboarding:</strong> Help new users choose the right program</li>
+                <li>• <strong>Dashboard:</strong> Show current program enrollment status</li>
+                <li>• <strong>Marketing Pages:</strong> Promote program benefits and outcomes</li>
+              </ul>
+            </div>
+
+            {/* Usage Guidelines */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <h4 className="text-sm text-green-800 mb-2" style={{ fontWeight: 700 }}>✓ Do</h4>
+                <ul className="space-y-1 text-xs text-green-700">
+                  <li>• Clearly explain who the program is for</li>
+                  <li>• List 3-5 specific, measurable outcomes</li>
+                  <li>• Include realistic duration estimates</li>
+                  <li>• Use clear, action-oriented CTA labels</li>
+                  <li>• Match program type styling consistently</li>
+                </ul>
+              </div>
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <h4 className="text-sm text-red-800 mb-2" style={{ fontWeight: 700 }}>✗ Don't</h4>
+                <ul className="space-y-1 text-xs text-red-700">
+                  <li>• Don't use vague outcome statements</li>
+                  <li>• Don't omit duration information</li>
+                  <li>• Don't overcrowd with too many outcomes</li>
+                  <li>• Don't use unclear program type labels</li>
+                  <li>• Don't hide important prerequisites</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Enhanced Documentation Sections */}
+            <div className="space-y-4">
+              <ComponentDocSection title="📋 Props & API Reference" defaultExpanded={true}>
+                <PropsTable props={[
+                  {
+                    name: 'programName',
+                    type: 'string',
+                    required: true,
+                    description: 'Program name (e.g., "Guided Trail – Admin")'
+                  },
+                  {
+                    name: 'whoItsFor',
+                    type: 'string',
+                    required: true,
+                    description: 'Target audience description'
+                  },
+                  {
+                    name: 'duration',
+                    type: 'string',
+                    required: true,
+                    description: 'Program duration (e.g., "6 months", "Self-paced")'
+                  },
+                  {
+                    name: 'programType',
+                    type: 'ProgramType',
+                    required: true,
+                    description: 'Program classification',
+                    options: ['intern', 'associate', 'membership', 'visitor']
+                  },
+                  {
+                    name: 'outcomes',
+                    type: 'string[]',
+                    required: false,
+                    default: '[]',
+                    description: 'Array of 3-5 key outcomes'
+                  },
+                  {
+                    name: 'ctaLabel',
+                    type: 'string',
+                    required: false,
+                    default: '"Learn More"',
+                    description: 'CTA button label'
+                  },
+                  {
+                    name: 'icon',
+                    type: 'LucideIcon',
+                    required: false,
+                    description: 'Optional icon component for program type'
+                  },
+                  {
+                    name: 'onCTAClick',
+                    type: '() => void',
+                    required: false,
+                    description: 'CTA click handler'
+                  },
+                  {
+                    name: 'density',
+                    type: 'DescriptionDensity',
+                    required: false,
+                    default: '"full"',
+                    description: 'Layout density',
+                    options: ['full', 'compact']
+                  },
+                  {
+                    name: 'ctaStyle',
+                    type: 'CTAStyle',
+                    required: false,
+                    default: '"button"',
+                    description: 'CTA presentation style',
+                    options: ['button', 'link']
+                  }
+                ]} />
+              </ComponentDocSection>
+
+              <ComponentDocSection title="💻 Code Examples">
+                <div className="space-y-4">
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Intern Program</h5>
+                    <CodeSnippet 
+                      title="Guided Trail Program Card"
+                      code={`import { TTProgramOverviewCard } from './components/tt/ProgramOverviewCard';
+import { GraduationCap } from 'lucide-react';
+
+function ProgramsPage() {
+  return (
+    <TTProgramOverviewCard
+      programName="Guided Trail – Admin"
+      whoItsFor="For aspiring Salesforce Admins ready to gain hands-on experience"
+      duration="6 months"
+      programType="intern"
+      icon={GraduationCap}
+      outcomes={[
+        'Complete 5 real-world Salesforce Admin projects',
+        'Earn Salesforce Admin certification',
+        'Build a professional portfolio',
+        'Receive mentorship from experienced admins'
+      ]}
+      onCTAClick={() => console.log('Enroll clicked')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Associate Track</h5>
+                    <CodeSnippet 
+                      title="Advanced Career Track Card"
+                      code={`import { TTProgramOverviewCard } from './components/tt/ProgramOverviewCard';
+import { Briefcase } from 'lucide-react';
+
+function MyComponent() {
+  return (
+    <TTProgramOverviewCard
+      programName="Trail of Mastery – BA Track"
+      whoItsFor="For Business Analyst professionals seeking advanced skills"
+      duration="8–12 weeks"
+      programType="associate"
+      icon={Briefcase}
+      outcomes={[
+        'Advanced Salesforce BA certification prep',
+        'Complex requirements gathering projects',
+        'Stakeholder management training',
+        'Portfolio of BA artifacts'
+      ]}
+      ctaLabel="Apply Now"
+      onCTAClick={() => console.log('Apply clicked')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Membership Program</h5>
+                    <CodeSnippet 
+                      title="Self-Paced Membership Card"
+                      code={`import { TTProgramOverviewCard } from './components/tt/ProgramOverviewCard';
+import { Users } from 'lucide-react';
+
+function MyComponent() {
+  return (
+    <TTProgramOverviewCard
+      programName="Community Membership"
+      whoItsFor="For learners who want flexible, self-paced access"
+      duration="Self-paced"
+      programType="membership"
+      icon={Users}
+      outcomes={[
+        'Access to all learning trails',
+        'Community forum participation',
+        'Monthly live workshops',
+        'Digital resource library'
+      ]}
+      ctaLabel="Join Community"
+      onCTAClick={() => console.log('Join clicked')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Compact Density with Link CTA</h5>
+                    <CodeSnippet 
+                      title="Compact Card with Text Link"
+                      code={`import { TTProgramOverviewCard } from './components/tt/ProgramOverviewCard';
+
+function Sidebar() {
+  return (
+    <TTProgramOverviewCard
+      programName="Visitor Access"
+      whoItsFor="Explore our platform before committing"
+      duration="14 days"
+      programType="visitor"
+      density="compact"
+      ctaStyle="link"
+      ctaLabel="Start Free Trial"
+      onCTAClick={() => console.log('Trial started')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Usage Examples" defaultExpanded={true}>
+                <div className="space-y-6">
+                  <UsageExamples
+                    title="Intern Program with Outcomes"
+                    description="Full-featured guided trail program card"
+                  >
+                    <TTProgramOverviewCard
+                      programName="Guided Trail – Admin"
+                      whoItsFor="For aspiring Salesforce Admins ready to gain hands-on experience"
+                      duration="6 months"
+                      programType="intern"
+                      icon={GraduationCap}
+                      outcomes={[
+                        'Complete 5 real-world Salesforce Admin projects',
+                        'Earn Salesforce Admin certification',
+                        'Build a professional portfolio',
+                        'Receive mentorship from experienced admins'
+                      ]}
+                      onCTAClick={() => alert('Enroll clicked')}
+                    />
+                  </UsageExamples>
+
+                  <UsageExamples
+                    title="Associate Track"
+                    description="Advanced career track for professionals"
+                  >
+                    <TTProgramOverviewCard
+                      programName="Trail of Mastery – BA Track"
+                      whoItsFor="For Business Analyst professionals seeking advanced skills"
+                      duration="8–12 weeks"
+                      programType="associate"
+                      icon={Briefcase}
+                      outcomes={[
+                        'Advanced Salesforce BA certification prep',
+                        'Complex requirements gathering projects',
+                        'Stakeholder management training'
+                      ]}
+                      ctaLabel="Apply Now"
+                      onCTAClick={() => alert('Apply clicked')}
+                    />
+                  </UsageExamples>
+
+                  <UsageExamples
+                    title="Membership with Link CTA"
+                    description="Self-paced community membership"
+                  >
+                    <TTProgramOverviewCard
+                      programName="Community Membership"
+                      whoItsFor="For learners who want flexible, self-paced access"
+                      duration="Self-paced"
+                      programType="membership"
+                      icon={Users}
+                      outcomes={[
+                        'Access to all learning trails',
+                        'Community forum participation',
+                        'Monthly live workshops'
+                      ]}
+                      ctaStyle="link"
+                      ctaLabel="Join Community"
+                      onCTAClick={() => alert('Join clicked')}
+                    />
+                  </UsageExamples>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="♿ Accessibility">
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <ul className="space-y-2 text-sm text-blue-900">
+                    <li>• <strong>Semantic Lists:</strong> Outcomes use proper ul/li structure with role="list"</li>
+                    <li>• <strong>Program Type Chips:</strong> Clear visual and text indication of program type</li>
+                    <li>• <strong>Icon Decoration:</strong> Icons are decorative, text provides meaning</li>
+                    <li>• <strong>CTA Labels:</strong> Buttons have descriptive aria-labels</li>
+                    <li>• <strong>Duration Indicator:</strong> Clock icon paired with text</li>
+                    <li>• <strong>Keyboard Navigation:</strong> CTA fully keyboard accessible</li>
+                  </ul>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Design Tokens">
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+                    <div>
+                      <div className="text-slate-500 mb-1">Card Surface</div>
+                      <code className="text-xs">ttds-color-surface-0</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Border</div>
+                      <code className="text-xs">ttds-border-default</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Radius</div>
+                      <code className="text-xs">ttds-radius-md</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Type Chip Radius</div>
+                      <code className="text-xs">ttds-radius-lg (pill)</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Padding</div>
+                      <code className="text-xs">ttds-space-24</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Gap</div>
+                      <code className="text-xs">ttds-space-20</code>
+                    </div>
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🔗 Related Components">
+                <div className="flex flex-wrap gap-2">
+                  <a href="#buttons" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Button
+                  </a>
+                  <a href="#card" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Card
+                  </a>
+                  <a href="#badge" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Badge
+                  </a>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🏗️ Salesforce Implementation">
+                <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                  <h4 className="text-sm text-purple-900 mb-3" style={{ fontWeight: 700 }}>
+                    Lightning Web Component Mapping
+                  </h4>
+                  <div className="space-y-3 text-sm text-purple-900">
+                    <div>
+                      <div className="text-xs text-purple-700 mb-1">Component Name</div>
+                      <code className="text-xs bg-white px-2 py-1 rounded">c-program-overview-card</code>
+                    </div>
+                    <div>
+                      <div className="text-xs text-purple-700 mb-1">Salesforce Objects</div>
+                      <ul className="text-xs space-y-1 mt-1">
+                        <li>• <code>Learning_Program__c</code> - Stores program details and metadata</li>
+                        <li>• <code>Program_Outcome__c</code> - Tracks learning outcomes</li>
+                        <li>• <code>Program_Enrollment__c</code> - Manages learner enrollments</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <div className="text-xs text-purple-700 mb-1">Key Considerations</div>
+                      <ul className="text-xs space-y-1 mt-1">
+                        <li>• Show enrollment status for logged-in users</li>
+                        <li>• Filter programs by user eligibility</li>
+                        <li>• Track CTA click conversion rates</li>
+                        <li>• Support program prerequisite checking</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </ComponentDocSection>
+            </div>
+          </div>
+        </section>
+
+        {/* AI Trail Card Section */}
+        <section id="aitrailcard" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-slate-900">AI Trail Card</h2>
+              <ComponentStatusBadge status="in-progress" size="md" />
+            </div>
+            <p className="text-slate-600 mb-4">
+              Specialized trail card for AI-focused learning paths featuring platform integrations (Salesforce, Jotform, Canva), learning modules, capstone projects, and badges.
+            </p>
+            
+            {/* Common Use Cases */}
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
+              <h3 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Common Use Cases</h3>
+              <ul className="space-y-1 text-sm text-slate-600">
+                <li>• <strong>AI Learning Center:</strong> Display available AI-focused trails</li>
+                <li>• <strong>Course Catalog:</strong> Showcase multi-platform integration trails</li>
+                <li>• <strong>New Feature Promotion:</strong> Highlight new AI trail offerings</li>
+                <li>• <strong>Trail Discovery:</strong> Help learners find trails with specific tools</li>
+              </ul>
+            </div>
+
+            {/* Usage Guidelines */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <h4 className="text-sm text-green-800 mb-2" style={{ fontWeight: 700 }}>✓ Do</h4>
+                <ul className="space-y-1 text-xs text-green-700">
+                  <li>• Show NEW badge for recently launched trails</li>
+                  <li>• Include recognizable platform icons</li>
+                  <li>• List 3-5 core learning modules</li>
+                  <li>• Highlight the capstone project clearly</li>
+                  <li>• Use badge to show completion achievement</li>
+                </ul>
+              </div>
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <h4 className="text-sm text-red-800 mb-2" style={{ fontWeight: 700 }}>✗ Don't</h4>
+                <ul className="space-y-1 text-xs text-red-700">
+                  <li>• Don't list too many platform integrations</li>
+                  <li>• Don't use generic module names</li>
+                  <li>• Don't hide platform icons in compact view</li>
+                  <li>• Don't omit capstone project details</li>
+                  <li>• Don't make badge title too long</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Enhanced Documentation Sections */}
+            <div className="space-y-4">
+              <ComponentDocSection title="📋 Props & API Reference" defaultExpanded={true}>
+                <PropsTable props={[
+                  {
+                    name: 'trailName',
+                    type: 'string',
+                    required: true,
+                    description: 'Trail name (e.g., "AI Specialist Trail")'
+                  },
+                  {
+                    name: 'platformIntegrations',
+                    type: 'Array<{name, icon?, color?}>',
+                    required: true,
+                    description: 'Array of platform objects with name, optional icon and color'
+                  },
+                  {
+                    name: 'modules',
+                    type: 'string[]',
+                    required: false,
+                    default: '[]',
+                    description: 'Array of 3-5 learning module names'
+                  },
+                  {
+                    name: 'capstoneTitle',
+                    type: 'string',
+                    required: false,
+                    default: '"AI-Driven Nonprofit Solution"',
+                    description: 'Capstone project title'
+                  },
+                  {
+                    name: 'badgeTitle',
+                    type: 'string',
+                    required: false,
+                    default: '"AI Innovation Leader"',
+                    description: 'Badge name earned upon completion'
+                  },
+                  {
+                    name: 'ctaLabel',
+                    type: 'string',
+                    required: false,
+                    default: '"View AI Trail"',
+                    description: 'CTA button label'
+                  },
+                  {
+                    name: 'isNew',
+                    type: 'boolean',
+                    required: false,
+                    default: 'false',
+                    description: 'Show NEW chip badge'
+                  },
+                  {
+                    name: 'showIcons',
+                    type: 'boolean',
+                    required: false,
+                    default: 'true',
+                    description: 'Display platform icons'
+                  },
+                  {
+                    name: 'onCTAClick',
+                    type: '() => void',
+                    required: false,
+                    description: 'CTA click handler'
+                  },
+                  {
+                    name: 'detailLevel',
+                    type: 'DetailLevel',
+                    required: false,
+                    default: '"full"',
+                    description: 'Layout detail level',
+                    options: ['full', 'compact']
+                  }
+                ]} />
+              </ComponentDocSection>
+
+              <ComponentDocSection title="💻 Code Examples">
+                <div className="space-y-4">
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Full AI Trail Card</h5>
+                    <CodeSnippet 
+                      title="Complete AI Trail with All Features"
+                      code={`import { TTAITrailCard } from './components/tt/AITrailCard';
+import { Cloud, FileType, Palette, Zap } from 'lucide-react';
+
+function AILearningCenter() {
+  const platforms = [
+    { name: 'Salesforce', icon: Cloud, color: 'text-blue-600' },
+    { name: 'Jotform', icon: FileType, color: 'text-orange-600' },
+    { name: 'Canva', icon: Palette, color: 'text-purple-600' },
+    { name: 'Zapier', icon: Zap, color: 'text-orange-500' }
+  ];
+
+  const modules = [
+    'AI Foundations & Ethics',
+    'Prompt Engineering Basics',
+    'Salesforce Einstein AI',
+    'Multi-Platform AI Workflows',
+    'AI for Nonprofit Impact'
+  ];
+
+  return (
+    <TTAITrailCard
+      trailName="AI Specialist Trail"
+      platformIntegrations={platforms}
+      modules={modules}
+      capstoneTitle="Build an AI-Powered Nonprofit Solution"
+      badgeTitle="AI Innovation Leader"
+      isNew={true}
+      onCTAClick={() => console.log('View trail')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Compact Detail Level</h5>
+                    <CodeSnippet 
+                      title="Compact AI Trail Card"
+                      code={`import { TTAITrailCard } from './components/tt/AITrailCard';
+import { Cloud, Database } from 'lucide-react';
+
+function MyComponent() {
+  return (
+    <TTAITrailCard
+      trailName="AI Data Analytics Trail"
+      platformIntegrations={[
+        { name: 'Salesforce', icon: Cloud },
+        { name: 'Airtable', icon: Database }
+      ]}
+      detailLevel="compact"
+      ctaLabel="Explore Trail"
+      onCTAClick={() => console.log('Explore clicked')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Without Icons</h5>
+                    <CodeSnippet 
+                      title="Text-Only Platform List"
+                      code={`import { TTAITrailCard } from './components/tt/AITrailCard';
+
+function MyComponent() {
+  return (
+    <TTAITrailCard
+      trailName="Beginner AI Trail"
+      platformIntegrations={[
+        { name: 'Salesforce' },
+        { name: 'ChatGPT' },
+        { name: 'Notion' }
+      ]}
+      modules={['AI Basics', 'Simple Automations', 'AI Prompts 101']}
+      showIcons={false}
+      onCTAClick={() => console.log('Start trail')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Usage Examples" defaultExpanded={true}>
+                <div className="space-y-6">
+                  <UsageExamples
+                    title="Full AI Trail with NEW Badge"
+                    description="Complete AI trail card showing all features"
+                  >
+                    <TTAITrailCard
+                      trailName="AI Specialist Trail"
+                      platformIntegrations={[
+                        { name: 'Salesforce', icon: Cloud, color: 'text-blue-600' },
+                        { name: 'Jotform', icon: FileType, color: 'text-orange-600' },
+                        { name: 'Canva', icon: Palette, color: 'text-purple-600' },
+                        { name: 'Zapier', icon: Zap, color: 'text-orange-500' }
+                      ]}
+                      modules={[
+                        'AI Foundations & Ethics',
+                        'Prompt Engineering Basics',
+                        'Salesforce Einstein AI',
+                        'Multi-Platform AI Workflows',
+                        'AI for Nonprofit Impact'
+                      ]}
+                      capstoneTitle="Build an AI-Powered Nonprofit Solution"
+                      badgeTitle="AI Innovation Leader"
+                      isNew={true}
+                      onCTAClick={() => alert('View trail')}
+                    />
+                  </UsageExamples>
+
+                  <UsageExamples
+                    title="Compact Detail Level"
+                    description="Simplified card for grid layouts"
+                  >
+                    <TTAITrailCard
+                      trailName="AI Data Analytics Trail"
+                      platformIntegrations={[
+                        { name: 'Salesforce', icon: Cloud, color: 'text-blue-600' },
+                        { name: 'Airtable', icon: Database, color: 'text-emerald-600' }
+                      ]}
+                      detailLevel="compact"
+                      ctaLabel="Explore Trail"
+                      onCTAClick={() => alert('Explore clicked')}
+                    />
+                  </UsageExamples>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="♿ Accessibility">
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <ul className="space-y-2 text-sm text-blue-900">
+                    <li>• <strong>Platform Icons:</strong> Icons marked as aria-hidden, platform names provide meaning</li>
+                    <li>• <strong>NEW Badge:</strong> Clearly visible and announced to screen readers</li>
+                    <li>• <strong>Module List:</strong> Uses semantic ul/li structure with role="list"</li>
+                    <li>• <strong>Badge Achievement:</strong> Badge title has descriptive aria-label</li>
+                    <li>• <strong>CTA Button:</strong> Descriptive aria-label includes trail name</li>
+                    <li>• <strong>Keyboard Navigation:</strong> All interactive elements keyboard accessible</li>
+                  </ul>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Design Tokens">
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+                    <div>
+                      <div className="text-slate-500 mb-1">Card Surface</div>
+                      <code className="text-xs">ttds-color-surface-0</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Border</div>
+                      <code className="text-xs">ttds-border-default</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Radius</div>
+                      <code className="text-xs">ttds-radius-md</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">NEW Badge</div>
+                      <code className="text-xs">ttds-color-accent-primary</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Capstone Bg</div>
+                      <code className="text-xs">gradient emerald-blue</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Badge Accent</div>
+                      <code className="text-xs">gradient amber-yellow</code>
+                    </div>
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🔗 Related Components">
+                <div className="flex flex-wrap gap-2">
+                  <a href="#buttons" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Button
+                  </a>
+                  <a href="#badge" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Badge
+                  </a>
+                  <a href="#learningactivitycard" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Learning Activity Card
+                  </a>
+                </div>
+              </ComponentDocSection>
+            </div>
+          </div>
+        </section>
+
+        {/* Citizen Platform Card Section */}
+        <section id="citizenplatformcard" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-slate-900">Citizen Platform Card</h2>
+              <ComponentStatusBadge status="in-progress" size="md" />
+            </div>
+            <p className="text-slate-600 mb-4">
+              Platform card showcasing citizen developer tools (Canva, Airtable, Notion) with category, difficulty level, XP points, and impact focus.
+            </p>
+            
+            {/* Common Use Cases */}
+            <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
+              <h3 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Common Use Cases</h3>
+              <ul className="space-y-1 text-sm text-slate-600">
+                <li>• <strong>Platform Catalog:</strong> Browse available citizen developer tools</li>
+                <li>• <strong>Skill Building:</strong> Discover tools by difficulty level</li>
+                <li>• <strong>XP Tracking:</strong> Show experience points for each platform</li>
+                <li>• <strong>Tool Discovery:</strong> Filter platforms by category and impact</li>
+              </ul>
+            </div>
+
+            {/* Usage Guidelines */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <h4 className="text-sm text-green-800 mb-2" style={{ fontWeight: 700 }}>✓ Do</h4>
+                <ul className="space-y-1 text-xs text-green-700">
+                  <li>• Use recognizable platform icons</li>
+                  <li>• Match difficulty to actual learning curve</li>
+                  <li>• Show XP points consistently across platforms</li>
+                  <li>• Include impact focus to show value</li>
+                  <li>• Use appropriate category classifications</li>
+                </ul>
+              </div>
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                <h4 className="text-sm text-red-800 mb-2" style={{ fontWeight: 700 }}>✗ Don't</h4>
+                <ul className="space-y-1 text-xs text-red-700">
+                  <li>• Don't inflate difficulty levels</li>
+                  <li>• Don't assign arbitrary XP values</li>
+                  <li>• Don't omit impact focus descriptions</li>
+                  <li>• Don't use unclear category names</li>
+                  <li>• Don't hide platform icons</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Enhanced Documentation Sections */}
+            <div className="space-y-4">
+              <ComponentDocSection title="📋 Props & API Reference" defaultExpanded={true}>
+                <PropsTable props={[
+                  {
+                    name: 'platformName',
+                    type: 'string',
+                    required: true,
+                    description: 'Platform name (e.g., "Canva", "Airtable")'
+                  },
+                  {
+                    name: 'category',
+                    type: 'PlatformCategory',
+                    required: true,
+                    description: 'Platform category',
+                    options: ['forms', 'work-os', 'automation', 'email-marketing', 'design', 'database', 'productivity']
+                  },
+                  {
+                    name: 'difficulty',
+                    type: 'DifficultyLevel',
+                    required: true,
+                    description: 'Learning difficulty level',
+                    options: ['beginner', 'intermediate', 'advanced']
+                  },
+                  {
+                    name: 'xpPoints',
+                    type: 'number',
+                    required: true,
+                    description: 'Experience points earned (e.g., 20, 50, 100)'
+                  },
+                  {
+                    name: 'impactFocus',
+                    type: 'string',
+                    required: false,
+                    description: 'Impact area description'
+                  },
+                  {
+                    name: 'platformIcon',
+                    type: 'LucideIcon',
+                    required: false,
+                    description: 'Optional icon component for the platform'
+                  },
+                  {
+                    name: 'ctaLabel',
+                    type: 'string',
+                    required: false,
+                    default: '"Learn More"',
+                    description: 'CTA button label'
+                  },
+                  {
+                    name: 'onCTAClick',
+                    type: '() => void',
+                    required: false,
+                    description: 'CTA click handler'
+                  },
+                  {
+                    name: 'density',
+                    type: 'DensityLevel',
+                    required: false,
+                    default: '"default"',
+                    description: 'Layout density',
+                    options: ['default', 'compact']
+                  },
+                  {
+                    name: 'showImpact',
+                    type: 'boolean',
+                    required: false,
+                    default: 'true',
+                    description: 'Show/hide impact focus line'
+                  }
+                ]} />
+              </ComponentDocSection>
+
+              <ComponentDocSection title="💻 Code Examples">
+                <div className="space-y-4">
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Design Platform Card</h5>
+                    <CodeSnippet 
+                      title="Canva Platform Card"
+                      code={`import { TTCitizenPlatformCard } from './components/tt/CitizenPlatformCard';
+import { Palette } from 'lucide-react';
+
+function PlatformCatalog() {
+  return (
+    <TTCitizenPlatformCard
+      platformName="Canva"
+      category="design"
+      difficulty="beginner"
+      xpPoints={30}
+      impactFocus="Create professional graphics, presentations, and marketing materials for nonprofits"
+      platformIcon={Palette}
+      ctaLabel="Start Learning"
+      onCTAClick={() => console.log('Start Canva course')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Database Platform Card</h5>
+                    <CodeSnippet 
+                      title="Airtable Platform Card"
+                      code={`import { TTCitizenPlatformCard } from './components/tt/CitizenPlatformCard';
+import { Database } from 'lucide-react';
+
+function MyComponent() {
+  return (
+    <TTCitizenPlatformCard
+      platformName="Airtable"
+      category="database"
+      difficulty="intermediate"
+      xpPoints={50}
+      impactFocus="Build custom databases, project trackers, and donor management systems"
+      platformIcon={Database}
+      onCTAClick={() => console.log('Learn Airtable')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Automation Platform Card</h5>
+                    <CodeSnippet 
+                      title="Zapier Platform Card"
+                      code={`import { TTCitizenPlatformCard } from './components/tt/CitizenPlatformCard';
+import { Zap } from 'lucide-react';
+
+function MyComponent() {
+  return (
+    <TTCitizenPlatformCard
+      platformName="Zapier"
+      category="automation"
+      difficulty="advanced"
+      xpPoints={100}
+      impactFocus="Automate workflows between apps and streamline nonprofit operations"
+      platformIcon={Zap}
+      ctaLabel="Master Automation"
+      onCTAClick={() => console.log('Advanced automation')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Compact Density</h5>
+                    <CodeSnippet 
+                      title="Space-Efficient Card"
+                      code={`import { TTCitizenPlatformCard } from './components/tt/CitizenPlatformCard';
+import { FileType } from 'lucide-react';
+
+function Sidebar() {
+  return (
+    <TTCitizenPlatformCard
+      platformName="Jotform"
+      category="forms"
+      difficulty="beginner"
+      xpPoints={25}
+      impactFocus="Create custom forms and surveys"
+      platformIcon={FileType}
+      density="compact"
+      onCTAClick={() => console.log('Start Jotform')}
+    />
+  );
+}`} 
+                    />
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Usage Examples" defaultExpanded={true}>
+                <div className="space-y-6">
+                  <UsageExamples
+                    title="Design Platform - Beginner"
+                    description="Canva card for graphic design learning"
+                  >
+                    <TTCitizenPlatformCard
+                      platformName="Canva"
+                      category="design"
+                      difficulty="beginner"
+                      xpPoints={30}
+                      impactFocus="Create professional graphics, presentations, and marketing materials for nonprofits"
+                      platformIcon={Palette}
+                      ctaLabel="Start Learning"
+                      onCTAClick={() => alert('Start Canva course')}
+                    />
+                  </UsageExamples>
+
+                  <UsageExamples
+                    title="Database Platform - Intermediate"
+                    description="Airtable card for database building"
+                  >
+                    <TTCitizenPlatformCard
+                      platformName="Airtable"
+                      category="database"
+                      difficulty="intermediate"
+                      xpPoints={50}
+                      impactFocus="Build custom databases, project trackers, and donor management systems"
+                      platformIcon={Database}
+                      onCTAClick={() => alert('Learn Airtable')}
+                    />
+                  </UsageExamples>
+
+                  <UsageExamples
+                    title="Automation Platform - Advanced"
+                    description="Zapier card for workflow automation"
+                  >
+                    <TTCitizenPlatformCard
+                      platformName="Zapier"
+                      category="automation"
+                      difficulty="advanced"
+                      xpPoints={100}
+                      impactFocus="Automate workflows between apps and streamline nonprofit operations"
+                      platformIcon={Zap}
+                      ctaLabel="Master Automation"
+                      onCTAClick={() => alert('Advanced automation')}
+                    />
+                  </UsageExamples>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="♿ Accessibility">
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <ul className="space-y-2 text-sm text-blue-900">
+                    <li>• <strong>Platform Icon:</strong> Icons marked as aria-hidden, platform name provides meaning</li>
+                    <li>• <strong>Category & Difficulty:</strong> Chips have role="status" and aria-label attributes</li>
+                    <li>• <strong>XP Display:</strong> Star icon decorative, text provides XP value</li>
+                    <li>• <strong>Impact Focus:</strong> Clear description of platform benefits</li>
+                    <li>• <strong>CTA Button:</strong> Descriptive aria-label includes platform name</li>
+                    <li>• <strong>Keyboard Navigation:</strong> All interactive elements keyboard accessible</li>
+                  </ul>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🎨 Design Tokens">
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-4">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
+                    <div>
+                      <div className="text-slate-500 mb-1">Card Surface</div>
+                      <code className="text-xs">ttds-color-surface-0</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Border</div>
+                      <code className="text-xs">ttds-border-default</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Radius</div>
+                      <code className="text-xs">ttds-radius-md</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Icon Container</div>
+                      <code className="text-xs">ttds-space-40 (10x10)</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Padding</div>
+                      <code className="text-xs">ttds-space-16/20</code>
+                    </div>
+                    <div>
+                      <div className="text-slate-500 mb-1">Gap</div>
+                      <code className="text-xs">ttds-space-12/16</code>
+                    </div>
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🔗 Related Components">
+                <div className="flex flex-wrap gap-2">
+                  <a href="#buttons" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Button
+                  </a>
+                  <a href="#badge" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    Badge
+                  </a>
+                  <a href="#aitrailcard" className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors text-sm">
+                    AI Trail Card
+                  </a>
+                </div>
+              </ComponentDocSection>
+            </div>
+          </div>
+        </section>
+        </div>
+        {/* END DOMAIN CARDS */}
+
+        {/* SECTIONS */}
+        <div id="sections" className="scroll-mt-8">
+          <div className="mb-8">
+            <h2 className="text-slate-900 mb-2">🏗️ Sections</h2>
+            <p className="text-slate-600">
+              Page sections for marketing and informational pages
+            </p>
+          </div>
 
         {/* Impact Metrics Tile Section */}
         <section id="metrictile" className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
@@ -8389,7 +14891,10 @@ interface PennyTipProps {
         <section id="aitrail" className="space-y-6">
           <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6">
             <div>
-              <h2 className="text-slate-900 mb-2">AI Trail Card</h2>
+              <div className="flex items-center justify-between mb-2">
+                <h2 className="text-slate-900">AI Trail Card</h2>
+                <ComponentStatusBadge status="in-progress" size="md" />
+              </div>
               <p className="text-slate-600">
                 Domain component for AI Specialist Trail. Shows platform integrations, learning modules, capstone project, and the AI Innovation Leader badge.
               </p>
@@ -11923,6 +18428,17 @@ interface PennyTipProps {
             </div>
           </div>
         </section>
+        </div>
+        {/* END SECTIONS */}
+
+        {/* TEMPLATES */}
+        <div id="templates" className="scroll-mt-8">
+          <div className="mb-8">
+            <h2 className="text-slate-900 mb-2">📄 Templates</h2>
+            <p className="text-slate-600">
+              Full page layout templates
+            </p>
+          </div>
 
         {/* Vision/Donor Page Template Section */}
         <section id="visiondonor" className="space-y-6">
@@ -13080,19 +19596,202 @@ interface PennyTipProps {
             <CommunityFeedTemplateShowcase />
           </div>
         </section>
+        </div>
+        {/* END TEMPLATES */}
+
+        {/* SITE PAGES */}
+        <div id="site-pages" className="scroll-mt-8">
+          <div className="mb-8">
+            <h2 className="text-slate-900 mb-2">🌲 Site Pages</h2>
+            <p className="text-slate-600">
+              Complete website pages for the Transition Trails Academy
+            </p>
+          </div>
 
         {/* Site Pages Section */}
         <section id="sitepages" className="space-y-6">
           <SitePagesShowcase />
         </section>
+        </div>
+        {/* END SITE PAGES */}
 
+        {/* SALESFORCE HANDOFF */}
+        <div id="salesforce-handoff" className="scroll-mt-8">
+          <div className="mb-8">
+            <h2 className="text-slate-900 mb-2">⚡ Salesforce Handoff (LWC)</h2>
+            <p className="text-slate-600">
+              Engineering handoff documentation for Lightning Web Components
+            </p>
+          </div>
+
+        {/* Salesforce Handoff Board Section */}
+        <section className="space-y-6">
+          <SalesforceHandoffBoard />
+        </section>
+        </div>
+        {/* END SALESFORCE HANDOFF */}
+
+        {/* ADDITIONAL PRIMITIVES */}
         {/* Cards Section */}
         <section id="cards" className="space-y-6">
           <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
-            <h2 className="text-slate-900 mb-2">Cards</h2>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-slate-900">Cards</h2>
+              <ComponentStatusBadge status="salesforce-ready" size="md" />
+            </div>
             <p className="text-slate-600 mb-6">
               Flexible card containers with elevation and padding variants. Includes optional header, body, and footer slots.
             </p>
+
+            {/* Enhanced Documentation */}
+            <div className="space-y-4 mb-8">
+              <ComponentDocSection title="📋 Props & API Reference" defaultExpanded={false}>
+                <PropsTable props={[
+                  {
+                    name: 'elevation',
+                    type: 'string',
+                    required: false,
+                    default: '"low"',
+                    description: 'Shadow depth of the card for visual hierarchy',
+                    options: ['none', 'low', 'medium', 'high']
+                  },
+                  {
+                    name: 'padding',
+                    type: 'string',
+                    required: false,
+                    default: '"normal"',
+                    description: 'Internal spacing of the card content',
+                    options: ['none', 'tight', 'normal', 'spacious']
+                  },
+                  {
+                    name: 'header',
+                    type: 'React.ReactNode',
+                    required: false,
+                    description: 'Optional header content with automatic border separation'
+                  },
+                  {
+                    name: 'footer',
+                    type: 'React.ReactNode',
+                    required: false,
+                    description: 'Optional footer content with automatic border separation'
+                  },
+                  {
+                    name: 'children',
+                    type: 'React.ReactNode',
+                    required: true,
+                    description: 'Main card content'
+                  },
+                  {
+                    name: 'className',
+                    type: 'string',
+                    required: false,
+                    description: 'Additional CSS classes for custom styling'
+                  }
+                ]} />
+              </ComponentDocSection>
+
+              <ComponentDocSection title="💻 Code Examples">
+                <div className="space-y-4">
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Basic Card</h5>
+                    <CodeSnippet 
+                      title="Simple Card Usage"
+                      code={`import { Card } from './components/ttds/Card';
+
+function MyComponent() {
+  return (
+    <Card elevation="low">
+      <h3>Trail Progress</h3>
+      <p>You've completed 3 out of 5 milestones.</p>
+    </Card>
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Card with Header and Footer</h5>
+                    <CodeSnippet 
+                      title="Full Card Structure"
+                      code={`import { Card } from './components/ttds/Card';
+import { Button } from './components/ttds/Button';
+
+function MyComponent() {
+  return (
+    <Card 
+      elevation="medium"
+      header={
+        <div className="flex items-center justify-between">
+          <h4>Activity Details</h4>
+          <Button variant="ghost" size="small">Edit</Button>
+        </div>
+      }
+      footer={
+        <div className="flex gap-2">
+          <Button variant="primary">Continue</Button>
+          <Button variant="secondary">Cancel</Button>
+        </div>
+      }
+    >
+      <p>Complete this activity to earn 50 experience points.</p>
+    </Card>
+  );
+}`} 
+                    />
+                  </div>
+
+                  <div>
+                    <h5 className="text-sm text-slate-700 mb-2" style={{ fontWeight: 700 }}>Custom Styled Card</h5>
+                    <CodeSnippet 
+                      title="Card with Custom Styling"
+                      code={`import { Card } from './components/ttds/Card';
+
+function MyComponent() {
+  return (
+    <Card 
+      elevation="high"
+      padding="spacious"
+      className="bg-gradient-to-br from-emerald-50 to-blue-50"
+    >
+      <h3>Featured Trail</h3>
+      <p>Explore the mountain wilderness trail.</p>
+    </Card>
+  );
+}`} 
+                    />
+                  </div>
+                </div>
+              </ComponentDocSection>
+
+              <ComponentDocSection title="🌍 Real-World Usage">
+                <UsageExamples examples={[
+                  {
+                    title: 'Dashboard Panels',
+                    description: 'Cards with elevation="medium" and padding="spacious" for key metrics and statistics',
+                    context: 'Learner Stats Panel, Goals & Progress Panel',
+                    icon: 'section'
+                  },
+                  {
+                    title: 'Content Lists',
+                    description: 'Cards with elevation="low" and padding="normal" for repeating content items',
+                    context: 'Learning Activities, Partner Projects, Event Sessions',
+                    icon: 'pattern'
+                  },
+                  {
+                    title: 'Form Containers',
+                    description: 'Cards with header and footer slots for form sections with submit actions',
+                    context: 'Contact Page, Application Forms',
+                    icon: 'page'
+                  },
+                  {
+                    title: 'Image Galleries',
+                    description: 'Cards with padding="none" for full-bleed images with caption overlays',
+                    context: 'Program Overview, Success Stories',
+                    icon: 'section'
+                  }
+                ]} />
+              </ComponentDocSection>
+            </div>
 
             <div className="space-y-8">
               {/* Elevation Variants */}
@@ -13324,7 +20023,10 @@ interface PennyTipProps {
         {/* Modals Section */}
         <section id="modals" className="space-y-6">
           <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8">
-            <h2 className="text-slate-900 mb-2">Modals</h2>
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-slate-900">Modals</h2>
+              <ComponentStatusBadge status="needs-lwc" size="md" />
+            </div>
             <p className="text-slate-600 mb-6">
               Dialog containers with backdrop. Includes header, body, footer slots and close functionality.
               Supports keyboard navigation (ESC to close) and focus trapping.
